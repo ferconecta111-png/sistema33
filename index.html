@@ -434,6 +434,31 @@
     font-size:.88rem; color:#4ade80;
   }
 
+  /* ── CONTADOR ── */
+  .contador-wrap {
+    display:flex; gap:12px; justify-content:center; align-items:center;
+    margin:24px 0 8px;
+  }
+  .contador-bloque {
+    background:rgba(109,40,217,.15); border:1px solid rgba(109,40,217,.35);
+    border-top:2px solid var(--dorado);
+    border-radius:14px; padding:14px 18px; text-align:center; min-width:72px;
+  }
+  .contador-num {
+    font-size:2.2rem; font-weight:900; color:var(--blanco);
+    font-variant-numeric:tabular-nums; line-height:1;
+    background:linear-gradient(135deg,#fff,var(--dorado));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .contador-lbl { font-size:.6rem; color:var(--muted); text-transform:uppercase; letter-spacing:1.5px; margin-top:4px; }
+  .contador-sep { font-size:1.8rem; font-weight:900; color:var(--dorado); margin-bottom:16px; opacity:.6; }
+  .contador-msg { font-size:.78rem; color:#f87171; font-weight:700; margin-top:4px; }
+  @media(max-width:768px){
+    .contador-bloque { min-width:58px; padding:10px 12px; }
+    .contador-num { font-size:1.7rem; }
+    .contador-wrap { gap:6px; }
+  }
+
   /* ── FAQ ── */
   .faq { background:var(--gris); border:1px solid rgba(255,255,255,.06); border-radius:16px; padding:26px 30px; margin-bottom:12px; }
   .faq h4 { font-size:.98rem; font-weight:700; color:var(--blanco); margin-bottom:10px; }
@@ -511,6 +536,18 @@
     <div class="monto"><sup>$</sup>197 <span style="font-size:1.2rem;color:#7c6fa0;font-weight:400">USD</span></div>
     <div class="nota">Pago único · Acceso de por vida · Garantía 7 días</div>
   </div>
+
+  <!-- CONTADOR -->
+  <div class="contador-wrap" id="contador">
+    <div class="contador-bloque"><div class="contador-num" id="cnt-d">00</div><div class="contador-lbl">días</div></div>
+    <div class="contador-sep">:</div>
+    <div class="contador-bloque"><div class="contador-num" id="cnt-h">00</div><div class="contador-lbl">horas</div></div>
+    <div class="contador-sep">:</div>
+    <div class="contador-bloque"><div class="contador-num" id="cnt-m">00</div><div class="contador-lbl">min</div></div>
+    <div class="contador-sep">:</div>
+    <div class="contador-bloque"><div class="contador-num" id="cnt-s">00</div><div class="contador-lbl">seg</div></div>
+  </div>
+  <p class="contador-msg">⏰ Preventa cierra el 31 de mayo a medianoche</p>
 
   <a href="#comprar" class="btn">Quiero mi lugar en Sistema 33 →</a>
   <p class="urgencia">⚡ Precio de $197 cierra el 31 de mayo · Después sube a $297 sin excepción</p>
@@ -794,5 +831,35 @@
   <p style="margin-top:6px">Contenido educativo. Los resultados dependen de la implementación de cada persona.</p>
 </footer>
 
+<script>
+  // Contador — cierra 31 mayo 2026 medianoche hora Colombia (UTC-5)
+  const cierre = new Date('2026-06-01T05:00:00Z'); // 31 mayo 23:59 COL = 1 junio 05:00 UTC
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function tick(){
+    const ahora = new Date();
+    const diff  = cierre - ahora;
+
+    if(diff <= 0){
+      document.getElementById('contador').innerHTML =
+        '<p style="color:#f87171;font-weight:800;font-size:1rem">🔴 Preventa cerrada</p>';
+      return;
+    }
+
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000)  / 60000);
+    const s = Math.floor((diff % 60000)    / 1000);
+
+    document.getElementById('cnt-d').textContent = pad(d);
+    document.getElementById('cnt-h').textContent = pad(h);
+    document.getElementById('cnt-m').textContent = pad(m);
+    document.getElementById('cnt-s').textContent = pad(s);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+</script>
 </body>
 </html>
