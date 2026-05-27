@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0">
+<meta name="theme-color" content="#08060f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta property="og:title" content="Entra al grupo privado — Sistema 33">
+<meta property="og:description" content="Material exclusivo + mindset diario para emprendedores digitales. Gratis.">
+<title>Grupo Privado — Sistema 33</title>
+<style>* { -webkit-tap-highlight-color:transparent; }</style>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  :root {
+    --negro:  #08060f;
+    --oscuro: #110e1f;
+    --gris:   #1a1630;
+    --morado: #6d28d9;
+    --dorado: #f5b800;
+    --blanco: #ffffff;
+    --muted:  #7c6fa0;
+  }
+
+  html, body {
+    min-height:100%; font-family:'Inter',sans-serif;
+    background:var(--negro); color:#e8e0f0; overflow-x:hidden;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+
+  .portals { position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:0; }
+  .p-ring  { position:absolute; border-radius:50%; top:50%; left:50%; transform:translate(-50%,-50%); }
+  .r1 { width:500px; height:500px; border:1px solid rgba(245,184,0,.07); animation:giro 30s linear infinite; }
+  .r2 { width:720px; height:720px; border:1px dashed rgba(109,40,217,.10); animation:giro 45s linear infinite reverse; }
+  .r3 { width:280px; height:280px; border:1.5px dashed rgba(245,184,0,.12); animation:giro 20s linear infinite reverse; }
+  .p-glow { position:absolute; top:50%; left:50%; transform:translate(-50%,-60%); width:500px; height:300px; background:radial-gradient(ellipse,rgba(109,40,217,.18) 0%,transparent 70%); }
+  @keyframes giro  { from{transform:translate(-50%,-50%) rotate(0deg)} to{transform:translate(-50%,-50%) rotate(360deg)} }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+  @keyframes fadeUp{ from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+  .page {
+    position:relative; z-index:1;
+    min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding:40px 20px 60px;
+  }
+
+  .badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(245,184,0,.08); border:1px solid rgba(245,184,0,.25);
+    padding:7px 18px; border-radius:30px; font-size:.72rem;
+    color:var(--dorado); font-weight:700; letter-spacing:1.5px;
+    text-transform:uppercase; margin-bottom:28px;
+    animation:fadeUp .5s ease both;
+  }
+  .badge span { width:6px; height:6px; background:var(--dorado); border-radius:50%; animation:pulse 1.8s ease-in-out infinite; }
+
+  .titulo {
+    font-size:clamp(2rem,7vw,3.4rem); font-weight:900; line-height:1.08;
+    text-align:center; margin-bottom:14px; max-width:580px; color:var(--blanco);
+    animation:fadeUp .5s .08s ease both;
+  }
+  .titulo em { font-style:normal; background:linear-gradient(135deg,var(--dorado),#ff9900); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+
+  .subtitulo {
+    font-size:clamp(.88rem,2.5vw,1.05rem); color:var(--muted);
+    text-align:center; max-width:420px; line-height:1.75; margin-bottom:32px;
+    animation:fadeUp .5s .14s ease both;
+  }
+
+  .beneficios {
+    list-style:none; margin-bottom:32px; width:100%; max-width:400px;
+    animation:fadeUp .5s .18s ease both;
+  }
+  .beneficios li {
+    display:flex; align-items:flex-start; gap:12px;
+    padding:10px 0; border-bottom:1px solid rgba(255,255,255,.05);
+    font-size:.9rem; color:#c0b8d8; line-height:1.5;
+  }
+  .beneficios li:last-child { border:none; }
+  .beneficios li .ico { font-size:1rem; flex-shrink:0; margin-top:2px; }
+
+  .card {
+    background:rgba(17,14,31,.9); border:1px solid rgba(109,40,217,.3);
+    border-top:2px solid var(--dorado);
+    border-radius:24px; padding:36px 32px;
+    width:100%; max-width:400px;
+    backdrop-filter:blur(16px);
+    box-shadow:0 24px 80px rgba(0,0,0,.5), 0 0 40px rgba(109,40,217,.1);
+    animation:fadeUp .5s .24s ease both;
+  }
+
+  .card-label {
+    font-size:.68rem; letter-spacing:2px; text-transform:uppercase;
+    color:var(--dorado); font-weight:700; margin-bottom:20px; text-align:center;
+  }
+
+  .form-group { margin-bottom:14px; }
+  .form-group label {
+    display:block; font-size:.75rem; color:var(--muted);
+    font-weight:600; margin-bottom:7px; letter-spacing:.5px; text-transform:uppercase;
+  }
+  .form-group input {
+    width:100%; padding:13px 16px; border-radius:12px;
+    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
+    color:var(--blanco); font-size:.96rem; font-family:'Inter',sans-serif;
+    transition:border-color .2s, box-shadow .2s; outline:none;
+  }
+  .form-group input::placeholder { color:rgba(255,255,255,.22); }
+  .form-group input:focus { border-color:rgba(245,184,0,.5); box-shadow:0 0 0 3px rgba(245,184,0,.07); }
+  .form-group input.error { border-color:rgba(248,113,113,.6); }
+
+  .btn-form {
+    width:100%; padding:17px; border-radius:14px; border:none; cursor:pointer;
+    background:linear-gradient(135deg,var(--dorado),#ff9900);
+    color:#0a0614; font-size:1rem; font-weight:900;
+    font-family:'Inter',sans-serif; letter-spacing:.3px;
+    box-shadow:0 8px 30px rgba(245,184,0,.35);
+    transition:all .3s; margin-top:8px;
+  }
+  .btn-form:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(245,184,0,.5); }
+  .btn-form:disabled { opacity:.6; transform:none; }
+
+  .trust {
+    text-align:center; font-size:.72rem; color:var(--muted);
+    margin-top:13px; line-height:1.6;
+  }
+
+  .volver {
+    margin-top:28px; text-align:center;
+    font-size:.78rem; color:var(--muted);
+    animation:fadeUp .5s .32s ease both;
+  }
+  .volver a { color:var(--dorado); text-decoration:none; font-weight:600; }
+  .volver a:hover { text-decoration:underline; }
+
+  @media(max-width:480px){
+    .page { padding:32px 16px 48px; }
+    .titulo { font-size:1.9rem; }
+    .card { padding:26px 18px; }
+    .beneficios { max-width:100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="portals" aria-hidden="true">
+  <div class="p-glow"></div>
+  <div class="p-ring r2"></div>
+  <div class="p-ring r1"></div>
+  <div class="p-ring r3"></div>
+</div>
+
+<div class="page">
+
+  <div class="badge"><span></span>Grupo privado · Gratis</div>
+
+  <h1 class="titulo">Material que no publico<br><em>en ningún otro lado.</em></h1>
+  <p class="subtitulo">Entra al grupo de WhatsApp de Sistema 33 — tips de IA, automatización y mindset para emprendedores digitales, todos los días.</p>
+
+  <ul class="beneficios">
+    <li><span class="ico">🧠</span>Mindset diario para no rendirse en el proceso</li>
+    <li><span class="ico">⚡</span>Tips de IA y automatización que aplico con clientes reales</li>
+    <li><span class="ico">🎯</span>Estrategias de contenido y pauta cada semana</li>
+    <li><span class="ico">🔓</span>Acceso exclusivo — solo para los que están construyendo</li>
+  </ul>
+
+  <div class="card">
+    <div class="card-label">Reserva tu lugar</div>
+
+    <!--
+      ▸ FORMSUBMIT — los datos van directo a ferconecta111@gmail.com
+      ▸ Primera vez que alguien se registre llegará un email de activación → clic en "Activate Form"
+      ▸ Después de eso, cada lead te llega al gmail automáticamente
+    -->
+    <form id="form-registro"
+          action="https://formsubmit.co/ferconecta111@gmail.com"
+          method="POST">
+
+      <!-- Config de Formsubmit -->
+      <input type="hidden" name="_subject" value="🔥 Nuevo registro — Sistema 33">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <!-- La URL se actualiza por JS antes de enviar para incluir el nombre -->
+      <input type="hidden" name="_next" id="next-url" value="https://ferconecta111-png.github.io/sistema33/gracias.html">
+      <!-- Honeypot antispam -->
+      <input type="text" name="_honey" style="display:none">
+
+      <div class="form-group">
+        <label for="nombre">Tu nombre</label>
+        <input type="text" id="nombre" name="nombre" placeholder="¿Cómo te llamas?" required autocomplete="given-name">
+      </div>
+      <div class="form-group">
+        <label for="email">Tu correo</label>
+        <input type="email" id="email" name="email" placeholder="tu@correo.com" required autocomplete="email">
+      </div>
+
+      <button type="submit" class="btn-form" id="btn-submit">Entrar al grupo →</button>
+    </form>
+
+    <p class="trust">🔒 Sin spam · Tus datos son privados · Sales cuando quieras</p>
+  </div>
+
+  <div class="volver">¿Buscas la preventa? <a href="index.html">Ver Sistema 33 →</a></div>
+
+</div>
+
+<script>
+  const form      = document.getElementById('form-registro');
+  const btn       = document.getElementById('btn-submit');
+  const nextInput = document.getElementById('next-url');
+
+  form.addEventListener('submit', function(e){
+    const nombreInput = document.getElementById('nombre');
+    const emailInput  = document.getElementById('email');
+    const nombre = nombreInput.value.trim();
+    const email  = emailInput.value.trim();
+
+    // Validación
+    let ok = true;
+    if(!nombre){ nombreInput.classList.add('error'); ok = false; }
+    if(!email || !email.includes('@')){ emailInput.classList.add('error'); ok = false; }
+
+    if(!ok){ e.preventDefault(); return; }
+
+    // Pasar nombre a la gracias.html via URL param
+    const primerNombre = nombre.split(' ')[0];
+    nextInput.value = 'https://ferconecta111-png.github.io/sistema33/gracias.html?nombre=' + encodeURIComponent(primerNombre);
+
+    // Guardar también en sessionStorage (backup por si el redirect no pasa el param)
+    try { sessionStorage.setItem('s33_nombre', primerNombre); } catch(ex){}
+
+    // Estado loading
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+    // Formulario se envía normalmente a Formsubmit → redirige a gracias.html
+  });
+
+  document.querySelectorAll('input[type=text], input[type=email]').forEach(function(i){
+    i.addEventListener('input', function(){ this.classList.remove('error'); });
+  });
+</script>
+</body>
+</html>

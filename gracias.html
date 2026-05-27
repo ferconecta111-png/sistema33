@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0">
+<meta name="theme-color" content="#08060f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="robots" content="noindex">
+<title>¡Ya estás dentro! — Sistema 33</title>
+<style>* { -webkit-tap-highlight-color:transparent; }</style>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  :root {
+    --negro:  #08060f;
+    --oscuro: #110e1f;
+    --gris:   #1a1630;
+    --morado: #6d28d9;
+    --dorado: #f5b800;
+    --verde:  #4ade80;
+    --blanco: #ffffff;
+    --muted:  #7c6fa0;
+  }
+
+  html, body {
+    min-height:100%; font-family:'Inter',sans-serif;
+    background:var(--negro); color:#e8e0f0; overflow-x:hidden;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+
+  /* ── PORTALES ── */
+  .portals { position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:0; }
+  .p-ring  { position:absolute; border-radius:50%; top:50%; left:50%; transform:translate(-50%,-50%); }
+  .r1 { width:500px; height:500px; border:1px solid rgba(74,222,128,.07); animation:giro 28s linear infinite; }
+  .r2 { width:740px; height:740px; border:1px dashed rgba(109,40,217,.1); animation:giro 44s linear infinite reverse; }
+  .r3 { width:300px; height:300px; border:1.5px dashed rgba(74,222,128,.12); animation:giro 18s linear infinite reverse; }
+  .p-glow { position:absolute; top:50%; left:50%; transform:translate(-50%,-60%); width:500px; height:300px; background:radial-gradient(ellipse,rgba(74,222,128,.1) 0%,transparent 70%); }
+  @keyframes giro  { from{transform:translate(-50%,-50%) rotate(0deg)} to{transform:translate(-50%,-50%) rotate(360deg)} }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.3)} }
+  @keyframes fadeUp{ from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes popIn { 0%{opacity:0;transform:scale(.6)} 70%{transform:scale(1.08)} 100%{opacity:1;transform:scale(1)} }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+  /* ── LAYOUT ── */
+  .page {
+    position:relative; z-index:1;
+    min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding:40px 20px 60px; text-align:center;
+  }
+
+  /* ── ÍCONO CHECK ── */
+  .check-circle {
+    width:88px; height:88px; border-radius:50%;
+    background:radial-gradient(circle, rgba(74,222,128,.2) 0%, rgba(74,222,128,.05) 60%, transparent 100%);
+    border:2px solid rgba(74,222,128,.4);
+    display:flex; align-items:center; justify-content:center;
+    font-size:2.8rem; margin-bottom:28px;
+    animation:popIn .5s cubic-bezier(.34,1.56,.64,1) both, float 3s ease-in-out 1s infinite;
+  }
+
+  /* ── TITULAR ── */
+  .hola {
+    font-size:.8rem; letter-spacing:2.5px; text-transform:uppercase;
+    color:var(--verde); font-weight:700; margin-bottom:10px;
+    animation:fadeUp .4s .1s ease both;
+  }
+  .titulo {
+    font-size:clamp(1.9rem,6vw,3rem); font-weight:900; line-height:1.1;
+    color:var(--blanco); margin-bottom:14px; max-width:520px;
+    animation:fadeUp .4s .15s ease both;
+  }
+  .titulo em { font-style:normal; color:var(--dorado); }
+  .subtitulo {
+    font-size:clamp(.88rem,2.5vw,1rem); color:var(--muted);
+    max-width:400px; line-height:1.75; margin-bottom:36px;
+    animation:fadeUp .4s .2s ease both;
+  }
+
+  /* ── PASOS ── */
+  .pasos {
+    display:flex; flex-direction:column; gap:10px;
+    width:100%; max-width:400px; margin-bottom:36px;
+    animation:fadeUp .4s .25s ease both;
+  }
+  .paso {
+    display:flex; align-items:center; gap:14px;
+    background:rgba(26,22,48,.8); border:1px solid rgba(255,255,255,.06);
+    border-radius:14px; padding:14px 18px; text-align:left;
+  }
+  .paso.done { border-color:rgba(74,222,128,.2); }
+  .paso-num {
+    width:32px; height:32px; border-radius:50%; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    font-size:.8rem; font-weight:800;
+  }
+  .paso.done .paso-num { background:rgba(74,222,128,.15); color:var(--verde); border:1px solid rgba(74,222,128,.3); }
+  .paso.next .paso-num { background:rgba(245,184,0,.12); color:var(--dorado); border:1px solid rgba(245,184,0,.3); }
+  .paso-texto strong { display:block; font-size:.88rem; color:var(--blanco); margin-bottom:2px; }
+  .paso-texto span { font-size:.78rem; color:var(--muted); }
+
+  /* ── CTA WHATSAPP ── */
+  .btn-wa {
+    display:inline-flex; align-items:center; justify-content:center; gap:12px;
+    background:linear-gradient(135deg,#25d366,#128c40);
+    color:#ffffff; padding:20px 48px; border-radius:50px;
+    font-size:1.05rem; font-weight:900; text-decoration:none;
+    box-shadow:0 8px 40px rgba(37,211,102,.35);
+    transition:all .3s; margin-bottom:14px;
+    animation:fadeUp .4s .3s ease both;
+  }
+  .btn-wa:hover { transform:translateY(-3px); box-shadow:0 12px 50px rgba(37,211,102,.5); }
+  .btn-wa .wa-ico { font-size:1.4rem; }
+
+  .wa-note {
+    font-size:.76rem; color:var(--muted); margin-bottom:44px;
+    animation:fadeUp .4s .35s ease both;
+  }
+
+  /* ── SEPARADOR ── */
+  .divider-h {
+    width:100%; max-width:440px; height:1px;
+    background:linear-gradient(90deg,transparent,rgba(245,184,0,.2),transparent);
+    margin-bottom:36px;
+    animation:fadeUp .4s .38s ease both;
+  }
+
+  /* ── REMINDER SISTEMA 33 ── */
+  .reminder {
+    background:rgba(26,22,48,.7); border:1px solid rgba(109,40,217,.25);
+    border-top:2px solid var(--dorado);
+    border-radius:20px; padding:28px 28px;
+    width:100%; max-width:440px;
+    animation:fadeUp .4s .42s ease both;
+  }
+  .reminder-chip {
+    display:inline-block; background:linear-gradient(135deg,var(--dorado),#ff9900);
+    color:#0a0614; font-size:.68rem; font-weight:800; padding:3px 12px;
+    border-radius:20px; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;
+  }
+  .reminder h3 {
+    font-size:1.05rem; font-weight:800; color:var(--blanco);
+    margin-bottom:8px; line-height:1.3;
+  }
+  .reminder p { font-size:.84rem; color:var(--muted); line-height:1.65; margin-bottom:18px; }
+  .reminder .precio-mini {
+    display:flex; align-items:baseline; gap:8px; margin-bottom:16px;
+  }
+  .reminder .precio-mini .tachado { color:var(--muted); text-decoration:line-through; font-size:.82rem; }
+  .reminder .precio-mini .actual { font-size:1.8rem; font-weight:900; color:var(--blanco); }
+  .reminder .precio-mini .actual sup { font-size:.9rem; color:var(--dorado); vertical-align:super; }
+  .reminder .precio-mini .usd { color:var(--muted); font-size:.85rem; }
+  .reminder .cierre { color:#f87171; font-size:.74rem; font-weight:700; margin-bottom:16px; }
+  .btn-preventa {
+    display:block; text-align:center;
+    background:linear-gradient(135deg,var(--dorado),#ff9900);
+    color:#0a0614; padding:14px 20px; border-radius:14px;
+    font-size:.95rem; font-weight:900; text-decoration:none;
+    box-shadow:0 6px 24px rgba(245,184,0,.3);
+    transition:all .25s;
+  }
+  .btn-preventa:hover { transform:translateY(-2px); box-shadow:0 10px 36px rgba(245,184,0,.45); }
+
+  @media(max-width:480px){
+    .page { padding:32px 16px 48px; }
+    .titulo { font-size:1.8rem; }
+    .btn-wa { padding:18px 28px; font-size:.96rem; width:100%; max-width:360px; }
+    .reminder { padding:20px 18px; }
+    .pasos { max-width:100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="portals" aria-hidden="true">
+  <div class="p-glow"></div>
+  <div class="p-ring r2"></div>
+  <div class="p-ring r1"></div>
+  <div class="p-ring r3"></div>
+</div>
+
+<div class="page">
+
+  <div class="check-circle">✓</div>
+
+  <div class="hola">¡Ya estás dentro, <span id="nombre-usuario">amig@</span>!</div>
+  <h1 class="titulo">Un paso más<br>y eres parte del grupo.</h1>
+  <p class="subtitulo">Revisa tu correo y entra al grupo de WhatsApp — ahí es donde pasa todo.</p>
+
+  <div class="pasos">
+    <div class="paso done">
+      <div class="paso-num">✓</div>
+      <div class="paso-texto">
+        <strong>Registro completado</strong>
+        <span>Tu lugar está reservado</span>
+      </div>
+    </div>
+    <div class="paso next">
+      <div class="paso-num">2</div>
+      <div class="paso-texto">
+        <strong>Entra al grupo ahora</strong>
+        <span>Toca el botón de abajo →</span>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    ⚠️  REEMPLAZA este link con el link de tu grupo de WhatsApp
+    Formato: https://chat.whatsapp.com/XXXXXXXXXXXXXXXXXX
+  -->
+  <a href="https://chat.whatsapp.com/REEMPLAZA-CON-TU-LINK" target="_blank" class="btn-wa">
+    <span class="wa-ico">💬</span> Entrar al grupo de WhatsApp
+  </a>
+  <p class="wa-note">El link te lleva directo al grupo — sin contraseñas ni pasos extra</p>
+
+  <div class="divider-h"></div>
+
+  <!-- SOFT SELL — Sistema 33 -->
+  <div class="reminder">
+    <div class="reminder-chip">🔥 Preventa cierra el 31 mayo</div>
+    <h3>¿Ya tienes tu lugar<br>en Sistema 33?</h3>
+    <p>El sistema completo — contenido, automatización y pauta — para construir tu negocio digital con IA en 33 días.</p>
+    <div class="precio-mini">
+      <span class="tachado">$297 USD</span>
+      <span class="actual"><sup>$</sup>197</span>
+      <span class="usd">USD · pago único</span>
+    </div>
+    <p class="cierre">⏰ Solo 10 cupos · Después sube a $297 · Sin excepciones</p>
+    <a href="https://pay.hotmart.com/V106014343N" target="_blank" class="btn-preventa">
+      Quiero Sistema 33 por $197 →
+    </a>
+  </div>
+
+</div>
+
+<script>
+  // Leer nombre del URL param o sessionStorage
+  (function(){
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const nombre = params.get('nombre') || sessionStorage.getItem('s33_nombre') || '';
+      if(nombre){
+        document.getElementById('nombre-usuario').textContent = nombre;
+      }
+    } catch(e){}
+  })();
+</script>
+</body>
+</html>
