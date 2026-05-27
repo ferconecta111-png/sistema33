@@ -175,20 +175,35 @@
   .diff-card p { font-size:.84rem; color:var(--muted); line-height:1.6; }
 
   /* ── PRUEBA SOCIAL RESULTADOS ── */
-  .proof-results-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:32px; }
+  .proof-results-grid {
+    display:grid; grid-template-columns:1fr 1fr 1fr;
+    gap:16px; margin-top:32px; align-items:start;
+  }
   .proof-result-card {
     background:var(--gris); border:1px solid rgba(255,255,255,.06);
     border-top:2px solid var(--dorado);
-    border-radius:18px; padding:28px 24px;
+    border-radius:18px; padding:24px 20px;
   }
-  .pr-numero { font-size:3.2rem; font-weight:900; color:var(--dorado); line-height:1; }
-  .pr-k { font-size:1.8rem; }
-  .pr-label { font-size:.78rem; color:var(--muted); margin-top:4px; margin-bottom:14px; }
+  .proof-result-card.salud { border-top-color:#34d399; }
+  .pr-sector {
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(52,211,153,.1); border:1px solid rgba(52,211,153,.2);
+    border-radius:20px; padding:3px 10px; font-size:.66rem;
+    color:#34d399; font-weight:700; letter-spacing:1px;
+    text-transform:uppercase; margin-bottom:14px;
+  }
+  .pr-numero { font-size:3rem; font-weight:900; color:var(--dorado); line-height:1; }
+  .pr-k { font-size:1.6rem; }
+  .pr-label { font-size:.75rem; color:var(--muted); margin-top:4px; margin-bottom:14px; }
   .pr-divider { height:1px; background:rgba(255,255,255,.06); margin-bottom:14px; }
-  .pr-cliente { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
-  .pr-cliente strong { display:block; font-size:.88rem; color:var(--blanco); }
-  .pr-cliente span { font-size:.72rem; color:var(--muted); }
-  .pr-desc { font-size:.83rem; color:#9080b0; line-height:1.65; }
+  .pr-cliente { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .pr-cliente strong { display:block; font-size:.86rem; color:var(--blanco); }
+  .pr-cliente span { font-size:.7rem; color:var(--muted); }
+  .pr-desc { font-size:.8rem; color:#9080b0; line-height:1.6; }
+  .pr-stats { display:flex; gap:10px; margin:12px 0; flex-wrap:wrap; }
+  .pr-stat { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07); border-radius:8px; padding:6px 10px; text-align:center; flex:1; min-width:60px; }
+  .pr-stat .sv { font-size:.88rem; font-weight:800; color:var(--blanco); }
+  .pr-stat .sl { font-size:.6rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; }
   .proof-av { width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--morado),var(--dorado)); display:flex; align-items:center; justify-content:center; font-size:.9rem; font-weight:800; color:#fff; flex-shrink:0; }
 
   /* ── STRIP GRUPO GRATUITO ── */
@@ -295,6 +310,7 @@
     /* proof */
     .proof-results-grid { grid-template-columns:1fr; gap:12px; }
     .proof-result-card { padding:20px 16px; }
+    .pr-numero { font-size:2.6rem; }
     .pr-numero { font-size:2.4rem; }
     /* diffs */
     .diff-grid { grid-template-columns:1fr; gap:10px; }
@@ -613,49 +629,73 @@
 <div class="sec-dark">
   <div class="sec-dark-inner">
     <span class="label">Resultados reales</span>
-    <h2>Las mismas estrategias que <em>enseño en Sistema 33</em></h2>
-    <p style="margin-bottom:32px;color:#9080b0">Esto es lo que ya está pasando con mis clientes cuando aplican el sistema.</p>
+    <h2>El mismo sistema, <em>sectores distintos.</em></h2>
+    <p style="margin-bottom:32px;color:#9080b0">Salud, infoproductos, servicios — lo que enseño funciona porque es un sistema, no un truco.</p>
 
     <div class="proof-results-grid">
 
-      <!-- Dr. Camilo Morales -->
+      <!-- Dr. Camilo Morales — SIMPLIFICADO -->
       <div class="proof-result-card">
         <div class="pr-numero">506<span class="pr-k">K</span></div>
         <div class="pr-label">Seguidores en Instagram</div>
         <div class="pr-divider"></div>
         <div class="pr-cliente">
-          <div class="proof-av" style="width:40px;height:40px;font-size:.9rem">C</div>
+          <div class="proof-av">C</div>
           <div>
-            <strong>Doctor Camilo Morales</strong>
-            <span>Infoproductor de salud · EE.UU.</span>
+            <strong>Dr. Camilo Morales</strong>
+            <span>Infoproductor · EE.UU.</span>
           </div>
         </div>
-        <p class="pr-desc">Estrategia de contenido + automatización ManyChat + pauta — todo gestionado con el sistema que enseño.</p>
-        <img src="camilo_506k.jpg" alt="506K seguidores Dr. Camilo Morales" loading="lazy"
-          style="width:100%;border-radius:12px;margin-top:14px;opacity:.85;filter:brightness(.95) contrast(1.05)">
+        <p class="pr-desc">Contenido + ManyChat + pauta. Crecimiento orgánico acelerado con el sistema.</p>
+        <img src="camilo_506k.jpg" alt="506K seguidores Dr. Camilo" loading="lazy"
+          style="width:100%;border-radius:10px;margin-top:12px;opacity:.88">
       </div>
 
       <!-- Jheimmy Angélica -->
       <div class="proof-result-card">
         <div class="pr-numero" style="font-size:2.6rem">$108K</div>
-        <div class="pr-label">USD — Ingresos digitales acumulados</div>
+        <div class="pr-label">USD · Ingresos digitales acumulados</div>
         <div class="pr-divider"></div>
         <div class="pr-cliente">
-          <div class="proof-av" style="width:40px;height:40px;font-size:.9rem">J</div>
+          <div class="proof-av">J</div>
           <div>
             <strong>Jheimmy Angélica</strong>
-            <span>Infoproductora digital · Kajabi</span>
+            <span>Infoproductora · Kajabi</span>
           </div>
         </div>
-        <p class="pr-desc">Ingresos generados aplicando estrategias de contenido, automatización y pauta digital — el mismo sistema.</p>
-        <img src="kajabi_resultado.jpeg" alt="$108K USD Kajabi dashboard" loading="lazy"
-          style="width:100%;border-radius:12px;margin-top:14px;opacity:.85;filter:brightness(.95) contrast(1.05)">
+        <p class="pr-desc">Contenido, automatización y pauta aplicados como sistema — no como acciones sueltas.</p>
+        <img src="kajabi_resultado.jpeg" alt="$108K Kajabi" loading="lazy"
+          style="width:100%;border-radius:10px;margin-top:12px;opacity:.88">
+      </div>
+
+      <!-- Columna Vital — SECTOR SALUD -->
+      <div class="proof-result-card salud">
+        <div class="pr-sector">🏥 Sector Salud</div>
+        <div class="pr-numero" style="color:#34d399">519</div>
+        <div class="pr-label">Consultas WhatsApp · 1 mes</div>
+        <div class="pr-divider"></div>
+        <div class="pr-cliente">
+          <div class="proof-av" style="background:linear-gradient(135deg,#059669,#34d399)">CV</div>
+          <div>
+            <strong>Columna Vital</strong>
+            <span>Clínica de quiropraxia · Colombia</span>
+          </div>
+        </div>
+        <div class="pr-stats">
+          <div class="pr-stat"><div class="sv">4.68%</div><div class="sl">CTR</div></div>
+          <div class="pr-stat"><div class="sv">$94</div><div class="sl">COP/conv.</div></div>
+          <div class="pr-stat"><div class="sv">5</div><div class="sl">ciudades</div></div>
+        </div>
+        <p class="pr-desc">Meta Ads + WhatsApp automatizado — pacientes agendando consultas todos los días desde 5 ciudades.</p>
+        <img src="columna_vital_result.jpg" alt="Consultas WhatsApp Columna Vital" loading="lazy"
+          style="width:100%;border-radius:10px;margin-top:12px;opacity:.88;filter:brightness(1.1) contrast(1.05)">
       </div>
 
     </div>
 
-    <div style="margin-top:24px;padding:18px 24px;background:rgba(245,184,0,.06);border:1px solid rgba(245,184,0,.15);border-radius:14px;text-align:center;">
-      <p style="color:#ccc4e0;font-size:.88rem;margin:0">Estos resultados vienen de aplicar <strong style="color:var(--dorado)">exactamente lo que enseño en Sistema 33</strong> — contenido, automatización y pauta trabajando juntos como un sistema.</p>
+    <div style="margin-top:24px;padding:16px 22px;background:rgba(245,184,0,.05);border:1px solid rgba(245,184,0,.12);border-radius:14px;text-align:center;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
+      <span style="font-size:1.1rem">💡</span>
+      <p style="color:#ccc4e0;font-size:.86rem;margin:0">Salud, infoproductos, servicios — <strong style="color:var(--dorado)">el sistema funciona porque es replicable</strong>. Eso es lo que aprendes en Sistema 33.</p>
     </div>
 
   </div>
