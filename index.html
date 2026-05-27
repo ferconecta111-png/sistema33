@@ -174,24 +174,22 @@
   .diff-card h4 { font-size:.93rem; font-weight:700; color:var(--blanco); margin-bottom:6px; }
   .diff-card p { font-size:.84rem; color:var(--muted); line-height:1.6; }
 
-  /* ── PRUEBA SOCIAL ── */
-  .proof-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-top:32px; }
-  .proof-card {
+  /* ── PRUEBA SOCIAL RESULTADOS ── */
+  .proof-results-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:32px; }
+  .proof-result-card {
     background:var(--gris); border:1px solid rgba(255,255,255,.06);
-    border-radius:18px; padding:24px; position:relative;
+    border-top:2px solid var(--dorado);
+    border-radius:18px; padding:28px 24px;
   }
-  .proof-card::before {
-    content:'"'; position:absolute; top:14px; right:20px;
-    font-size:3rem; line-height:1; color:rgba(245,184,0,.12); font-family:Georgia,serif;
-  }
-  .proof-header { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+  .pr-numero { font-size:3.2rem; font-weight:900; color:var(--dorado); line-height:1; }
+  .pr-k { font-size:1.8rem; }
+  .pr-label { font-size:.78rem; color:var(--muted); margin-top:4px; margin-bottom:14px; }
+  .pr-divider { height:1px; background:rgba(255,255,255,.06); margin-bottom:14px; }
+  .pr-cliente { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+  .pr-cliente strong { display:block; font-size:.88rem; color:var(--blanco); }
+  .pr-cliente span { font-size:.72rem; color:var(--muted); }
+  .pr-desc { font-size:.83rem; color:#9080b0; line-height:1.65; }
   .proof-av { width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--morado),var(--dorado)); display:flex; align-items:center; justify-content:center; font-size:.9rem; font-weight:800; color:#fff; flex-shrink:0; }
-  .proof-header strong { display:block; font-size:.85rem; color:var(--blanco); }
-  .proof-header span { font-size:.72rem; color:var(--muted); }
-  .proof-card p { font-size:.86rem; color:#c0b8d8; line-height:1.7; font-style:italic; }
-  .proof-stars { color:var(--dorado); font-size:.7rem; margin-top:10px; letter-spacing:2px; }
-  /* Nota visual para placeholder */
-  .proof-placeholder-note { display:none; }
 
   /* ── STRIP GRUPO GRATUITO ── */
   .registro-strip {
@@ -295,7 +293,9 @@
     .para-ti-grid { grid-template-columns:1fr; gap:12px; }
     .para-ti { padding:20px 18px; }
     /* proof */
-    .proof-grid { grid-template-columns:1fr; gap:12px; }
+    .proof-results-grid { grid-template-columns:1fr; gap:12px; }
+    .proof-result-card { padding:20px 16px; }
+    .pr-numero { font-size:2.4rem; }
     /* diffs */
     .diff-grid { grid-template-columns:1fr; gap:10px; }
     .diff-card { padding:16px; }
@@ -541,7 +541,7 @@
 <div class="sec-dark">
   <div class="sec-dark-inner">
     <span class="label">¿Es para ti?</span>
-    <h2>Sé honesta contigo <em>antes de decidir</em></h2>
+    <h2>Sé honesto/a contigo <em>antes de decidir</em></h2>
     <div class="para-ti-grid">
 
       <div class="para-ti si">
@@ -612,59 +612,51 @@
 <!-- ══ #4 — PRUEBA SOCIAL ══ -->
 <div class="sec-dark">
   <div class="sec-dark-inner">
-    <span class="label">Lo que dicen</span>
-    <h2>Estrategias que <em>generan resultados</em></h2>
-    <p style="margin-bottom:28px;color:#9080b0">Esto es lo que pasa cuando aplicas el sistema de verdad.</p>
+    <span class="label">Resultados reales</span>
+    <h2>Las mismas estrategias que <em>enseño en Sistema 33</em></h2>
+    <p style="margin-bottom:32px;color:#9080b0">Esto es lo que ya está pasando con mis clientes cuando aplican el sistema.</p>
 
-    <!--
-      ════════════════════════════════════════════════════════
-      REEMPLAZA estas 3 tarjetas con screenshots reales de:
-      - DMs de Instagram ("Fer, apliqué esto y...")
-      - Mensajes de WhatsApp de clientes o seguidores
-      - Comentarios de posts o reseñas
-      Para reemplazar: cambia el nombre, @handle y el texto del <p>
-      ════════════════════════════════════════════════════════
-    -->
-    <div class="proof-grid">
+    <div class="proof-results-grid">
 
-      <div class="proof-card">
-        <div class="proof-header">
-          <div class="proof-av">A</div>
+      <!-- Dr. Camilo Morales -->
+      <div class="proof-result-card">
+        <div class="pr-numero">506<span class="pr-k">K</span></div>
+        <div class="pr-label">Seguidores en Instagram</div>
+        <div class="pr-divider"></div>
+        <div class="pr-cliente">
+          <div class="proof-av" style="width:40px;height:40px;font-size:.9rem">C</div>
           <div>
-            <strong>@andreacr__</strong>
-            <span>Instagram DM</span>
+            <strong>Doctor Camilo Morales</strong>
+            <span>Infoproductor de salud · EE.UU.</span>
           </div>
         </div>
-        <p>"Apliqué la estrategia de embudo que enseña Fer y en 3 semanas pasé de 0 a mis primeros 2 clientes. No lo puedo creer."</p>
-        <div class="proof-stars">★★★★★</div>
+        <p class="pr-desc">Estrategia de contenido + automatización ManyChat + pauta — todo gestionado con el sistema que enseño.</p>
+        <img src="camilo_506k.jpg" alt="506K seguidores Dr. Camilo Morales" loading="lazy"
+          style="width:100%;border-radius:12px;margin-top:14px;opacity:.85;filter:brightness(.95) contrast(1.05)">
       </div>
 
-      <div class="proof-card">
-        <div class="proof-header">
-          <div class="proof-av">M</div>
+      <!-- Jheimmy Angélica -->
+      <div class="proof-result-card">
+        <div class="pr-numero" style="font-size:2.6rem">$108K</div>
+        <div class="pr-label">USD — Ingresos digitales acumulados</div>
+        <div class="pr-divider"></div>
+        <div class="pr-cliente">
+          <div class="proof-av" style="width:40px;height:40px;font-size:.9rem">J</div>
           <div>
-            <strong>@miguelm.digital</strong>
-            <span>Instagram DM</span>
+            <strong>Jheimmy Angélica</strong>
+            <span>Infoproductora digital · Kajabi</span>
           </div>
         </div>
-        <p>"Llevaba 2 años queriendo vivir del digital y con el sistema que me mostró Fer finalmente lo entendí. La IA lo cambió todo."</p>
-        <div class="proof-stars">★★★★★</div>
-      </div>
-
-      <div class="proof-card">
-        <div class="proof-header">
-          <div class="proof-av">V</div>
-          <div>
-            <strong>@vale.emprendedora</strong>
-            <span>WhatsApp</span>
-          </div>
-        </div>
-        <p>"ManyChat + Claude es exactamente lo que me faltaba. Ahora mis leads se califican solos y yo me enfoco en cerrar."</p>
-        <div class="proof-stars">★★★★★</div>
+        <p class="pr-desc">Ingresos generados aplicando estrategias de contenido, automatización y pauta digital — el mismo sistema.</p>
+        <img src="kajabi_resultado.jpeg" alt="$108K USD Kajabi dashboard" loading="lazy"
+          style="width:100%;border-radius:12px;margin-top:14px;opacity:.85;filter:brightness(.95) contrast(1.05)">
       </div>
 
     </div>
-    <!-- FIN PLACEHOLDER — reemplaza con DMs reales -->
+
+    <div style="margin-top:24px;padding:18px 24px;background:rgba(245,184,0,.06);border:1px solid rgba(245,184,0,.15);border-radius:14px;text-align:center;">
+      <p style="color:#ccc4e0;font-size:.88rem;margin:0">Estos resultados vienen de aplicar <strong style="color:var(--dorado)">exactamente lo que enseño en Sistema 33</strong> — contenido, automatización y pauta trabajando juntos como un sistema.</p>
+    </div>
 
   </div>
 </div>
@@ -730,7 +722,7 @@
 
 <!-- ══ #3 — STRIP GRUPO GRATUITO (captura no-compradores) ══ -->
 <div class="registro-strip">
-  <p>¿Todavía no estás segura? <strong>No te vayas con las manos vacías.</strong><br>Entra al grupo gratuito — material exclusivo y mindset diario para que vayas tomando impulso.</p>
+  <p>¿Todavía no te decides? <strong>No te vayas con las manos vacías.</strong><br>Entra al grupo gratuito — material exclusivo y mindset diario para que vayas tomando impulso.</p>
   <a href="registro.html" class="btn-ghost">Entrar al grupo gratuito →</a>
 </div>
 

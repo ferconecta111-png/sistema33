@@ -18,6 +18,8 @@
     --negro:  #08060f;
     --oscuro: #110e1f;
     --gris:   #1a1630;
+    --verde:  #10b981;
+    --verde2: #059669;
     --morado: #6d28d9;
     --dorado: #f5b800;
     --blanco: #ffffff;
@@ -47,15 +49,34 @@
     padding:40px 20px 60px;
   }
 
+  /* ── CONTADOR GRUPO ── */
+  .cnt-strip {
+    display:inline-flex; align-items:center; gap:10px;
+    background:rgba(16,185,129,.08); border:1px solid rgba(16,185,129,.25);
+    padding:8px 20px; border-radius:30px; margin-bottom:22px;
+    font-size:.75rem; color:#6ee7b7; font-weight:600;
+    animation:fadeUp .4s ease both;
+  }
+  .cnt-strip-txt { color:#6ee7b7; letter-spacing:.3px; }
+  .cnt-strip-num {
+    display:flex; gap:4px; font-variant-numeric:tabular-nums;
+  }
+  .cnt-b {
+    background:rgba(16,185,129,.12); border:1px solid rgba(16,185,129,.2);
+    border-radius:5px; padding:2px 7px; text-align:center;
+    font-size:.78rem; font-weight:900; color:#34d399; line-height:1.4;
+  }
+  .cnt-sep { color:#34d399; font-weight:900; opacity:.5; }
+
   .badge {
     display:inline-flex; align-items:center; gap:8px;
-    background:rgba(245,184,0,.08); border:1px solid rgba(245,184,0,.25);
+    background:rgba(16,185,129,.08); border:1px solid rgba(16,185,129,.25);
     padding:7px 18px; border-radius:30px; font-size:.72rem;
-    color:var(--dorado); font-weight:700; letter-spacing:1.5px;
+    color:#34d399; font-weight:700; letter-spacing:1.5px;
     text-transform:uppercase; margin-bottom:28px;
     animation:fadeUp .5s ease both;
   }
-  .badge span { width:6px; height:6px; background:var(--dorado); border-radius:50%; animation:pulse 1.8s ease-in-out infinite; }
+  .badge span { width:6px; height:6px; background:#34d399; border-radius:50%; animation:pulse 1.8s ease-in-out infinite; }
 
   .titulo {
     font-size:clamp(2rem,7vw,3.4rem); font-weight:900; line-height:1.08;
@@ -114,7 +135,7 @@
 
   .btn-form {
     width:100%; padding:17px; border-radius:14px; border:none; cursor:pointer;
-    background:linear-gradient(135deg,var(--dorado),#ff9900);
+    background:linear-gradient(135deg,#10b981,#059669);
     color:#0a0614; font-size:1rem; font-weight:900;
     font-family:'Inter',sans-serif; letter-spacing:.3px;
     box-shadow:0 8px 30px rgba(245,184,0,.35);
@@ -154,6 +175,17 @@
 </div>
 
 <div class="page">
+
+  <!-- Contador verde — cierra 5 junio -->
+  <div class="cnt-strip">
+    <span class="cnt-strip-txt">🟢 Grupo cierra en</span>
+    <div class="cnt-strip-num">
+      <div class="cnt-b" id="g-d">00</div><span class="cnt-sep">:</span>
+      <div class="cnt-b" id="g-h">00</div><span class="cnt-sep">:</span>
+      <div class="cnt-b" id="g-m">00</div><span class="cnt-sep">:</span>
+      <div class="cnt-b" id="g-s">00</div>
+    </div>
+  </div>
 
   <div class="badge"><span></span>Grupo privado · Gratis</div>
 
@@ -211,6 +243,28 @@
   const form      = document.getElementById('form-registro');
   const btn       = document.getElementById('btn-submit');
   const nextInput = document.getElementById('next-url');
+
+  // Contador verde — grupo cierra 5 junio 2026 medianoche Colombia
+  (function(){
+    const cierre = new Date('2026-06-06T05:00:00Z');
+    function pad(n){ return String(n).padStart(2,'0'); }
+    function tick(){
+      const diff = cierre - new Date();
+      if(diff <= 0){
+        document.querySelector('.cnt-strip').innerHTML = '<span style="color:#f87171;font-weight:800">🔴 Grupo cerrado</span>';
+        return;
+      }
+      const d = Math.floor(diff/86400000);
+      const h = Math.floor((diff%86400000)/3600000);
+      const m = Math.floor((diff%3600000)/60000);
+      const s = Math.floor((diff%60000)/1000);
+      document.getElementById('g-d').textContent = pad(d);
+      document.getElementById('g-h').textContent = pad(h);
+      document.getElementById('g-m').textContent = pad(m);
+      document.getElementById('g-s').textContent = pad(s);
+    }
+    tick(); setInterval(tick,1000);
+  })();
 
   form.addEventListener('submit', function(e){
     const nombreInput = document.getElementById('nombre');
