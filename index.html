@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="format-detection" content="telephone=no">
 <meta property="og:title" content="Sistema 33 — Sin Jefe. Sin Permiso. Sin Límites.">
-<meta property="og:description" content="Construye tu negocio digital con IA en 33 días. Preventa $197 USD · Solo 10 cupos · Cierra el 31 de mayo.">
+<meta property="og:description" content="Construye tu negocio digital con IA en 33 días. Preventa $197 USD · Solo 10 cupos · Cierra el 5 de junio.">
 <meta property="og:image" content="fer_estudio.jpeg">
 <meta property="og:type" content="website">
 <title>Sistema 33 — Sin Jefe | Fernanda Conde</title>
@@ -221,15 +221,15 @@
   .garantia-box { background:rgba(74,222,128,.07); border:1px solid rgba(74,222,128,.2); border-radius:14px; padding:14px 22px; margin:20px auto; max-width:460px; font-size:.86rem; color:var(--verde); }
 
   /* ── BARRA SUPERIOR FIJA ── */
-  .top-bar { position:fixed; top:0; left:0; right:0; z-index:1000; background:linear-gradient(90deg,#0d0a1f,#1a0a3d,#0d0a1f); border-bottom:1px solid rgba(245,184,0,.25); padding:8px 16px; display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; }
-  .top-bar-txt { font-size:.75rem; color:#e8e0f0; font-weight:600; letter-spacing:.3px; white-space:nowrap; }
-  .top-bar-txt span { color:var(--dorado); }
+  .top-bar { position:fixed; top:0; left:0; right:0; z-index:1000; background:linear-gradient(90deg,#c49200,var(--dorado) 50%,#c49200); border-bottom:3px solid #ff9900; padding:9px 16px; display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; box-shadow:0 4px 24px rgba(245,184,0,.4); }
+  .top-bar-txt { font-size:.75rem; color:#0a0614; font-weight:800; letter-spacing:.3px; white-space:nowrap; }
+  .top-bar-txt strong { font-size:.8rem; font-weight:900; color:#0a0614; }
   .top-bar-cnt { display:flex; align-items:center; gap:6px; font-variant-numeric:tabular-nums; }
-  .tb-bloque { background:rgba(245,184,0,.1); border:1px solid rgba(245,184,0,.2); border-radius:6px; padding:3px 8px; text-align:center; min-width:38px; }
-  .tb-num { font-size:.85rem; font-weight:900; color:var(--dorado); line-height:1.2; }
-  .tb-lbl { font-size:.45rem; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
-  .tb-sep { color:var(--dorado); font-weight:900; font-size:.85rem; opacity:.5; }
-  .top-bar-cta { background:linear-gradient(135deg,var(--dorado),#ff9900); color:#0a0614; padding:5px 14px; border-radius:20px; font-size:.72rem; font-weight:800; text-decoration:none; white-space:nowrap; }
+  .tb-bloque { background:rgba(0,0,0,.18); border:1px solid rgba(0,0,0,.2); border-radius:6px; padding:3px 8px; text-align:center; min-width:38px; }
+  .tb-num { font-size:.85rem; font-weight:900; color:#0a0614; line-height:1.2; }
+  .tb-lbl { font-size:.45rem; color:rgba(0,0,0,.6); text-transform:uppercase; letter-spacing:1px; }
+  .tb-sep { color:#0a0614; font-weight:900; font-size:.85rem; opacity:.6; }
+  .top-bar-cta { background:#0a0614; color:var(--dorado); padding:5px 14px; border-radius:20px; font-size:.72rem; font-weight:800; text-decoration:none; white-space:nowrap; border:1px solid rgba(0,0,0,.3); }
 
   /* ── FAQ ACORDEÓN ── */
   .faq { background:var(--gris); border:1px solid rgba(255,255,255,.06); border-radius:16px; margin-bottom:10px; overflow:hidden; }
@@ -333,7 +333,7 @@
 
 <!-- ══ BARRA SUPERIOR ══ -->
 <div class="top-bar">
-  <div class="top-bar-txt">🔥 Preventa cierra <span>31 mayo</span> · Solo <span>10 cupos</span></div>
+  <div class="top-bar-txt">🔥 <strong>SISTEMA 33</strong> · Preventa cierra el <strong>5 de junio</strong> · Solo <strong>10 cupos</strong></div>
   <div class="top-bar-cnt">
     <div class="tb-bloque"><div class="tb-num" id="cnt-d">00</div><div class="tb-lbl">días</div></div>
     <div class="tb-sep">:</div>
@@ -747,7 +747,7 @@
 </footer>
 
 <script>
-  const cierre = new Date('2026-06-01T05:00:00Z');
+  const cierre = new Date('2026-06-06T05:00:00Z');
   function pad(n){ return String(n).padStart(2,'0'); }
   function tick(){
     const diff = cierre - new Date();
