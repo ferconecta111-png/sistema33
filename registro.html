@@ -216,26 +216,15 @@
       ▸ Primera vez que alguien se registre llegará un email de activación → clic en "Activate Form"
       ▸ Después de eso, cada lead te llega al gmail automáticamente
     -->
-    <form id="form-registro"
-          action="https://formsubmit.co/ferconecta111@gmail.com"
-          method="POST">
-
-      <!-- Config de Formsubmit -->
-      <input type="hidden" name="_subject" value="🔥 Nuevo registro — Sistema 33">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      <!-- La URL se actualiza por JS antes de enviar para incluir el nombre -->
-      <input type="hidden" name="_next" id="next-url" value="https://ferconecta111-png.github.io/sistema33/gracias.html">
-      <!-- Honeypot antispam -->
-      <input type="text" name="_honey" style="display:none">
+    <form id="form-registro" novalidate>
 
       <div class="form-group">
         <label for="nombre">Tu nombre</label>
-        <input type="text" id="nombre" name="nombre" placeholder="¿Cómo te llamas?" required autocomplete="given-name">
+        <input type="text" id="nombre" name="nombre" placeholder="¿Cómo te llamas?" autocomplete="given-name">
       </div>
       <div class="form-group">
         <label for="email">Tu correo</label>
-        <input type="email" id="email" name="email" placeholder="tu@correo.com" required autocomplete="email">
+        <input type="email" id="email" name="email" placeholder="tu@correo.com" autocomplete="email">
       </div>
 
       <button type="submit" class="btn-form" id="btn-submit">Entrar al grupo →</button>
@@ -249,11 +238,10 @@
 </div>
 
 <script>
-  const form      = document.getElementById('form-registro');
-  const btn       = document.getElementById('btn-submit');
-  const nextInput = document.getElementById('next-url');
+  const form = document.getElementById('form-registro');
+  const btn  = document.getElementById('btn-submit');
 
-  // Contador verde — grupo cierra 5 junio 2026 medianoche Colombia
+  // Contador — grupo cierra 5 junio 2026 medianoche Colombia
   (function(){
     const cierre = new Date('2026-06-06T05:00:00Z');
     function pad(n){ return String(n).padStart(2,'0'); }
@@ -263,19 +251,16 @@
         document.querySelector('.cnt-strip').innerHTML = '<span style="color:#f87171;font-weight:800">🔴 Grupo cerrado</span>';
         return;
       }
-      const d = Math.floor(diff/86400000);
-      const h = Math.floor((diff%86400000)/3600000);
-      const m = Math.floor((diff%3600000)/60000);
-      const s = Math.floor((diff%60000)/1000);
-      document.getElementById('g-d').textContent = pad(d);
-      document.getElementById('g-h').textContent = pad(h);
-      document.getElementById('g-m').textContent = pad(m);
-      document.getElementById('g-s').textContent = pad(s);
+      document.getElementById('g-d').textContent = pad(Math.floor(diff/86400000));
+      document.getElementById('g-h').textContent = pad(Math.floor((diff%86400000)/3600000));
+      document.getElementById('g-m').textContent = pad(Math.floor((diff%3600000)/60000));
+      document.getElementById('g-s').textContent = pad(Math.floor((diff%60000)/1000));
     }
     tick(); setInterval(tick,1000);
   })();
 
   form.addEventListener('submit', function(e){
+    e.preventDefault();
     const nombreInput = document.getElementById('nombre');
     const emailInput  = document.getElementById('email');
     const nombre = nombreInput.value.trim();
@@ -285,20 +270,31 @@
     let ok = true;
     if(!nombre){ nombreInput.classList.add('error'); ok = false; }
     if(!email || !email.includes('@')){ emailInput.classList.add('error'); ok = false; }
-
-    if(!ok){ e.preventDefault(); return; }
-
-    // Pasar nombre a la gracias.html via URL param
-    const primerNombre = nombre.split(' ')[0];
-    nextInput.value = 'https://ferconecta111-png.github.io/sistema33/gracias.html?nombre=' + encodeURIComponent(primerNombre);
-
-    // Guardar también en sessionStorage (backup por si el redirect no pasa el param)
-    try { sessionStorage.setItem('s33_nombre', primerNombre); } catch(ex){}
+    if(!ok) return;
 
     // Estado loading
     btn.textContent = 'Enviando...';
     btn.disabled = true;
-    // Formulario se envía normalmente a Formsubmit → redirige a gracias.html
+
+    const primerNombre = nombre.split(' ')[0];
+    try { sessionStorage.setItem('s33_nombre', primerNombre); } catch(ex){}
+
+    // Enviar datos a Formsubmit en background (no bloquea el redirect)
+    const data = new FormData();
+    data.append('nombre', nombre);
+    data.append('email', email);
+    data.append('_subject', '🔥 Nuevo registro — Sistema 33');
+    data.append('_captcha', 'false');
+    fetch('https://formsubmit.co/ajax/ferconecta111@gmail.com', {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    }).catch(function(){});
+
+    // Redirigir siempre — independiente del resultado del fetch
+    setTimeout(function(){
+      window.location.href = 'gracias.html?nombre=' + encodeURIComponent(primerNombre);
+    }, 700);
   });
 
   document.querySelectorAll('input[type=text], input[type=email]').forEach(function(i){
