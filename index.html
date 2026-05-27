@@ -2,8 +2,17 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0">
+<meta name="theme-color" content="#08060f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=no">
+<meta property="og:title" content="Sistema 33 — Sin Jefe. Sin Permiso. Sin Límites.">
+<meta property="og:description" content="Construye tu negocio digital con IA en 33 días. Preventa $197 USD · Solo 10 cupos · Cierra el 31 de mayo.">
+<meta property="og:image" content="fer_estudio.jpeg">
+<meta property="og:type" content="website">
 <title>Sistema 33 — Sin Jefe | Fernanda Conde</title>
+<style>* { -webkit-tap-highlight-color: transparent; }</style>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -198,24 +207,109 @@
     background-size: 28px 28px, 250px 250px;
   }
   .sec-dark-inner { max-width:880px; margin:0 auto; }
-  @media(max-width:600px){
-    .sec { padding:52px 16px; }
-    .sec-dark { padding:52px 16px; }
-    h2 { font-size:1.6rem !important; }
-    .hero { padding:60px 16px 44px; }
-    .hero h1 { font-size:clamp(3.2rem,18vw,6rem); }
-    .hero-stats { gap:28px; margin-top:44px; padding-top:28px; }
-    .precio-box { padding:24px 28px; }
-    .precio-box .monto { font-size:3rem; }
-    .herida-grid { grid-template-columns:1fr; }
-    .diff-grid { grid-template-columns:1fr; }
-    .trans-wrap { grid-template-columns:1fr; }
+  /* ══ MOBILE COMPLETO — iPhone + Android ══ */
+  @media(max-width:768px){
+
+    /* base */
+    html { -webkit-text-size-adjust:100%; }
+    body { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; overflow-x:hidden; }
+
+    /* portales — contener para evitar scroll horizontal */
+    .portals { clip-path:inset(0); }
+    .r3,.r5 { display:none; }
+    .r1 { width:300px; height:300px; }
+    .r2 { width:420px; height:420px; }
+    .r4 { width:220px; height:220px; }
+    .p-geo { width:380px; height:380px; }
+    .p-geo2 { width:280px; height:280px; }
+    .p-glow { width:300px; height:180px; }
+
+    /* hero */
+    .hero { padding:32px 16px 52px; min-height:auto; justify-content:flex-start; padding-top:48px; }
+    .cupos-badge { font-size:.7rem; padding:6px 14px; margin-bottom:14px; text-align:center; }
+    .hero-chip { font-size:.68rem; padding:6px 14px; margin-bottom:16px; letter-spacing:.5px; }
+    .hero h1 { font-size:clamp(3rem,17vw,5rem); letter-spacing:-1px; margin-bottom:8px; }
+    .hero-tagline { font-size:.8rem; letter-spacing:2px; margin-bottom:18px; }
+    .hero-promise { font-size:1.1rem; margin-bottom:10px; }
+    .hero-sub { font-size:.85rem; margin-bottom:28px; }
+
+    /* precio box hero */
+    .precio-box { padding:20px 20px; width:100%; max-width:340px; }
+    .precio-box .monto { font-size:2.8rem; }
+    .btn { padding:16px 32px; font-size:.95rem; width:100%; max-width:340px; text-align:center; box-sizing:border-box; }
+
+    /* stats */
+    .hero-stats { gap:20px; margin-top:36px; padding-top:24px; }
+    .stat .num { font-size:1.6rem; }
+    .stat .lbl { font-size:.62rem; }
+
+    /* secciones */
+    .sec { padding:44px 16px; }
+    .sec-dark { padding:44px 16px; }
+    h2 { font-size:1.5rem !important; }
+    .label { font-size:.65rem; }
+
+    /* herida */
+    .herida-grid { grid-template-columns:1fr; gap:10px; }
+    .herida-card { padding:16px 18px; }
+
+    /* historia foto */
+    .historia-layout { grid-template-columns:1fr; gap:24px; }
+    .foto-wrapper { max-width:280px; margin:0 auto; }
+    .foto-badge { font-size:.7rem; padding:7px 16px; white-space:normal; text-align:center; }
+    .historia-texto p { font-size:.9rem; }
+
+    /* transformación */
+    .trans-wrap { grid-template-columns:1fr; gap:12px; }
     .trans-arrow { display:none; }
-    .modulo { grid-template-columns:1fr; gap:14px; padding:22px 18px; }
-    .mod-ico { width:44px; height:44px; font-size:1.2rem; }
-    .precio-sec { padding:32px 16px; }
-    .precio-sec .monto { font-size:3.8rem; }
-    footer { padding:20px 16px; }
+    .trans-card { padding:20px 16px; }
+
+    /* módulos */
+    .modulo { grid-template-columns:1fr; gap:12px; padding:18px 16px; margin-bottom:10px; }
+    .mod-ico { width:42px; height:42px; font-size:1.1rem; border-radius:12px; }
+    .modulo h3 { font-size:.95rem; }
+    .modulo p { font-size:.82rem; }
+    .tag { font-size:.65rem; }
+
+    /* diffs */
+    .diff-grid { grid-template-columns:1fr; gap:10px; }
+    .diff-card { padding:18px 16px; }
+
+    /* precio sección */
+    .precio-sec { padding:28px 16px; border-radius:18px; }
+    .precio-sec .monto { font-size:3.4rem; }
+    .incluye { margin:20px auto; }
+    .incluye li { font-size:.82rem; padding:9px 0; }
+    .incluye li span[style*="float"] { float:none !important; display:block; font-size:.72rem; margin-top:2px; }
+    .garantia-box { padding:14px 16px; font-size:.82rem; }
+
+    /* FAQ */
+    .faq { padding:18px 16px; }
+    .faq h4 { font-size:.88rem; }
+    .faq p { font-size:.82rem; }
+
+    /* footer cta */
+    .footer-cta { padding:60px 16px; }
+    .footer-cta h2 { font-size:1.5rem !important; }
+    .footer-cta .btn { width:100%; max-width:340px; }
+
+    /* sticky CTA — safe area iPhone */
+    .sticky-cta {
+      padding:10px 16px;
+      padding-bottom:calc(14px + env(safe-area-inset-bottom));
+    }
+    .sticky-cta a { padding:14px 16px; font-size:.92rem; border-radius:14px; }
+    body { padding-bottom:calc(80px + env(safe-area-inset-bottom)); }
+
+    footer { padding:18px 16px; font-size:.72rem; }
+  }
+
+  /* ── iPhone SE / pantallas muy pequeñas ── */
+  @media(max-width:390px){
+    .hero h1 { font-size:clamp(2.6rem,16vw,3.5rem); }
+    .precio-box .monto { font-size:2.4rem; }
+    .precio-sec .monto { font-size:2.8rem; }
+    .cupos-badge { font-size:.65rem; }
   }
 
   /* ── HERIDA ── */
