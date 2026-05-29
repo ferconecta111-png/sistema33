@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="robots" content="noindex">
+<title>CM Tools — Fer Conde</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+*{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+:root{
+  --negro:#08060f; --oscuro:#110e1f; --gris:#1a1630;
+  --morado:#6d28d9; --dorado:#f5b800; --verde:#10b981;
+  --blanco:#ffffff; --muted:#7c6fa0; --rojo:#f87171;
+}
+
+html,body{
+  min-height:100%; font-family:'Inter',sans-serif;
+  background:var(--negro); color:#e8e0f0; overflow-x:hidden;
+}
+
+/* ── HEADER ── */
+.header{
+  position:sticky; top:0; z-index:100;
+  background:rgba(8,6,15,.92); backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(245,184,0,.15);
+  padding:14px 20px; display:flex; align-items:center;
+  justify-content:space-between; gap:12px;
+}
+.header-brand{ font-size:.88rem; font-weight:800; color:var(--dorado); letter-spacing:.5px; }
+.header-brand span{ color:var(--muted); font-weight:400; }
+.key-wrap{ display:flex; align-items:center; gap:8px; }
+.key-input{
+  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
+  border-radius:8px; padding:7px 12px; color:#e8e0f0;
+  font-size:.72rem; font-family:'Inter',sans-serif;
+  width:220px; outline:none; transition:border-color .2s;
+}
+.key-input:focus{ border-color:rgba(245,184,0,.4); }
+.key-input::placeholder{ color:rgba(255,255,255,.22); }
+.key-badge{
+  width:8px; height:8px; border-radius:50%; background:var(--rojo);
+  flex-shrink:0; transition:background .3s;
+}
+.key-badge.ok{ background:var(--verde); }
+
+/* ── LAYOUT ── */
+.container{ max-width:960px; margin:0 auto; padding:32px 20px 80px; }
+.page-title{ font-size:1.5rem; font-weight:900; color:var(--blanco); margin-bottom:4px; }
+.page-sub{ font-size:.84rem; color:var(--muted); margin-bottom:32px; }
+
+/* ── SKILL GRID ── */
+.skills-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:32px; }
+.skill-btn{
+  background:var(--gris); border:1px solid rgba(255,255,255,.06);
+  border-radius:16px; padding:18px 16px; cursor:pointer;
+  text-align:left; transition:all .2s; position:relative; overflow:hidden;
+}
+.skill-btn:hover{ border-color:rgba(245,184,0,.3); transform:translateY(-2px); }
+.skill-btn.active{
+  border-color:var(--dorado); background:rgba(245,184,0,.06);
+  box-shadow:0 0 20px rgba(245,184,0,.1);
+}
+.skill-btn::before{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(245,184,0,.04),transparent);
+  opacity:0; transition:opacity .2s;
+}
+.skill-btn:hover::before{ opacity:1; }
+.skill-ico{ font-size:1.4rem; margin-bottom:8px; display:block; }
+.skill-name{ font-size:.84rem; font-weight:700; color:var(--blanco); margin-bottom:3px; }
+.skill-desc{ font-size:.7rem; color:var(--muted); line-height:1.5; }
+
+/* ── WORKSPACE ── */
+.workspace{
+  background:var(--oscuro); border:1px solid rgba(255,255,255,.07);
+  border-radius:20px; overflow:hidden;
+  display:none;
+}
+.workspace.show{ display:block; }
+.ws-header{
+  padding:18px 22px; border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.ws-title{ font-size:.95rem; font-weight:800; color:var(--blanco); }
+.ws-close{ background:none; border:none; color:var(--muted); cursor:pointer; font-size:1.2rem; padding:4px; }
+.ws-close:hover{ color:var(--blanco); }
+.ws-body{ padding:22px; }
+
+/* ── FORM ELEMENTS ── */
+.field{ margin-bottom:14px; }
+.field label{ display:block; font-size:.72rem; color:var(--muted); font-weight:600; margin-bottom:6px; letter-spacing:.5px; text-transform:uppercase; }
+.field input, .field textarea, .field select{
+  width:100%; padding:11px 14px; border-radius:10px;
+  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
+  color:var(--blanco); font-size:.88rem; font-family:'Inter',sans-serif;
+  outline:none; transition:border-color .2s; resize:vertical;
+}
+.field input:focus, .field textarea:focus, .field select:focus{ border-color:rgba(245,184,0,.4); }
+.field input::placeholder, .field textarea::placeholder{ color:rgba(255,255,255,.22); }
+.field select option{ background:var(--gris); }
+
+.fields-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+.btn-run{
+  width:100%; padding:14px; border-radius:12px; border:none; cursor:pointer;
+  background:linear-gradient(135deg,var(--dorado),#ff9900);
+  color:#0a0614; font-size:.95rem; font-weight:900;
+  font-family:'Inter',sans-serif; margin-top:4px;
+  transition:all .3s; display:flex; align-items:center; justify-content:center; gap:8px;
+}
+.btn-run:hover{ transform:translateY(-2px); box-shadow:0 8px 30px rgba(245,184,0,.35); }
+.btn-run:disabled{ opacity:.6; transform:none; cursor:not-allowed; }
+
+/* ── OUTPUT ── */
+.output{
+  margin-top:20px; display:none;
+  background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07);
+  border-radius:14px; overflow:hidden;
+}
+.output.show{ display:block; }
+.output-header{
+  padding:10px 16px; background:rgba(245,184,0,.06);
+  border-bottom:1px solid rgba(245,184,0,.1);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.output-header span{ font-size:.72rem; color:var(--dorado); font-weight:700; text-transform:uppercase; letter-spacing:1px; }
+.btn-copy{
+  background:rgba(245,184,0,.12); border:1px solid rgba(245,184,0,.25);
+  color:var(--dorado); padding:4px 12px; border-radius:6px;
+  font-size:.7rem; font-weight:700; cursor:pointer; transition:all .2s;
+  font-family:'Inter',sans-serif;
+}
+.btn-copy:hover{ background:rgba(245,184,0,.2); }
+.output-text{
+  padding:18px; font-size:.88rem; color:#d0c8e8;
+  line-height:1.8; white-space:pre-wrap; word-break:break-word;
+  max-height:420px; overflow-y:auto;
+}
+
+/* ── LOADER ── */
+.loader{ display:none; padding:28px; text-align:center; }
+.loader.show{ display:block; }
+.dots span{
+  display:inline-block; width:8px; height:8px; border-radius:50%;
+  background:var(--dorado); margin:0 3px;
+  animation:dot 1.2s ease-in-out infinite;
+}
+.dots span:nth-child(2){ animation-delay:.2s; }
+.dots span:nth-child(3){ animation-delay:.4s; }
+@keyframes dot{ 0%,80%,100%{transform:scale(.6);opacity:.4} 40%{transform:scale(1);opacity:1} }
+.loader p{ font-size:.8rem; color:var(--muted); margin-top:10px; }
+
+/* ── HISTORIAL ── */
+.history-section{ margin-top:32px; }
+.history-title{ font-size:.8rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:14px; }
+.history-list{ display:flex; flex-direction:column; gap:8px; }
+.history-item{
+  background:var(--gris); border:1px solid rgba(255,255,255,.05);
+  border-radius:12px; padding:12px 16px; cursor:pointer;
+  display:flex; align-items:center; gap:12px; transition:border-color .2s;
+}
+.history-item:hover{ border-color:rgba(245,184,0,.2); }
+.hi-ico{ font-size:1rem; flex-shrink:0; }
+.hi-skill{ font-size:.7rem; font-weight:700; color:var(--dorado); }
+.hi-preview{ font-size:.78rem; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.hi-time{ font-size:.65rem; color:rgba(255,255,255,.2); flex-shrink:0; margin-left:auto; }
+
+@keyframes fadeUp{ from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+.fadeup{ animation:fadeUp .3s ease both; }
+
+@media(max-width:640px){
+  .skills-grid{ grid-template-columns:1fr 1fr; }
+  .fields-row{ grid-template-columns:1fr; }
+  .key-input{ width:160px; }
+  .header-brand span{ display:none; }
+}
+@media(max-width:400px){
+  .skills-grid{ grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-brand">CM Tools <span>· @ferconde__</span></div>
+  <div class="key-wrap">
+    <div class="key-badge" id="key-badge"></div>
+    <input type="password" class="key-input" id="api-key"
+      placeholder="sk-ant-... API Key de Claude"
+      autocomplete="off" spellcheck="false">
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="container">
+  <div class="page-title">Tus herramientas de CM</div>
+  <div class="page-sub">Elige un skill, completa los datos y Claude lo hace por ti.</div>
+
+  <!-- SKILLS -->
+  <div class="skills-grid" id="skills-grid">
+
+    <button class="skill-btn" onclick="openSkill('caption')">
+      <span class="skill-ico">✍️</span>
+      <div class="skill-name">Caption Generator</div>
+      <div class="skill-desc">3 opciones de caption listas para publicar</div>
+    </button>
+
+    <button class="skill-btn" onclick="openSkill('responder')">
+      <span class="skill-ico">💬</span>
+      <div class="skill-name">Responder DMs</div>
+      <div class="skill-desc">Respuestas a comentarios y mensajes directos</div>
+    </button>
+
+    <button class="skill-btn" onclick="openSkill('calendario')">
+      <span class="skill-ico">📅</span>
+      <div class="skill-name">Calendario Semanal</div>
+      <div class="skill-desc">Plan de 5 posts con tema, formato y hook</div>
+    </button>
+
+    <button class="skill-btn" onclick="openSkill('stories')">
+      <span class="skill-ico">📱</span>
+      <div class="skill-name">Ideas de Stories</div>
+      <div class="skill-desc">Secuencia de 5 stories para engagement</div>
+    </button>
+
+    <button class="skill-btn" onclick="openSkill('hashtags')">
+      <span class="skill-ico">#️⃣</span>
+      <div class="skill-name">Hashtags</div>
+      <div class="skill-desc">30 hashtags categorizados por volumen</div>
+    </button>
+
+    <button class="skill-btn" onclick="openSkill('rewrite')">
+      <span class="skill-ico">✨</span>
+      <div class="skill-name">Mejorar Caption</div>
+      <div class="skill-desc">Reescribe un texto para que convierta más</div>
+    </button>
+
+    <button class="skill-btn" onclick="openSkill('bio')">
+      <span class="skill-ico">👤</span>
+      <div class="skill-name">Bio de Instagram</div>
+      <div class="skill-desc">Bio optimizada que convierte visitas en seguidores</div>
+    </button>
+
+    <button class="skill-btn" onclick="openSkill('hook')">
+      <span class="skill-ico">🎣</span>
+      <div class="skill-name">Hooks para Reels</div>
+      <div class="skill-desc">5 ganchos para los primeros 3 segundos del video</div>
+    </button>
+
+    <button class="skill-btn" onclick="openSkill('analisis')">
+      <span class="skill-ico">📊</span>
+      <div class="skill-name">Analizar Métricas</div>
+      <div class="skill-desc">Interpreta tus datos y dice qué hacer</div>
+    </button>
+
+  </div>
+
+  <!-- WORKSPACE -->
+  <div class="workspace" id="workspace">
+    <div class="ws-header">
+      <div class="ws-title" id="ws-title">Skill</div>
+      <button class="ws-close" onclick="closeSkill()">✕</button>
+    </div>
+    <div class="ws-body">
+      <div id="skill-form"></div>
+      <button class="btn-run" id="btn-run" onclick="runSkill()">
+        <span id="btn-label">✦ Generar con Claude</span>
+      </button>
+      <div class="loader" id="loader">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <p>Claude está escribiendo...</p>
+      </div>
+      <div class="output" id="output">
+        <div class="output-header">
+          <span>Resultado</span>
+          <button class="btn-copy" onclick="copiarResultado()">Copiar</button>
+        </div>
+        <div class="output-text" id="output-text"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTORIAL -->
+  <div class="history-section" id="history-section" style="display:none">
+    <div class="history-title">Generados recientemente</div>
+    <div class="history-list" id="history-list"></div>
+  </div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// CONFIG DE SKILLS
+// ═══════════════════════════════════════════
+const SKILLS = {
+  caption: {
+    title: '✍️ Caption Generator',
+    icon: '✍️',
+    fields: `
+      <div class="fields-row">
+        <div class="field">
+          <label>Cliente / Marca</label>
+          <input type="text" id="f_cliente" placeholder="ej. Columna Vital, Sistema 33...">
+        </div>
+        <div class="field">
+          <label>Nicho / Sector</label>
+          <input type="text" id="f_nicho" placeholder="ej. salud, infoproductos...">
+        </div>
+      </div>
+      <div class="field">
+        <label>Tema del post</label>
+        <input type="text" id="f_tema" placeholder="ej. beneficios de la quiropraxia para el dolor de espalda">
+      </div>
+      <div class="fields-row">
+        <div class="field">
+          <label>Objetivo</label>
+          <select id="f_objetivo">
+            <option value="engagement">Engagement (likes, comentarios)</option>
+            <option value="ventas">Ventas / Conversión</option>
+            <option value="awareness">Alcance / Awareness</option>
+            <option value="leads">Captura de leads</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Tono</label>
+          <select id="f_tono">
+            <option value="cercano">Cercano y humano</option>
+            <option value="educativo">Educativo</option>
+            <option value="urgente">Urgente / Escasez</option>
+            <option value="inspiracional">Inspiracional</option>
+            <option value="directo">Directo y conciso</option>
+          </select>
+        </div>
+      </div>`,
+    prompt: (f) => `Eres un experto en copywriting para redes sociales en Latinoamérica.
+Cliente: ${f.cliente} — Nicho: ${f.nicho}
+Tema: ${f.tema}
+Objetivo: ${f.objetivo} | Tono: ${f.tono}
+
+Escribe 3 opciones de caption para Instagram. Cada una debe:
+- Empezar con un hook que detenga el scroll (no empieces con el nombre de la marca)
+- Tener entre 80-150 palabras
+- Incluir emojis estratégicamente (no en exceso)
+- Terminar con un CTA claro
+- Incluir una línea de hashtags (5-8 hashtags relevantes)
+
+Separa cada opción con "---" y numéralas. Sé directo, latino, sin jerga corporativa.`,
+    collect: () => ({
+      cliente: v('f_cliente'), nicho: v('f_nicho'), tema: v('f_tema'),
+      objetivo: v('f_objetivo'), tono: v('f_tono')
+    })
+  },
+
+  responder: {
+    title: '💬 Responder DMs / Comentarios',
+    icon: '💬',
+    fields: `
+      <div class="fields-row">
+        <div class="field">
+          <label>Cliente / Cuenta</label>
+          <input type="text" id="f_cliente" placeholder="ej. Columna Vital">
+        </div>
+        <div class="field">
+          <label>Tipo de mensaje</label>
+          <select id="f_tipo">
+            <option value="precio">Pregunta de precio</option>
+            <option value="info">Solicitud de información</option>
+            <option value="queja">Queja o reclamo</option>
+            <option value="agradecimiento">Agradecimiento</option>
+            <option value="cita">Agendar cita / consulta</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Mensaje del usuario (pega el texto exacto)</label>
+        <textarea id="f_mensaje" rows="3" placeholder="ej. Hola! Cuánto vale la consulta y en qué horarios atienden?"></textarea>
+      </div>
+      <div class="field">
+        <label>Contexto del negocio (opcional)</label>
+        <input type="text" id="f_contexto" placeholder="ej. clínica de quiropraxia, consultas $80.000 COP, L-V 8am-6pm">
+      </div>`,
+    prompt: (f) => `Eres el community manager de ${f.cliente}.
+El usuario envió este mensaje: "${f.mensaje}"
+Tipo de mensaje: ${f.tipo}
+Contexto del negocio: ${f.contexto || 'no especificado'}
+
+Escribe 2 opciones de respuesta:
+1. Respuesta corta (para comentario público) — máx 2 líneas, amable, con CTA si aplica
+2. Respuesta larga (para DM) — más detallada, personalizada, resuelve la duda y guía al siguiente paso
+
+Tono: cálido, profesional, latinoamericano. Sin fórmulas robóticas como "Estimado usuario".`,
+    collect: () => ({
+      cliente: v('f_cliente'), tipo: v('f_tipo'),
+      mensaje: v('f_mensaje'), contexto: v('f_contexto')
+    })
+  },
+
+  calendario: {
+    title: '📅 Calendario Semanal',
+    icon: '📅',
+    fields: `
+      <div class="fields-row">
+        <div class="field">
+          <label>Cliente / Marca</label>
+          <input type="text" id="f_cliente" placeholder="ej. Sistema 33">
+        </div>
+        <div class="field">
+          <label>Semana del</label>
+          <input type="text" id="f_semana" placeholder="ej. 2 al 6 de junio">
+        </div>
+      </div>
+      <div class="field">
+        <label>Objetivo de la semana</label>
+        <input type="text" id="f_objetivo" placeholder="ej. generar leads, lanzar producto, aumentar awareness">
+      </div>
+      <div class="field">
+        <label>Pilares de contenido del cliente</label>
+        <input type="text" id="f_pilares" placeholder="ej. educación, motivación, resultados, detrás de cámaras">
+      </div>`,
+    prompt: (f) => `Eres un estratega de contenido para redes sociales.
+Cliente: ${f.cliente}
+Semana: ${f.semana}
+Objetivo: ${f.objetivo}
+Pilares: ${f.pilares}
+
+Crea un calendario de contenido para 5 días (Lun-Vie). Para cada día incluye:
+- Día y fecha
+- Formato (Reel / Carrusel / Foto / Story / Live)
+- Pilar de contenido
+- Tema concreto del post
+- Hook (primeras palabras que engancharán)
+- Objetivo específico del día
+
+Presenta en tabla ordenada. Que sea variado, estratégico y realista de producir.`,
+    collect: () => ({
+      cliente: v('f_cliente'), semana: v('f_semana'),
+      objetivo: v('f_objetivo'), pilares: v('f_pilares')
+    })
+  },
+
+  stories: {
+    title: '📱 Ideas de Stories',
+    icon: '📱',
+    fields: `
+      <div class="fields-row">
+        <div class="field">
+          <label>Cliente / Cuenta</label>
+          <input type="text" id="f_cliente" placeholder="ej. @ferconde__">
+        </div>
+        <div class="field">
+          <label>Objetivo de las stories</label>
+          <select id="f_objetivo">
+            <option value="engagement">Subir engagement</option>
+            <option value="ventas">Vender / Cerrar</option>
+            <option value="leads">Capturar leads</option>
+            <option value="comunidad">Conectar con comunidad</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Tema o producto a destacar</label>
+        <input type="text" id="f_tema" placeholder="ej. lanzamiento de Sistema 33, consulta de quiropraxia...">
+      </div>`,
+    prompt: (f) => `Eres experto en Instagram Stories para negocios.
+Cliente: ${f.cliente} | Objetivo: ${f.objetivo} | Tema: ${f.tema}
+
+Diseña una secuencia de 5 stories que funcionen como embudo:
+Para cada story indica:
+- Número y tipo (encuesta / texto / video / link sticker / pregunta)
+- Contenido exacto (qué va escrito o qué se graba)
+- Elemento interactivo si aplica (sticker, encuesta, pregunta)
+- Por qué esa story en ese orden
+
+Que sea una secuencia que lleve al usuario de la curiosidad a la acción.`,
+    collect: () => ({
+      cliente: v('f_cliente'), objetivo: v('f_objetivo'), tema: v('f_tema')
+    })
+  },
+
+  hashtags: {
+    title: '#️⃣ Generador de Hashtags',
+    icon: '#️⃣',
+    fields: `
+      <div class="fields-row">
+        <div class="field">
+          <label>Nicho / Industria</label>
+          <input type="text" id="f_nicho" placeholder="ej. salud, marketing digital, fitness...">
+        </div>
+        <div class="field">
+          <label>País o región objetivo</label>
+          <input type="text" id="f_pais" placeholder="ej. Colombia, México, LATAM">
+        </div>
+      </div>
+      <div class="field">
+        <label>Tema específico del post</label>
+        <input type="text" id="f_tema" placeholder="ej. tips de automatización con IA para emprendedores">
+      </div>`,
+    prompt: (f) => `Experto en SEO y hashtags de Instagram.
+Nicho: ${f.nicho} | País: ${f.pais} | Tema: ${f.tema}
+
+Genera 30 hashtags estratégicos divididos en 3 grupos:
+- 10 hashtags grandes (500K+ posts) — alcance masivo
+- 10 hashtags medianos (50K-500K posts) — equilibrio
+- 10 hashtags pequeños (5K-50K posts) — alta visibilidad en nicho
+
+Para cada grupo explica brevemente la lógica. Al final da la línea lista para copiar y pegar con todos los hashtags juntos.`,
+    collect: () => ({
+      nicho: v('f_nicho'), pais: v('f_pais'), tema: v('f_tema')
+    })
+  },
+
+  rewrite: {
+    title: '✨ Mejorar Caption',
+    icon: '✨',
+    fields: `
+      <div class="field">
+        <label>Caption original (pega el texto)</label>
+        <textarea id="f_original" rows="4" placeholder="Pega aquí el caption que quieres mejorar..."></textarea>
+      </div>
+      <div class="fields-row">
+        <div class="field">
+          <label>Problema principal</label>
+          <select id="f_problema">
+            <option value="engancha">No engancha desde el inicio</option>
+            <option value="largo">Es muy largo / aburrido</option>
+            <option value="cta">Le falta CTA claro</option>
+            <option value="conversion">No convierte</option>
+            <option value="todo">Mejorar todo</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Objetivo del post</label>
+          <input type="text" id="f_objetivo" placeholder="ej. llevar al link en bio">
+        </div>
+      </div>`,
+    prompt: (f) => `Eres experto en copywriting para Instagram.
+Caption original: "${f.original}"
+Problema: ${f.problema}
+Objetivo: ${f.objetivo}
+
+Reescribe el caption en 2 versiones:
+VERSIÓN A — Correcciones puntuales (mantiene la esencia, mejora lo que falla)
+VERSIÓN B — Reescritura total (mismo mensaje, impacto máximo)
+
+Para cada versión explica en 1 línea qué cambió y por qué funciona mejor.`,
+    collect: () => ({
+      original: v('f_original'), problema: v('f_problema'), objetivo: v('f_objetivo')
+    })
+  },
+
+  bio: {
+    title: '👤 Bio de Instagram',
+    icon: '👤',
+    fields: `
+      <div class="fields-row">
+        <div class="field">
+          <label>Nombre / Marca</label>
+          <input type="text" id="f_nombre" placeholder="ej. Fernanda Conde">
+        </div>
+        <div class="field">
+          <label>Qué hace (en palabras simples)</label>
+          <input type="text" id="f_que_hace" placeholder="ej. estratega de marketing digital con IA">
+        </div>
+      </div>
+      <div class="field">
+        <label>A quién ayuda y qué resultado obtienen</label>
+        <input type="text" id="f_resultado" placeholder="ej. ayuda a emprendedores a construir su negocio digital en 33 días">
+      </div>
+      <div class="field">
+        <label>CTA del link en bio</label>
+        <input type="text" id="f_cta" placeholder="ej. Preventa Sistema 33 👇">
+      </div>`,
+    prompt: (f) => `Experto en optimización de perfiles de Instagram.
+Nombre: ${f.nombre}
+Qué hace: ${f.que_hace}
+Resultado que da: ${f.resultado}
+CTA: ${f.cta}
+
+Escribe 3 opciones de bio de Instagram (máx 150 caracteres cada una):
+- Que deje claro QUÉ hace, PARA QUIÉN y QUÉ ganan
+- Con emojis para escanear rápido
+- CTA al final
+- Sin palabras vacías como "apasionada por" o "ayudo a las personas a"
+
+Indica para cada opción: longitud exacta y por qué funciona.`,
+    collect: () => ({
+      nombre: v('f_nombre'), que_hace: v('f_que_hace'),
+      resultado: v('f_resultado'), cta: v('f_cta')
+    })
+  },
+
+  hook: {
+    title: '🎣 Hooks para Reels',
+    icon: '🎣',
+    fields: `
+      <div class="fields-row">
+        <div class="field">
+          <label>Cliente / Cuenta</label>
+          <input type="text" id="f_cliente" placeholder="ej. @ferconde__">
+        </div>
+        <div class="field">
+          <label>Nicho</label>
+          <input type="text" id="f_nicho" placeholder="ej. marketing digital, salud...">
+        </div>
+      </div>
+      <div class="field">
+        <label>Tema del Reel</label>
+        <input type="text" id="f_tema" placeholder="ej. cómo automatizar tu WhatsApp con ManyChat">
+      </div>
+      <div class="field">
+        <label>Audiencia objetivo</label>
+        <input type="text" id="f_audiencia" placeholder="ej. emprendedores que quieren escalar su negocio">
+      </div>`,
+    prompt: (f) => `Eres experto en crear contenido viral para Instagram Reels.
+Cliente: ${f.cliente} | Nicho: ${f.nicho}
+Tema del Reel: ${f.tema}
+Audiencia: ${f.audiencia}
+
+Escribe 5 hooks para los primeros 3 segundos del Reel. Cada hook debe:
+- Ser máximo 15 palabras
+- Detener el scroll inmediatamente
+- Usar curiosidad, controversia, promesa concreta o miedo a perderse algo
+- Funcionar tanto como texto en pantalla como hablado a cámara
+
+Para cada hook indica qué técnica usa y por qué va a funcionar con esa audiencia.`,
+    collect: () => ({
+      cliente: v('f_cliente'), nicho: v('f_nicho'),
+      tema: v('f_tema'), audiencia: v('f_audiencia')
+    })
+  },
+
+  analisis: {
+    title: '📊 Analizar Métricas',
+    icon: '📊',
+    fields: `
+      <div class="fields-row">
+        <div class="field">
+          <label>Cliente / Plataforma</label>
+          <input type="text" id="f_cliente" placeholder="ej. Columna Vital · Meta Ads">
+        </div>
+        <div class="field">
+          <label>Periodo</label>
+          <input type="text" id="f_periodo" placeholder="ej. mayo 2026, semana del 25-31">
+        </div>
+      </div>
+      <div class="field">
+        <label>Pega aquí las métricas (números que tengas)</label>
+        <textarea id="f_metricas" rows="4" placeholder="ej. Alcance: 12.400 | Impresiones: 18.200 | CTR: 4.2% | Conversaciones WA: 89 | Costo por conv: $94 COP | Seguidores nuevos: +234..."></textarea>
+      </div>
+      <div class="field">
+        <label>Objetivo de la campaña</label>
+        <input type="text" id="f_objetivo" placeholder="ej. conseguir consultas de quiropraxia en Sincelejo">
+      </div>`,
+    prompt: (f) => `Eres analista experto en marketing digital y Meta Ads.
+Cliente: ${f.cliente} | Periodo: ${f.periodo}
+Métricas: ${f.metricas}
+Objetivo: ${f.objetivo}
+
+Analiza estos datos y entrega:
+1. DIAGNÓSTICO — qué está funcionando y qué no (sé específico con los números)
+2. ALERTAS — métricas que necesitan atención urgente
+3. ACCIONES — top 3 cambios concretos a hacer la próxima semana, ordenados por impacto
+4. PREGUNTA CLAVE — una pregunta que deberías hacerle al cliente para optimizar mejor
+
+Sé directo, usa los números reales, sin relleno.`,
+    collect: () => ({
+      cliente: v('f_cliente'), periodo: v('f_periodo'),
+      metricas: v('f_metricas'), objetivo: v('f_objetivo')
+    })
+  }
+};
+
+// ═══════════════════════════════════════════
+// ESTADO
+// ═══════════════════════════════════════════
+let currentSkill = null;
+let history = JSON.parse(localStorage.getItem('cm_history') || '[]');
+
+// ═══════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════
+function v(id){
+  const el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+
+function $(id){ return document.getElementById(id); }
+
+// ═══════════════════════════════════════════
+// API KEY
+// ═══════════════════════════════════════════
+const keyInput = $('api-key');
+const keyBadge = $('key-badge');
+
+// Cargar key guardada
+const savedKey = localStorage.getItem('cm_anthropic_key');
+if(savedKey){ keyInput.value = savedKey; keyBadge.classList.add('ok'); }
+
+keyInput.addEventListener('input', function(){
+  const k = this.value.trim();
+  localStorage.setItem('cm_anthropic_key', k);
+  keyBadge.className = 'key-badge' + (k.startsWith('sk-ant-') ? ' ok' : '');
+});
+
+function getKey(){
+  return keyInput.value.trim() || localStorage.getItem('cm_anthropic_key') || '';
+}
+
+// ═══════════════════════════════════════════
+// SKILLS UI
+// ═══════════════════════════════════════════
+function openSkill(name){
+  currentSkill = name;
+  const s = SKILLS[name];
+  $('ws-title').textContent = s.title;
+  $('skill-form').innerHTML = s.fields;
+  $('output').classList.remove('show');
+  $('loader').classList.remove('show');
+  $('btn-run').disabled = false;
+  $('btn-label').textContent = '✦ Generar con Claude';
+  $('workspace').classList.add('show', 'fadeup');
+
+  // Marcar skill activo
+  document.querySelectorAll('.skill-btn').forEach(b => b.classList.remove('active'));
+  const btns = document.querySelectorAll('.skill-btn');
+  const skills = Object.keys(SKILLS);
+  const idx = skills.indexOf(name);
+  if(btns[idx]) btns[idx].classList.add('active');
+
+  $('workspace').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function closeSkill(){
+  $('workspace').classList.remove('show');
+  currentSkill = null;
+  document.querySelectorAll('.skill-btn').forEach(b => b.classList.remove('active'));
+}
+
+// ═══════════════════════════════════════════
+// EJECUTAR SKILL
+// ═══════════════════════════════════════════
+async function runSkill(){
+  if(!currentSkill) return;
+
+  const key = getKey();
+  if(!key || !key.startsWith('sk-ant-')){
+    alert('Pega tu API Key de Claude en el campo de arriba (empieza con sk-ant-)');
+    keyInput.focus();
+    return;
+  }
+
+  const s = SKILLS[currentSkill];
+  const fields = s.collect();
+
+  // Validar que al menos el primer campo tenga algo
+  const vals = Object.values(fields);
+  if(!vals[0]){
+    alert('Completa al menos el primer campo');
+    return;
+  }
+
+  const prompt = s.prompt(fields);
+
+  // UI loading
+  $('btn-run').disabled = true;
+  $('btn-label').textContent = 'Generando...';
+  $('loader').classList.add('show');
+  $('output').classList.remove('show');
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1200,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    if(!res.ok){
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error?.message || `Error ${res.status}`);
+    }
+
+    const data = await res.json();
+    const texto = data.content[0].text;
+
+    $('output-text').textContent = texto;
+    $('output').classList.add('show', 'fadeup');
+
+    // Guardar en historial
+    saveHistory(currentSkill, s.icon, fields, texto);
+
+  } catch(e){
+    $('output-text').textContent = '❌ Error: ' + e.message + '\n\nVerifica que tu API key sea correcta y que tengas créditos en console.anthropic.com';
+    $('output').classList.add('show');
+  } finally {
+    $('loader').classList.remove('show');
+    $('btn-run').disabled = false;
+    $('btn-label').textContent = '✦ Generar con Claude';
+  }
+}
+
+// ═══════════════════════════════════════════
+// COPIAR
+// ═══════════════════════════════════════════
+function copiarResultado(){
+  const txt = $('output-text').textContent;
+  navigator.clipboard.writeText(txt).then(() => {
+    const btn = document.querySelector('.btn-copy');
+    btn.textContent = '✓ Copiado';
+    setTimeout(() => btn.textContent = 'Copiar', 2000);
+  });
+}
+
+// ═══════════════════════════════════════════
+// HISTORIAL
+// ═══════════════════════════════════════════
+function saveHistory(skillName, icon, fields, resultado){
+  const item = {
+    skill: skillName,
+    icon,
+    preview: resultado.substring(0, 80),
+    full: resultado,
+    fields,
+    time: new Date().toLocaleTimeString('es', {hour:'2-digit',minute:'2-digit'})
+  };
+  history.unshift(item);
+  if(history.length > 20) history.pop();
+  localStorage.setItem('cm_history', JSON.stringify(history));
+  renderHistory();
+}
+
+function renderHistory(){
+  if(history.length === 0){ $('history-section').style.display = 'none'; return; }
+  $('history-section').style.display = 'block';
+  const list = $('history-list');
+  list.innerHTML = history.slice(0, 5).map((h, i) => `
+    <div class="history-item" onclick="restoreHistory(${i})">
+      <span class="hi-ico">${h.icon}</span>
+      <div style="min-width:0">
+        <div class="hi-skill">${SKILLS[h.skill]?.title || h.skill}</div>
+        <div class="hi-preview">${h.preview}...</div>
+      </div>
+      <span class="hi-time">${h.time}</span>
+    </div>`).join('');
+}
+
+function restoreHistory(idx){
+  const h = history[idx];
+  openSkill(h.skill);
+  setTimeout(() => {
+    $('output-text').textContent = h.full;
+    $('output').classList.add('show');
+  }, 100);
+}
+
+// Init
+renderHistory();
+</script>
+</body>
+</html>
