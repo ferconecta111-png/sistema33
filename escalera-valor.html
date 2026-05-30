@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escalera de Valor — Sistema Ferconde__</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --negro:#08060f;--oscuro:#110e1f;
+  --verde:#10b981;--verde2:#059669;
+  --morado:#6d28d9;--dorado:#f5b800;--dorado2:#e07b00;
+  --rojo:#f87171;--azul:#3b82f6;--naranja:#f97316;
+  --blanco:#ffffff;--muted:#7c6fa0;
+}
+
+html,body{min-height:100%;font-family:'Inter',sans-serif;background:var(--negro);color:#e8e0f0;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E");}
+
+/* ─────────────────────────── LAYOUT ─────────────────────────── */
+.page{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:52px 24px 100px;}
+
+/* ─────────────────────────── TIPOGRAFÍA ─────────────────────── */
+.chip{display:inline-flex;align-items:center;gap:6px;background:rgba(245,184,0,.1);
+  border:1px solid rgba(245,184,0,.25);border-radius:20px;padding:5px 14px;
+  font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dorado);margin-bottom:16px;}
+.page-title{font-size:clamp(2rem,5vw,3rem);font-weight:900;line-height:1.05;
+  color:var(--blanco);letter-spacing:-1px;margin-bottom:10px;}
+.page-title em{font-style:normal;background:linear-gradient(135deg,var(--dorado),#ff9900);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.page-sub{font-size:.9rem;color:var(--muted);line-height:1.7;max-width:600px;margin-bottom:48px;}
+.sec-lbl{font-size:.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dorado);margin-bottom:8px;}
+.sec-h{font-size:clamp(1.3rem,3vw,1.7rem);font-weight:900;color:var(--blanco);
+  margin-bottom:8px;line-height:1.1;}
+.sec-h em{font-style:normal;color:var(--dorado);}
+.sec-p{font-size:.84rem;color:var(--muted);line-height:1.7;margin-bottom:24px;}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);margin:52px 0;}
+.bloque{margin-bottom:0;}
+
+/* ─────────────────────────── ESCALERA VISUAL ────────────────── */
+.escalera{display:flex;flex-direction:column;gap:0;position:relative;}
+.escalera::before{content:'';position:absolute;left:28px;top:0;bottom:0;
+  width:2px;background:linear-gradient(180deg,rgba(255,255,255,.05),var(--dorado),rgba(245,184,0,.1));z-index:0;}
+
+.escalon{
+  display:grid;grid-template-columns:60px 1fr;gap:0;
+  position:relative;z-index:1;
+}
+.escalon-lado{
+  display:flex;flex-direction:column;align-items:center;
+  padding-top:6px;
+}
+.escalon-circulo{
+  width:56px;height:56px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;flex-shrink:0;position:relative;z-index:2;
+  box-shadow:0 0 0 6px var(--negro);
+}
+.escalon-linea{flex:1;width:2px;min-height:24px;}
+
+.escalon-cuerpo{padding:0 0 36px 20px;}
+.escalon-nivel{font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+.escalon-titulo{font-size:1.05rem;font-weight:900;color:var(--blanco);margin-bottom:4px;}
+.escalon-precio{font-size:1.5rem;font-weight:900;margin-bottom:6px;line-height:1;}
+.escalon-precio sup{font-size:.8rem;vertical-align:super;}
+.escalon-desc{font-size:.78rem;color:var(--muted);line-height:1.55;margin-bottom:12px;max-width:540px;}
+.escalon-tags{display:flex;flex-wrap:wrap;gap:7px;}
+.etag{display:inline-flex;padding:3px 10px;border-radius:10px;font-size:.65rem;font-weight:700;}
+
+/* Colores por nivel */
+.n0 .escalon-circulo{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);}
+.n0 .escalon-nivel{color:var(--muted);}
+.n0 .escalon-precio{color:var(--muted);}
+.n0 .escalon-linea{background:rgba(255,255,255,.08);}
+
+.n1 .escalon-circulo{background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.3);}
+.n1 .escalon-nivel{color:var(--azul);}
+.n1 .escalon-precio{color:var(--azul);}
+.n1 .escalon-linea{background:rgba(59,130,246,.2);}
+
+.n2 .escalon-circulo{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);}
+.n2 .escalon-nivel{color:var(--verde);}
+.n2 .escalon-precio{color:var(--verde);}
+.n2 .escalon-linea{background:rgba(16,185,129,.2);}
+
+.n3 .escalon-circulo{background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.3);}
+.n3 .escalon-nivel{color:var(--naranja);}
+.n3 .escalon-precio{color:var(--naranja);}
+.n3 .escalon-linea{background:rgba(249,115,22,.2);}
+
+.n4 .escalon-circulo{background:rgba(245,184,0,.15);border:1px solid rgba(245,184,0,.35);}
+.n4 .escalon-nivel{color:var(--dorado);}
+.n4 .escalon-precio{color:var(--dorado);}
+.n4 .escalon-linea{background:rgba(245,184,0,.2);}
+
+/* ─────────────────────────── TABS ───────────────────────────── */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+.tab{padding:9px 18px;border-radius:10px;font-size:.78rem;font-weight:700;cursor:pointer;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--muted);
+  transition:all .2s;font-family:'Inter',sans-serif;}
+.tab:hover{background:rgba(255,255,255,.07);color:var(--blanco);}
+.tab.activo{color:#0a0614;border-color:transparent;}
+.tab.t-arranque.activo{background:var(--verde);}
+.tab.t-sistema.activo{background:var(--naranja);}
+.tab.t-ecosistema.activo{background:var(--dorado);}
+
+/* ─────────────────────────── PANEL PAQUETE ──────────────────── */
+.panel{display:none;}
+.panel.visible{display:block;}
+
+.paq-header{
+  border-radius:20px 20px 0 0;padding:28px 32px 24px;
+  border:1px solid rgba(255,255,255,.07);border-bottom:none;
+}
+.paq-header-row{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.paq-h-left{}
+.paq-badge{font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.paq-nombre{font-size:1.4rem;font-weight:900;color:var(--blanco);}
+.paq-h-right{text-align:right;}
+.paq-precio-cliente{font-size:2rem;font-weight:900;line-height:1;}
+.paq-precio-lbl{font-size:.7rem;color:var(--muted);margin-top:2px;}
+
+/* Comisiones */
+.comisiones-box{
+  padding:22px 32px;border-left:1px solid rgba(255,255,255,.07);
+  border-right:1px solid rgba(255,255,255,.07);
+  background:rgba(17,14,31,.6);
+}
+.com-titulo{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.com-fila{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.com-fila:last-child{border-bottom:none;}
+.com-fila-left{display:flex;align-items:center;gap:10px;}
+.com-ico{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;
+  justify-content:center;font-size:.9rem;flex-shrink:0;}
+.com-label{font-size:.8rem;color:#c0b8d8;}
+.com-label strong{color:var(--blanco);display:block;font-size:.84rem;}
+.com-val{font-size:1.05rem;font-weight:900;text-align:right;}
+.com-pct{font-size:.7rem;font-weight:600;margin-left:4px;}
+
+/* Barra visual de división */
+.com-barra-wrap{padding:16px 32px;border:1px solid rgba(255,255,255,.07);
+  border-top:none;border-bottom:none;background:rgba(17,14,31,.3);}
+.com-barra-lbl{display:flex;justify-content:space-between;font-size:.68rem;
+  color:var(--muted);margin-bottom:6px;font-weight:600;}
+.com-barra{height:12px;border-radius:6px;overflow:hidden;display:flex;background:rgba(255,255,255,.05);}
+.com-barra-f{height:100%;}
+.com-barra-s{height:100%;}
+
+/* Grillas de contenido */
+.paq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.07);border-top:none;}
+.paq-col{background:var(--negro);padding:24px 28px;}
+.col-titulo{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:14px;}
+.entrega-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;}
+.ent-ico{flex-shrink:0;width:22px;height:22px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;font-size:.75rem;margin-top:1px;}
+.ent-texto{}
+.ent-titulo{font-size:.82rem;font-weight:700;color:var(--blanco);margin-bottom:1px;}
+.ent-sub{font-size:.72rem;color:var(--muted);line-height:1.4;}
+
+/* Timeline */
+.timeline-item{display:flex;gap:14px;margin-bottom:12px;align-items:flex-start;}
+.tl-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:.7rem;font-weight:900;color:#0a0614;flex-shrink:0;}
+.tl-txt{}
+.tl-titulo{font-size:.82rem;font-weight:700;color:var(--blanco);}
+.tl-sub{font-size:.72rem;color:var(--muted);line-height:1.4;}
+
+/* Footer paquete */
+.paq-footer{
+  padding:18px 32px;border-radius:0 0 20px 20px;
+  border:1px solid rgba(255,255,255,.07);border-top:1px solid rgba(255,255,255,.05);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  background:rgba(17,14,31,.4);
+}
+.paq-footer-item{display:flex;align-items:center;gap:8px;font-size:.76rem;color:var(--muted);}
+.paq-footer-item strong{color:var(--blanco);}
+
+/* ─────────────────────────── ONBOARDING ─────────────────────── */
+.onboarding-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.ob-step{
+  background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;padding:20px 22px;display:flex;gap:14px;align-items:flex-start;
+}
+.ob-num{
+  width:38px;height:38px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.88rem;font-weight:900;color:#0a0614;
+  background:linear-gradient(135deg,var(--dorado),var(--dorado2));
+}
+.ob-titulo{font-size:.88rem;font-weight:800;color:var(--blanco);margin-bottom:4px;}
+.ob-desc{font-size:.76rem;color:var(--muted);line-height:1.55;}
+.ob-tiempo{font-size:.68rem;color:var(--dorado);font-weight:700;margin-top:5px;}
+
+/* ─────────────────────────── POLÍTICA CAMBIOS ───────────────── */
+.politica-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.pol-card{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:20px 18px;}
+.pol-ico{font-size:1.5rem;margin-bottom:10px;}
+.pol-titulo{font-size:.88rem;font-weight:800;color:var(--blanco);margin-bottom:6px;}
+.pol-desc{font-size:.75rem;color:var(--muted);line-height:1.55;}
+.pol-card.verde{border-left:3px solid var(--verde);}
+.pol-card.amarillo{border-left:3px solid var(--dorado);}
+.pol-card.rojo{border-left:3px solid var(--rojo);}
+
+.politica-tabla{width:100%;border-collapse:collapse;margin-top:20px;}
+.politica-tabla th{padding:10px 16px;text-align:left;border-bottom:2px solid rgba(255,255,255,.08);
+  font-size:.62rem;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;font-weight:700;}
+.politica-tabla td{padding:11px 16px;border-bottom:1px solid rgba(255,255,255,.05);font-size:.78rem;color:#c0b8d8;}
+.politica-tabla tr:hover td{background:rgba(255,255,255,.02);}
+.politica-tabla td:first-child{color:var(--blanco);font-weight:600;}
+.tag{display:inline-block;padding:2px 9px;border-radius:10px;font-size:.65rem;font-weight:700;}
+.tag-v{background:rgba(16,185,129,.15);color:var(--verde);}
+.tag-a{background:rgba(245,184,0,.1);color:var(--dorado);}
+.tag-r{background:rgba(248,113,113,.12);color:var(--rojo);}
+
+/* ─────────────────────────── PAGOS ──────────────────────────── */
+.pagos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.pago-card{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;padding:20px 20px;text-align:center;}
+.pago-pct{font-size:2rem;font-weight:900;margin-bottom:4px;}
+.pago-cuando{font-size:.78rem;font-weight:800;color:var(--blanco);margin-bottom:5px;}
+.pago-desc{font-size:.73rem;color:var(--muted);line-height:1.5;}
+
+@media(max-width:680px){
+  .paq-header-row{flex-direction:column;}
+  .paq-h-right{text-align:left;}
+  .paq-grid{grid-template-columns:1fr;}
+  .onboarding-grid{grid-template-columns:1fr;}
+  .politica-grid{grid-template-columns:1fr;}
+  .pagos-grid{grid-template-columns:1fr;}
+  .escalera::before{left:24px;}
+  .escalon-circulo{width:46px;height:46px;font-size:1rem;}
+  .escalon{grid-template-columns:48px 1fr;}
+  .com-fila{flex-direction:column;align-items:flex-start;gap:6px;}
+  .page{padding:32px 16px 80px;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<div class="chip">📊 Documento interno · @ferconde__</div>
+<h1 class="page-title">Escalera de valor<br><em>+ Comisiones + Entregas</em></h1>
+<p class="page-sub">Todo claro: qué vendes en cada nivel, cuánto te queda a ti, qué entrega el socio, cómo se hace el onboarding y qué pasa cuando el cliente pide cambios.</p>
+
+<!-- ═══════════════════════ ESCALERA ═══════════════════════ -->
+<div class="bloque">
+  <div class="sec-lbl">Nivel por nivel</div>
+  <h2 class="sec-h">La escalera<br><em>completa.</em></h2>
+  <p class="sec-p">Cada nivel alimenta al siguiente. El cliente no salta — sube.</p>
+
+  <div class="escalera">
+
+    <!-- N0 GRATIS -->
+    <div class="escalon n0">
+      <div class="escalon-lado">
+        <div class="escalon-circulo">🎁</div>
+        <div class="escalon-linea"></div>
+      </div>
+      <div class="escalon-cuerpo">
+        <div class="escalon-nivel">Nivel 0</div>
+        <div class="escalon-titulo">Grupo WhatsApp + CM Tools</div>
+        <div class="escalon-precio">Gratis</div>
+        <div class="escalon-desc">Entra al ecosistema. Conoce a Fernanda. Recibe valor todos los días sin pagar nada. Aquí empieza la confianza.</div>
+        <div class="escalon-tags">
+          <span class="etag" style="background:rgba(255,255,255,.06);color:var(--muted)">Sin fricción</span>
+          <span class="etag" style="background:rgba(255,255,255,.06);color:var(--muted)">Grupo WhatsApp</span>
+          <span class="etag" style="background:rgba(255,255,255,.06);color:var(--muted)">CM Tools IA</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- N1 WORKSHOP -->
+    <div class="escalon n1">
+      <div class="escalon-lado">
+        <div class="escalon-circulo">🎓</div>
+        <div class="escalon-linea"></div>
+      </div>
+      <div class="escalon-cuerpo">
+        <div class="escalon-nivel">Nivel 1</div>
+        <div class="escalon-titulo">Sistema 33 — Workshop</div>
+        <div class="escalon-precio"><sup>$</sup>197 <span style="font-size:.9rem;font-weight:400;color:var(--muted)">USD</span></div>
+        <div class="escalon-desc">Aprenden a construir el sistema ellos mismos — contenido, automatización y pauta. El que lo aplica sube. El que no puede o no quiere hacerlo solo, sube al siguiente nivel.</div>
+        <div class="escalon-tags">
+          <span class="etag" style="background:rgba(59,130,246,.12);color:#93c5fd">Curso grabado</span>
+          <span class="etag" style="background:rgba(59,130,246,.12);color:#93c5fd">4 módulos</span>
+          <span class="etag" style="background:rgba(59,130,246,.12);color:#93c5fd">Acceso de por vida</span>
+          <span class="etag" style="background:rgba(59,130,246,.12);color:#93c5fd">Sin socio técnico</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- N2 ARRANQUE -->
+    <div class="escalon n2">
+      <div class="escalon-lado">
+        <div class="escalon-circulo">🚀</div>
+        <div class="escalon-linea"></div>
+      </div>
+      <div class="escalon-cuerpo">
+        <div class="escalon-nivel">Nivel 2 · Paquete Arranque</div>
+        <div class="escalon-titulo">Presencia + Captación básica</div>
+        <div class="escalon-precio"><sup>$</sup>900 <span style="font-size:.9rem;font-weight:400;color:var(--muted)">USD</span></div>
+        <div class="escalon-desc">Para quien ya compró el workshop y quiere que lo implementemos. También para negocios pequeños que necesitan arrancar con lo esencial.</div>
+        <div class="escalon-tags">
+          <span class="etag" style="background:rgba(16,185,129,.12);color:#4ade80">Landing page</span>
+          <span class="etag" style="background:rgba(16,185,129,.12);color:#4ade80">WhatsApp bot</span>
+          <span class="etag" style="background:rgba(16,185,129,.12);color:#4ade80">Email básico</span>
+          <span class="etag" style="background:rgba(16,185,129,.12);color:#4ade80">Tu margen: $500</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- N3 SISTEMA -->
+    <div class="escalon n3">
+      <div class="escalon-lado">
+        <div class="escalon-circulo">⚙️</div>
+        <div class="escalon-linea"></div>
+      </div>
+      <div class="escalon-cuerpo">
+        <div class="escalon-nivel">Nivel 3 · Paquete Sistema</div>
+        <div class="escalon-titulo">Sistema de captación completo</div>
+        <div class="escalon-precio"><sup>$</sup>1.800 <span style="font-size:.9rem;font-weight:400;color:var(--muted)">USD</span></div>
+        <div class="escalon-desc">Para negocios que ya tienen algo pero quieren escalar con automatización real y pauta activa. El paquete más vendido.</div>
+        <div class="escalon-tags">
+          <span class="etag" style="background:rgba(249,115,22,.12);color:#fb923c">Web completa</span>
+          <span class="etag" style="background:rgba(249,115,22,.12);color:#fb923c">Automatización</span>
+          <span class="etag" style="background:rgba(249,115,22,.12);color:#fb923c">Meta Ads setup</span>
+          <span class="etag" style="background:rgba(249,115,22,.12);color:#fb923c">Tu margen: $1.100</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- N4 ECOSISTEMA -->
+    <div class="escalon n4">
+      <div class="escalon-lado">
+        <div class="escalon-circulo">👑</div>
+        <div class="escalon-linea" style="min-height:0"></div>
+      </div>
+      <div class="escalon-cuerpo" style="padding-bottom:0">
+        <div class="escalon-nivel">Nivel 4 · Paquete Ecosistema</div>
+        <div class="escalon-titulo">Ecosistema digital completo</div>
+        <div class="escalon-precio"><sup>$</sup>3.200 <span style="font-size:.9rem;font-weight:400;color:var(--muted)">USD</span></div>
+        <div class="escalon-desc">Para el cliente premium que quiere la solución total — web, automatización, pauta, herramienta personalizada y dashboard de métricas.</div>
+        <div class="escalon-tags">
+          <span class="etag" style="background:rgba(245,184,0,.1);color:var(--dorado)">Todo incluido</span>
+          <span class="etag" style="background:rgba(245,184,0,.1);color:var(--dorado)">App o tool a medida</span>
+          <span class="etag" style="background:rgba(245,184,0,.1);color:var(--dorado)">Dashboard</span>
+          <span class="etag" style="background:rgba(245,184,0,.1);color:var(--dorado)">Tu margen: $1.700</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════ PAQUETES DETALLE ═══════════════════ -->
+<div class="bloque">
+  <div class="sec-lbl">Desglose por paquete</div>
+  <h2 class="sec-h">Comisiones y <em>entregas exactas.</em></h2>
+  <p class="sec-p">Selecciona el paquete y ve todo: qué cobra cada quién, qué se entrega y en cuánto tiempo.</p>
+
+  <div class="tabs">
+    <button class="tab t-arranque activo" onclick="mostrarPanel('arranque',this)">🚀 Arranque · $900</button>
+    <button class="tab t-sistema"         onclick="mostrarPanel('sistema',this)">⚙️ Sistema · $1.800</button>
+    <button class="tab t-ecosistema"      onclick="mostrarPanel('ecosistema',this)">👑 Ecosistema · $3.200</button>
+  </div>
+
+  <!-- ── PANEL ARRANQUE ── -->
+  <div class="panel visible" id="panel-arranque">
+    <div class="paq-header" style="background:rgba(16,185,129,.05);border-color:rgba(16,185,129,.2);">
+      <div class="paq-header-row">
+        <div class="paq-h-left">
+          <div class="paq-badge" style="color:var(--verde)">🚀 Paquete Arranque · Nivel 2</div>
+          <div class="paq-nombre">Presencia + Captación básica</div>
+        </div>
+        <div class="paq-h-right">
+          <div class="paq-precio-cliente" style="color:var(--verde)">$900 USD</div>
+          <div class="paq-precio-lbl">Precio que cobra Fernanda al cliente</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comisiones-box">
+      <div class="com-titulo">💰 Distribución del dinero</div>
+      <div class="com-fila">
+        <div class="com-fila-left">
+          <div class="com-ico" style="background:rgba(16,185,129,.15)">💰</div>
+          <div class="com-label"><strong>Fernanda cobra al cliente</strong>Total recibido antes de pagar al socio</div>
+        </div>
+        <div class="com-val" style="color:var(--blanco)">$900 <span class="com-pct" style="color:var(--muted)">100%</span></div>
+      </div>
+      <div class="com-fila">
+        <div class="com-fila-left">
+          <div class="com-ico" style="background:rgba(109,40,217,.15)">💻</div>
+          <div class="com-label"><strong>Fernanda paga al socio</strong>Costo fijo por la ejecución técnica</div>
+        </div>
+        <div class="com-val" style="color:var(--rojo)">-$400 <span class="com-pct" style="color:var(--muted)">44%</span></div>
+      </div>
+      <div class="com-fila" style="border:none;padding-bottom:0">
+        <div class="com-fila-left">
+          <div class="com-ico" style="background:rgba(16,185,129,.2)">✅</div>
+          <div class="com-label"><strong>Margen neto de Fernanda</strong>Lo que queda después de pagar todo</div>
+        </div>
+        <div class="com-val" style="color:var(--verde);font-size:1.3rem">$500 <span class="com-pct" style="color:var(--verde)">56%</span></div>
+      </div>
+    </div>
+    <div class="com-barra-wrap">
+      <div class="com-barra-lbl"><span style="color:var(--verde)">Fernanda 56% · $500</span><span style="color:var(--muted)">Socio 44% · $400</span></div>
+      <div class="com-barra">
+        <div class="com-barra-f" style="width:56%;background:var(--verde)"></div>
+        <div class="com-barra-s" style="width:44%;background:rgba(109,40,217,.5)"></div>
+      </div>
+    </div>
+
+    <div class="paq-grid">
+      <div class="paq-col">
+        <div class="col-titulo" style="color:var(--verde)">📦 Qué se entrega al cliente</div>
+        <div class="entrega-item">
+          <div class="ent-ico" style="background:rgba(16,185,129,.15)">🌐</div>
+          <div class="ent-texto"><div class="ent-titulo">Landing page</div><div class="ent-sub">1 página diseñada para convertir — con formulario de captura y botón de WhatsApp</div></div>
+        </div>
+        <div class="entrega-item">
+          <div class="ent-ico" style="background:rgba(16,185,129,.15)">💬</div>
+          <div class="ent-texto"><div class="ent-titulo">Bot de WhatsApp básico</div><div class="ent-sub">Respuestas automáticas, captura de lead, mensaje de bienvenida</div></div>
+        </div>
+        <div class="entrega-item">
+          <div class="ent-ico" style="background:rgba(16,185,129,.15)">📧</div>
+          <div class="ent-texto"><div class="ent-titulo">Secuencia de emails (3 correos)</div><div class="ent-sub">Bienvenida, seguimiento y cierre. Configurado en la herramienta del cliente</div></div>
+        </div>
+        <div class="entrega-item">
+          <div class="ent-ico" style="background:rgba(16,185,129,.15)">🔑</div>
+          <div class="ent-texto"><div class="ent-titulo">Entrega de accesos</div><div class="ent-sub">Todos los accesos, contraseñas y dominios quedan en manos del cliente</div></div>
+        </div>
+      </div>
+      <div class="paq-col">
+        <div class="col-titulo" style="color:var(--verde)">🗓 Timeline de entrega</div>
+        <div class="timeline-item"><div class="tl-num" style="background:var(--verde)">1</div><div class="tl-txt"><div class="tl-titulo">Día 1–2: Kick-off</div><div class="tl-sub">Fernanda hace la llamada con el cliente y pasa el brief al socio</div></div></div>
+        <div class="timeline-item"><div class="tl-num" style="background:var(--verde)">2</div><div class="tl-txt"><div class="tl-titulo">Día 3–7: Diseño y desarrollo</div><div class="tl-sub">Socio construye la landing y configura el bot</div></div></div>
+        <div class="timeline-item"><div class="tl-num" style="background:var(--verde)">3</div><div class="tl-txt"><div class="tl-titulo">Día 8: Primera revisión</div><div class="tl-sub">Fernanda revisa antes de mostrar al cliente. Ajustes si los hay</div></div></div>
+        <div class="timeline-item"><div class="tl-num" style="background:var(--verde)">4</div><div class="tl-txt"><div class="tl-titulo">Día 9–10: Aprobación cliente</div><div class="tl-sub">Cliente aprueba o pide cambios (1 ronda incluida)</div></div></div>
+        <div class="timeline-item"><div class="tl-num" style="background:var(--verde)">5</div><div class="tl-txt"><div class="tl-titulo">Día 11–12: Entrega final</div><div class="tl-sub">Se activan los sistemas y se entregan todos los accesos</div></div></div>
+        <div style="margin-top:12px;padding:10px 14px;background:rgba(16,185,129,.08);border-radius:10px;font-size:.75rem;color:var(--verde);font-weight:700;">⏱ Tiempo total: 12 días hábiles</div>
+      </div>
+    </div>
+    <div class="paq-footer">
+      <div class="paq-footer-item">📝 <span><strong>1 ronda de revisiones</strong> incluida</span></div>
+      <div class="paq-footer-item">💳 <span><strong>50% al arrancar</strong> · 50% al entregar</span></div>
+      <div class="paq-footer-item">🛠 <span>Soporte técnico <strong>15 días</strong> post-entrega</span></div>
+    </div>
+  </div>
+
+  <!-- ── PANEL SISTEMA ── -->
+  <div class="panel" id="panel-sistema">
+    <div class="paq-header" style="background:rgba(249,115,22,.05);border-color:rgba(249,115,22,.25);">
+      <div class="paq-header-row">
+        <div class="paq-h-left">
+          <div class="paq-badge" style="color:var(--naranja)">⚙️ Paquete Sistema · Nivel 3</div>
+          <div class="paq-nombre">Sistema de captación completo</div>
+        </div>
+        <div class="paq-h-right">
+          <div class="paq-precio-cliente" style="color:var(--naranja)">$1.800 USD</div>
+          <div class="paq-precio-lbl">Precio que cobra Fernanda al cliente</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comisiones-box">
+      <div class="com-titulo">💰 Distribución del dinero</div>
+      <div class="com-fila">
+        <div class="com-fila-left">
+          <div class="com-ico" style="background:rgba(249,115,22,.15)">💰</div>
+          <div class="com-label"><strong>Fernanda cobra al cliente</strong>Total recibido antes de pagar al socio</div>
+        </div>
+        <div class="com-val" style="color:var(--blanco)">$1.800 <span class="com-pct" style="color:var(--muted)">100%</span></div>
+      </div>
+      <div class="com-fila">
+        <div class="com-fila-left">
+          <div class="com-ico" style="background:rgba(109,40,217,.15)">💻</div>
+          <div class="com-label"><strong>Fernanda paga al socio</strong>Costo fijo por la ejecución técnica</div>
+        </div>
+        <div class="com-val" style="color:var(--rojo)">-$700 <span class="com-pct" style="color:var(--muted)">39%</span></div>
+      </div>
+      <div class="com-fila" style="border:none;padding-bottom:0">
+        <div class="com-fila-left">
+          <div class="com-ico" style="background:rgba(249,115,22,.2)">✅</div>
+          <div class="com-label"><strong>Margen neto de Fernanda</strong>Lo que queda después de pagar todo</div>
+        </div>
+        <div class="com-val" style="color:var(--naranja);font-size:1.3rem">$1.100 <span class="com-pct" style="color:var(--naranja)">61%</span></div>
+      </div>
+    </div>
+    <div class="com-barra-wrap">
+      <div class="com-barra-lbl"><span style="color:var(--naranja)">Fernanda 61% · $1.100</span><span style="color:var(--muted)">Socio 39% · $700</span></div>
+      <div class="com-barra">
+        <div class="com-barra-f" style="width:61%;background:var(--naranja)"></div>
+        <div class="com-barra-s" style="width:39%;background:rgba(109,40,217,.5)"></div>
+      </div>
+    </div>
+
+    <div class="paq-grid">
+      <div class="paq-col">
+        <div class="col-titulo" style="color:var(--naranja)">📦 Qué se entrega al cliente</div>
+        <div class="entrega-item"><div class="ent-ico" style="background:rgba(249,115,22,.15)">🌐</div><div class="ent-texto"><div class="ent-titulo">Sitio web completo</div><div class="ent-sub">Hasta 5 páginas: home, servicios, sobre mí, blog y contacto</div></div></div>
+        <div class="entrega-item"><div class="ent-ico" style="background:rgba(249,115,22,.15)">🤖</div><div class="ent-texto"><div class="ent-titulo">Automatización completa</div><div class="ent-sub">WhatsApp + email + CRM básico conectados y funcionando</div></div></div>
+        <div class="entrega-item"><div class="ent-ico" style="background:rgba(249,115,22,.15)">🎯</div><div class="ent-texto"><div class="ent-titulo">Setup de Meta Ads</div><div class="ent-sub">Pixel instalado, audiencias creadas, 2 anuncios listos para activar</div></div></div>
+        <div class="entrega-item"><div class="ent-ico" style="background:rgba(249,115,22,.15)">📋</div><div class="ent-texto"><div class="ent-titulo">Estrategia de contenido 30 días</div><div class="ent-sub">Calendario editorial + guiones de los primeros 12 posts</div></div></div>
+        <div class="entrega-item"><div class="ent-ico" style="background:rgba(249,115,22,.15)">🔑</div><div class="ent-texto"><div class="ent-titulo">Entrega completa de accesos</div><div class="ent-sub">Todos los accesos, documentación y video tutorial de uso</div></div></div>
+      </div>
+      <div class="paq-col">
+        <div class="col-titulo" style="color:var(--naranja)">🗓 Timeline de entrega</div>
+        <div class="timeline-item"><div class="tl-num" style="background:var(--naranja)">1</div><div class="tl-txt"><div class="tl-titulo">Día 1–3: Kick-off + brief</div><div class="tl-sub">Llamada con cliente, definición de marca, colores, textos clave</div></div></div>
+        <div class="timeline-item"><div class="tl-num" style="background:var(--naranja)">2</div><div class="tl-txt"><div class="tl-titulo">Día 4–12: Desarrollo</div><div class="tl-sub">Socio construye el sitio y las automatizaciones</div></div></div>
+        <div class="timeline-item"><div class="tl-num" style="background:var(--naranja)">3</div><div class="tl-txt"><div class="tl-titulo">Día 13–14: Revisión interna</div><div class="tl-sub">Fernanda aprueba todo antes de mostrar al cliente</div></div></div>
+        <div class="timeline-item"><div class="tl-num" style="background:var(--naranja)">4</div><div class="tl-txt"><div class="tl-titulo">Día 15–17: Aprobación cliente</div><div class="tl-sub">Presentación al cliente, hasta 2 rondas de ajustes</div></div></div>
+        <div class="timeline-item"><div class="tl-num" style="background:var(--naranja)">5</div><div class="tl-txt"><div class="tl-titulo">Día 18–21: Entrega y activación</div><div class="tl-sub">Todo activo, accesos entregados, pauta lista para encender</div></div></div>
+        <div style="margin-top:12px;padding:10px 14px;background:rgba(249,115,22,.08);border-radius:10px;font-size:.75rem;color:var(--naranja);font-weight:700;">⏱ Tiempo total: 21 días hábiles</div>
+      </div>
+    </div>
+    <div class="paq-footer">
+      <div class="paq-footer-item">📝 <span><strong>2 rondas de revisiones</strong> incluidas</span></div>
+      <div class="paq-footer-item">💳 <span><strong>50% al arrancar</strong> · 50% al entregar</span></div>
+      <div class="paq-footer-item">🛠 <span>Soporte técnico <strong>30 días</strong> post-entrega</span></div>
+    </div>
+  </div>
+
+  <!-- ── PANEL ECOSISTEMA ── -->
+  <div class="panel" id="panel-ecosistema">
+    <div class="paq-header" style="background:rgba(245,184,0,.04);border-color:rgba(245,184,0,.3);">
+      <div class="paq-header-row">
+        <div class="paq-h-left">
+          <div class="paq-badge" style="color:var(--dorado)">👑 Paquete Ecosistema · Nivel 4</div>
+          <div class="paq-nombre">Ecosistema digital completo</div>
+        </div>
+        <div class="paq-h-right">
+          <div class="paq-precio-cliente" style="color:var(--dorado)">$3.200 USD</div>
+          <div class="paq-precio-lbl">Precio que cobra Fernanda al cliente</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comisiones-box">
+      <div class="com-titulo">💰 Distribución del dinero</div>
+      <div class="com-fila">
+        <div class="com-fila-left">
+          <div class="com-ico" style="background:rgba(245,184,0,.15)">💰</div>
+          <div class="com-label"><strong>Fernanda cobra al cliente</strong>Total recibido antes de pagar al socio</div>
+        </div>
+        <div class="com-val" style="color:var(--blanco)">$3.200 <span class="com-pct" style="color:var(--muted)">100%</span></div>
+      </div>
+      <div class="com-fila">
+        <div class="com-fila-left">
+          <div class="com-ico" style="background:rgba(109,40,217,.15)">💻</div>
+          <div class="com-label"><strong>Fernanda paga al socio</strong>Costo fijo por la ejecución técnica completa</div>
+        </div>
+        <div class="com-val" style="color:var(--rojo)">-$1.500 <span class="com-pct" style="color:var(--muted)">47%</span></div>
+      </div>
+      <div class="com-fila" style="border:none;padding-bottom:0">
+        <div class="com-fila-left">
+          <div class="com-ico" style="background:rgba(245,184,0,.2)">✅</div>
+          <div class="com-label"><strong>Margen neto de Fernanda</strong>Lo que queda después de pagar todo</div>
+        </div>
+        <div class="com-val" style="color:var(--dorado);font-size:1.3rem">$1.700 <span class="com-pct" style="color:var(--dorado)">53%</span></div>
+      </div>
+    </div>
+    <div class="com-barra-wrap">
+      <div class="com-barra-lbl"><span style="color:var(--dorado)">Fernanda 53% · $1.700</span><span style="color:var(--muted)">Socio 47% · $1.500</span></div>
+      <div class="com-barra">
+        <div class="com-barra-f" style="width:53%;background:var(--dorado)"></div>
+        <div class="com-barra-s" style="width:47%;background:rgba(109,40,217,.5)"></div>
+      </div>
+    </div>
+
+    <div class="paq-grid">
+      <div class="paq-col">
+        <div class="col-titulo" style="color:var(--dorado)">📦 Qué se entrega al cliente</div>
+        <div class="entrega-item"><div class="ent-ico" style="background:rgba(245,184,0,.12)">🌐</div><div class="ent-texto"><div class="ent-titulo">Todo el Paquete Sistema</div><div class="ent-sub">Web completa + automatizaciones + pauta + estrategia de contenido</div></div></div>
+        <div class="entrega-item"><div class="ent-ico" style="background:rgba(245,184,0,.12)">📱</div><div class="ent-texto"><div class="ent-titulo">App o herramienta a medida</div><div class="ent-sub">Una herramienta construida para el negocio específico del cliente</div></div></div>
+        <div class="entrega-item"><div class="ent-ico" style="background:rgba(245,184,0,.12)">📊</div><div class="ent-texto"><div class="ent-titulo">Dashboard de métricas</div><div class="ent-sub">El cliente ve en tiempo real leads, conversiones, alcance y ventas</div></div></div>
+        <div class="entrega-item"><div class="ent-ico" style="background:rgba(245,184,0,.12)">🎓</div><div class="ent-texto"><div class="ent-titulo">Capacitación del equipo</div><div class="ent-sub">2 sesiones de capacitación para que el equipo del cliente maneje todo</div></div></div>
+        <div class="entrega-item"><div class="ent-ico" style="background:rgba(245,184,0,.12)">🔑</div><div class="ent-texto"><div class="ent-titulo">Documentación completa</div><div class="ent-sub">Manual de uso + videos tutoriales + contraseñas organizadas</div></div></div>
+      </div>
+      <div class="paq-col">
+        <div class="col-titulo" style="color:var(--dorado)">🗓 Timeline de entrega</div>
+        <div class="timeline-item"><div class="tl-num" style="background:var(--dorado)">1</div><div class="tl-txt"><div class="tl-titulo">Semana 1: Diagnóstico profundo</div><div class="tl-sub">Auditoría del negocio, mapa de procesos, definición de la herramienta a medida</div></div></div>
+        <div class="timeline-item"><div class="tl-num" style="background:var(--dorado)">2</div><div class="tl-txt"><div class="tl-titulo">Semanas 2–3: Desarrollo</div><div class="tl-sub">Sitio web + automatizaciones + app o herramienta personalizada</div></div></div>
+        <div class="timeline-item"><div class="tl-num" style="background:var(--dorado)">3</div><div class="tl-txt"><div class="tl-titulo">Semana 4: Revisión y ajustes</div><div class="tl-sub">Hasta 3 rondas de revisión con el cliente</div></div></div>
+        <div class="timeline-item"><div class="tl-num" style="background:var(--dorado)">4</div><div class="tl-txt"><div class="tl-titulo">Semana 5: Activación y capacitación</div><div class="tl-sub">Todo activado + 2 sesiones con el equipo del cliente</div></div></div>
+        <div style="margin-top:12px;padding:10px 14px;background:rgba(245,184,0,.07);border-radius:10px;font-size:.75rem;color:var(--dorado);font-weight:700;">⏱ Tiempo total: 35 días hábiles</div>
+      </div>
+    </div>
+    <div class="paq-footer">
+      <div class="paq-footer-item">📝 <span><strong>3 rondas de revisiones</strong> incluidas</span></div>
+      <div class="paq-footer-item">💳 <span><strong>50% al arrancar</strong> · 25% a mitad · 25% al entregar</span></div>
+      <div class="paq-footer-item">🛠 <span>Soporte técnico <strong>60 días</strong> post-entrega</span></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════ ONBOARDING ═══════════════════════ -->
+<div class="bloque">
+  <div class="sec-lbl">Proceso de inicio</div>
+  <h2 class="sec-h">Onboarding:<br><em>del sí al arranque.</em></h2>
+  <p class="sec-p">Desde que el cliente dice "me interesa" hasta que el proyecto empieza oficialmente. Cada paso tiene un responsable y un tiempo límite.</p>
+
+  <div class="onboarding-grid">
+    <div class="ob-step">
+      <div class="ob-num">1</div>
+      <div>
+        <div class="ob-titulo">Cliente dice "me interesa"</div>
+        <div class="ob-desc">Llega por WhatsApp, Instagram o referido. Fernanda responde en menos de 24h con una pregunta calificadora: "¿Cuéntame de tu negocio?"</div>
+        <div class="ob-tiempo">⏱ Tiempo máx: 24h para responder</div>
+      </div>
+    </div>
+    <div class="ob-step">
+      <div class="ob-num">2</div>
+      <div>
+        <div class="ob-titulo">Llamada de diagnóstico (30 min)</div>
+        <div class="ob-desc">Fernanda hace la llamada sola con el cliente. Entiende el negocio, detecta qué paquete aplica, presenta la propuesta con precio.</div>
+        <div class="ob-tiempo">⏱ Duración: 30 minutos · Fernanda sola</div>
+      </div>
+    </div>
+    <div class="ob-step">
+      <div class="ob-num">3</div>
+      <div>
+        <div class="ob-titulo">Propuesta escrita + contrato</div>
+        <div class="ob-desc">Fernanda envía propuesta por escrito: qué incluye, qué NO incluye, precio, tiempos y política de revisiones. Cliente firma antes de pagar.</div>
+        <div class="ob-tiempo">⏱ Enviar en menos de 48h después de la llamada</div>
+      </div>
+    </div>
+    <div class="ob-step">
+      <div class="ob-num">4</div>
+      <div>
+        <div class="ob-titulo">Pago del 50% inicial</div>
+        <div class="ob-desc">Ningún proyecto arranca sin el 50% pagado. Sin excepciones. El pago confirma el compromiso del cliente y paga al socio para empezar.</div>
+        <div class="ob-tiempo">⚠️ Sin pago = sin inicio. Regla fija.</div>
+      </div>
+    </div>
+    <div class="ob-step">
+      <div class="ob-num">5</div>
+      <div>
+        <div class="ob-titulo">Brief completo al socio</div>
+        <div class="ob-desc">Fernanda llena el brief técnico y lo pasa al socio. El brief incluye: logo, colores, textos, referencias visuales, accesos necesarios y prioridades.</div>
+        <div class="ob-tiempo">⏱ Brief enviado al socio en máx 24h después del pago</div>
+      </div>
+    </div>
+    <div class="ob-step">
+      <div class="ob-num">6</div>
+      <div>
+        <div class="ob-titulo">Reunión de arranque interna</div>
+        <div class="ob-desc">Fernanda y socio alinean el proyecto: dudas del brief, timeline confirmado, hito de primera revisión. El cliente no participa en esta reunión.</div>
+        <div class="ob-tiempo">⏱ 30 min · Fernanda + socio solamente</div>
+      </div>
+    </div>
+    <div class="ob-step">
+      <div class="ob-num">7</div>
+      <div>
+        <div class="ob-titulo">Confirmación al cliente</div>
+        <div class="ob-desc">Fernanda le avisa al cliente que el proyecto arrancó, le da la fecha estimada de primera revisión y el canal oficial de comunicación (solo WhatsApp).</div>
+        <div class="ob-tiempo">⏱ Mensaje de confirmación ese mismo día</div>
+      </div>
+    </div>
+    <div class="ob-step">
+      <div class="ob-num">8</div>
+      <div>
+        <div class="ob-titulo">Proyecto en marcha</div>
+        <div class="ob-desc">El socio ejecuta. Fernanda es el intermediario. El cliente solo habla con Fernanda — el socio nunca habla directo con el cliente salvo autorización expresa.</div>
+        <div class="ob-tiempo">✅ Fernanda = única cara visible ante el cliente</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════ POLÍTICA CAMBIOS ═══════════════════ -->
+<div class="bloque">
+  <div class="sec-lbl">Gestión de cambios</div>
+  <h2 class="sec-h">Qué es una revisión<br>y qué es un <em>cambio extra.</em></h2>
+  <p class="sec-p">La claridad aquí evita el 90% de los conflictos con clientes. Esto se explica antes de firmar, no después.</p>
+
+  <div class="politica-grid">
+    <div class="pol-card verde">
+      <div class="pol-ico">✅</div>
+      <div class="pol-titulo">Incluido en revisión</div>
+      <div class="pol-desc">Cambiar textos · Ajustar colores dentro de la paleta · Mover secciones · Cambiar imágenes · Ajustar botones · Corregir errores de diseño o funcionalidad</div>
+    </div>
+    <div class="pol-card amarillo">
+      <div class="pol-ico">⚠️</div>
+      <div class="pol-titulo">Revisión extra (con costo)</div>
+      <div class="pol-desc">Cambiar la estructura completa de la página · Agregar secciones no contempladas en el brief · Cambiar la paleta de colores completa · Revisiones fuera del período activo</div>
+    </div>
+    <div class="pol-card rojo">
+      <div class="pol-ico">🚫</div>
+      <div class="pol-titulo">Fuera del proyecto</div>
+      <div class="pol-desc">Agregar funcionalidades nuevas después del brief firmado · Integrar plataformas no contempladas · Capacitación adicional · Mantenimiento después del período de soporte</div>
+    </div>
+  </div>
+
+  <div style="overflow-x:auto;margin-top:24px;">
+  <table class="politica-tabla">
+    <thead>
+      <tr>
+        <th>Situación</th>
+        <th>Paquete Arranque</th>
+        <th>Paquete Sistema</th>
+        <th>Paquete Ecosistema</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Revisiones incluidas</td>
+        <td><span class="tag tag-v">1 ronda</span></td>
+        <td><span class="tag tag-a">2 rondas</span></td>
+        <td><span class="tag tag-a">3 rondas</span></td>
+      </tr>
+      <tr>
+        <td>Revisión extra (fuera de las incluidas)</td>
+        <td colspan="3" style="color:var(--dorado);font-weight:700">$150 USD por ronda adicional — se paga antes de ejecutar</td>
+      </tr>
+      <tr>
+        <td>Tiempo para aprobar cada revisión</td>
+        <td colspan="3">72 horas hábiles. Si no hay respuesta, se asume aprobación.</td>
+      </tr>
+      <tr>
+        <td>Cambio de brief después de iniciado</td>
+        <td colspan="3"><span class="tag tag-r">Requiere presupuesto nuevo</span> — se detiene el proyecto hasta acordar</td>
+      </tr>
+      <tr>
+        <td>Soporte técnico post-entrega</td>
+        <td>15 días</td>
+        <td>30 días</td>
+        <td>60 días</td>
+      </tr>
+      <tr>
+        <td>Soporte después del período</td>
+        <td colspan="3">$80 USD/hora — cotización previa obligatoria</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════ PAGOS ═══════════════════════ -->
+<div class="bloque">
+  <div class="sec-lbl">Política de pagos</div>
+  <h2 class="sec-h">Sin pago,<br><em>sin inicio.</em></h2>
+  <p class="sec-p">Aplica para todos los paquetes. Sin excepciones, sin "te pago cuando vea resultados".</p>
+
+  <div class="pagos-grid">
+    <div class="pago-card" style="border-top:3px solid var(--dorado)">
+      <div class="pago-pct" style="color:var(--dorado)">50%</div>
+      <div class="pago-cuando">Al firmar el contrato</div>
+      <div class="pago-desc">Antes de que empiece cualquier trabajo. Este pago confirma el proyecto y le permite a Fernanda pagar al socio para arrancar.</div>
+    </div>
+    <div class="pago-card" style="border-top:3px solid var(--naranja)">
+      <div class="pago-pct" style="color:var(--naranja)">50%</div>
+      <div class="pago-cuando">Al entregar el proyecto</div>
+      <div class="pago-desc">Cuando el cliente aprueba la entrega final. Los accesos se entregan solo después de este pago. Sin excepciones.</div>
+    </div>
+    <div class="pago-card" style="border-top:3px solid var(--verde)">
+      <div class="pago-pct" style="color:var(--verde)">*25/25</div>
+      <div class="pago-cuando">Solo Ecosistema · En 3 pagos</div>
+      <div class="pago-desc">50% al inicio · 25% a mitad del proyecto (semana 3) · 25% a la entrega final.</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function mostrarPanel(nombre, boton){
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('visible'); });
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('activo'); });
+  document.getElementById('panel-' + nombre).classList.add('visible');
+  boton.classList.add('activo');
+}
+</script>
+</body>
+</html>
