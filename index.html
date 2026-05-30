@@ -263,7 +263,41 @@
   .incluye li { padding:10px 0; border-bottom:1px solid rgba(255,255,255,.06); color:#c0b8d8; font-size:.9rem; }
   .incluye li:last-child { border:none; }
   .incluye li::before { content:'✅ '; }
-  .garantia-box { background:rgba(74,222,128,.07); border:1px solid rgba(74,222,128,.2); border-radius:14px; padding:14px 22px; margin:20px auto; max-width:460px; font-size:.86rem; color:var(--verde); }
+  /* GARANTIA REDISEÑADA */
+  .garantia-box {
+    background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(16,185,129,.04));
+    border:1px solid rgba(16,185,129,.3);
+    border-radius:18px; padding:22px 26px;
+    margin:22px auto; max-width:480px;
+    display:flex; align-items:flex-start; gap:16px; text-align:left;
+  }
+  .garantia-ico {
+    font-size:2.4rem; flex-shrink:0; line-height:1;
+    filter:drop-shadow(0 0 10px rgba(16,185,129,.5));
+  }
+  .garantia-titulo {
+    font-size:.92rem; font-weight:800; color:#4ade80; margin-bottom:4px;
+  }
+  .garantia-desc { font-size:.8rem; color:#9080b0; line-height:1.6; }
+  .garantia-desc strong { color:#c0b8d8; }
+  /* ORDER BUMP */
+  .order-bump {
+    background:rgba(245,184,0,.04);
+    border:1.5px dashed rgba(245,184,0,.35);
+    border-radius:16px; padding:18px 20px;
+    margin:16px auto 0; max-width:480px; text-align:left;
+    display:flex; align-items:flex-start; gap:14px;
+  }
+  .ob-check {
+    width:22px; height:22px; border-radius:5px; flex-shrink:0;
+    background:var(--dorado); display:flex; align-items:center;
+    justify-content:center; margin-top:2px;
+    font-size:.85rem; font-weight:900; color:#0a0614;
+  }
+  .ob-titulo { font-size:.86rem; font-weight:800; color:var(--dorado); margin-bottom:3px; }
+  .ob-desc { font-size:.76rem; color:#9080b0; line-height:1.55; }
+  .ob-precio { font-size:.8rem; font-weight:800; color:var(--blanco); margin-top:5px; }
+  .ob-precio s { color:var(--muted); font-weight:400; margin-right:4px; }
 
   /* ── BARRA SUPERIOR FIJA ── */
   .top-bar { position:fixed; top:0; left:0; right:0; z-index:1000; background:linear-gradient(90deg,#c49200,var(--dorado) 50%,#c49200); border-bottom:3px solid #ff9900; padding:9px 16px; display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; box-shadow:0 4px 24px rgba(245,184,0,.4); }
@@ -803,9 +837,25 @@
       <li>Acceso de por vida + todas las actualizaciones</li>
     </ul>
 
-    <div class="garantia-box">🛡️ Garantía 7 días desde el primer módulo — 100% devuelto sin preguntas.</div>
-    <a href="https://pay.hotmart.com/V106014343N" target="_blank" class="btn" style="font-size:1.1rem;padding:20px 56px;margin-top:8px">Quiero Sistema 33 por $197 →</a>
-    <p style="color:var(--rojo);font-size:.78rem;margin-top:14px;font-weight:600">⏰ Preventa cierra el 31 de mayo · Solo 10 cupos</p>
+    <div class="garantia-box">
+      <div class="garantia-ico">🛡️</div>
+      <div>
+        <div class="garantia-titulo">Garantía total de 7 días</div>
+        <div class="garantia-desc">Si en los primeros 7 días sientes que Sistema 33 no es para ti, <strong>te devolvemos el 100% sin preguntas</strong>. Sin formularios raros, sin letras pequeñas. Tu inversión está protegida.</div>
+      </div>
+    </div>
+
+    <div class="order-bump">
+      <div class="ob-check">✓</div>
+      <div>
+        <div class="ob-titulo">⚡ Añade el Kit de Ejecución — oferta solo en el checkout</div>
+        <div class="ob-desc">50 hooks probados + 30 captions listos + 10 scripts de cierre para WhatsApp. Copiar, pegar y publicar desde el día 1.</div>
+        <div class="ob-precio"><s>$97 USD</s> Solo $37 USD — se añade en el pago</div>
+      </div>
+    </div>
+
+    <a href="https://pay.hotmart.com/V106014343N" target="_blank" class="btn" style="font-size:1.1rem;padding:20px 56px;margin-top:20px">Quiero Sistema 33 por $197 →</a>
+    <p style="color:var(--rojo);font-size:.78rem;margin-top:14px;font-weight:600">⏰ Preventa cierra el 5 de junio · Solo 10 cupos</p>
     <p style="color:#3a3060;font-size:.74rem;margin-top:8px">Pago seguro · Hotmart · Tarjeta, PSE, Efecty y más</p>
   </div>
 </div>
