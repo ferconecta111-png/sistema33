@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modelo White Label — Fernanda × Socio</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --negro:#08060f;--oscuro:#110e1f;
+  --verde:#10b981;--verde2:#059669;
+  --morado:#6d28d9;--dorado:#f5b800;--dorado2:#e07b00;
+  --rojo:#f87171;--azul:#3b82f6;
+  --blanco:#ffffff;--muted:#7c6fa0;
+}
+
+html,body{min-height:100%;font-family:'Inter',sans-serif;background:var(--negro);color:#e8e0f0;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E");}
+
+.page{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:52px 24px 90px;}
+
+/* ── HEADER ── */
+.back{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;color:var(--muted);
+  text-decoration:none;margin-bottom:28px;transition:color .2s;}
+.back:hover{color:var(--dorado);}
+.header-chip{display:inline-flex;align-items:center;gap:6px;
+  background:rgba(245,184,0,.1);border:1px solid rgba(245,184,0,.25);
+  border-radius:20px;padding:5px 14px;font-size:.68rem;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--dorado);margin-bottom:16px;}
+h1{font-size:clamp(2rem,5vw,3rem);font-weight:900;line-height:1.05;
+  color:var(--blanco);margin-bottom:10px;letter-spacing:-1px;}
+h1 em{font-style:normal;background:linear-gradient(135deg,var(--dorado),#ff9900);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.header-sub{font-size:.9rem;color:var(--muted);line-height:1.7;max-width:580px;margin-bottom:40px;}
+
+/* ── SECCIÓN LABEL ── */
+.sl{font-size:.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--dorado);margin-bottom:8px;}
+h2{font-size:clamp(1.3rem,3vw,1.7rem);font-weight:900;color:var(--blanco);
+  margin-bottom:8px;line-height:1.15;}
+h2 em{font-style:normal;color:var(--dorado);}
+.sdesc{font-size:.84rem;color:var(--muted);line-height:1.7;margin-bottom:24px;}
+
+/* ── BLOQUES ── */
+.bloque{margin-bottom:52px;}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);
+  margin:48px 0;}
+
+/* ── HERO CARDS MÉTRICAS ── */
+.metricas-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:0;}
+.met-card{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;padding:20px 18px;text-align:center;}
+.met-card.gold{border-color:rgba(245,184,0,.3);background:rgba(245,184,0,.04);}
+.met-val{font-size:1.5rem;font-weight:900;line-height:1;margin-bottom:5px;}
+.met-lbl{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;line-height:1.4;}
+
+/* ── FLUJO VISUAL ── */
+.flujo-visual{
+  background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
+  border-radius:20px;padding:28px 32px;
+}
+.flujo-fila{display:flex;align-items:center;gap:0;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;}
+.flujo-nodo{
+  flex-shrink:0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;padding:16px 18px;text-align:center;min-width:130px;
+}
+.flujo-nodo.cliente{border-color:rgba(59,130,246,.3);background:rgba(59,130,246,.07);}
+.flujo-nodo.tu{border-color:rgba(245,184,0,.35);background:rgba(245,184,0,.06);}
+.flujo-nodo.socio{border-color:rgba(109,40,217,.3);background:rgba(109,40,217,.06);}
+.flujo-nodo.margen{border-color:rgba(16,185,129,.35);background:rgba(16,185,129,.08);}
+.fn-ico{font-size:1.4rem;margin-bottom:6px;}
+.fn-titulo{font-size:.75rem;font-weight:800;color:var(--blanco);margin-bottom:3px;}
+.fn-val{font-size:.7rem;color:var(--muted);}
+.flujo-arrow{padding:0 10px;color:var(--muted);font-size:1.2rem;flex-shrink:0;}
+.flujo-nota{margin-top:18px;font-size:.75rem;color:var(--muted);line-height:1.6;
+  border-top:1px solid rgba(255,255,255,.06);padding-top:14px;}
+
+/* ── PAQUETES ── */
+.paquetes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.paq{
+  background:rgba(17,14,31,.95);border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;overflow:hidden;display:flex;flex-direction:column;
+}
+.paq.recomendado{border-color:rgba(245,184,0,.35);}
+.paq-bar{height:4px;}
+.paq-body{padding:22px 20px;flex:1;}
+.paq-num{font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:8px;}
+.paq-nombre{font-size:1rem;font-weight:900;color:var(--blanco);margin-bottom:6px;}
+.paq-desc{font-size:.76rem;color:var(--muted);line-height:1.55;margin-bottom:16px;}
+.paq-precio-row{display:flex;align-items:baseline;gap:6px;margin-bottom:4px;}
+.paq-precio-cliente{font-size:1.4rem;font-weight:900;color:var(--blanco);}
+.paq-precio-lbl{font-size:.7rem;color:var(--muted);}
+.paq-costos{margin-top:12px;border-top:1px solid rgba(255,255,255,.06);padding-top:12px;}
+.paq-costo-fila{display:flex;justify-content:space-between;align-items:center;
+  font-size:.75rem;margin-bottom:5px;color:#c0b8d8;}
+.paq-costo-fila span:last-child{font-weight:700;}
+.paq-margen{
+  background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);
+  border-radius:8px;padding:8px 12px;display:flex;justify-content:space-between;
+  align-items:center;margin-top:10px;}
+.paq-margen-lbl{font-size:.7rem;color:var(--verde);font-weight:700;}
+.paq-margen-val{font-size:1rem;font-weight:900;color:var(--verde);}
+.paq-incluye{padding:0 20px 20px;}
+.paq-inc-titulo{font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:8px;}
+.paq-item{display:flex;align-items:flex-start;gap:7px;font-size:.74rem;color:#c0b8d8;
+  line-height:1.45;margin-bottom:5px;}
+.paq-item::before{content:'›';color:var(--dorado);flex-shrink:0;margin-top:0px;font-weight:700;}
+
+/* ── ROLES TABLA ── */
+.roles-tabla{width:100%;border-collapse:collapse;}
+.roles-tabla th{padding:10px 16px;text-align:left;border-bottom:2px solid rgba(255,255,255,.08);
+  font-size:.62rem;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;font-weight:700;}
+.roles-tabla td{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.05);
+  font-size:.8rem;color:#c0b8d8;}
+.roles-tabla tr:hover td{background:rgba(255,255,255,.02);}
+.roles-tabla td:first-child{color:var(--blanco);font-weight:600;}
+.si{color:var(--verde);font-weight:800;}
+.no{color:var(--rojo);font-weight:800;}
+.ambos{color:var(--dorado);font-weight:800;}
+
+/* ── CONDICIONES ── */
+.condiciones{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.cond{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;padding:20px 20px;}
+.cond.verde{border-left:3px solid var(--verde);}
+.cond.rojo{border-left:3px solid var(--rojo);}
+.cond-titulo{font-size:.82rem;font-weight:800;color:var(--blanco);margin-bottom:10px;}
+.cond-item{display:flex;align-items:flex-start;gap:8px;font-size:.76rem;
+  color:#c0b8d8;line-height:1.5;margin-bottom:7px;}
+.cond-item .dot{width:5px;height:5px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+
+/* ── PILOTO ── */
+.piloto{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.mes-card{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;padding:20px 18px;}
+.mes-num{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--dorado);margin-bottom:8px;}
+.mes-titulo{font-size:.92rem;font-weight:800;color:var(--blanco);margin-bottom:8px;}
+.mes-item{font-size:.76rem;color:var(--muted);line-height:1.6;margin-bottom:4px;
+  padding-left:12px;position:relative;}
+.mes-item::before{content:'·';position:absolute;left:0;color:var(--dorado);}
+
+/* ── CALCULADORA ── */
+.calc-box{
+  background:linear-gradient(135deg,rgba(245,184,0,.06),rgba(109,40,217,.06));
+  border:1px solid rgba(245,184,0,.2);border-radius:20px;padding:28px 32px;
+}
+.calc-titulo{font-size:1rem;font-weight:900;color:var(--blanco);margin-bottom:20px;}
+.calc-slider-row{margin-bottom:20px;}
+.calc-lbl{font-size:.75rem;color:var(--muted);font-weight:600;margin-bottom:8px;
+  display:flex;justify-content:space-between;}
+.calc-lbl span{color:var(--blanco);font-weight:800;}
+input[type=range]{width:100%;accent-color:var(--dorado);height:6px;}
+.calc-resultado{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px;
+  border-top:1px solid rgba(255,255,255,.07);padding-top:20px;
+}
+.calc-res{text-align:center;}
+.calc-res-val{font-size:1.4rem;font-weight:900;margin-bottom:4px;}
+.calc-res-lbl{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;}
+
+/* ── PROTECCIONES ── */
+.protecciones{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.prot{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
+  border-top:2px solid var(--dorado);border-radius:16px;padding:18px 20px;}
+.prot-num{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--dorado);margin-bottom:6px;}
+.prot-titulo{font-size:.88rem;font-weight:800;color:var(--blanco);margin-bottom:6px;}
+.prot-desc{font-size:.76rem;color:var(--muted);line-height:1.55;}
+
+/* ── CTA ── */
+.cta-final{background:linear-gradient(135deg,rgba(109,40,217,.1),rgba(245,184,0,.06));
+  border:1px solid rgba(245,184,0,.2);border-radius:20px;padding:32px;text-align:center;}
+.cta-final h3{font-size:1.2rem;font-weight:900;color:var(--blanco);margin-bottom:8px;}
+.cta-final p{font-size:.83rem;color:var(--muted);max-width:440px;margin:0 auto 20px;line-height:1.7;}
+.btn-cta{display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--dorado),var(--dorado2));
+  color:#0a0614;font-size:.88rem;font-weight:900;
+  padding:14px 28px;border-radius:12px;border:none;cursor:pointer;
+  font-family:'Inter',sans-serif;text-decoration:none;transition:all .2s;}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(245,184,0,.3);}
+
+@media(max-width:700px){
+  .metricas-row{grid-template-columns:1fr 1fr;}
+  .paquetes{grid-template-columns:1fr;}
+  .condiciones{grid-template-columns:1fr;}
+  .piloto{grid-template-columns:1fr;}
+  .calc-resultado{grid-template-columns:1fr 1fr;}
+  .protecciones{grid-template-columns:1fr;}
+  .flujo-fila{flex-direction:column;align-items:flex-start;}
+  .flujo-arrow{transform:rotate(90deg);}
+  .roles-tabla{font-size:.72rem;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<a href="modelos-sociedad.html" class="back">← Volver a todos los modelos</a>
+
+<div class="header-chip">⭐ Modelo recomendado · 02</div>
+<h1>Modelo<br><em>White Label</em></h1>
+<p class="header-sub">El modelo donde tú eres la marca, él es el motor. Tú consigues y cierras. Él ejecuta. Tú te quedas el margen. El cliente nunca sabe quién entrega — solo sabe que confía en ti.</p>
+
+<!-- ── MÉTRICAS CLAVE ── -->
+<div class="bloque">
+  <div class="metricas-row">
+    <div class="met-card gold">
+      <div class="met-val" style="color:var(--dorado)">$1.200</div>
+      <div class="met-lbl">Margen mínimo por proyecto</div>
+    </div>
+    <div class="met-card gold">
+      <div class="met-val" style="color:var(--verde)">$2.700</div>
+      <div class="met-lbl">Margen máximo por proyecto</div>
+    </div>
+    <div class="met-card">
+      <div class="met-val" style="color:var(--blanco)">100%</div>
+      <div class="met-lbl">Control de marca tuyo</div>
+    </div>
+    <div class="met-card">
+      <div class="met-val" style="color:var(--azul)">0%</div>
+      <div class="met-lbl">Ejecución técnica tuya</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── FLUJO DE DINERO ── -->
+<div class="bloque">
+  <div class="sl">Cómo fluye el dinero</div>
+  <h2>Tú cobras <em>todo</em> primero.</h2>
+  <p class="sdesc">El cliente te paga a ti. Tú le pagas a él su costo fijo. Lo que queda es tuyo. Simple.</p>
+
+  <div class="flujo-visual">
+    <div class="flujo-fila">
+      <div class="flujo-nodo cliente">
+        <div class="fn-ico">🙋</div>
+        <div class="fn-titulo">Cliente</div>
+        <div class="fn-val">Paga $2.500–4.000</div>
+      </div>
+      <div class="flujo-arrow">→</div>
+      <div class="flujo-nodo tu">
+        <div class="fn-ico">👩‍💼</div>
+        <div class="fn-titulo">Fernanda</div>
+        <div class="fn-val">Recibe el 100%</div>
+      </div>
+      <div class="flujo-arrow">→</div>
+      <div class="flujo-nodo socio">
+        <div class="fn-ico">💻</div>
+        <div class="fn-titulo">Socio Técnico</div>
+        <div class="fn-val">Recibe $1.300 fijo</div>
+      </div>
+      <div class="flujo-arrow">→</div>
+      <div class="flujo-nodo margen">
+        <div class="fn-ico">💰</div>
+        <div class="fn-titulo">Tu margen</div>
+        <div class="fn-val" style="color:var(--verde);font-weight:800">$1.200–2.700</div>
+      </div>
+    </div>
+    <div class="flujo-nota">
+      ✅ Tú facturas al cliente · Tú pagas al socio · El cliente no sabe quién entrega · La relación es 100% tuya.<br>
+      ⚠️ El socio tiene su precio fijo. Lo que tú cobres por encima es <strong style="color:var(--blanco)">enteramente tuyo</strong> — sin pedirle permiso.
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── PAQUETES ── -->
+<div class="bloque">
+  <div class="sl">Estructura de paquetes</div>
+  <h2>Tres paquetes.<br><em>Tres márgenes.</em></h2>
+  <p class="sdesc">Estos son los paquetes iniciales propuestos. Tú decides el precio final — el costo del socio es fijo.</p>
+
+  <div class="paquetes">
+    <div class="paq">
+      <div class="paq-bar" style="background:linear-gradient(90deg,#3b82f6,#6d28d9)"></div>
+      <div class="paq-body">
+        <div class="paq-num" style="color:#60a5fa">Paquete 01</div>
+        <div class="paq-nombre">Presencia Digital</div>
+        <div class="paq-desc">Web profesional + IA básica integrada + estrategia de contenido 30 días.</div>
+        <div class="paq-precio-row">
+          <div class="paq-precio-cliente">$2.500</div>
+          <div class="paq-precio-lbl">USD cobras tú</div>
+        </div>
+        <div class="paq-costos">
+          <div class="paq-costo-fila"><span>Costo socio</span><span style="color:#f87171">-$1.300</span></div>
+          <div class="paq-margen">
+            <div class="paq-margen-lbl">Tu margen</div>
+            <div class="paq-margen-val">$1.200</div>
+          </div>
+        </div>
+      </div>
+      <div class="paq-incluye">
+        <div class="paq-inc-titulo">Qué incluye</div>
+        <div class="paq-item">Web profesional con IA integrada</div>
+        <div class="paq-item">Estrategia de contenido 30 días</div>
+        <div class="paq-item">Setup de herramientas básicas</div>
+        <div class="paq-item">1 revisión incluida</div>
+      </div>
+    </div>
+
+    <div class="paq recomendado">
+      <div class="paq-bar" style="background:linear-gradient(90deg,var(--dorado),var(--dorado2))"></div>
+      <div class="paq-body">
+        <div class="paq-num" style="color:var(--dorado)">Paquete 02 ⭐</div>
+        <div class="paq-nombre">Sistema de Captación</div>
+        <div class="paq-desc">Landing page + automatización completa + pauta inicial + integración WhatsApp.</div>
+        <div class="paq-precio-row">
+          <div class="paq-precio-cliente" style="color:var(--dorado)">$3.500</div>
+          <div class="paq-precio-lbl">USD cobras tú</div>
+        </div>
+        <div class="paq-costos">
+          <div class="paq-costo-fila"><span>Costo socio</span><span style="color:#f87171">-$1.800</span></div>
+          <div class="paq-margen">
+            <div class="paq-margen-lbl">Tu margen</div>
+            <div class="paq-margen-val">$1.700</div>
+          </div>
+        </div>
+      </div>
+      <div class="paq-incluye">
+        <div class="paq-inc-titulo">Qué incluye</div>
+        <div class="paq-item">Landing de alta conversión</div>
+        <div class="paq-item">Automatización email + WhatsApp</div>
+        <div class="paq-item">Setup pauta Meta Ads</div>
+        <div class="paq-item">CRM básico integrado</div>
+        <div class="paq-item">2 revisiones incluidas</div>
+      </div>
+    </div>
+
+    <div class="paq">
+      <div class="paq-bar" style="background:linear-gradient(90deg,#10b981,#059669)"></div>
+      <div class="paq-body">
+        <div class="paq-num" style="color:#34d399">Paquete 03</div>
+        <div class="paq-nombre">Ecosistema Completo</div>
+        <div class="paq-desc">Todo lo anterior + app o herramienta personalizada + dashboard de métricas + capacitación.</div>
+        <div class="paq-precio-row">
+          <div class="paq-precio-cliente">$5.000</div>
+          <div class="paq-precio-lbl">USD cobras tú</div>
+        </div>
+        <div class="paq-costos">
+          <div class="paq-costo-fila"><span>Costo socio</span><span style="color:#f87171">-$2.500</span></div>
+          <div class="paq-margen">
+            <div class="paq-margen-lbl">Tu margen</div>
+            <div class="paq-margen-val">$2.500</div>
+          </div>
+        </div>
+      </div>
+      <div class="paq-incluye">
+        <div class="paq-inc-titulo">Qué incluye</div>
+        <div class="paq-item">Paquete 01 + 02 completos</div>
+        <div class="paq-item">App o herramienta a medida</div>
+        <div class="paq-item">Dashboard de métricas</div>
+        <div class="paq-item">Capacitación al equipo del cliente</div>
+        <div class="paq-item">30 días de soporte post-entrega</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── CALCULADORA ── -->
+<div class="bloque">
+  <div class="sl">Proyección de ingresos</div>
+  <h2>¿Cuánto puedes<br><em>ganar al mes?</em></h2>
+  <p class="sdesc">Mueve los sliders y ve la proyección en tiempo real.</p>
+
+  <div class="calc-box">
+    <div class="calc-titulo">🧮 Calculadora White Label</div>
+    <div class="calc-slider-row">
+      <div class="calc-lbl">Proyectos por mes <span id="val-proyectos">3</span></div>
+      <input type="range" min="1" max="10" value="3" id="slider-proyectos" oninput="calcular()">
+    </div>
+    <div class="calc-slider-row">
+      <div class="calc-lbl">Precio promedio por proyecto <span id="val-precio">$3.500 USD</span></div>
+      <input type="range" min="2500" max="5000" step="250" value="3500" id="slider-precio" oninput="calcular()">
+    </div>
+    <div class="calc-slider-row">
+      <div class="calc-lbl">Costo promedio del socio <span id="val-costo">$1.300 USD</span></div>
+      <input type="range" min="1300" max="2500" step="100" value="1300" id="slider-costo" oninput="calcular()">
+    </div>
+    <div class="calc-resultado">
+      <div class="calc-res">
+        <div class="calc-res-val" id="res-bruto" style="color:var(--blanco)">$10.500</div>
+        <div class="calc-res-lbl">Ingresos brutos</div>
+      </div>
+      <div class="calc-res">
+        <div class="calc-res-val" id="res-costo" style="color:var(--rojo)">-$3.900</div>
+        <div class="calc-res-lbl">Costo del socio</div>
+      </div>
+      <div class="calc-res">
+        <div class="calc-res-val" id="res-margen" style="color:var(--verde)">$6.600</div>
+        <div class="calc-res-lbl">Tu margen neto</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── ROLES ── -->
+<div class="bloque">
+  <div class="sl">División de responsabilidades</div>
+  <h2>Cada quien<br><em>en su rol.</em></h2>
+  <p class="sdesc">Sin pisarse. Sin ambigüedad. Si algo no está aquí, se decide antes de que ocurra.</p>
+
+  <div style="overflow-x:auto;">
+  <table class="roles-tabla">
+    <thead>
+      <tr>
+        <th>Tarea</th>
+        <th>Fernanda</th>
+        <th>Socio Técnico</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Conseguir el cliente</td><td class="si">✅ Siempre</td><td class="no">❌ Nunca</td></tr>
+      <tr><td>Presentar la propuesta</td><td class="si">✅ Tú</td><td class="no">❌</td></tr>
+      <tr><td>Cerrar la venta</td><td class="si">✅ Tú</td><td class="no">❌</td></tr>
+      <tr><td>Definir el precio al cliente</td><td class="si">✅ Tú decides</td><td class="no">❌ No sabe</td></tr>
+      <tr><td>Dirección estratégica del proyecto</td><td class="si">✅ Tú</td><td class="ambos">Consultoría</td></tr>
+      <tr><td>Ejecución técnica (código, web, IA)</td><td class="no">❌</td><td class="si">✅ Él</td></tr>
+      <tr><td>Diseño y UX</td><td class="ambos">Aprueba</td><td class="si">✅ Ejecuta</td></tr>
+      <tr><td>Primera línea con el cliente</td><td class="si">✅ Siempre</td><td class="no">Solo si Fernanda lo decide</td></tr>
+      <tr><td>Soporte técnico post-entrega</td><td class="no">❌</td><td class="si">✅ 30 días</td></tr>
+      <tr><td>Facturar al cliente</td><td class="si">✅ Tú</td><td class="no">❌</td></tr>
+      <tr><td>Contactar clientes de Fernanda solo</td><td class="no">No aplica</td><td class="no">❌ Prohibido</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── CONDICIONES ── -->
+<div class="bloque">
+  <div class="sl">Protecciones para ti</div>
+  <h2>Lo que debe quedar<br><em>por escrito.</em></h2>
+  <p class="sdesc">Antes de mandar el primer cliente, estos puntos tienen que estar acordados. No son negociables.</p>
+
+  <div class="protecciones">
+    <div class="prot">
+      <div class="prot-num">01</div>
+      <div class="prot-titulo">Confidencialidad del margen</div>
+      <div class="prot-desc">El socio no sabe ni puede saber cuánto cobras tú al cliente. Lo suyo es su costo fijo. Lo tuyo es tu negocio.</div>
+    </div>
+    <div class="prot">
+      <div class="prot-num">02</div>
+      <div class="prot-titulo">No competencia directa</div>
+      <div class="prot-desc">El socio no puede contactar a tus clientes para ofrecerles servicios sin tu autorización expresa y por escrito.</div>
+    </div>
+    <div class="prot">
+      <div class="prot-num">03</div>
+      <div class="prot-titulo">SLA por proyecto</div>
+      <div class="prot-desc">Antes de arrancar cada proyecto, él firma los tiempos de entrega. Si no cumple, hay una penalidad acordada.</div>
+    </div>
+    <div class="prot">
+      <div class="prot-num">04</div>
+      <div class="prot-titulo">Precio fijo 6 meses</div>
+      <div class="prot-desc">Su costo no puede subir sin avisar con 30 días de anticipación. Sin cambios sorpresa que rompan tu margen.</div>
+    </div>
+    <div class="prot">
+      <div class="prot-num">05</div>
+      <div class="prot-titulo">Propiedad del cliente</div>
+      <div class="prot-desc">El cliente es tuyo. Los datos, la relación, el historial. Si la sociedad termina, el cliente sigue siendo tuyo.</div>
+    </div>
+    <div class="prot">
+      <div class="prot-num">06</div>
+      <div class="prot-titulo">Piloto sin exclusividad</div>
+      <div class="prot-desc">Los primeros 3 meses, ninguno es exclusivo del otro. Si no funciona, cada uno sigue su camino sin drama.</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── PILOTO ── -->
+<div class="bloque">
+  <div class="sl">Cómo arrancar</div>
+  <h2>Piloto de <em>90 días.</em></h2>
+  <p class="sdesc">Antes de firmar cualquier contrato largo, 3 meses para probar que el proceso funciona.</p>
+  <div class="piloto">
+    <div class="mes-card">
+      <div class="mes-num">Mes 1</div>
+      <div class="mes-titulo">Validar el proceso</div>
+      <div class="mes-item">1 cliente piloto juntos</div>
+      <div class="mes-item">Fernanda cierra, él entrega</div>
+      <div class="mes-item">Medir fricción y tiempos reales</div>
+      <div class="mes-item">Documentar lo que funcionó</div>
+    </div>
+    <div class="mes-card">
+      <div class="mes-num">Mes 2</div>
+      <div class="mes-titulo">Optimizar el flujo</div>
+      <div class="mes-item">Ajustar paquetes y precios</div>
+      <div class="mes-item">Formalizar el proceso de handoff</div>
+      <div class="mes-item">Definir canal de comunicación</div>
+      <div class="mes-item">2 clientes si el mes 1 funcionó</div>
+    </div>
+    <div class="mes-card">
+      <div class="mes-num">Mes 3</div>
+      <div class="mes-titulo">Escalar y firmar</div>
+      <div class="mes-item">3–5 clientes si hay capacidad</div>
+      <div class="mes-item">Revisar si los márgenes se mantienen</div>
+      <div class="mes-item">Decidir si se firma contrato formal</div>
+      <div class="mes-item">Proyectar para los siguientes 6 meses</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── CTA ── -->
+<div class="cta-final">
+  <h3>¿Este es el modelo que quieres usar?</h3>
+  <p>Dímelo y genero el correo o mensaje exacto para presentarle la propuesta al socio — listo para enviar.</p>
+  <a href="modelos-sociedad.html" class="btn-cta">← Ver otros modelos</a>
+</div>
+
+</div>
+
+<script>
+function calcular(){
+  var proyectos = parseInt(document.getElementById('slider-proyectos').value);
+  var precio    = parseInt(document.getElementById('slider-precio').value);
+  var costo     = parseInt(document.getElementById('slider-costo').value);
+
+  document.getElementById('val-proyectos').textContent = proyectos;
+  document.getElementById('val-precio').textContent    = '$' + precio.toLocaleString() + ' USD';
+  document.getElementById('val-costo').textContent     = '$' + costo.toLocaleString() + ' USD';
+
+  var bruto  = proyectos * precio;
+  var costos = proyectos * costo;
+  var margen = bruto - costos;
+
+  document.getElementById('res-bruto').textContent  = '$' + bruto.toLocaleString();
+  document.getElementById('res-costo').textContent  = '-$' + costos.toLocaleString();
+  document.getElementById('res-margen').textContent = '$' + margen.toLocaleString();
+}
+</script>
+</body>
+</html>
