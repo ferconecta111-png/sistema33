@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#08060f">
+<meta property="og:title" content="Implementamos el sistema — Fernanda Conde">
+<meta property="og:description" content="Contenido, automatización y pauta. Nosotros lo hacemos. Tú te enfocas en tu negocio.">
+<title>Implementamos el sistema — @ferconde__</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+
+:root{
+  --negro:#08060f; --oscuro:#110e1f;
+  --verde:#10b981; --verde2:#059669;
+  --morado:#6d28d9;
+  --dorado:#f5b800; --dorado2:#e07b00;
+  --blanco:#ffffff; --muted:#7c6fa0;
+}
+
+html,body{min-height:100%;font-family:'Inter',sans-serif;background:var(--negro);color:#e8e0f0;overflow-x:hidden;}
+
+/* grano */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E");}
+
+.glow-top{position:fixed;top:-120px;left:50%;transform:translateX(-50%);
+  width:700px;height:500px;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse,rgba(109,40,217,.13) 0%,transparent 65%);}
+
+/* ── SECCIONES ── */
+.sec{position:relative;z-index:1;width:100%;padding:72px 20px;}
+.sec-inner{max-width:680px;margin:0 auto;}
+.sec-center{text-align:center;}
+
+/* ── ETIQUETAS ── */
+.chip{display:inline-flex;align-items:center;gap:7px;
+  background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);
+  border-radius:20px;padding:5px 14px;font-size:.7rem;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;color:#34d399;margin-bottom:20px;}
+.chip span{width:6px;height:6px;background:#34d399;border-radius:50%;
+  animation:pulse 1.8s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+
+/* ── HERO TEXTO ── */
+.hero-titulo{
+  font-size:clamp(2.4rem,7vw,4.2rem);font-weight:900;line-height:1.0;
+  letter-spacing:-1.5px;color:var(--blanco);margin-bottom:16px;
+}
+.hero-titulo em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--dorado),#ff9900);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{font-size:clamp(.9rem,2.5vw,1.08rem);color:var(--muted);line-height:1.75;
+  max-width:520px;margin:0 auto 36px;}
+
+/* ── VSL CONTAINER ── */
+.vsl-wrap{
+  max-width:680px;margin:0 auto 0;
+  border-radius:20px;overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06);
+  background:#000;position:relative;
+}
+.vsl-wrap video{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;}
+.vsl-overlay{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.4);cursor:pointer;z-index:2;transition:background .2s;
+}
+.vsl-overlay:hover{background:rgba(0,0,0,.25);}
+.play-circle{
+  width:80px;height:80px;border-radius:50%;
+  background:rgba(245,184,0,.92);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 16px rgba(245,184,0,.12),0 8px 40px rgba(245,184,0,.45);
+  transition:transform .2s,box-shadow .2s;
+}
+.vsl-overlay:hover .play-circle{
+  transform:scale(1.08);
+  box-shadow:0 0 0 20px rgba(245,184,0,.1),0 12px 48px rgba(245,184,0,.55);
+}
+.play-circle svg{margin-left:5px;}
+.vsl-caption{
+  text-align:center;font-size:.75rem;color:var(--muted);
+  margin-top:14px;line-height:1.6;
+}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);
+  max-width:680px;margin:0 auto;}
+
+/* ── PARA QUIÉN ── */
+.para-quien{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+.pq-card{
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;padding:18px 20px;
+}
+.pq-ico{font-size:1.5rem;margin-bottom:10px;}
+.pq-titulo{font-size:.88rem;font-weight:800;color:var(--blanco);margin-bottom:5px;}
+.pq-desc{font-size:.76rem;color:var(--muted);line-height:1.55;}
+
+/* ── QUÉ INCLUYE ── */
+.incluye-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+.inc-item{
+  background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
+  border-left:3px solid var(--dorado);
+  border-radius:14px;padding:18px 20px;
+}
+.inc-titulo{font-size:.88rem;font-weight:800;color:var(--blanco);margin-bottom:5px;}
+.inc-desc{font-size:.75rem;color:var(--muted);line-height:1.55;}
+
+/* ── PROCESO ── */
+.proceso{display:flex;flex-direction:column;gap:0;margin-top:8px;position:relative;}
+.proceso::before{
+  content:'';position:absolute;left:22px;top:28px;bottom:28px;
+  width:1px;background:linear-gradient(180deg,var(--dorado),rgba(245,184,0,.1));
+}
+.paso{display:flex;gap:20px;align-items:flex-start;padding:0 0 32px;}
+.paso:last-child{padding-bottom:0;}
+.paso-num{
+  width:44px;height:44px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--dorado),var(--dorado2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:.88rem;font-weight:900;color:#0a0614;
+  box-shadow:0 0 0 6px rgba(245,184,0,.1);position:relative;z-index:1;
+}
+.paso-titulo{font-size:.96rem;font-weight:800;color:var(--blanco);margin-bottom:5px;}
+.paso-desc{font-size:.8rem;color:var(--muted);line-height:1.6;}
+
+/* ── RESULTADOS ── */
+.resultados-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px;}
+.res-card{
+  background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;padding:18px 16px;text-align:center;
+}
+.res-num{font-size:1.6rem;font-weight:900;color:var(--dorado);line-height:1;margin-bottom:6px;}
+.res-desc{font-size:.72rem;color:var(--muted);line-height:1.5;}
+
+/* ── CTA PRINCIPAL ── */
+.cta-box{
+  background:linear-gradient(135deg,rgba(109,40,217,.12),rgba(245,184,0,.06));
+  border:1px solid rgba(245,184,0,.25);
+  border-top:2px solid var(--dorado);
+  border-radius:24px;padding:40px 32px;text-align:center;
+}
+.cta-titulo{font-size:1.5rem;font-weight:900;color:var(--blanco);margin-bottom:10px;line-height:1.2;}
+.cta-titulo em{font-style:normal;background:linear-gradient(135deg,var(--dorado),#ff9900);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cta-sub{font-size:.86rem;color:var(--muted);margin-bottom:28px;line-height:1.7;max-width:420px;margin-left:auto;margin-right:auto;}
+.btn-wa{
+  display:inline-flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,#25d366,#128c47);
+  color:var(--blanco);font-size:1rem;font-weight:900;
+  padding:18px 36px;border-radius:16px;text-decoration:none;
+  box-shadow:0 8px 32px rgba(37,211,102,.3);
+  transition:all .25s;letter-spacing:.2px;
+  font-family:'Inter',sans-serif;
+}
+.btn-wa:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(37,211,102,.4);}
+.btn-wa svg{flex-shrink:0;}
+.cta-nota{font-size:.72rem;color:var(--muted);margin-top:14px;line-height:1.6;}
+
+/* ── SECCIÓN TÍTULOS ── */
+.sec-label{font-size:.65rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--dorado);margin-bottom:10px;}
+.sec-titulo{font-size:clamp(1.5rem,4vw,2rem);font-weight:900;color:var(--blanco);
+  line-height:1.15;margin-bottom:10px;}
+.sec-titulo em{font-style:normal;background:linear-gradient(135deg,var(--dorado),#ff9900);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sec-desc{font-size:.86rem;color:var(--muted);line-height:1.7;margin-bottom:28px;}
+
+/* ── NAV MINI ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(8,6,15,.85);backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  padding:12px 20px;display:flex;align-items:center;justify-content:space-between;}
+.nav-marca{font-size:.85rem;font-weight:900;color:var(--blanco);}
+.nav-marca em{font-style:normal;color:var(--dorado);}
+.nav-link{font-size:.78rem;color:var(--muted);text-decoration:none;font-weight:600;
+  transition:color .2s;}
+.nav-link:hover{color:var(--dorado);}
+body{padding-top:52px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:600px){
+  .para-quien{grid-template-columns:1fr;}
+  .incluye-grid{grid-template-columns:1fr;}
+  .resultados-grid{grid-template-columns:1fr 1fr;}
+  .sec{padding:52px 16px;}
+  .cta-box{padding:28px 20px;}
+  .btn-wa{font-size:.9rem;padding:16px 24px;}
+  .proceso::before{left:20px;}
+}
+</style>
+</head>
+<body>
+
+<div class="glow-top"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-marca"><em>@ferconde__</em></div>
+  <a href="index.html" class="nav-link">Ver Sistema 33 →</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="sec sec-center" style="padding-bottom:48px;">
+  <div class="sec-inner">
+    <div class="chip"><span></span>Servicios · Implementación</div>
+    <h1 class="hero-titulo">Nosotros<br>lo <em>implementamos.</em><br>Tú te enfocas<br>en crecer.</h1>
+    <p class="hero-sub">Contenido, automatización y pauta — el sistema completo corriendo en tu negocio. Sin que tengas que aprenderlo tú.</p>
+  </div>
+</div>
+
+<!-- ══ VSL ══ -->
+<div style="position:relative;z-index:1;padding:0 20px 64px;">
+  <div class="vsl-wrap">
+    <div class="vsl-overlay" id="vsl-overlay" onclick="playVSL()">
+      <div class="play-circle">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="#0a0614">
+          <polygon points="5,3 19,12 5,21"/>
+        </svg>
+      </div>
+    </div>
+    <video id="vsl-video" src="vsl_servicios.mp4" preload="metadata"
+      playsinline controls poster=""
+      style="width:100%;display:block;aspect-ratio:16/9;object-fit:cover;">
+    </video>
+  </div>
+  <p class="vsl-caption">👆 Mira cómo trabajamos antes de escribirme · @ferconde__</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ PARA QUIÉN ══ -->
+<div class="sec">
+  <div class="sec-inner">
+    <div class="sec-label">Para quién es</div>
+    <h2 class="sec-titulo">¿Este servicio<br>es para <em>ti?</em></h2>
+    <p class="sec-desc">Trabajamos con negocios que ya existen y quieren escalar — no empezamos de cero contigo.</p>
+    <div class="para-quien">
+      <div class="pq-card">
+        <div class="pq-ico">✅</div>
+        <div class="pq-titulo">Sí es para ti si...</div>
+        <div class="pq-desc">Tienes un negocio funcionando, no tienes tiempo para el contenido y quieres delegar toda la parte digital.</div>
+      </div>
+      <div class="pq-card">
+        <div class="pq-ico">❌</div>
+        <div class="pq-titulo">No es para ti si...</div>
+        <div class="pq-desc">Estás en la etapa 0 sin producto ni clientes, o buscas a alguien que trabaje por $200 al mes.</div>
+      </div>
+      <div class="pq-card">
+        <div class="pq-ico">🏥</div>
+        <div class="pq-titulo">Sectores que atendemos</div>
+        <div class="pq-desc">Salud, infoproductos, servicios profesionales, emprendedores digitales, clínicas y consultorios.</div>
+      </div>
+      <div class="pq-card">
+        <div class="pq-ico">🌎</div>
+        <div class="pq-titulo">Dónde trabajamos</div>
+        <div class="pq-desc">Colombia, México, Argentina, Chile y resto de Latinoamérica. 100% remoto.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ QUÉ INCLUYE ══ -->
+<div class="sec">
+  <div class="sec-inner">
+    <div class="sec-label">Qué implementamos</div>
+    <h2 class="sec-titulo">El sistema<br><em>completo.</em></h2>
+    <p class="sec-desc">No vendemos piezas sueltas. Implementamos el ecosistema entero para que funcione solo.</p>
+    <div class="incluye-grid">
+      <div class="inc-item">
+        <div class="inc-titulo">📱 Estrategia de contenido</div>
+        <div class="inc-desc">Calendario editorial, captions, hooks y guiones. Tu perfil habla por ti aunque no publiques tú.</div>
+      </div>
+      <div class="inc-item">
+        <div class="inc-titulo">🤖 Automatización con IA</div>
+        <div class="inc-desc">Respuestas automáticas, captación de leads, seguimiento por WhatsApp. El negocio atiende 24/7.</div>
+      </div>
+      <div class="inc-item">
+        <div class="inc-titulo">🎯 Pauta estratégica</div>
+        <div class="inc-desc">Anuncios que atraen al cliente correcto. Sin quemar presupuesto en personas que no van a comprar.</div>
+      </div>
+      <div class="inc-item">
+        <div class="inc-titulo">📊 Dashboard de métricas</div>
+        <div class="inc-desc">Tú ves en tiempo real qué funciona. Sin adivinar, sin reportes confusos, sin depender de nosotros para entender.</div>
+      </div>
+      <div class="inc-item">
+        <div class="inc-titulo">🌐 Web y landing pages</div>
+        <div class="inc-desc">Página que convierte. No solo se ve bonita — está diseñada para que el visitante tome acción.</div>
+      </div>
+      <div class="inc-item">
+        <div class="inc-titulo">⚡ Integraciones y CRM</div>
+        <div class="inc-desc">Todo conectado: formularios, emails, WhatsApp, pagos. El cliente entra solo al sistema.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ PROCESO ══ -->
+<div class="sec">
+  <div class="sec-inner">
+    <div class="sec-label">Cómo trabajamos</div>
+    <h2 class="sec-titulo">Del diagnóstico<br>a los <em>resultados.</em></h2>
+    <p class="sec-desc">Proceso claro, sin reuniones infinitas ni entregas que nunca llegan.</p>
+    <div class="proceso">
+      <div class="paso">
+        <div class="paso-num">1</div>
+        <div>
+          <div class="paso-titulo">Diagnóstico estratégico</div>
+          <div class="paso-desc">Analizamos tu negocio, tu audiencia y lo que ya tienes. Entendemos qué falta y qué hay que construir. Sin asumir nada.</div>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">2</div>
+        <div>
+          <div class="paso-titulo">Diseño del sistema</div>
+          <div class="paso-desc">Te presentamos el mapa completo: qué piezas vamos a implementar, en qué orden y con qué objetivo medible.</div>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">3</div>
+        <div>
+          <div class="paso-titulo">Implementación</div>
+          <div class="paso-desc">Ejecutamos nosotros. Tú apruebas las piezas clave. Sin que tengas que aprender herramientas ni estar encima de nadie.</div>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">4</div>
+        <div>
+          <div class="paso-titulo">Entrega y traspaso</div>
+          <div class="paso-desc">El sistema queda en tus manos funcionando. Te explicamos cómo verlo, medirlo y qué ajustar. No dependes de nosotros para siempre.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ RESULTADOS ══ -->
+<div class="sec sec-center">
+  <div class="sec-inner">
+    <div class="sec-label">Resultados reales</div>
+    <h2 class="sec-titulo">Números que<br>hablan <em>solos.</em></h2>
+    <p class="sec-desc">Con clientes reales en Colombia, en sectores distintos, con el mismo sistema.</p>
+    <div class="resultados-grid">
+      <div class="res-card">
+        <div class="res-num">523K</div>
+        <div class="res-desc">Seguidores orgánicos — sector salud · @doctorcamilo_</div>
+      </div>
+      <div class="res-card">
+        <div class="res-num">519</div>
+        <div class="res-desc">Consultas generadas en un mes · @columna_vital</div>
+      </div>
+      <div class="res-card">
+        <div class="res-num">$108K</div>
+        <div class="res-desc">USD en ventas — infoproductos</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ CTA ══ -->
+<div class="sec sec-center">
+  <div class="sec-inner">
+    <div class="cta-box">
+      <div class="cta-titulo">¿Quieres que lo<br><em>implementemos</em> en tu negocio?</div>
+      <p class="cta-sub">Escríbeme directo por WhatsApp. Sin formularios, sin esperas. Si tiene sentido trabajar juntos, lo vemos en una llamada de 30 minutos.</p>
+
+      <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20quiero%20que%20implementemos%20el%20sistema%20en%20mi%20negocio"
+         class="btn-wa" id="btn-wa" target="_blank">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.122 1.528 5.855L.057 23.882l6.204-1.626A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.85 0-3.584-.507-5.072-1.38l-.36-.214-3.744.982.999-3.648-.235-.374A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+        </svg>
+        Quiero que lo implementemos →
+      </a>
+
+      <p class="cta-nota">⏱ Respondo en menos de 24 horas · Sin compromiso de compra</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function playVSL(){
+    var overlay = document.getElementById('vsl-overlay');
+    var video   = document.getElementById('vsl-video');
+    overlay.style.display = 'none';
+    video.play();
+  }
+  // Ocultar overlay cuando el video termine de reproducirse manualmente
+  document.getElementById('vsl-video').addEventListener('play', function(){
+    document.getElementById('vsl-overlay').style.display = 'none';
+  });
+</script>
+
+</body>
+</html>
