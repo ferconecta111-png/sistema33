@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#08060f">
+<meta property="og:title" content="@ferconde__ — Links">
+<meta property="og:description" content="Estrategia digital, IA y automatización para emprendedores. Sistema 33.">
+<title>@ferconde__ — Links</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+  :root {
+    --negro:  #08060f;
+    --oscuro: #110e1f;
+    --gris:   #1a1630;
+    --verde:  #10b981;
+    --morado: #6d28d9;
+    --dorado: #f5b800;
+    --blanco: #ffffff;
+    --muted:  #7c6fa0;
+  }
+
+  html, body {
+    min-height: 100%;
+    font-family: 'Inter', sans-serif;
+    background: var(--negro);
+    color: #e8e0f0;
+    overflow-x: hidden;
+  }
+
+  /* Fondo con grano */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glow de fondo */
+  .bg-glow {
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(109,40,217,.14) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ── AVATAR ── */
+  .avatar-wrap {
+    position: relative;
+    margin-bottom: 16px;
+  }
+  .avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--morado), var(--dorado));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4rem;
+    box-shadow: 0 0 0 3px rgba(245,184,0,.25), 0 8px 32px rgba(109,40,217,.3);
+  }
+  .live-dot {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 14px;
+    height: 14px;
+    background: var(--verde);
+    border-radius: 50%;
+    border: 2px solid var(--negro);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%,100% { box-shadow: 0 0 0 0 rgba(16,185,129,.5); }
+    50%      { box-shadow: 0 0 0 6px rgba(16,185,129,0); }
+  }
+
+  /* ── NOMBRE ── */
+  .handle {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--blanco);
+    letter-spacing: -.3px;
+    margin-bottom: 4px;
+  }
+  .bio {
+    font-size: .82rem;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.6;
+    max-width: 300px;
+    margin-bottom: 32px;
+  }
+  .bio em {
+    font-style: normal;
+    color: var(--dorado);
+    font-weight: 700;
+  }
+
+  /* ── SECCIÓN SEPARADOR ── */
+  .sec-label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    margin-top: 8px;
+  }
+  .sec-label span {
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .sec-label::before, .sec-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,.07);
+  }
+
+  /* ── TARJETA FEATURED (Workshop) ── */
+  .card-featured {
+    width: 100%;
+    background: linear-gradient(135deg, rgba(109,40,217,.15), rgba(245,184,0,.07));
+    border: 1px solid rgba(245,184,0,.3);
+    border-top: 2px solid var(--dorado);
+    border-radius: 20px;
+    padding: 22px 24px;
+    margin-bottom: 12px;
+    text-decoration: none;
+    display: block;
+    transition: transform .2s, box-shadow .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-featured::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(245,184,0,.04), transparent);
+    opacity: 0;
+    transition: opacity .2s;
+  }
+  .card-featured:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(245,184,0,.15); }
+  .card-featured:hover::before { opacity: 1; }
+  .cf-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(245,184,0,.12);
+    border: 1px solid rgba(245,184,0,.3);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--dorado);
+    margin-bottom: 10px;
+  }
+  .cf-titulo {
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: var(--blanco);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .cf-titulo em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--dorado), #ff9900);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .cf-desc {
+    font-size: .8rem;
+    color: #9080b0;
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .cf-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, var(--dorado), #e07b00);
+    color: #0a0614;
+    font-size: .82rem;
+    font-weight: 900;
+    padding: 10px 20px;
+    border-radius: 10px;
+    letter-spacing: .3px;
+  }
+  .cf-precio {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    text-align: right;
+  }
+  .cf-precio .tachado { font-size: .7rem; color: var(--muted); text-decoration: line-through; }
+  .cf-precio .monto   { font-size: 1.1rem; font-weight: 900; color: var(--blanco); }
+
+  /* ── LINK CARD (normal) ── */
+  .link-card {
+    width: 100%;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: transform .2s, background .2s, border-color .2s;
+    cursor: pointer;
+  }
+  .link-card:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,.07);
+    border-color: rgba(255,255,255,.15);
+  }
+  .link-ico {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .ico-morado { background: rgba(109,40,217,.2); border: 1px solid rgba(109,40,217,.3); }
+  .ico-verde  { background: rgba(16,185,129,.15); border: 1px solid rgba(16,185,129,.25); }
+  .ico-dorado { background: rgba(245,184,0,.12); border: 1px solid rgba(245,184,0,.2); }
+  .ico-azul   { background: rgba(59,130,246,.15); border: 1px solid rgba(59,130,246,.25); }
+  .link-texto { flex: 1; }
+  .link-titulo { font-size: .9rem; font-weight: 700; color: var(--blanco); margin-bottom: 2px; }
+  .link-sub    { font-size: .75rem; color: var(--muted); line-height: 1.4; }
+  .link-arrow  { color: var(--muted); font-size: .9rem; flex-shrink: 0; }
+
+  /* ── VSL CARD ── */
+  .vsl-card {
+    width: 100%;
+    background: rgba(17,14,31,.9);
+    border: 1px solid rgba(109,40,217,.25);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    text-decoration: none;
+    display: block;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .vsl-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(109,40,217,.15); }
+  .vsl-thumb {
+    position: relative;
+    background: #0a0614;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .vsl-thumb video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .vsl-play-btn {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.35);
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .vsl-play-btn:hover { background: rgba(0,0,0,.2); }
+  .vsl-play-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(245,184,0,.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 12px rgba(245,184,0,.15), 0 8px 32px rgba(245,184,0,.4);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .vsl-play-btn:hover .vsl-play-circle {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 16px rgba(245,184,0,.12), 0 12px 40px rgba(245,184,0,.5);
+  }
+  .vsl-play-circle svg { margin-left: 4px; }
+  .vsl-info {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .vsl-ico { font-size: 1.5rem; }
+  .vsl-titulo { font-size: .88rem; font-weight: 800; color: var(--blanco); margin-bottom: 2px; }
+  .vsl-sub    { font-size: .74rem; color: var(--muted); }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: .7rem;
+    color: rgba(124,111,160,.4);
+    letter-spacing: .5px;
+  }
+
+  /* ── MODAL VIDEO ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.9);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-inner {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    background: #0a0614;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,.8);
+  }
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,.1);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .2s;
+  }
+  .modal-close:hover { background: rgba(255,255,255,.2); }
+  #modal-video {
+    width: 100%;
+    display: block;
+    aspect-ratio: 16/9;
+    background: #000;
+  }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+  .container > * { animation: fadeUp .4s ease both; }
+  .container > *:nth-child(1) { animation-delay: 0s; }
+  .container > *:nth-child(2) { animation-delay: .04s; }
+  .container > *:nth-child(3) { animation-delay: .08s; }
+  .container > *:nth-child(4) { animation-delay: .1s; }
+  .container > *:nth-child(5) { animation-delay: .12s; }
+  .container > *:nth-child(6) { animation-delay: .14s; }
+  .container > *:nth-child(7) { animation-delay: .16s; }
+  .container > *:nth-child(8) { animation-delay: .18s; }
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<!-- Modal para el VSL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="closeVSL()">✕</button>
+    <video id="modal-video" src="vsl_servicios.mp4" controls playsinline preload="none"></video>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Avatar -->
+  <div class="avatar-wrap">
+    <div class="avatar">👩‍💼</div>
+    <div class="live-dot"></div>
+  </div>
+
+  <!-- Nombre -->
+  <div class="handle">@ferconde__</div>
+  <p class="bio">Estratega de marketing digital.<br>IA · Automatización · Contenido.<br><em>Construye tu negocio con Sistema 33.</em></p>
+
+  <!-- ── WORKSHOP ── -->
+  <div class="sec-label"><span>🔥 Oferta activa</span></div>
+
+  <a href="index.html" class="card-featured" target="_blank">
+    <div class="cf-precio">
+      <div class="tachado">$297 USD</div>
+      <div class="monto">$197</div>
+    </div>
+    <div class="cf-chip">⚡ Preventa · Cierra 5 junio</div>
+    <div class="cf-titulo">Sistema <em>33</em></div>
+    <div class="cf-desc">El sistema completo — contenido, automatización y pauta — para vivir de lo que sabes hacer. 4 módulos + bonus + acceso de por vida.</div>
+    <div class="cf-cta">Ver preventa →</div>
+  </a>
+
+  <!-- ── SERVICIOS ── -->
+  <div class="sec-label" style="margin-top:16px"><span>🎯 Servicios</span></div>
+
+  <!-- VSL Card -->
+  <div class="vsl-card" onclick="openVSL()">
+    <div class="vsl-thumb">
+      <video src="vsl_servicios.mp4" preload="none" muted playsinline style="pointer-events:none;"></video>
+      <div class="vsl-play-btn">
+        <div class="vsl-play-circle">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#0a0614">
+            <polygon points="5,3 19,12 5,21"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="vsl-info">
+      <div class="vsl-ico">🎬</div>
+      <div>
+        <div class="vsl-titulo">Cómo trabajo — mira esto antes de escribirme</div>
+        <div class="vsl-sub">Estrategia digital · IA · Automatización · Resultados reales</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── COMUNIDAD ── -->
+  <div class="sec-label" style="margin-top:16px"><span>💬 Comunidad</span></div>
+
+  <a href="registro.html" class="link-card" target="_blank">
+    <div class="link-ico ico-verde">💬</div>
+    <div class="link-texto">
+      <div class="link-titulo">Grupo privado de WhatsApp</div>
+      <div class="link-sub">Tips de IA y automatización todos los días · Gratis</div>
+    </div>
+    <div class="link-arrow">›</div>
+  </a>
+
+  <!-- ── HERRAMIENTAS ── -->
+  <div class="sec-label" style="margin-top:16px"><span>🛠 Herramientas</span></div>
+
+  <a href="cm-tools.html" class="link-card" target="_blank">
+    <div class="link-ico ico-morado">🤖</div>
+    <div class="link-texto">
+      <div class="link-titulo">CM Tools — Claude para tu contenido</div>
+      <div class="link-sub">Captions, hooks, hashtags, responder DMs con IA</div>
+    </div>
+    <div class="link-arrow">›</div>
+  </a>
+
+  <!-- ── INSTAGRAM ── -->
+  <div class="sec-label" style="margin-top:16px"><span>📱 Sígueme</span></div>
+
+  <a href="https://www.instagram.com/ferconde__" class="link-card" target="_blank">
+    <div class="link-ico" style="background:linear-gradient(135deg,rgba(225,48,108,.2),rgba(245,184,0,.15));border:1px solid rgba(225,48,108,.25);">📸</div>
+    <div class="link-texto">
+      <div class="link-titulo">Instagram · @ferconde__</div>
+      <div class="link-sub">Contenido diario de IA, marketing y emprendimiento</div>
+    </div>
+    <div class="link-arrow">›</div>
+  </a>
+
+  <div class="footer">ferconde__ · Sistema 33</div>
+
+</div>
+
+<script>
+  function openVSL(){
+    var modal = document.getElementById('modal');
+    var video = document.getElementById('modal-video');
+    modal.classList.add('open');
+    video.play();
+  }
+  function closeVSL(){
+    var modal = document.getElementById('modal');
+    var video = document.getElementById('modal-video');
+    modal.classList.remove('open');
+    video.pause();
+    video.currentTime = 0;
+  }
+  document.getElementById('modal').addEventListener('click', function(e){
+    if(e.target === this) closeVSL();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeVSL();
+  });
+</script>
+
+</body>
+</html>
