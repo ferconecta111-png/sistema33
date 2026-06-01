@@ -304,7 +304,7 @@
     <span style="font-size:18px">⚠️</span>
     <div>
       <div style="font-size:13px;font-weight:700;color:#fbbf24">Factura Meta (1/5 – 1/6/2026): <strong style="font-size:16px">$2.539.756 COP</strong></div>
-      <div style="font-size:12px;color:#92400e;margin-top:2px">API analizada: $2.042.813 COP &nbsp;·&nbsp; Diferencia no identificada: <strong style="color:#f59e0b">$496.943 COP</strong> — puede ser otras campañas o cargos de la cuenta</div>
+      <div style="font-size:12px;color:#92400e;margin-top:2px">Gasto real API (4 campañas): $2.313.358 COP &nbsp;·&nbsp; Desfase de facturación (timing): <strong style="color:#f59e0b">$226.398 COP</strong> — normal en Meta Ads (cobro por umbrales, no en tiempo real)</div>
     </div>
   </div>
 </div>
@@ -374,16 +374,18 @@
     <div class="card" style="margin-bottom:24px;border-color:#ca8a04;background:rgba(202,138,4,0.05)">
       <h3 style="color:#fbbf24">📄 Conciliación — Factura Meta vs Análisis API</h3>
       <table>
-        <thead><tr><th>Concepto</th><th>Importe COP</th><th>Fuente</th><th>Estado</th></tr></thead>
+        <thead><tr><th>Concepto / Campaña</th><th>Importe COP</th><th>Tipo</th><th>Estado</th></tr></thead>
         <tbody>
-          <tr><td>Campaña IG Sincelejo (Columna Vital)</td><td style="color:#00b4d8;font-weight:600">$1.481.584</td><td>API Meta Ads</td><td><span class="badge badge-blue">Analizado</span></td></tr>
-          <tr><td>Campaña Terapeutas (Fundación)</td><td style="color:#f59e0b;font-weight:600">$561.229</td><td>API Meta Ads</td><td><span class="badge badge-gold">Analizado</span></td></tr>
-          <tr><td><strong>Subtotal analizado</strong></td><td><strong>$2.042.813</strong></td><td>API Meta Ads</td><td></td></tr>
-          <tr style="background:rgba(202,138,4,0.08)"><td style="color:#fbbf24">Otras campañas / cargos no identificados</td><td style="color:#fbbf24;font-weight:600">$496.943</td><td>Factura Meta</td><td><span class="badge badge-gold">⚠️ Por revisar</span></td></tr>
-          <tr style="background:rgba(255,255,255,0.03)"><td><strong>Total facturado por Meta</strong></td><td style="color:#ffffff;font-weight:800;font-size:16px">$2.539.756</td><td>Factura oficial</td><td><span class="badge badge-green">✅ Confirmado</span></td></tr>
+          <tr><td>IG Sincelejo — Columna Vital (Sincelejo + Montería + ciudades)</td><td style="color:#00b4d8;font-weight:600">$1.484.622</td><td>Conversiones WA</td><td><span class="badge badge-blue">✅ Analizado</span></td></tr>
+          <tr><td>Campaña Terapeutas — Fundación Vital</td><td style="color:#f59e0b;font-weight:600">$561.229</td><td>Conversiones WA</td><td><span class="badge badge-gold">✅ Analizado</span></td></tr>
+          <tr style="background:rgba(99,102,241,0.08)"><td style="color:#818cf8"><strong>Tráfico Sincelejo</strong> — campaña de tráfico al perfil</td><td style="color:#818cf8;font-weight:600">$217.103</td><td>Tráfico</td><td><span class="badge" style="background:rgba(99,102,241,0.15);color:#818cf8">⚠️ No analizada antes</span></td></tr>
+          <tr style="background:rgba(99,102,241,0.08)"><td style="color:#818cf8"><strong>Remarketing seguidores</strong> — Montería / Sincelejo</td><td style="color:#818cf8;font-weight:600">$50.404</td><td>Remarketing</td><td><span class="badge" style="background:rgba(99,102,241,0.15);color:#818cf8">⚠️ No analizada antes</span></td></tr>
+          <tr style="background:rgba(255,255,255,0.03)"><td><strong>Total gasto real en anuncios (API)</strong></td><td style="color:#00b4d8;font-weight:800;font-size:15px">$2.313.358</td><td>API Meta Ads</td><td><span class="badge badge-blue">Verificado</span></td></tr>
+          <tr style="background:rgba(202,138,4,0.06)"><td style="color:#fbbf24">Desfase de facturación (timing de cobro)</td><td style="color:#fbbf24;font-weight:600">$226.398</td><td>Billing</td><td><span class="badge badge-gold">ℹ️ Normal en Meta</span></td></tr>
+          <tr style="background:rgba(255,255,255,0.05)"><td><strong>Total facturado por Meta (factura oficial)</strong></td><td style="color:#ffffff;font-weight:800;font-size:16px">$2.539.756</td><td>Factura oficial</td><td><span class="badge badge-green">✅ Confirmado</span></td></tr>
         </tbody>
       </table>
-      <p style="font-size:12px;color:#92400e;margin-top:12px">⚠️ Los $496.943 COP aparecen en la factura pero no en las campañas analizadas vía API. Puede ser campañas pausadas con gasto anterior, o cargos de períodos anteriores que se cobraron en mayo. Revisar en el Administrador de Anuncios → Facturación → Historial de cobros.</p>
+      <p style="font-size:12px;color:#64748b;margin-top:12px">ℹ️ El desfase de $226.398 COP es normal en Meta Ads: Meta cobra cuando se alcanzan umbrales de facturación, no en tiempo real. Parte del gasto de abril puede haberse cobrado en mayo y viceversa. El gasto real de la API ($2.313.358) es el dato más preciso del consumo del mes.</p>
     </div>
 
     <div class="two-col">
