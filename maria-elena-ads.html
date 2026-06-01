@@ -336,6 +336,32 @@
     color: var(--gold);
     margin-bottom: 8px;
   }
+
+  /* MIND MAP */
+  .mm-outer { width:100%; overflow-x:auto; padding-bottom:8px; }
+  .mm-canvas { position:relative; width:1060px; height:680px; margin:0 auto; }
+  .mm-svg { position:absolute; top:0; left:0; width:1060px; height:680px; pointer-events:none; }
+  .mm-node {
+    position:absolute;
+    border-radius:12px;
+    padding:10px 14px;
+    z-index:10;
+    transition:transform .15s, box-shadow .15s;
+    cursor:default;
+  }
+  .mm-node:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(0,0,0,0.4); z-index:20; }
+  .mm-node-label { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; margin-bottom:4px; }
+  .mm-node-title { font-size:13px; font-weight:700; color:var(--text); margin-bottom:2px; line-height:1.3; }
+  .mm-node-sub { font-size:11px; color:var(--muted); line-height:1.4; }
+  .mm-node-sub.hi { color:var(--green); font-weight:700; }
+  .mm-pulse {
+    position:absolute; border-radius:50%;
+    animation:pulse 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { transform:scale(1); opacity:.5; }
+    50% { transform:scale(1.15); opacity:.15; }
+  }
 </style>
 </head>
 <body>
@@ -350,7 +376,7 @@
     <div style="display:flex;gap:8px;flex-wrap:wrap;">
       <span class="badge badge-red">⏸ Todas las campañas pausadas</span>
       <span class="badge badge-orange">⚠ Sin Pixel de Compra</span>
-      <span class="badge badge-gold">~$800 USD/90 días</span>
+      <span class="badge badge-gold">~$3.3M COP / 90 días</span>
     </div>
   </div>
 </div>
@@ -359,6 +385,7 @@
 <nav>
   <div class="nav-brand">📊 MEB Ads</div>
   <button class="active" onclick="showSection('overview')">Resumen Cuenta</button>
+  <button onclick="showSection('mapa')">🗺 Mapa Estratégico</button>
   <button onclick="showSection('campanas')">Campañas Activas</button>
   <button onclick="showSection('engagement')">Pauta vs Engagement</button>
   <button onclick="showSection('creativos')">Creativos Existentes</button>
@@ -384,9 +411,9 @@
 
   <div class="grid4" style="margin-bottom:24px;">
     <div class="card metric">
-      <span class="val">$800</span>
-      <div class="lbl">USD invertidos</div>
-      <div class="sub">~$3.3M COP / 90 días</div>
+      <span class="val">$3.3M COP</span>
+      <div class="lbl">invertidos en pauta</div>
+      <div class="sub">~$800 USD / 90 días ref.</div>
     </div>
     <div class="card metric">
       <span class="val">604K</span>
@@ -414,7 +441,7 @@
         <li class="x"><strong>Sin campañas Volviendo al Ser</strong> — El retiro no tiene pauta</li>
         <li class="warn"><strong>Todo invertido en awareness</strong> — Seguidores + tráfico, no conversión</li>
         <li><strong>CTR alto</strong> en WhatsApp terapias (13.61%) y SPM RMK Perú (13.93%)</li>
-        <li><strong>38 checkouts</strong> generados a solo $2.50 USD c/u — remarketing funciona</li>
+        <li><strong>38 checkouts</strong> generados a solo $10.375 COP c/u — remarketing funciona</li>
         <li><strong>La pauta SÍ amplifica el orgánico</strong> — Comprobado con engagement de Perú</li>
       </ul>
     </div>
@@ -427,7 +454,7 @@
             <div style="font-size:12px;color:var(--muted);">Producto digital / Acceso inmediato</div>
           </div>
           <div style="text-align:right;">
-            <div style="font-size:18px;font-weight:800;color:var(--gold);">$119 USD</div>
+            <div style="font-size:18px;font-weight:800;color:var(--gold);">$490.000 COP</div>
             <span class="badge badge-green">Ciclo corto</span>
           </div>
         </div>
@@ -444,7 +471,7 @@
             <div style="font-size:12px;color:var(--muted);">Experiencia presencial / Alta inversión</div>
           </div>
           <div style="text-align:right;">
-            <div style="font-size:18px;font-weight:800;color:var(--gold);">$792–$972</div>
+            <div style="font-size:18px;font-weight:800;color:var(--gold);">$3.200.000–$3.900.000 COP</div>
             <span class="badge badge-purple">Ciclo largo</span>
           </div>
         </div>
@@ -460,29 +487,245 @@
     <h3>🗺 Distribución del Presupuesto (90 días)</h3>
     <div style="margin-top:8px;">
       <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:12px;">
-        <span>NUEVOS SEGUIDORES</span><span style="color:var(--muted);">$315 USD · 39%</span>
+        <span>NUEVOS SEGUIDORES</span><span style="color:var(--muted);">$1.305.000 COP · 39%</span>
       </div>
       <div class="bar-wrap"><div class="bar-fill bar-gold" style="width:39%"></div></div>
       <div style="display:flex;justify-content:space-between;margin:10px 0 4px;font-size:12px;">
-        <span>WhatsApp Terapias</span><span style="color:var(--muted);">$135 USD · 17%</span>
+        <span>WhatsApp Terapias</span><span style="color:var(--muted);">$558.000 COP · 17%</span>
       </div>
       <div class="bar-wrap"><div class="bar-fill bar-blue" style="width:17%"></div></div>
       <div style="display:flex;justify-content:space-between;margin:10px 0 4px;font-size:12px;">
-        <span>Terapias (video views)</span><span style="color:var(--muted);">$127 USD · 16%</span>
+        <span>Terapias (video views)</span><span style="color:var(--muted);">$527.000 COP · 16%</span>
       </div>
       <div class="bar-wrap"><div class="bar-fill bar-purple" style="width:16%"></div></div>
       <div style="display:flex;justify-content:space-between;margin:10px 0 4px;font-size:12px;">
-        <span>SPM RMK PERÚ</span><span style="color:var(--muted);">$110 USD · 14%</span>
+        <span>SPM RMK PERÚ</span><span style="color:var(--muted);">$456.000 COP · 14%</span>
       </div>
       <div class="bar-wrap"><div class="bar-fill bar-teal" style="width:14%"></div></div>
       <div style="display:flex;justify-content:space-between;margin:10px 0 4px;font-size:12px;">
-        <span>RMK CTCTC (mejor ROI)</span><span style="color:var(--muted);">$95 USD · 12%</span>
+        <span>RMK CTCTC (mejor ROI)</span><span style="color:var(--muted);">$395.000 COP · 12%</span>
       </div>
       <div class="bar-wrap"><div class="bar-fill bar-green" style="width:12%"></div></div>
       <div style="display:flex;justify-content:space-between;margin:10px 0 4px;font-size:12px;">
-        <span>Terapias Remarketing</span><span style="color:var(--muted);">$18 USD · 2%</span>
+        <span>Terapias Remarketing</span><span style="color:var(--muted);">$74.000 COP · 2%</span>
       </div>
       <div class="bar-wrap"><div class="bar-fill bar-orange" style="width:2%"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECCIÓN MAPA ESTRATÉGICO
+============================================================ -->
+<div id="mapa" class="section">
+  <div class="section-label">Vista Global · Flujo Completo</div>
+  <h1>Mapa Mental — Estrategia Digital</h1>
+  <p class="subtitle">Todos los componentes conectados: inversión, productos, funnels, pixel y resultados</p>
+
+  <div class="mm-outer">
+    <div class="mm-canvas">
+
+      <!-- SVG CONNECTIONS -->
+      <svg class="mm-svg">
+        <defs>
+          <marker id="a-gold"   markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="#C9A84C" opacity=".8"/></marker>
+          <marker id="a-purple" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="#8B5CF6" opacity=".8"/></marker>
+          <marker id="a-blue"   markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="#4C84CF" opacity=".8"/></marker>
+          <marker id="a-teal"   markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="#2DD4BF" opacity=".8"/></marker>
+          <marker id="a-orange" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="#E09030" opacity=".8"/></marker>
+          <marker id="a-green"  markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="#4CAF84" opacity=".8"/></marker>
+          <marker id="a-red"    markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="#E05555" opacity=".8"/></marker>
+        </defs>
+
+        <!-- Centro → PIXEL (top-left) -->
+        <path d="M428,316 C360,250 280,165 278,130" stroke="#8B5CF6" stroke-width="2.5" fill="none" opacity=".65" marker-end="url(#a-purple)"/>
+        <!-- Centro → CAVA (left) -->
+        <path d="M418,350 C350,350 270,342 224,340" stroke="#4C84CF" stroke-width="2.5" fill="none" opacity=".65" marker-end="url(#a-blue)"/>
+        <!-- Centro → FUNNEL CAVA (bottom-left) -->
+        <path d="M460,398 C380,470 265,518 305,528" stroke="#4CAF84" stroke-width="2.5" fill="none" opacity=".65" marker-end="url(#a-green)"/>
+        <!-- Centro → CREATIVOS (top-right) -->
+        <path d="M632,316 C700,250 785,165 800,130" stroke="#E09030" stroke-width="2.5" fill="none" opacity=".65" marker-end="url(#a-orange)"/>
+        <!-- Centro → RETIRO (right) -->
+        <path d="M642,350 C710,350 800,342 836,340" stroke="#2DD4BF" stroke-width="2.5" fill="none" opacity=".65" marker-end="url(#a-teal)"/>
+        <!-- Centro → FUNNEL RETIRO (bottom-right) -->
+        <path d="M600,398 C680,470 795,518 758,528" stroke="#4CAF84" stroke-width="2.5" fill="none" opacity=".65" marker-end="url(#a-green)"/>
+        <!-- Centro → GOOGLE ADS (bottom center) -->
+        <path d="M530,400 L530,553" stroke="#E05555" stroke-width="2.5" fill="none" opacity=".65" marker-end="url(#a-red)"/>
+
+        <!-- Secundarias punteadas: PIXEL habilita CAVA y RETIRO -->
+        <path d="M165,132 C155,210 130,268 122,292" stroke="#8B5CF6" stroke-width="1.5" fill="none" opacity=".3" stroke-dasharray="5,3"/>
+        <path d="M285,90 C500,50 750,90 840,290" stroke="#8B5CF6" stroke-width="1.5" fill="none" opacity=".2" stroke-dasharray="5,3"/>
+        <!-- CREATIVOS alimenta ambos funnels -->
+        <path d="M905,132 C915,210 938,268 940,292" stroke="#E09030" stroke-width="1.5" fill="none" opacity=".3" stroke-dasharray="5,3"/>
+        <!-- CAVA → FUNNEL CAVA -->
+        <path d="M122,385 C148,452 182,503 190,526" stroke="#4C84CF" stroke-width="1.5" fill="none" opacity=".35" stroke-dasharray="5,3"/>
+        <!-- RETIRO → FUNNEL RETIRO -->
+        <path d="M940,385 C918,455 896,503 876,526" stroke="#2DD4BF" stroke-width="1.5" fill="none" opacity=".35" stroke-dasharray="5,3"/>
+
+        <!-- Glow del nodo central -->
+        <circle cx="530" cy="352" r="78" fill="#C9A84C" opacity=".04"/>
+        <circle cx="530" cy="352" r="55" fill="#C9A84C" opacity=".05"/>
+      </svg>
+
+      <!-- ★ NODO CENTRAL -->
+      <div class="mm-node" style="left:415px;top:296px;width:230px;height:112px;background:linear-gradient(135deg,#1E1E30,#252538);border:2px solid var(--gold);text-align:center;">
+        <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:9px;font-weight:800;padding:2px 10px;border-radius:20px;letter-spacing:.5px;white-space:nowrap;">ESTRATEGIA DIGITAL</div>
+        <div style="margin-top:8px;font-size:17px;font-weight:900;color:var(--text);">María Elena Badillo</div>
+        <div style="font-size:13px;font-weight:800;color:var(--gold);margin:4px 0;">$1.000.000 COP / mes</div>
+        <div style="font-size:10px;color:var(--muted);">Meta Ads · Google Ads · WooCommerce</div>
+      </div>
+
+      <!-- ⚡ PIXEL & TÉCNICO -->
+      <div class="mm-node" style="left:48px;top:43px;width:232px;height:92px;background:rgba(139,92,246,0.13);border:1.5px solid var(--purple);">
+        <div class="mm-node-label" style="color:var(--purple);">⚡ FUNDACIÓN TÉCNICA · PRIORIDAD 1</div>
+        <div class="mm-node-title">Pixel Meta · WooCommerce + PayU</div>
+        <div class="mm-node-sub">Evento Purchase → Optimización IA</div>
+        <div class="mm-node-sub" style="color:var(--purple);font-weight:700;margin-top:3px;">Sin esto Meta no puede optimizar ventas</div>
+      </div>
+
+      <!-- 🎯 CAVA -->
+      <div class="mm-node" style="left:12px;top:292px;width:210px;height:96px;background:rgba(76,132,207,0.13);border:1.5px solid var(--blue);">
+        <div class="mm-node-label" style="color:var(--blue);">🎯 PRODUCTO DIGITAL · CICLO CORTO</div>
+        <div class="mm-node-title">CAVA · Kit de Sanación</div>
+        <div class="mm-node-sub">$490.000 COP · Acceso inmediato</div>
+        <div class="mm-node-sub">7 herramientas · Impulse buy zone</div>
+        <div class="mm-node-sub hi">Foco principal mes 1</div>
+      </div>
+
+      <!-- 💰 FUNNEL CAVA -->
+      <div class="mm-node" style="left:72px;top:522px;width:228px;height:108px;background:rgba(76,175,132,0.1);border:1.5px solid var(--green);">
+        <div class="mm-node-label" style="color:var(--green);">💰 FUNNEL CAVA · META ADS</div>
+        <div class="mm-node-title">TOF → MOF → BOF</div>
+        <div class="mm-node-sub">$8.000 · $5.000 · $8.000 COP/día</div>
+        <div class="mm-node-sub">~16 ventas/mes esperadas</div>
+        <div class="mm-node-sub hi">$810.000 COP/mes · ROI 9.7x</div>
+      </div>
+
+      <!-- 🎨 CREATIVOS -->
+      <div class="mm-node" style="left:790px;top:43px;width:222px;height:92px;background:rgba(224,144,48,0.13);border:1.5px solid var(--orange);">
+        <div class="mm-node-label" style="color:var(--orange);">🎨 CREATIVOS · 5 FORMATOS</div>
+        <div class="mm-node-title">Anuncios por Producto</div>
+        <div class="mm-node-sub">Hook deseo · Hook dolor · Testimonio</div>
+        <div class="mm-node-sub">Carrusel 7 señales · Urgencia BOFU</div>
+      </div>
+
+      <!-- 🏕️ RETIRO -->
+      <div class="mm-node" style="left:838px;top:292px;width:218px;height:96px;background:rgba(45,212,191,0.13);border:1.5px solid var(--teal);">
+        <div class="mm-node-label" style="color:var(--teal);">🏕️ RETIRO PRESENCIAL · CICLO LARGO</div>
+        <div class="mm-node-title">Volviendo al Ser</div>
+        <div class="mm-node-sub">$3.200.000 – $3.900.000 COP</div>
+        <div class="mm-node-sub">Máx 12 personas · Calificación manual</div>
+        <div class="mm-node-sub" style="color:var(--teal);font-weight:700;">Foco principal mes 2–3</div>
+      </div>
+
+      <!-- 🔄 FUNNEL RETIRO -->
+      <div class="mm-node" style="left:750px;top:522px;width:250px;height:108px;background:rgba(76,175,132,0.1);border:1.5px solid var(--green);">
+        <div class="mm-node-label" style="color:var(--green);">🔄 FUNNEL RETIRO · META ADS</div>
+        <div class="mm-node-title">TOFU → MOFU → BOFU</div>
+        <div class="mm-node-sub">$300K · $300K · $400K COP/mes</div>
+        <div class="mm-node-sub">Lead WhatsApp → Cierre manual</div>
+        <div class="mm-node-sub hi">$1.000.000 COP/mes total</div>
+      </div>
+
+      <!-- 🔍 GOOGLE ADS -->
+      <div class="mm-node" style="left:420px;top:553px;width:220px;height:92px;background:rgba(224,85,85,0.1);border:1.5px solid var(--red);text-align:center;">
+        <div class="mm-node-label" style="color:var(--red);">🔍 GOOGLE ADS · FASE 2</div>
+        <div class="mm-node-title">Search + YouTube Instream</div>
+        <div class="mm-node-sub">Alta intención de búsqueda</div>
+        <div class="mm-node-sub">Retiro + CAVA · Keywords COP</div>
+        <div class="mm-node-sub" style="color:var(--red);font-weight:700;margin-top:2px;">Activar mes 2–3</div>
+      </div>
+
+    </div><!-- /mm-canvas -->
+  </div><!-- /mm-outer -->
+
+  <!-- Resumen 3 columnas debajo del mapa -->
+  <div class="grid3" style="margin-top:28px;">
+    <div class="card">
+      <h3>📋 Orden de Ejecución</h3>
+      <div class="steps" style="margin-top:12px;">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Instalar Pixel en WooCommerce</div>
+            <div class="step-desc">Plugin Pixel Your Site + verificar redirect PayU → /order-received/</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Grabar 3 videos de CAVA</div>
+            <div class="step-desc">Hook deseo · Hook dolor · Testimonio cliente</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Activar Meta Ads CAVA</div>
+            <div class="step-desc">$27.000 COP/día · 4 conjuntos · TOF + MOF + BOF</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Escalar + lanzar Retiro (mes 2)</div>
+            <div class="step-desc">TOFU testimoniales + MOFU nurturing + BOFU urgencia</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Activar Google Ads (mes 3)</div>
+            <div class="step-desc">Search intent + YouTube Instream retiro</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>💸 Flujo del Presupuesto</h3>
+      <div style="margin-top:12px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:10px;background:rgba(201,168,76,0.1);border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:22px;font-weight:900;color:var(--gold);">$1M COP</div>
+          <div style="font-size:11px;color:var(--muted);">Inversión mensual total disponible</div>
+        </div>
+        <div style="font-size:12px;color:var(--muted);line-height:2.2;padding:0 4px;">
+          <div style="display:flex;justify-content:space-between;"><span>→ Meta Ads <strong style="color:var(--blue);">CAVA</strong></span><span style="color:var(--text);font-weight:700;">$810.000 COP</span></div>
+          <div style="display:flex;justify-content:space-between;"><span>→ Meta Ads <strong style="color:var(--teal);">Retiro TOFU</strong> (mes 2)</span><span style="color:var(--text);font-weight:700;">$300.000 COP</span></div>
+          <div style="display:flex;justify-content:space-between;"><span>→ <strong style="color:var(--red);">Google Ads</strong> (mes 3)</span><span style="color:var(--muted);">desde $165K COP</span></div>
+        </div>
+        <div style="margin-top:14px;padding:12px;background:rgba(76,175,132,0.08);border:1px solid var(--green);border-radius:8px;text-align:center;">
+          <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:4px;">Retorno proyectado mes 1 (solo CAVA)</div>
+          <div style="font-size:24px;font-weight:900;color:var(--green);">$7.840.000 COP</div>
+          <div style="font-size:11px;color:var(--muted);">ROI: 9.7x · ~16 ventas/mes</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🎯 KPIs de Éxito</h3>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:var(--dark3);border-radius:8px;">
+          <div><div style="font-size:12px;color:var(--text);">CPA CAVA</div><div style="font-size:10px;color:var(--muted);">Costo por venta</div></div>
+          <span style="font-size:15px;font-weight:800;color:var(--gold);">≤$62.000 COP</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:var(--dark3);border-radius:8px;">
+          <div><div style="font-size:12px;color:var(--text);">CPL Retiro</div><div style="font-size:10px;color:var(--muted);">Costo por lead</div></div>
+          <span style="font-size:15px;font-weight:800;color:var(--teal);">≤$207.000 COP</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:var(--dark3);border-radius:8px;">
+          <div><div style="font-size:12px;color:var(--text);">CTR mínimo anuncios</div><div style="font-size:10px;color:var(--muted);">Si baja → cambiar creativo</div></div>
+          <span style="font-size:15px;font-weight:800;color:var(--blue);">2%+</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:var(--dark3);border-radius:8px;">
+          <div><div style="font-size:12px;color:var(--text);">ROAS CAVA (con pixel)</div><div style="font-size:10px;color:var(--muted);">Meta necesita 50 Purchase events</div></div>
+          <span style="font-size:15px;font-weight:800;color:var(--purple);">4x+</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:rgba(76,175,132,0.1);border:1px solid var(--green);border-radius:8px;">
+          <div><div style="font-size:12px;font-weight:700;color:var(--green);">Hito desbloqueador</div><div style="font-size:10px;color:var(--muted);">50 Purchase → Meta aprende a optimizar</div></div>
+          <span style="font-size:20px;font-weight:900;color:var(--green);">50 🎯</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -557,7 +800,7 @@
           <td>~$95</td>
           <td>54,724</td>
           <td>9.13%</td>
-          <td style="color:var(--green)"><strong>38 checkouts</strong> @ $2.50</td>
+          <td style="color:var(--green)"><strong>38 checkouts</strong> @ $10.375 COP</td>
           <td><span class="badge badge-red">Pausada</span></td>
         </tr>
         <tr>
@@ -589,7 +832,7 @@
   <div class="grid2">
     <div class="card success">
       <h3>🏆 Campaña con Mejor ROI: RMK CTCTC</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Esta es la campaña de remarketing más eficiente. Cada checkout iniciado costó solo $2.50 USD. Con Purchase event instalado, esta campaña podría generar ventas reales de CAVA a costo muy bajo.</p>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Esta es la campaña de remarketing más eficiente. Cada checkout iniciado costó solo $10.375 COP. Con Purchase event instalado, esta campaña podría generar ventas reales de CAVA a costo muy bajo.</p>
       <ul class="check">
         <li>38 checkouts iniciados en el período</li>
         <li>CPM bajo = audiencia bien segmentada</li>
@@ -676,7 +919,7 @@
 
       <div style="margin-top:16px;padding:14px;background:var(--dark3);border-radius:8px;">
         <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:6px;">💡 Recomendación</div>
-        <div style="font-size:12px;color:var(--muted);line-height:1.5;">Reactivar pauta con al menos $300 USD/mes enfocados en CAVA + retiro. El efecto de amplificación orgánica hace que $300 en pauta valgan más que $300 en crecimiento orgánico.</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.5;">Reactivar pauta con el millón de pesos mensual enfocado en CAVA + retiro. El efecto de amplificación orgánica hace que $1.000.000 COP en pauta valgan mucho más que el mismo valor en crecimiento orgánico.</div>
       </div>
     </div>
   </div>
@@ -881,30 +1124,30 @@
 ============================================================ -->
 <div id="cava" class="section">
   <div class="section-label">Nuevo · Desde Cero</div>
-  <h1>Estrategia Completa — CAVA · $119 USD</h1>
+  <h1>Estrategia Completa — CAVA · $490.000 COP</h1>
   <p class="subtitle">Kit de Sanación · Producto digital · Ciclo de compra corto (1-7 días)</p>
 
   <div class="grid3" style="margin-bottom:24px;">
     <div class="card metric">
-      <span class="val">$119</span>
+      <span class="val">$490K COP</span>
       <div class="lbl">Precio de venta</div>
       <div class="sub">Producto digital</div>
     </div>
     <div class="card metric">
-      <span class="val">$8–15</span>
-      <div class="lbl">CPA objetivo</div>
+      <span class="val">$33K–$62K</span>
+      <div class="lbl">CPA objetivo COP</div>
       <div class="sub">6-15% del precio</div>
     </div>
     <div class="card metric">
-      <span class="val">$400–600</span>
-      <div class="lbl">Presupuesto mensual</div>
-      <div class="sub">~27–40 ventas/mes</div>
+      <span class="val">$700K–$1M</span>
+      <div class="lbl">Presupuesto mensual COP</div>
+      <div class="sub">~14–20 ventas/mes</div>
     </div>
   </div>
 
   <div class="info-box">
     <div class="ico">💡</div>
-    <div class="txt"><strong>Por qué CAVA es el producto ideal para Meta Ads:</strong> $119 USD está en el "impulse buy" zone de Facebook/Instagram. El ciclo de decisión es corto, el dolor que resuelve es específico, y puede optimizarse para Purchase con un pixel instalado. Retorno: si el CPA es $10, cada $400 invertido = 40 ventas = $4,760 ingresos.</div>
+    <div class="txt"><strong>Por qué CAVA es el producto ideal para Meta Ads:</strong> $490.000 COP está en la zona de compra impulsiva en Facebook/Instagram para el mercado latinoamericano. El ciclo de decisión es corto, el dolor que resuelve es específico, y puede optimizarse para Purchase con el pixel instalado en WooCommerce. Retorno: si el CPA es $50.000 COP, con $1.000.000 invertido = ~20 ventas = $9.800.000 COP en ingresos. ROI: 9.8x.</div>
   </div>
 
   <div class="grid2" style="margin-bottom:24px;">
@@ -955,7 +1198,7 @@
       <div class="creative-why">
         <strong style="color:var(--text);">Formato:</strong> Video 15-30 seg · MEB a cámara, outfit casual, fondo suave<br>
         <strong style="color:var(--text);">Texto caption:</strong> "¿Sentís que te esforzás pero algo siempre te frena? No es falta de fuerza de voluntad. Son patrones heredados. CAVA te da las herramientas para soltarlos — en tu tiempo, desde donde estés."<br>
-        <strong style="color:var(--text);">CTA:</strong> "Ver CAVA →" → landing directa con Hotmart/Stripe
+        <strong style="color:var(--text);">CTA:</strong> "Ver CAVA →" → landing directa en el sitio con WooCommerce / PayU
       </div>
     </div>
     <div class="creative-card">
@@ -963,7 +1206,7 @@
       <div class="creative-hook">"Fui a terapia durante 2 años y seguía bloqueada... hasta que encontré este método"</div>
       <div class="creative-why">
         <strong style="color:var(--text);">Formato:</strong> UGC-style (o MEB desde el sillón) · 30-45 seg<br>
-        <strong style="color:var(--text);">Texto caption:</strong> "CAVA no es otro curso de mentalidad positiva. Es un kit de 7 herramientas específicas para limpiar los patrones del inconsciente que te bloquean. $119 USD · Acceso inmediato."<br>
+        <strong style="color:var(--text);">Texto caption:</strong> "CAVA no es otro curso de mentalidad positiva. Es un kit de 7 herramientas específicas para limpiar los patrones del inconsciente que te bloquean. $490.000 COP · Acceso inmediato."<br>
         <strong style="color:var(--text);">CTA:</strong> "Acceder a CAVA →"
       </div>
     </div>
@@ -981,7 +1224,7 @@
       <div class="creative-hook">"Vi que visitaste CAVA. ¿Qué te detuvo? Te entiendo — yo también dudé antes de invertir en mí"</div>
       <div class="creative-why">
         <strong style="color:var(--text);">Formato:</strong> Video directo 15 seg · MEB a cámara · Tono íntimo<br>
-        <strong style="color:var(--text);">Texto caption:</strong> "El Kit CAVA es la inversión de $119 que puede cambiar los próximos 10 años. 7 días de garantía. Sin riesgo."<br>
+        <strong style="color:var(--text);">Texto caption:</strong> "El Kit CAVA es la inversión de $490.000 COP que puede cambiar los próximos 10 años. 7 días de garantía. Sin riesgo."<br>
         <strong style="color:var(--text);">CTA:</strong> "Entrar ahora →" · Urgencia real (cupos o tiempo límite)
       </div>
     </div>
@@ -1004,19 +1247,19 @@
           <tr><th>Conjunto de Anuncios</th><th>Audiencia</th><th>Presupuesto/día</th><th>Objetivo</th><th>Fase</th></tr>
         </thead>
         <tbody>
-          <tr><td>TOF · Prospecting</td><td>Intereses fríos</td><td>$8 USD</td><td>Purchase (Pixel)</td><td>Siempre activo</td></tr>
-          <tr><td>TOF · Lookalike 1%</td><td>LAL de compradores</td><td>$6 USD</td><td>Purchase</td><td>Desde semana 2</td></tr>
-          <tr><td>MOF · Video Viewers</td><td>50%+ video views</td><td>$5 USD</td><td>Purchase</td><td>Siempre activo</td></tr>
-          <tr style="background:rgba(76,175,132,0.05)"><td><strong>BOF · Remarketing ⭐</strong></td><td>Visitantes + engagement</td><td><strong>$8 USD</strong></td><td>Purchase</td><td>Siempre activo</td></tr>
+          <tr><td>TOF · Prospecting</td><td>Intereses fríos</td><td>$8.000 COP</td><td>Purchase (Pixel)</td><td>Siempre activo</td></tr>
+          <tr><td>TOF · Lookalike 1%</td><td>LAL de compradores</td><td>$6.000 COP</td><td>Purchase</td><td>Desde semana 2</td></tr>
+          <tr><td>MOF · Video Viewers</td><td>50%+ video views</td><td>$5.000 COP</td><td>Purchase</td><td>Siempre activo</td></tr>
+          <tr style="background:rgba(76,175,132,0.05)"><td><strong>BOF · Remarketing ⭐</strong></td><td>Visitantes + engagement</td><td><strong>$8.000 COP</strong></td><td>Purchase</td><td>Siempre activo</td></tr>
         </tbody>
         <tfoot>
-          <tr style="background:var(--dark3)"><td><strong>TOTAL</strong></td><td></td><td><strong>$27 USD/día</strong></td><td></td><td><strong>~$810/mes</strong></td></tr>
+          <tr style="background:var(--dark3)"><td><strong>TOTAL</strong></td><td></td><td><strong>$27.000 COP/día</strong></td><td></td><td><strong>~$810.000 COP/mes</strong></td></tr>
         </tfoot>
       </table>
     </div>
     <div class="info-box" style="margin-top:16px;margin-bottom:0;">
       <div class="ico">📊</div>
-      <div class="txt"><strong>Proyección conservadora:</strong> Si el CPA llega a $12 USD, con $810/mes invertidos = ~67 ventas/mes = $7,973 USD en ingresos. ROI: 9.8x. Incluso con CPA de $20, el retorno sigue siendo rentable (4x).</div>
+      <div class="txt"><strong>Proyección conservadora:</strong> Con $810.000 COP/mes y un CPA de $50.000 COP = ~16 ventas/mes = $7.840.000 COP en ingresos. ROI: 9.7x. Incluso con CPA de $80.000 COP, el retorno sigue siendo muy rentable (6x). Presupuesto ajustado al millón mensual disponible.</div>
     </div>
   </div>
 </div>
@@ -1026,24 +1269,24 @@
 ============================================================ -->
 <div id="retiro" class="section">
   <div class="section-label">Nuevo · Desde Cero</div>
-  <h1>Estrategia Completa — Volviendo al Ser · $792–$972</h1>
+  <h1>Estrategia Completa — Volviendo al Ser · $3.200.000–$3.900.000 COP</h1>
   <p class="subtitle">Retiro experiencial · Ciclo de decisión largo (2-6 semanas) · Necesita nurturing</p>
 
   <div class="grid3" style="margin-bottom:24px;">
     <div class="card metric">
-      <span class="val">$792</span>
+      <span class="val">$3.2M COP</span>
       <div class="lbl">Precio base retiro</div>
-      <div class="sub">Hasta $972 habitación privada</div>
+      <div class="sub">Hasta $3.9M COP hab. privada</div>
     </div>
     <div class="card metric">
-      <span class="val">$30–60</span>
-      <div class="lbl">CPL objetivo</div>
+      <span class="val">$124K–$207K</span>
+      <div class="lbl">CPL objetivo COP</div>
       <div class="sub">Costo por lead calificado</div>
     </div>
     <div class="card metric">
-      <span class="val">$800–1,200</span>
-      <div class="lbl">Presupuesto mensual</div>
-      <div class="sub">~15-25 leads calificados</div>
+      <span class="val">$800K–$1M</span>
+      <div class="lbl">Presupuesto mensual COP</div>
+      <div class="sub">~10-20 leads calificados</div>
     </div>
   </div>
 
@@ -1057,17 +1300,17 @@
   <h2>🔄 Funnel Completo · Volviendo al Ser</h2>
   <div style="margin-bottom:24px;">
     <div class="funnel-step">
-      <div class="funnel-label">Etapa 1 · TOFU · $300/mes</div>
+      <div class="funnel-label">Etapa 1 · TOFU · $300.000 COP/mes</div>
       <div class="funnel-title">Despertar Interés — "¿Qué es un retiro de sanación?"</div>
       <div class="funnel-desc">Videos educativos: qué sucede en el retiro, testimonios de participantes, qué es la bioneuroemoción/patrones. Objetivo: Video Views 50%+ → alimentar audiencia para retargeting.</div>
     </div>
     <div class="funnel-step blue">
-      <div class="funnel-label">Etapa 2 · MOFU · $300/mes</div>
+      <div class="funnel-label">Etapa 2 · MOFU · $300.000 COP/mes</div>
       <div class="funnel-title">Nutrición — "¿Por qué necesito un retiro y no solo una terapia?"</div>
       <div class="funnel-desc">Carruseles con antes/después emocional. MEB explicando el proceso. Testimonios de transformación profunda. Objetivo: Mensaje WhatsApp para preguntas sobre el retiro.</div>
     </div>
     <div class="funnel-step green">
-      <div class="funnel-label">Etapa 3 · BOFU · $400/mes</div>
+      <div class="funnel-label">Etapa 3 · BOFU · $400.000 COP/mes</div>
       <div class="funnel-title">Conversión — "Quiero ir al retiro · ¿Hay cupos?"</div>
       <div class="funnel-desc">Anuncio directo al retiro: fechas, ubicación, qué incluye, precio, garantía. CTA directo a WhatsApp para hablar con María Elena. Urgencia real (cupos limitados por experiencia presencial).</div>
     </div>
@@ -1180,7 +1423,7 @@
     <div class="card">
       <h3>🔑 Keywords — Volviendo al Ser (Retiro)</h3>
       <div style="margin-bottom:14px;">
-        <div class="badge badge-green" style="margin-bottom:8px;">Alta Intención (Bid alto: $1.5–3 USD)</div>
+        <div class="badge badge-green" style="margin-bottom:8px;">Alta Intención (Bid alto: $6.000–$12.000 COP)</div>
         <div class="tag-list">
           <span class="tag active">retiro espiritual Colombia</span>
           <span class="tag active">retiro de sanación Peru</span>
@@ -1192,7 +1435,7 @@
         </div>
       </div>
       <div>
-        <div class="badge badge-blue" style="margin-bottom:8px;">Media Intención (Bid medio: $0.5–1.5 USD)</div>
+        <div class="badge badge-blue" style="margin-bottom:8px;">Media Intención (Bid medio: $2.000–$6.000 COP)</div>
         <div class="tag-list">
           <span class="tag">retiro autoconocimiento</span>
           <span class="tag">experiencia espiritual</span>
@@ -1205,7 +1448,7 @@
     <div class="card">
       <h3>🔑 Keywords — CAVA (Producto Digital)</h3>
       <div style="margin-bottom:14px;">
-        <div class="badge badge-green" style="margin-bottom:8px;">Alta Intención (Bid $0.8–2 USD)</div>
+        <div class="badge badge-green" style="margin-bottom:8px;">Alta Intención (Bid $3.000–$8.000 COP)</div>
         <div class="tag-list">
           <span class="tag active">kit de sanacion emocional</span>
           <span class="tag active">herramientas sanacion inconsciente</span>
@@ -1248,18 +1491,18 @@
             <tr><th>Campaña</th><th>Budget/día</th><th>Tipo</th></tr>
           </thead>
           <tbody>
-            <tr><td>Retiro · Keywords Intent</td><td>$10 USD</td><td>Search</td></tr>
-            <tr><td>CAVA · Keywords</td><td>$8 USD</td><td>Search</td></tr>
-            <tr><td>Retiro · YouTube</td><td>$5 USD</td><td>Video (Instream)</td></tr>
-            <tr><td>Remarketing Display</td><td>$5 USD</td><td>Display</td></tr>
+            <tr><td>Retiro · Keywords Intent</td><td>$41.000 COP</td><td>Search</td></tr>
+            <tr><td>CAVA · Keywords</td><td>$33.000 COP</td><td>Search</td></tr>
+            <tr><td>Retiro · YouTube</td><td>$21.000 COP</td><td>Video (Instream)</td></tr>
+            <tr><td>Remarketing Display</td><td>$21.000 COP</td><td>Display</td></tr>
           </tbody>
           <tfoot>
-            <tr style="background:var(--dark3)"><td><strong>Total</strong></td><td><strong>$28/día</strong></td><td><strong>~$840/mes</strong></td></tr>
+            <tr style="background:var(--dark3)"><td><strong>Total</strong></td><td><strong>$116.000 COP/día</strong></td><td><strong>~$3.480.000 COP/mes</strong></td></tr>
           </tfoot>
         </table>
       </div>
       <div style="margin-top:12px;padding:10px;background:var(--dark3);border-radius:6px;font-size:11px;color:var(--muted);">
-        <strong style="color:var(--gold);">Proyección:</strong> Si el CPC promedio es $1.5 y convierte 3% → cada 100 clics = 3 consultas. Si cierra 50% = 1.5 ventas/mes del retiro = $1,188 USD con $150 invertido en esos clics. ROI: 7.9x
+        <strong style="color:var(--gold);">Proyección:</strong> Si el CPC promedio es $6.000 COP y convierte 3% → cada 100 clics = 3 consultas. Si cierra 50% = 1.5 ventas/mes del retiro = $4.800.000 COP con $621.000 COP invertidos en esos clics. ROI: 7.7x. <em>Nota: Google Ads es una fase 2 — empezar con Meta una vez que el pixel esté activo.</em>
       </div>
     </div>
   </div>
@@ -1303,7 +1546,7 @@
         <li class="warn"><strong>¿Cuál es el dominio/URL del sitio de María Elena?</strong> (ej: marialenabadillo.com)</li>
         <li class="warn"><strong>¿En qué plataforma está el sitio?</strong> WordPress / Wix / Squarespace / otra</li>
         <li class="warn"><strong>¿Tiene acceso al panel de administración del sitio?</strong></li>
-        <li class="warn"><strong>¿Dónde se procesa el pago?</strong> Hotmart / Stripe / PayPal / otro</li>
+        <li><strong>Plataforma de pago:</strong> WooCommerce con PayU ✓ (ya configurado)</li>
         <li class="warn"><strong>¿Hay una página de "gracias" o "confirmación" después de comprar?</strong></li>
         <li><strong>Pixel ID:</strong> Lo busco yo en el administrador de Meta (act_1418379029648107)</li>
       </ul>
@@ -1342,7 +1585,7 @@
   <div style="margin-bottom:20px;">
     <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
       <button onclick="showPixel('wordpress')" id="btn-wordpress" class="plat-btn active" style="background:var(--gold);color:#000;border:none;padding:8px 16px;border-radius:6px;font-weight:700;cursor:pointer;font-size:12px;">WordPress</button>
-      <button onclick="showPixel('hotmart')" id="btn-hotmart" class="plat-btn" style="background:var(--card2);color:var(--text);border:1px solid var(--border);padding:8px 16px;border-radius:6px;font-weight:700;cursor:pointer;font-size:12px;">Hotmart</button>
+      <button onclick="showPixel('woopayu')" id="btn-woopayu" class="plat-btn" style="background:var(--card2);color:var(--text);border:1px solid var(--border);padding:8px 16px;border-radius:6px;font-weight:700;cursor:pointer;font-size:12px;">WooCommerce + PayU</button>
       <button onclick="showPixel('wix')" id="btn-wix" class="plat-btn" style="background:var(--card2);color:var(--text);border:1px solid var(--border);padding:8px 16px;border-radius:6px;font-weight:700;cursor:pointer;font-size:12px;">Wix</button>
       <button onclick="showPixel('manual')" id="btn-manual" class="plat-btn" style="background:var(--card2);color:var(--text);border:1px solid var(--border);padding:8px 16px;border-radius:6px;font-weight:700;cursor:pointer;font-size:12px;">HTML Manual</button>
     </div>
@@ -1373,9 +1616,9 @@
         <div class="step">
           <div class="step-num">4</div>
           <div class="step-body">
-            <div class="step-title">Si el pago es en Hotmart, agregar Purchase en la URL de retorno</div>
-            <div class="step-code">https://tudominio.com/gracias?compra=exitosa</div>
-            <div class="step-desc">Esta URL debe tener el código de Purchase (ver tab Hotmart)</div>
+            <div class="step-title">Verificar que PayU redirija a la página de confirmación de WooCommerce</div>
+            <div class="step-code">tudominio.com/checkout/order-received/</div>
+            <div class="step-desc">WooCommerce + Pixel Your Site disparan el Purchase automáticamente en esta URL. Ver tab "WooCommerce + PayU" para el detalle completo.</div>
           </div>
         </div>
         <div class="step">
@@ -1388,31 +1631,31 @@
       </div>
     </div>
 
-    <div id="pixel-hotmart" class="card" style="display:none;">
+    <div id="pixel-woopayu" class="card" style="display:none;">
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
           <div class="step-body">
-            <div class="step-title">En Hotmart: Productos → Seleccionar CAVA → Configuración → Pixel</div>
-            <div class="step-desc">Hotmart tiene integración nativa con Meta Pixel</div>
+            <div class="step-title">Instalar plugin "Pixel Your Site" en WordPress/WooCommerce</div>
+            <div class="step-desc">WordPress → Plugins → Añadir nuevo → "Pixel Your Site" → Instalar y Activar. Este plugin integra automáticamente el pixel con WooCommerce y dispara todos los eventos sin código extra.</div>
           </div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-body">
-            <div class="step-title">Pegar el Pixel ID en el campo "Facebook Pixel ID"</div>
-            <div class="step-desc">Hotmart disparará automáticamente: Purchase, InitiateCheckout, PageView</div>
+            <div class="step-title">Ingresar el Pixel ID en la configuración del plugin</div>
+            <div class="step-desc">Pixel Your Site → General Settings → Facebook Pixel ID → Pegar el ID de 16 dígitos → Guardar cambios</div>
           </div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-body">
-            <div class="step-title">Configurar la URL de "Página de éxito"</div>
-            <div class="step-desc">Después del pago → Hotmart redirige al comprador a esta URL → el pixel la dispara con Purchase</div>
-            <div class="step-code">// Ejemplo de código a agregar en tu página de gracias
+            <div class="step-title">Activar eventos de WooCommerce en el plugin</div>
+            <div class="step-desc">Pixel Your Site → WooCommerce → Activar: Purchase, AddToCart, InitiateCheckout. El plugin dispara Purchase automáticamente en la página de confirmación de WooCommerce (/checkout/order-received/).</div>
+            <div class="step-code">// WooCommerce dispara este evento automáticamente con Pixel Your Site
 fbq('track', 'Purchase', {
-  value: 119.00,
-  currency: 'USD',
+  value: 490000,
+  currency: 'COP',
   content_name: 'CAVA Kit de Sanación'
 });</div>
           </div>
@@ -1420,15 +1663,17 @@ fbq('track', 'Purchase', {
         <div class="step">
           <div class="step-num">4</div>
           <div class="step-body">
-            <div class="step-title">Activar Conversions API (opcional pero recomendado)</div>
-            <div class="step-desc">Hotmart tiene integración con Conversions API de Meta → más datos, menos impacto de ad blockers</div>
+            <div class="step-title">Verificar que PayU redirija a la página de confirmación de WooCommerce</div>
+            <div class="step-desc">Después del pago con PayU, WooCommerce debe redirigir a /checkout/order-received/ donde se dispara el Purchase. Verificar en WooCommerce → Ajustes → Pagos → PayU → URL de retorno.</div>
+            <div class="step-code">// URL de confirmación de WooCommerce (se genera automáticamente)
+tudominio.com/checkout/order-received/[ORDER_ID]/?key=[KEY]</div>
           </div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
           <div class="step-body">
-            <div class="step-title">Hacer compra de prueba y verificar en Administrador de Eventos</div>
-            <div class="step-desc">Meta Ads Manager → Administrador de Eventos → Tu pixel → Ver actividad en tiempo real</div>
+            <div class="step-title">Hacer compra de prueba con PayU (modo sandbox) y verificar</div>
+            <div class="step-desc">PayU tiene modo sandbox para pruebas. Hacer una compra de prueba → verificar que el evento Purchase aparece en Meta → Administrador de Eventos → Tu pixel → Actividad en tiempo real</div>
           </div>
         </div>
       </div>
@@ -1454,9 +1699,9 @@ fbq('track', 'Purchase', {
           <div class="step-num">3</div>
           <div class="step-body">
             <div class="step-title">Para Purchase: agregar evento en la página de confirmación de pedido</div>
-            <div class="step-desc">Wix Stores lo hace automáticamente si usas Wix Payments. Para pagos externos (Hotmart), necesitas código personalizado:</div>
-            <div class="step-code">// En Wix: Editor → Página de Gracias → Agregar código personalizado
-window.fbq('track', 'Purchase', {value: 119.00, currency: 'USD'});</div>
+            <div class="step-desc">Wix Stores lo hace automáticamente si usas Wix Payments. Para pagos externos, necesitas código personalizado en la página de confirmación:</div>
+            <div class="step-code">// En Wix: Editor → Página de Confirmación → Agregar código personalizado
+window.fbq('track', 'Purchase', {value: 490000, currency: 'COP'});</div>
           </div>
         </div>
       </div>
@@ -1492,8 +1737,8 @@ src="https://www.facebook.com/tr?id=TU_PIXEL_ID_AQUI&ev=PageView&noscript=1"/&gt
             <div class="step-code">&lt;!-- Solo en pagina de GRACIAS / confirmación de compra --&gt;
 &lt;script&gt;
 fbq('track', 'Purchase', {
-  value: 119.00,       // precio de CAVA
-  currency: 'USD',
+  value: 490000,       // precio de CAVA en COP
+  currency: 'COP',
   content_name: 'CAVA Kit de Sanacion',
   content_type: 'product'
 });
@@ -1504,10 +1749,10 @@ fbq('track', 'Purchase', {
           <div class="step-num">3</div>
           <div class="step-body">
             <div class="step-title">Agregar InitiateCheckout en el botón de compra</div>
-            <div class="step-desc">Cuando el usuario hace click en "Comprar" o es redirigido a Hotmart</div>
-            <div class="step-code">&lt;!-- En el botón de compra --&gt;
-&lt;a href="https://pay.hotmart.com/XXXXX"
-   onclick="fbq('track', 'InitiateCheckout', {value: 119.00, currency: 'USD'})"&gt;
+            <div class="step-desc">Cuando el usuario hace click en "Comprar" o inicia el proceso de pago en WooCommerce</div>
+            <div class="step-code">&lt;!-- En el botón de compra (WooCommerce lo maneja automáticamente con Pixel Your Site) --&gt;
+&lt;a href="tudominio.com/checkout/?add-to-cart=PRODUCT_ID"
+   onclick="fbq('track', 'InitiateCheckout', {value: 490000, currency: 'COP'})"&gt;
    Comprar CAVA →
 &lt;/a&gt;</div>
           </div>
@@ -1565,8 +1810,8 @@ fbq('track', 'Purchase', {
     <div class="priority-row">
       <div class="priority-num">04</div>
       <div class="priority-body">
-        <div class="priority-title">Activar campaña CAVA · Presupuesto inicial $15/día</div>
-        <div class="priority-desc">Empezar con 3 anuncios en una audiencia fría (intereses). Dejar correr mínimo 7 días sin tocar para que el algoritmo aprenda. Meta necesita 50 eventos de Purchase para optimizar bien.</div>
+        <div class="priority-title">Activar campaña CAVA · Presupuesto inicial $27.000 COP/día</div>
+        <div class="priority-desc">Empezar con 3 anuncios en una audiencia fría (intereses). Dejar correr mínimo 7 días sin tocar para que el algoritmo aprenda. Meta necesita 50 eventos de Purchase para optimizar bien. Total del millón de pesos distribuido en los 4 conjuntos del tab CAVA.</div>
       </div>
       <span class="badge badge-gold">Semana 3</span>
     </div>
@@ -1581,7 +1826,7 @@ fbq('track', 'Purchase', {
     <div class="priority-row">
       <div class="priority-num">06</div>
       <div class="priority-body">
-        <div class="priority-title">Configurar Google Ads · Solo búsqueda de CAVA ($8/día)</div>
+        <div class="priority-title">Configurar Google Ads · Solo búsqueda de CAVA ($33.000 COP/día)</div>
         <div class="priority-desc">Crear cuenta Google Ads, configurar conversión de Purchase, activar campaña de keywords de alta intención para CAVA. Complementa Meta con intent diferente.</div>
       </div>
       <span class="badge badge-blue">Semana 4</span>
@@ -1593,8 +1838,8 @@ fbq('track', 'Purchase', {
     <div class="priority-row">
       <div class="priority-num">07</div>
       <div class="priority-body">
-        <div class="priority-title">Escalar CAVA si CPA ≤ $20 USD</div>
-        <div class="priority-desc">Aumentar presupuesto 20% cada 5 días mientras el CPA se mantenga por debajo de $20. Crear Lookalike 1% de compradores para multiplicar el alcance relevante.</div>
+        <div class="priority-title">Escalar CAVA si CPA ≤ $83.000 COP</div>
+        <div class="priority-desc">Aumentar presupuesto 20% cada 5 días mientras el CPA se mantenga por debajo de $83.000 COP. Crear Lookalike 1% de compradores para multiplicar el alcance relevante.</div>
       </div>
       <span class="badge badge-green">Mes 2</span>
     </div>
@@ -1622,7 +1867,7 @@ fbq('track', 'Purchase', {
       <div class="priority-num">10</div>
       <div class="priority-body">
         <div class="priority-title">Activar BOFU del Retiro con urgencia real</div>
-        <div class="priority-desc">Cuando queden 30 días para el retiro, activar anuncios de urgencia (cupos, fechas). Presupuesto mayor: $20/día. Audiencia: retargeting TOFU + leads del formulario.</div>
+        <div class="priority-desc">Cuando queden 30 días para el retiro, activar anuncios de urgencia (cupos, fechas). Presupuesto mayor: $83.000 COP/día. Audiencia: retargeting TOFU + leads del formulario.</div>
       </div>
       <span class="badge badge-blue">Mes 3</span>
     </div>
@@ -1638,7 +1883,7 @@ fbq('track', 'Purchase', {
       <div class="priority-num">12</div>
       <div class="priority-body">
         <div class="priority-title">Revisar KPIs y optimizar mensualmente</div>
-        <div class="priority-desc">CPA CAVA objetivo: ≤$15. CPL Retiro objetivo: ≤$50. CTR mínimo: 2%. Si alguno falla → cambiar creativos antes de subir presupuesto.</div>
+        <div class="priority-desc">CPA CAVA objetivo: ≤$62.000 COP. CPL Retiro objetivo: ≤$207.000 COP. CTR mínimo: 2%. Si alguno falla → cambiar creativos antes de subir presupuesto.</div>
       </div>
       <span class="badge badge-blue">Mes 3</span>
     </div>
@@ -1648,11 +1893,11 @@ fbq('track', 'Purchase', {
     <h3>📊 KPIs de Éxito (Primeros 90 Días)</h3>
     <div class="grid3" style="margin-top:12px;">
       <div style="text-align:center;padding:12px;">
-        <div style="font-size:22px;font-weight:800;color:var(--gold);">≤$15</div>
+        <div style="font-size:22px;font-weight:800;color:var(--gold);">≤$62K COP</div>
         <div style="font-size:12px;color:var(--muted);">CPA objetivo CAVA</div>
       </div>
       <div style="text-align:center;padding:12px;">
-        <div style="font-size:22px;font-weight:800;color:var(--green);">≤$50</div>
+        <div style="font-size:22px;font-weight:800;color:var(--green);">≤$207K COP</div>
         <div style="font-size:12px;color:var(--muted);">CPL objetivo Retiro</div>
       </div>
       <div style="text-align:center;padding:12px;">
@@ -1680,13 +1925,13 @@ function showSection(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const idx = ['overview','campanas','engagement','creativos','cava','retiro','google','pixel','prioridades'].indexOf(id);
+  const idx = ['overview','mapa','campanas','engagement','creativos','cava','retiro','google','pixel','prioridades'].indexOf(id);
   document.querySelectorAll('nav button')[idx].classList.add('active');
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
 function showPixel(plat) {
-  ['wordpress','hotmart','wix','manual'].forEach(p => {
+  ['wordpress','woopayu','wix','manual'].forEach(p => {
     document.getElementById('pixel-'+p).style.display = p===plat ? 'block' : 'none';
     const btn = document.getElementById('btn-'+p);
     if(p===plat) {
