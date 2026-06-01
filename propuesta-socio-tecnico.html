@@ -3,213 +3,143 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Propuesta de Colaboración Técnica — @ferconde__</title>
+<title>Propuesta de Socio Técnico — @ferconde__</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-
 :root{
   --negro:#08060f;--oscuro:#110e1f;
-  --verde:#10b981;--verde2:#059669;
-  --morado:#6d28d9;--dorado:#f5b800;--dorado2:#e07b00;
+  --verde:#10b981;--morado:#6d28d9;--dorado:#f5b800;
   --rojo:#f87171;--azul:#3b82f6;--naranja:#f97316;
   --blanco:#ffffff;--muted:#7c6fa0;
 }
-
 html,body{min-height:100%;font-family:'Inter',sans-serif;background:var(--negro);color:#e8e0f0;overflow-x:hidden;}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E");}
+.page{position:relative;z-index:1;max-width:940px;margin:0 auto;padding:52px 24px 100px;}
 
-.page{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:52px 24px 100px;}
-
-/* ─── TIPOGRAFÍA ─── */
-.chip{display:inline-flex;align-items:center;gap:6px;background:rgba(59,130,246,.1);
-  border:1px solid rgba(59,130,246,.25);border-radius:20px;padding:5px 14px;
-  font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--azul);margin-bottom:16px;}
-.page-title{font-size:clamp(1.9rem,5vw,2.8rem);font-weight:900;line-height:1.05;
-  color:var(--blanco);letter-spacing:-1px;margin-bottom:10px;}
-.page-title em{font-style:normal;background:linear-gradient(135deg,var(--dorado),#ff9900);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.page-sub{font-size:.88rem;color:var(--muted);line-height:1.75;max-width:620px;margin-bottom:10px;}
+/* TYPO */
+.chip{display:inline-flex;align-items:center;gap:6px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);border-radius:20px;padding:5px 14px;font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--azul);margin-bottom:16px;}
+.page-title{font-size:clamp(1.9rem,5vw,2.8rem);font-weight:900;line-height:1.05;color:var(--blanco);letter-spacing:-1px;margin-bottom:10px;}
+.page-title em{font-style:normal;background:linear-gradient(135deg,var(--dorado),#ff9900);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.page-sub{font-size:.88rem;color:var(--muted);line-height:1.75;max-width:640px;margin-bottom:10px;}
 .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);margin:48px 0;}
 .sl{font-size:.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dorado);margin-bottom:8px;}
 .sh{font-size:clamp(1.2rem,3vw,1.6rem);font-weight:900;color:var(--blanco);margin-bottom:8px;line-height:1.1;}
 .sh em{font-style:normal;color:var(--dorado);}
-.sp{font-size:.84rem;color:var(--muted);line-height:1.7;margin-bottom:22px;}
+.sp{font-size:.84rem;color:var(--muted);line-height:1.7;margin-bottom:24px;}
 
-/* ─── FIRMA / DESDE ─── */
-.desde{display:flex;align-items:center;gap:14px;
-  background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
-  border-radius:16px;padding:16px 22px;margin-bottom:36px;max-width:420px;}
-.desde-avatar{width:46px;height:46px;border-radius:50%;
-  background:linear-gradient(135deg,var(--morado),var(--dorado));
-  display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+/* FIRMA */
+.desde{display:flex;align-items:center;gap:14px;background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:16px 22px;margin-bottom:36px;max-width:420px;}
+.desde-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--morado),var(--dorado));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
 .desde-nombre{font-size:.88rem;font-weight:800;color:var(--blanco);}
 .desde-handle{font-size:.73rem;color:var(--muted);}
 .desde-right{font-size:.72rem;color:var(--muted);margin-left:auto;text-align:right;line-height:1.5;}
 .desde-right strong{color:var(--dorado);display:block;}
 
-/* ─── MODELO EXPLICADO ─── */
-.modelo-box{
-  background:rgba(17,14,31,.9);border:1px solid rgba(59,130,246,.2);
-  border-left:3px solid var(--azul);border-radius:16px;padding:24px 28px;margin-bottom:0;
-}
-.modelo-titulo{font-size:.95rem;font-weight:900;color:var(--blanco);margin-bottom:10px;}
-.modelo-desc{font-size:.82rem;color:#c0b8d8;line-height:1.7;}
-.modelo-desc strong{color:var(--blanco);}
+/* ALERT BOX */
+.alert{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.25);border-left:3px solid var(--verde);border-radius:12px;padding:18px 22px;margin-bottom:28px;}
+.alert-title{font-size:.82rem;font-weight:800;color:var(--verde);margin-bottom:6px;}
+.alert p{font-size:.8rem;color:#a7f3d0;line-height:1.65;}
+.alert strong{color:var(--blanco);}
 
-/* ─── FLUJO ROLES ─── */
-.flujo-roles{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:center;margin:24px 0;}
-.rol-box{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;}
-.rol-box.tuyo{border-color:rgba(59,130,246,.3);background:rgba(59,130,246,.05);}
-.rol-box.ella{border-color:rgba(245,184,0,.25);background:rgba(245,184,0,.04);}
-.rol-titulo{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
-.rol-item{display:flex;align-items:center;gap:8px;font-size:.78rem;color:#c0b8d8;margin-bottom:7px;line-height:1.4;}
-.rol-ico{flex-shrink:0;font-size:.85rem;}
-.flujo-conector{text-align:center;padding:0 16px;color:var(--muted);font-size:1.4rem;}
+/* MODELO CANAL */
+.canal-grid{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:stretch;margin:28px 0;}
+.canal-step{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px 18px;text-align:center;}
+.canal-step .cs-ico{font-size:1.6rem;margin-bottom:10px;}
+.canal-step .cs-titulo{font-size:.82rem;font-weight:800;color:var(--blanco);margin-bottom:6px;}
+.canal-step .cs-desc{font-size:.72rem;color:var(--muted);line-height:1.5;}
+.canal-arrow{display:flex;align-items:center;justify-content:center;padding:0 10px;color:rgba(255,255,255,.15);font-size:1.4rem;}
 
-/* ─── TABS PAQUETES ─── */
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
-.tab{padding:9px 18px;border-radius:10px;font-size:.78rem;font-weight:700;cursor:pointer;
-  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--muted);
-  transition:all .2s;font-family:'Inter',sans-serif;}
-.tab.activo.t-a{background:var(--verde);color:#0a0614;border-color:transparent;}
-.tab.activo.t-s{background:var(--naranja);color:#0a0614;border-color:transparent;}
-.tab.activo.t-e{background:var(--dorado);color:#0a0614;border-color:transparent;}
-.panel{display:none;}
-.panel.visible{display:block;}
+/* ROLES */
+.roles-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px;}
+.rol-box{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:22px;}
+.rol-box.ella{border-color:rgba(245,184,0,.2);}
+.rol-box.el{border-color:rgba(59,130,246,.2);}
+.rol-tag{font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.rol-item{display:flex;align-items:flex-start;gap:8px;font-size:.78rem;color:#c0b8d8;margin-bottom:8px;line-height:1.4;}
+.rol-ico{flex-shrink:0;font-size:.85rem;margin-top:1px;}
 
-/* ─── PAQUETE CARD ─── */
-.paq-wrap{border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;}
-.paq-top{padding:24px 28px;border-bottom:1px solid rgba(255,255,255,.06);}
-.paq-top-row{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-.paq-badge{font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;}
-.paq-nombre{font-size:1.2rem;font-weight:900;color:var(--blanco);}
-.paq-pago-box{text-align:right;}
-.paq-pago-lbl{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
-.paq-pago-val{font-size:2rem;font-weight:900;line-height:1;}
-.paq-pago-nota{font-size:.68rem;color:var(--muted);margin-top:3px;}
+/* T-SHIRT SIZING */
+.tshirt-table{width:100%;border-collapse:collapse;margin-bottom:12px;}
+.tshirt-table th{font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:10px 14px;text-align:left;border-bottom:1px solid rgba(255,255,255,.07);}
+.tshirt-table td{padding:14px;font-size:.82rem;color:#c0b8d8;border-bottom:1px solid rgba(255,255,255,.04);}
+.tshirt-table tr:hover td{background:rgba(255,255,255,.02);}
+.tshirt-table td:first-child{font-weight:900;font-size:1rem;}
+.size-xs{color:#94a3b8;}
+.size-s{color:var(--verde);}
+.size-m{color:var(--azul);}
+.size-l{color:var(--naranja);}
+.size-xl{color:var(--dorado);}
+.commission-highlight{background:rgba(245,184,0,.08);border:1px solid rgba(245,184,0,.2);border-radius:10px;padding:14px 18px;font-size:.82rem;color:#fde68a;margin-top:12px;}
+.commission-highlight strong{color:var(--blanco);}
 
-/* ─── CHECKLIST TÉCNICO ─── */
-.check-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.05);
-  border-bottom:1px solid rgba(255,255,255,.06);}
-.check-col{background:var(--negro);padding:22px 26px;}
-.check-titulo{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
-.check-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:9px;}
-.ci-avatar{
-  width:22px;height:22px;border-radius:6px;flex-shrink:0;margin-top:1px;
-  display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;
-}
-.ci-si{background:rgba(16,185,129,.2);color:var(--verde);}
-.ci-no{background:rgba(248,113,113,.15);color:var(--rojo);}
-.ci-texto{font-size:.78rem;color:#c0b8d8;line-height:1.4;}
-.ci-texto strong{color:var(--blanco);}
+/* DISCOVERY */
+.disc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px;}
+.disc-card{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:20px;}
+.disc-card.si{border-left:3px solid var(--verde);}
+.disc-card.no{border-left:3px solid var(--rojo);}
+.disc-title{font-size:.84rem;font-weight:800;color:var(--blanco);margin-bottom:10px;}
+.disc-item{font-size:.76rem;color:var(--muted);line-height:1.6;margin-bottom:4px;padding-left:12px;position:relative;}
+.disc-item::before{content:'·';position:absolute;left:0;font-weight:700;}
+.disc-item.v::before{color:var(--verde);}
+.disc-item.r::before{color:var(--rojo);}
 
-/* ─── TIMELINE ─── */
-.tl-wrap{padding:22px 26px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(17,14,31,.4);}
-.tl-titulo-sec{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
-.tl-row{display:flex;gap:0;overflow-x:auto;padding-bottom:4px;}
-.tl-step{flex:1;min-width:140px;position:relative;}
-.tl-step:not(:last-child)::after{content:'';position:absolute;top:16px;right:0;
-  width:50%;height:2px;background:rgba(255,255,255,.08);}
-.tl-step:not(:first-child)::before{content:'';position:absolute;top:16px;left:0;
-  width:50%;height:2px;background:rgba(255,255,255,.08);}
-.tl-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;
-  justify-content:center;font-size:.75rem;font-weight:900;color:#0a0614;
-  margin:0 auto 10px;position:relative;z-index:1;}
-.tl-s-titulo{font-size:.73rem;font-weight:700;color:var(--blanco);text-align:center;margin-bottom:3px;}
-.tl-s-sub{font-size:.65rem;color:var(--muted);text-align:center;line-height:1.4;}
+/* QUIENES LO HACEN */
+.referentes-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
+.ref-card{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:20px;}
+.ref-nombre{font-size:.9rem;font-weight:900;color:var(--blanco);margin-bottom:4px;}
+.ref-modelo{font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dorado);margin-bottom:10px;}
+.ref-item{font-size:.74rem;color:var(--muted);line-height:1.6;margin-bottom:4px;padding-left:10px;position:relative;}
+.ref-item::before{content:'→';position:absolute;left:0;color:var(--azul);font-size:.65rem;}
 
-/* ─── FOOTER PAQUETE ─── */
-.paq-footer{display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:10px;padding:16px 26px;background:rgba(17,14,31,.5);}
-.pf-item{display:flex;align-items:center;gap:7px;font-size:.75rem;color:var(--muted);}
-.pf-item strong{color:var(--blanco);}
+/* EMBUDO */
+.embudo-wrap{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);border-radius:20px;overflow:hidden;margin-bottom:28px;}
+.embudo-header{padding:18px 24px;border-bottom:1px solid rgba(255,255,255,.06);font-size:.84rem;font-weight:800;color:var(--blanco);}
+.embudo-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(255,255,255,.05);}
+.emb-step{background:var(--negro);padding:18px 14px;text-align:center;}
+.emb-ico{font-size:1.3rem;margin-bottom:8px;}
+.emb-titulo{font-size:.73rem;font-weight:800;color:var(--blanco);margin-bottom:5px;}
+.emb-desc{font-size:.65rem;color:var(--muted);line-height:1.4;}
+.emb-num{font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--dorado);margin-bottom:6px;}
 
-/* ─── REGLAS ─── */
-.reglas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
-.regla{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:20px;}
-.regla.si{border-left:3px solid var(--verde);}
-.regla.no{border-left:3px solid var(--rojo);}
-.regla-titulo{font-size:.84rem;font-weight:800;color:var(--blanco);margin-bottom:8px;
-  display:flex;align-items:center;gap:7px;}
-.regla-item{font-size:.76rem;color:var(--muted);line-height:1.6;margin-bottom:4px;
-  padding-left:12px;position:relative;}
-.regla-item::before{content:'·';position:absolute;left:0;font-weight:700;}
-.regla-item.verde::before{color:var(--verde);}
-.regla-item.rojo::before{color:var(--rojo);}
+/* COMISIONES */
+.comision-box{background:linear-gradient(135deg,rgba(245,184,0,.08),rgba(249,115,22,.05));border:1px solid rgba(245,184,0,.25);border-radius:20px;padding:28px;margin-bottom:28px;}
+.comision-nums{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px;}
+.cn-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;text-align:center;}
+.cn-val{font-size:1.4rem;font-weight:900;color:var(--dorado);margin-bottom:4px;}
+.cn-lbl{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;}
 
-/* ─── PAGOS ─── */
-.pagos-fila{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.pago{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
-  border-radius:16px;padding:20px;text-align:center;}
-.pago-pct{font-size:1.8rem;font-weight:900;margin-bottom:4px;}
-.pago-cuando{font-size:.8rem;font-weight:800;color:var(--blanco);margin-bottom:5px;}
-.pago-desc{font-size:.72rem;color:var(--muted);line-height:1.5;}
-
-/* ─── COMUNICACIÓN ─── */
-.com-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.com-card{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:20px;}
-.com-titulo{font-size:.84rem;font-weight:800;color:var(--blanco);margin-bottom:8px;}
-.com-item{font-size:.76rem;color:var(--muted);line-height:1.6;margin-bottom:4px;padding-left:12px;position:relative;}
-.com-item::before{content:'›';position:absolute;left:0;color:var(--dorado);font-weight:700;}
-
-/* ─── PILOTO ─── */
-.piloto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.piloto-mes{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
-  border-radius:16px;padding:20px;}
-.pm-num{font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dorado);margin-bottom:7px;}
-.pm-titulo{font-size:.9rem;font-weight:800;color:var(--blanco);margin-bottom:8px;}
-.pm-item{font-size:.74rem;color:var(--muted);line-height:1.6;margin-bottom:3px;
-  padding-left:10px;position:relative;}
-.pm-item::before{content:'·';position:absolute;left:0;color:var(--dorado);}
-
-/* ─── PROTECCIONES MUTUAS ─── */
+/* PROTECCIONES */
 .prot-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .prot{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:20px;}
 .prot-num{font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--azul);margin-bottom:6px;}
 .prot-titulo{font-size:.86rem;font-weight:800;color:var(--blanco);margin-bottom:5px;}
 .prot-desc{font-size:.75rem;color:var(--muted);line-height:1.55;}
 
-/* ─── BRIEF TEMPLATE ─── */
-.brief-wrap{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;margin-bottom:24px;}
-.brief-header{padding:20px 26px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
-.brief-header-left .brief-tag{font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
-.brief-header-left .brief-nombre{font-size:1rem;font-weight:900;color:var(--blanco);}
-.brief-badge{font-size:.65rem;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.5px;}
-.brief-fields{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.04);}
-.brief-field{background:var(--negro);padding:16px 20px;}
-.bf-label{font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
-.bf-desc{font-size:.78rem;color:#c0b8d8;line-height:1.5;}
-.bf-desc strong{color:var(--blanco);}
-.bf-desc em{color:var(--dorado);font-style:normal;font-size:.71rem;}
-.brief-aceptacion{padding:18px 24px;background:rgba(16,185,129,.04);border-top:1px solid rgba(16,185,129,.15);}
-.ba-titulo{font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--verde);margin-bottom:10px;}
-.ba-item{display:flex;align-items:flex-start;gap:8px;font-size:.76rem;color:#c0b8d8;margin-bottom:5px;line-height:1.4;}
-.ba-check{color:var(--verde);flex-shrink:0;margin-top:1px;}
+/* PILOTO */
+.piloto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.piloto-mes{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:20px;}
+.pm-num{font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dorado);margin-bottom:7px;}
+.pm-titulo{font-size:.9rem;font-weight:800;color:var(--blanco);margin-bottom:8px;}
+.pm-item{font-size:.74rem;color:var(--muted);line-height:1.6;margin-bottom:3px;padding-left:10px;position:relative;}
+.pm-item::before{content:'·';position:absolute;left:0;color:var(--dorado);}
 
-/* ─── RESUMEN FINAL ─── */
-.resumen{background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(109,40,217,.06));
-  border:1px solid rgba(59,130,246,.2);border-radius:20px;padding:32px;text-align:center;}
+/* RESUMEN */
+.resumen{background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(109,40,217,.06));border:1px solid rgba(59,130,246,.2);border-radius:20px;padding:32px;text-align:center;}
 .resumen h3{font-size:1.15rem;font-weight:900;color:var(--blanco);margin-bottom:8px;}
-.resumen p{font-size:.84rem;color:var(--muted);margin-bottom:20px;line-height:1.7;max-width:480px;margin-left:auto;margin-right:auto;}
-.resumen-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;}
+.resumen p{font-size:.84rem;color:var(--muted);margin-bottom:20px;line-height:1.7;max-width:520px;margin-left:auto;margin-right:auto;}
+.resumen-nums{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
 .rn-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;}
-.rn-val{font-size:1.4rem;font-weight:900;color:var(--azul);margin-bottom:3px;}
-.rn-lbl{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;}
+.rn-val{font-size:1.3rem;font-weight:900;color:var(--azul);margin-bottom:3px;}
+.rn-lbl{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;}
 
-@media(max-width:660px){
-  .flujo-roles{grid-template-columns:1fr;gap:14px;}
-  .flujo-conector{transform:rotate(90deg);}
-  .check-grid{grid-template-columns:1fr;}
-  .reglas-grid{grid-template-columns:1fr;}
-  .pagos-fila{grid-template-columns:1fr;}
-  .com-grid{grid-template-columns:1fr;}
+@media(max-width:700px){
+  .canal-grid{grid-template-columns:1fr;gap:10px;}
+  .canal-arrow{transform:rotate(90deg);}
+  .roles-grid,.disc-grid,.prot-grid,.referentes-grid,.comision-nums,.resumen-nums{grid-template-columns:1fr;}
+  .embudo-steps{grid-template-columns:1fr 1fr;}
   .piloto-grid{grid-template-columns:1fr;}
-  .prot-grid{grid-template-columns:1fr;}
-  .resumen-nums{grid-template-columns:1fr 1fr;}
-  .paq-top-row{flex-direction:column;}
-  .paq-pago-box{text-align:left;}
   .page{padding:32px 16px 80px;}
 }
 </style>
@@ -218,603 +148,387 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 <div class="page">
 
 <!-- HEADER -->
-<div class="chip">🤝 Propuesta de colaboración técnica</div>
-<h1 class="page-title">Modelo <em>White Label</em><br>Fernanda × Socio Técnico</h1>
-<p class="page-sub">Este documento describe el modelo de trabajo, los paquetes, lo que se espera de cada parte, los pagos y las reglas del juego. Sin letra pequeña.</p>
+<div class="chip">🤝 Modelo de socio técnico — Canal Partner</div>
+<h1 class="page-title">Tú construyes.<br><em>Yo consigo los clientes.</em></h1>
+<p class="page-sub">Este no es un modelo de precio fijo por paquetes. Es una sociedad de canal: yo traigo clientes calificados, tú cotizas según la complejidad real del proyecto y yo gano una comisión sobre lo que cierras. Sin riesgo de alcance, sin adivinar precios, sin afectar tu producción.</p>
 
-<!-- FIRMA -->
 <div class="desde">
   <div class="desde-avatar">👩‍💼</div>
   <div>
     <div class="desde-nombre">Fernanda Conde</div>
     <div class="desde-handle">@ferconde__ · Estrategia de marketing digital</div>
   </div>
-  <div class="desde-right">
-    <strong>Propuesta</strong>
-    Mayo 2026
+  <div class="desde-right"><strong>Propuesta</strong>Junio 2026</div>
+</div>
+
+<div class="alert">
+  <div class="alert-title">¿Por qué cambiamos el modelo anterior?</div>
+  <p>El modelo de precio fijo por paquete tiene un problema real: <strong>no se puede cotizar responsablemente sin ver el alcance</strong>. Tenías razón. Este nuevo modelo resuelve eso: tú siempre cotizas después de ver el proyecto, dentro de rangos por complejidad. Yo gano por traerte el cliente y gestionar la relación. <strong>Tú operas como negocio independiente. Yo soy tu canal de ventas.</strong></p>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ CÓMO FUNCIONA ═══ -->
+<div class="sl">El modelo</div>
+<h2 class="sh">Cómo funciona el<br><em>Canal Partner.</em></h2>
+<p class="sp">5 pasos. Siempre en ese orden. Ningún proyecto arranca sin que el paso anterior esté cerrado.</p>
+
+<div class="canal-grid">
+  <div class="canal-step">
+    <div class="cs-ico">🎯</div>
+    <div class="cs-titulo">Yo identifico al cliente</div>
+    <div class="cs-desc">El cliente llega por mis campañas, Instagram, referidos o clientes actuales. Yo hago la pre-calificación.</div>
+  </div>
+  <div class="canal-arrow">→</div>
+  <div class="canal-step">
+    <div class="cs-ico">📋</div>
+    <div class="cs-titulo">Yo lleno el pre-brief</div>
+    <div class="cs-desc">Te paso un documento estandarizado con lo que sé del cliente: objetivo, presupuesto estimado, plazo y tipo de proyecto.</div>
+  </div>
+  <div class="canal-arrow">→</div>
+  <div class="canal-step" style="border-color:rgba(59,130,246,.3);background:rgba(59,130,246,.04)">
+    <div class="cs-ico">🔍</div>
+    <div class="cs-titulo">Tú clasificas y cotizas</div>
+    <div class="cs-desc">Con el pre-brief, clasificas el proyecto por talla (S/M/L/XL) y das tu precio. Máx 48h para proyectos S/M, 72h para L/XL.</div>
+  </div>
+  <div class="canal-arrow">→</div>
+  <div class="canal-step">
+    <div class="cs-ico">✅</div>
+    <div class="cs-titulo">Cliente acepta · Yo cobro mi comisión</div>
+    <div class="cs-desc">El cliente ve el precio final (tu precio + mi comisión del 20%). Cierra con Fernanda, Fernanda te paga a ti.</div>
   </div>
 </div>
 
-<!-- ═══════════ EL MODELO ═══════════ -->
-<div class="bloque">
-  <div class="sl">Cómo funciona</div>
-  <h2 class="sh">El modelo en<br><em>una línea.</em></h2>
+<div class="divider"></div>
 
-  <div class="modelo-box">
-    <div class="modelo-titulo">🏷️ White Label — ¿Qué significa esto para ti?</div>
-    <div class="modelo-desc">
-      Fernanda consigue y cierra los clientes bajo su marca (<strong>@ferconde__</strong>). Tú ejecutas el trabajo técnico. <strong>El cliente no sabe que trabajas tú</strong> — confía en Fernanda, Fernanda confía en ti.<br><br>
-      Tú recibes tu pago fijo por cada proyecto. Sin tener que conseguir clientes, sin hacer propuestas comerciales, sin manejar la relación con el cliente. <strong>Tú solo te enfocas en construir</strong> — lo que mejor sabes hacer.
-    </div>
+<!-- ═══ ROLES ═══ -->
+<div class="sl">Responsabilidades</div>
+<h2 class="sh">Qué hace <em>cada uno.</em></h2>
+<p class="sp">División clara para que ninguno pise el trabajo del otro.</p>
+
+<div class="roles-grid">
+  <div class="rol-box ella">
+    <div class="rol-tag" style="color:var(--dorado)">👩‍💼 Fernanda — Canal de ventas</div>
+    <div class="rol-item"><span class="rol-ico">🎯</span>Conseguir y calificar clientes</div>
+    <div class="rol-item"><span class="rol-ico">📋</span>Llenar el pre-brief antes de pasarte el proyecto</div>
+    <div class="rol-item"><span class="rol-ico">💬</span>Toda la comunicación con el cliente — tú no hablas con él</div>
+    <div class="rol-item"><span class="rol-ico">✅</span>Revisar entregables antes de mostrar al cliente</div>
+    <div class="rol-item"><span class="rol-ico">💳</span>Cobrar al cliente y transferirte tu parte</div>
+    <div class="rol-item"><span class="rol-ico">🚫</span><strong style="color:#fde68a">NO maneja tokens, hosting ni operaciones técnicas</strong></div>
   </div>
+  <div class="rol-box el">
+    <div class="rol-tag" style="color:var(--azul)">💻 Tú — Operación técnica independiente</div>
+    <div class="rol-item"><span class="rol-ico">🔍</span>Clasificar el proyecto por talla y cotizar en el plazo acordado</div>
+    <div class="rol-item"><span class="rol-ico">🛠</span>Desarrollar, configurar e integrar según tu metodología</div>
+    <div class="rol-item"><span class="rol-ico">📦</span>Entregar con documentación y accesos</div>
+    <div class="rol-item"><span class="rol-ico">🔧</span>Soporte post-entrega según lo que cotizaste</div>
+    <div class="rol-item"><span class="rol-ico">💰</span><strong style="color:#93c5fd">Asumes tus propios costos operativos — hosting, tokens, APIs</strong></div>
+    <div class="rol-item"><span class="rol-ico">🚫</span>No contactas al cliente directamente sin autorización</div>
+  </div>
+</div>
 
-  <div class="flujo-roles" style="margin-top:20px;">
-    <div class="rol-box ella">
-      <div class="rol-titulo" style="color:var(--dorado)">👩‍💼 Fernanda hace</div>
-      <div class="rol-item"><span class="rol-ico">🎯</span>Conseguir y cerrar el cliente</div>
-      <div class="rol-item"><span class="rol-ico">📋</span>Crear el brief del proyecto</div>
-      <div class="rol-item"><span class="rol-ico">💬</span>Toda la comunicación con el cliente</div>
-      <div class="rol-item"><span class="rol-ico">✅</span>Revisar y aprobar antes de mostrar</div>
-      <div class="rol-item"><span class="rol-ico">💳</span>Facturar al cliente y pagarte a ti</div>
+<div class="divider"></div>
+
+<!-- ═══ T-SHIRT SIZING ═══ -->
+<div class="sl">Cómo se cotiza</div>
+<h2 class="sh">Precios por <em>complejidad real,</em><br>no por paquete.</h2>
+<p class="sp">Usamos T-shirt sizing — el mismo modelo que usan equipos de producto en empresas tech como Spotify, Notion y Linear para estimar sin committearse a horas exactas. Tú clasificas, tú cotizas dentro del rango. Sin precio fijo de mi parte.</p>
+
+<div style="background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);border-radius:20px;overflow:hidden;margin-bottom:16px;">
+  <table class="tshirt-table">
+    <thead>
+      <tr>
+        <th>Talla</th>
+        <th>Qué tipo de proyecto es</th>
+        <th>Rango USD (precio al cliente)</th>
+        <th>Tu comisión llega en</th>
+        <th>Discovery requerido</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="size-xs">XS</td>
+        <td>Landing 1 página, bot de WA básico, corrección o ajuste técnico puntual</td>
+        <td>$200 – $400</td>
+        <td>48h post-entrega</td>
+        <td>No · checklist por escrito basta</td>
+      </tr>
+      <tr>
+        <td class="size-s">S</td>
+        <td>Sitio hasta 3 páginas, automatización simple, secuencia de emails, pixel instalado</td>
+        <td>$400 – $900</td>
+        <td>50% inicio · 50% entrega</td>
+        <td>No · pre-brief detallado basta</td>
+      </tr>
+      <tr>
+        <td class="size-m">M</td>
+        <td>Sitio completo hasta 5 páginas, CRM conectado, automatizaciones con lógica condicional, setup de pauta</td>
+        <td>$900 – $2.000</td>
+        <td>50% inicio · 50% entrega</td>
+        <td>Sí · 30 min antes de cotizar</td>
+      </tr>
+      <tr>
+        <td class="size-l">L</td>
+        <td>App o herramienta a medida, ecosistema digital completo, integraciones múltiples, IA simple</td>
+        <td>$2.000 – $4.500</td>
+        <td>40% inicio · 30% mitad · 30% entrega</td>
+        <td>Sí · 1h + documento de alcance firmado</td>
+      </tr>
+      <tr>
+        <td class="size-xl">XL</td>
+        <td>Sistemas complejos, IA avanzada (RAG, agentes, análisis documental), arquitectura a escala</td>
+        <td>$4.500+</td>
+        <td>Según hitos acordados</td>
+        <td>Sí · semana de discovery pagada</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="commission-highlight">
+  💰 <strong>Mi comisión: 20% del precio al cliente en todos los tamaños.</strong> Ejemplo: proyecto M que cotizas en $1.500 USD → el cliente paga $1.800 → tú recibes $1.500, yo recibo $300. El cliente solo ve un precio. Tú y yo sabemos la estructura interna.
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ DISCOVERY ═══ -->
+<div class="sl">Proceso de discovery</div>
+<h2 class="sh">Cómo protegemos<br><em>tu tiempo.</em></h2>
+<p class="sp">Para proyectos M, L y XL — donde el alcance puede variar significativamente — usamos un proceso formal antes de cotizar. Así tú nunca arrancas sin información completa.</p>
+
+<div class="disc-grid">
+  <div class="disc-card si">
+    <div class="disc-title">✅ Lo que yo te entrego antes de cotizar</div>
+    <div class="disc-item v">Objetivo de negocio del cliente (qué quiere lograr, no qué quiere construir)</div>
+    <div class="disc-item v">Presupuesto estimado del cliente y plazo esperado</div>
+    <div class="disc-item v">Herramientas que ya usa (CRM, email, hosting, etc.)</div>
+    <div class="disc-item v">Integraciones específicas que necesita (lista cerrada)</div>
+    <div class="disc-item v">Si aplica IA: qué tipo de solución esperan, quién paga los costos de consumo</div>
+    <div class="disc-item v">Contacto técnico del cliente si necesitas accesos para diagnóstico</div>
+    <div class="disc-item v">Referencia de 2–3 proyectos similares que el cliente aprobó como referencia</div>
+  </div>
+  <div class="disc-card no">
+    <div class="disc-title">🚫 Lo que NO te pido</div>
+    <div class="disc-item r">Que cotices antes de tener la información completa</div>
+    <div class="disc-item r">Que asumas costos operativos del cliente (hosting, tokens, APIs)</div>
+    <div class="disc-item r">Que arranques sin alcance cerrado en proyectos M/L/XL</div>
+    <div class="disc-item r">Que hagas cambios fuera del alcance sin nueva cotización</div>
+    <div class="disc-item r">Que te comprometas a precio fijo sin ver qué construyes</div>
+    <div class="disc-item r">Que manejes la relación con el cliente — eso es mío</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ QUIÉNES YA LO HACEN ═══ -->
+<div class="sl">Modelos reales que ya funcionan</div>
+<h2 class="sh">Quiénes ya <em>ganan dinero</em><br>con esto — y cómo.</h2>
+<p class="sp">Este modelo no es nuevo. Es lo que hacen agencias y consultores digitales en todo el mundo. Las agencias que externalizan el 40–60% de su producción <strong>crecen 2.3x más rápido</strong> y tienen márgenes 18–22% más altos que las que hacen todo in-house. Aquí los ejemplos reales:</p>
+
+<div class="referentes-grid">
+  <div class="ref-card">
+    <div class="ref-nombre">Consultores de marketing digital</div>
+    <div class="ref-modelo">Canal Partner · 20–30% comisión</div>
+    <div class="ref-item">Tienen clientes de Meta Ads o SEO que también necesitan web o automatizaciones</div>
+    <div class="ref-item">Refieren el trabajo técnico a un desarrollador de confianza</div>
+    <div class="ref-item">El desarrollador cotiza, ellos marcan hasta 40% encima</div>
+    <div class="ref-item">Cliente nunca sabe quién construyó — confía en el consultor</div>
+    <div class="ref-item" style="color:#a7f3d0;margin-top:8px">Embudo: clientes de pauta existentes → upsell tech services</div>
+  </div>
+  <div class="ref-card">
+    <div class="ref-nombre">Agencias de contenido / branding</div>
+    <div class="ref-modelo">White Label · markup 40–60%</div>
+    <div class="ref-item">Venden diseño, copy, social media — pero no tienen devs internos</div>
+    <div class="ref-item">Cuando el cliente pide web o automatización, lo externaliza</div>
+    <div class="ref-item">El dev entrega bajo la marca de la agencia</div>
+    <div class="ref-item">Retienen al cliente sin contratar in-house ($140K ahorro vs. contratar)</div>
+    <div class="ref-item" style="color:#a7f3d0;margin-top:8px">Embudo: Instagram + portafolio + referidos de clientes actuales</div>
+  </div>
+  <div class="ref-card">
+    <div class="ref-nombre">Coaches / formadores digitales</div>
+    <div class="ref-modelo">Referido con comisión · 15–20%</div>
+    <div class="ref-item">Enseñan a emprendedores a montar su negocio digital</div>
+    <div class="ref-item">Sus estudiantes necesitan web, bots, automatizaciones</div>
+    <div class="ref-item">Recomiendan a su desarrollador de confianza y cobran comisión por referido</div>
+    <div class="ref-item">El dev maneja al cliente directamente en estos casos</div>
+    <div class="ref-item" style="color:#a7f3d0;margin-top:8px">Embudo: comunidad + curso + WhatsApp broadcast</div>
+  </div>
+</div>
+
+<!-- EMBUDO DE FERNANDA -->
+<div class="embudo-wrap">
+  <div class="embudo-header">📣 El embudo de Fernanda — cómo llegan los clientes a este modelo</div>
+  <div class="embudo-steps">
+    <div class="emb-step">
+      <div class="emb-num">Canal 1</div>
+      <div class="emb-ico">📱</div>
+      <div class="emb-titulo">Clientes actuales</div>
+      <div class="emb-desc">María Elena, Columna Vital y otros ya confían en Fernanda. Upsell natural: "también te ayudo con tu web y automatizaciones."</div>
     </div>
-    <div class="flujo-conector">⇄</div>
-    <div class="rol-box tuyo">
-      <div class="rol-titulo" style="color:var(--azul)">💻 Tú haces</div>
-      <div class="rol-item"><span class="rol-ico">🌐</span>Desarrollar lo que dice el brief</div>
-      <div class="rol-item"><span class="rol-ico">🤖</span>Configurar automatizaciones e IA</div>
-      <div class="rol-item"><span class="rol-ico">🛠</span>Setup técnico completo</div>
-      <div class="rol-item"><span class="rol-ico">🔧</span>Ajustes dentro de las revisiones acordadas</div>
-      <div class="rol-item"><span class="rol-ico">📦</span>Entregar accesos y documentación</div>
+    <div class="emb-step">
+      <div class="emb-num">Canal 2</div>
+      <div class="emb-ico">📸</div>
+      <div class="emb-titulo">Instagram @ferconde__</div>
+      <div class="emb-desc">Contenido sobre marketing digital + IA. Posicionamiento como estratega. Inbound de negocios que necesitan tech.</div>
+    </div>
+    <div class="emb-step">
+      <div class="emb-num">Canal 3</div>
+      <div class="emb-ico">🎯</div>
+      <div class="emb-titulo">Meta Ads propios</div>
+      <div class="emb-desc">Campañas para su propio servicio de consultoría. Leads calificados que ya quieren crecer digitalmente.</div>
+    </div>
+    <div class="emb-step">
+      <div class="emb-num">Canal 4</div>
+      <div class="emb-ico">🎓</div>
+      <div class="emb-titulo">Workshop SISTEMA 33</div>
+      <div class="emb-desc">Sus estudiantes del curso necesitan implementar lo que aprenden. Fernanda los conecta contigo como socio recomendado.</div>
+    </div>
+    <div class="emb-step">
+      <div class="emb-num">Canal 5</div>
+      <div class="emb-ico">🤝</div>
+      <div class="emb-titulo">Referidos</div>
+      <div class="emb-desc">Cada cliente satisfecho refiere 1–2 más. Fernanda incentiva esto activamente. El ciclo se autoalimenta.</div>
     </div>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- ═══════════ BRIEF ESTRUCTURADO ═══════════ -->
-<div class="bloque">
-  <div class="sl">El brief que recibes</div>
-  <h2 class="sh">Alcance definido<br><em>antes de arrancar.</em></h2>
-  <p class="sp">Antes de que empieces a construir cualquier cosa, recibirás un brief completo con todo lo que necesitas. Sin ambigüedad, sin "lo que consideres", sin adivinar. Aquí está exactamente qué contiene el brief de cada paquete.</p>
+<!-- ═══ COMISIONES ═══ -->
+<div class="sl">Lo que gana cada uno</div>
+<h2 class="sh">Números <em>reales.</em></h2>
+<p class="sp">Con 2–3 proyectos al mes — que es lo que ya tienen clientes de una sola fuente — esto es lo que genera el modelo.</p>
 
-  <div class="tabs" id="tabs-brief">
-    <button class="tab t-a activo" onclick="mostrarBrief('a',this)">🚀 Brief Arranque</button>
-    <button class="tab t-s"        onclick="mostrarBrief('s',this)">⚙️ Brief Sistema</button>
-    <button class="tab t-e"        onclick="mostrarBrief('e',this)">👑 Brief Ecosistema</button>
-  </div>
-
-  <!-- ── BRIEF A ── -->
-  <div class="panel visible" id="brief-a">
-    <div class="brief-wrap" style="border-color:rgba(16,185,129,.25)">
-      <div class="brief-header" style="background:rgba(16,185,129,.04)">
-        <div class="brief-header-left">
-          <div class="brief-tag" style="color:var(--verde)">🚀 Paquete Arranque — $400 USD</div>
-          <div class="brief-nombre">Brief de entrega — lo que recibes antes del día 1</div>
-        </div>
-        <div class="brief-badge" style="background:rgba(16,185,129,.15);color:var(--verde)">✅ Todo entregado antes de arrancar</div>
+<div class="comision-box">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center">
+    <div>
+      <div class="sl" style="color:var(--dorado)">Escenario conservador — 2 proyectos/mes</div>
+      <div style="font-size:1.05rem;font-weight:700;color:var(--blanco);margin-bottom:8px">1 proyecto M ($1.200) + 1 proyecto S ($600)</div>
+      <div style="font-size:.82rem;color:var(--muted);line-height:1.7">
+        → Cliente paga: $1.200 + $600 = <strong style="color:#fff">$1.800 USD</strong><br>
+        → Tú recibes: $960 + $480 = <strong style="color:var(--azul)">$1.440 USD</strong><br>
+        → Fernanda recibe: $240 + $120 = <strong style="color:var(--dorado)">$360 USD</strong>
       </div>
-      <div class="brief-fields">
-        <div class="brief-field">
-          <div class="bf-label">Negocio y objetivo</div>
-          <div class="bf-desc">Nombre del negocio, qué vende, a quién le vende. <strong>Objetivo principal de la landing</strong> (captar leads / agendar cita / vender producto). <em>→ Define el foco del proyecto.</em></div>
-        </div>
-        <div class="brief-field">
-          <div class="bf-label">Assets listos para usar</div>
-          <div class="bf-desc"><strong>Logo + colores (hex) + tipografía</strong> entregados en Drive. Sin assets = no arranque. <em>→ Sin decisiones de diseño de tu parte.</em></div>
-        </div>
-        <div class="brief-field">
-          <div class="bf-label">Copy completo de la landing</div>
-          <div class="bf-desc"><strong>Todo el texto escrito por Fernanda</strong> — título, subtítulo, bullets de beneficios, CTA, footer. Tú solo construyes, no redactas. <em>→ Sin interpretaciones.</em></div>
-        </div>
-        <div class="brief-field">
-          <div class="bf-label">Herramienta de email</div>
-          <div class="bf-desc"><strong>Plataforma que usa el cliente</strong> (Mailchimp, Brevo, ActiveCampaign…) + acceso entregado. Textos de los 3 emails escritos y listos. <em>→ Solo configuras, no escribes.</em></div>
-        </div>
-        <div class="brief-field">
-          <div class="bf-label">WhatsApp Business + dominio</div>
-          <div class="bf-desc"><strong>Número de WA Business</strong> del cliente + acceso confirmado. <strong>Dominio</strong> disponible o instrucción de subdominio. <em>→ Sin gestión de cuentas de tu parte.</em></div>
-        </div>
-        <div class="brief-field">
-          <div class="bf-label">Referencias visuales</div>
-          <div class="bf-desc">2–3 landings de referencia que el cliente aprobó. <strong>Estilo visual acordado</strong> antes de que construyas. <em>→ Sin "no era lo que imaginaba" al entregar.</em></div>
-        </div>
-      </div>
-      <div class="brief-aceptacion">
-        <div class="ba-titulo">Criterios de aceptación — cuándo el proyecto está terminado</div>
-        <div class="ba-item"><span class="ba-check">✓</span>Landing carga correctamente en móvil y desktop</div>
-        <div class="ba-item"><span class="ba-check">✓</span>Formulario de captura guarda el lead en la herramienta de email del cliente</div>
-        <div class="ba-item"><span class="ba-check">✓</span>Botón de WhatsApp abre la conversación en el número correcto</div>
-        <div class="ba-item"><span class="ba-check">✓</span>Bot de WA responde el mensaje de bienvenida automáticamente al primer mensaje</div>
-        <div class="ba-item"><span class="ba-check">✓</span>Secuencia de 3 emails se activa correctamente al registrarse un nuevo lead</div>
-        <div class="ba-item"><span class="ba-check">✓</span>Dominio conectado y funcionando (o subdominio si aplica)</div>
+    </div>
+    <div>
+      <div class="sl" style="color:var(--verde)">Escenario objetivo — 4 proyectos/mes</div>
+      <div style="font-size:1.05rem;font-weight:700;color:var(--blanco);margin-bottom:8px">2 proyectos M + 1 L + 1 S</div>
+      <div style="font-size:.82rem;color:var(--muted);line-height:1.7">
+        → Cliente paga: ~$6.000 USD<br>
+        → Tú recibes: <strong style="color:var(--azul)">~$4.800 USD</strong><br>
+        → Fernanda recibe: <strong style="color:var(--dorado)">~$1.200 USD</strong>
       </div>
     </div>
   </div>
-
-  <!-- ── BRIEF S ── -->
-  <div class="panel" id="brief-s">
-    <div class="brief-wrap" style="border-color:rgba(249,115,22,.3)">
-      <div class="brief-header" style="background:rgba(249,115,22,.04)">
-        <div class="brief-header-left">
-          <div class="brief-tag" style="color:var(--naranja)">⚙️ Paquete Sistema — $700 USD</div>
-          <div class="brief-nombre">Brief de entrega — lo que recibes antes del día 1</div>
-        </div>
-        <div class="brief-badge" style="background:rgba(249,115,22,.15);color:var(--naranja)">✅ Todo entregado + reunión de 30 min de alineación</div>
-      </div>
-      <div class="brief-fields">
-        <div class="brief-field">
-          <div class="bf-label">Todo lo del Brief Arranque</div>
-          <div class="bf-desc">Assets, copy, herramientas, dominio, referencias — entregados antes de arrancar. <em>→ Base ya definida.</em></div>
-        </div>
-        <div class="brief-field">
-          <div class="bf-label">Mapa del sitio (5 páginas máx)</div>
-          <div class="bf-desc"><strong>Lista exacta de páginas</strong> con nombre y objetivo de cada una. <strong>Contenido completo escrito</strong> para cada página. <em>→ Sin páginas sorpresa ni contenido por construir.</em></div>
-        </div>
-        <div class="brief-field">
-          <div class="bf-label">Flujo de automatización documentado</div>
-          <div class="bf-desc"><strong>Diagrama o descripción paso a paso</strong> del flujo WA + email: qué dispara qué, qué condiciones hay, qué mensaje va en cada momento. <em>→ Tú implementas el flujo, no lo diseñas.</em></div>
-        </div>
-        <div class="brief-field">
-          <div class="bf-label">CRM y herramientas definidas</div>
-          <div class="bf-desc"><strong>Plataforma acordada</strong> (Notion / Airtable / HubSpot free). <strong>Campos del CRM</strong> que deben capturarse. Accesos entregados. <em>→ Sin decidir stack de tu parte.</em></div>
-        </div>
-        <div class="brief-field">
-          <div class="bf-label">Pixel Meta + 2 anuncios</div>
-          <div class="bf-desc"><strong>ID del Pixel</strong> del cliente entregado. <strong>Brief de los 2 anuncios</strong>: objetivo, copy, imagen/video, audiencia target. <em>→ Tú configuras, no defines estrategia.</em></div>
-        </div>
-        <div class="brief-field">
-          <div class="bf-label">Integraciones requeridas (lista cerrada)</div>
-          <div class="bf-desc"><strong>Lista explícita y cerrada</strong> de todas las integraciones: plataformas, APIs y herramientas a conectar. <strong>Lo que no está en la lista no está incluido.</strong> <em>→ Alcance delimitado desde el inicio.</em></div>
-        </div>
-      </div>
-      <div class="brief-aceptacion">
-        <div class="ba-titulo">Criterios de aceptación — cuándo el proyecto está terminado</div>
-        <div class="ba-item"><span class="ba-check">✓</span>Todas las páginas del sitio cargan correctamente en móvil y desktop</div>
-        <div class="ba-item"><span class="ba-check">✓</span>Leads entran automáticamente al CRM con los campos acordados</div>
-        <div class="ba-item"><span class="ba-check">✓</span>Flujo de automatización WA + email se ejecuta según el diagrama del brief</div>
-        <div class="ba-item"><span class="ba-check">✓</span>Pixel de Meta dispara PageView, Lead y Purchase correctamente (verificado en Meta Events Manager)</div>
-        <div class="ba-item"><span class="ba-check">✓</span>2 anuncios creados en Meta Ads listos para revisión de Fernanda antes de activar</div>
-        <div class="ba-item"><span class="ba-check">✓</span>Todas las integraciones de la lista cerrada funcionan y están documentadas</div>
-      </div>
+  <div class="comision-nums">
+    <div class="cn-box">
+      <div class="cn-val">20%</div>
+      <div class="cn-lbl">Comisión Fernanda · todos los tamaños</div>
     </div>
-  </div>
-
-  <!-- ── BRIEF E ── -->
-  <div class="panel" id="brief-e">
-    <div class="brief-wrap" style="border-color:rgba(245,184,0,.3)">
-      <div class="brief-header" style="background:rgba(245,184,0,.03)">
-        <div class="brief-header-left">
-          <div class="brief-tag" style="color:var(--dorado)">👑 Paquete Ecosistema — $1.500 USD</div>
-          <div class="brief-nombre">Brief técnico detallado — sesión de alineación incluida en semana 1</div>
-        </div>
-        <div class="brief-badge" style="background:rgba(245,184,0,.12);color:var(--dorado)">✅ Semana 1 = discovery + documento de alcance firmado</div>
-      </div>
-      <div class="brief-fields">
-        <div class="brief-field">
-          <div class="bf-label">Todo lo del Brief Sistema</div>
-          <div class="bf-desc">Assets, copy, mapa del sitio, flujos, CRM, pixel, integraciones — entregados en la semana 1. <em>→ Base ya definida.</em></div>
-        </div>
-        <div class="brief-field">
-          <div class="bf-label">Definición de la app / herramienta</div>
-          <div class="bf-desc"><strong>Descripción funcional completa</strong>: qué hace, para quién, flujo principal (casos de uso). <strong>Stack permitido o restricciones</strong> de infraestructura. <em>→ Tú arquitectas dentro de los límites definidos.</em></div>
-        </div>
-        <div class="brief-field">
-          <div class="bf-label">Infraestructura y costos (quién paga qué)</div>
-          <div class="bf-desc"><strong>Hosting / servidor</strong>: quién lo provee y quién lo paga. <strong>APIs externas</strong>: quién crea las cuentas y asume los costos. <em>→ Sin sorpresas de costos operativos.</em></div>
-        </div>
-        <div class="brief-field">
-          <div class="bf-label">IA — si aplica (tipo + proveedor + costos)</div>
-          <div class="bf-desc"><strong>Tipo de solución</strong>: chatbot, RAG, agente, clasificación, etc. <strong>Proveedor</strong>: OpenAI, Anthropic, otro. <strong>Quién asume los tokens</strong> de consumo. <em>→ Sin ambigüedad en el alcance de IA.</em></div>
-        </div>
-        <div class="brief-field">
-          <div class="bf-label">Fuentes del dashboard de métricas</div>
-          <div class="bf-desc"><strong>Lista de fuentes de datos</strong>: Meta Ads, Google Analytics, CRM, base de datos propia, etc. <strong>Accesos entregados</strong> antes de construir. <em>→ Tú conectas, no investigas qué conectar.</em></div>
-        </div>
-        <div class="brief-field">
-          <div class="bf-label">Documento de alcance firmado</div>
-          <div class="bf-desc">Al final de la semana 1, <strong>ambas partes firman el documento de alcance</strong>. Funcionalidades acordadas, integraciones listadas, exclusiones documentadas. <strong>Cualquier cambio posterior = cotización adicional.</strong> <em>→ Protege tu tiempo.</em></div>
-        </div>
-      </div>
-      <div class="brief-aceptacion">
-        <div class="ba-titulo">Criterios de aceptación — cuándo el proyecto está terminado</div>
-        <div class="ba-item"><span class="ba-check">✓</span>Todos los criterios del Paquete Sistema verificados</div>
-        <div class="ba-item"><span class="ba-check">✓</span>App/herramienta cumple los casos de uso definidos en el documento de alcance firmado</div>
-        <div class="ba-item"><span class="ba-check">✓</span>Dashboard muestra datos en tiempo real de todas las fuentes de la lista acordada</div>
-        <div class="ba-item"><span class="ba-check">✓</span>Documentación técnica entregada: README + credenciales + arquitectura básica + instrucciones de mantenimiento</div>
-        <div class="ba-item"><span class="ba-check">✓</span>2 sesiones de capacitación completadas y el equipo del cliente puede operar lo construido</div>
-        <div class="ba-item"><span class="ba-check">✓</span>Funcionalidades fuera del documento de alcance firmado → cotizadas y aprobadas por separado</div>
-      </div>
+    <div class="cn-box">
+      <div class="cn-val">80%</div>
+      <div class="cn-lbl">Tuyo · precio que tú cotizas</div>
+    </div>
+    <div class="cn-box">
+      <div class="cn-val">48–72h</div>
+      <div class="cn-lbl">Máximo para clasificar y cotizar</div>
+    </div>
+    <div class="cn-box">
+      <div class="cn-val">0</div>
+      <div class="cn-lbl">Costos operativos que yo te pido asumir</div>
     </div>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- ═══════════ PAQUETES ═══════════ -->
-<div class="bloque">
-  <div class="sl">Los tres paquetes</div>
-  <h2 class="sh">Qué construyes<br>y <em>cuánto recibes.</em></h2>
-  <p class="sp">Cada paquete tiene un alcance técnico fijo y un pago fijo para ti. Sin sorpresas.</p>
-
-  <div class="tabs">
-    <button class="tab t-a activo" onclick="mostrarPanel('a',this)">🚀 Arranque · $400</button>
-    <button class="tab t-s"        onclick="mostrarPanel('s',this)">⚙️ Sistema · $700</button>
-    <button class="tab t-e"        onclick="mostrarPanel('e',this)">👑 Ecosistema · $1.500</button>
+<!-- ═══ PILOTO ═══ -->
+<div class="sl">Cómo arrancamos</div>
+<h2 class="sh">Piloto de <em>90 días.</em></h2>
+<p class="sp">Sin contratos, sin exclusividades, sin compromiso más allá de probarlo. Al mes 3 evaluamos si tiene sentido formalizar.</p>
+<div class="piloto-grid">
+  <div class="piloto-mes">
+    <div class="pm-num">Mes 1</div>
+    <div class="pm-titulo">1 proyecto piloto</div>
+    <div class="pm-item">Proyecto XS o S para medir tiempos y proceso</div>
+    <div class="pm-item">Validar el flujo de pre-brief → clasificación → cotización</div>
+    <div class="pm-item">Identificar fricciones antes de escalar</div>
+    <div class="pm-item">Sin presión de volumen — calidad primero</div>
   </div>
-
-  <!-- ── PANEL A ── -->
-  <div class="panel visible" id="panel-a">
-    <div class="paq-wrap" style="border-color:rgba(16,185,129,.25);">
-      <div class="paq-top" style="background:rgba(16,185,129,.04);">
-        <div class="paq-top-row">
-          <div>
-            <div class="paq-badge" style="color:var(--verde)">🚀 Paquete Arranque</div>
-            <div class="paq-nombre">Presencia + Captación básica</div>
-          </div>
-          <div class="paq-pago-box">
-            <div class="paq-pago-lbl">Lo que recibes tú</div>
-            <div class="paq-pago-val" style="color:var(--verde)">$400 USD</div>
-            <div class="paq-pago-nota">Pago fijo · Sin variables</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="check-grid">
-        <div class="check-col">
-          <div class="check-titulo" style="color:var(--verde)">✅ Incluido — lo que construyes</div>
-
-          <div class="check-item">
-            <div class="ci-avatar ci-si">✓</div>
-            <div class="ci-texto"><strong>Landing page</strong> — 1 página responsiva, formulario de captura + botón WhatsApp. Diseño provisto en brief por Fernanda.</div>
-          </div>
-          <div class="check-item">
-            <div class="ci-avatar ci-si">✓</div>
-            <div class="ci-texto"><strong>Bot de WhatsApp básico</strong> — respuesta automática de bienvenida, captura nombre + email, mensaje de seguimiento a las 24h.</div>
-          </div>
-          <div class="check-item">
-            <div class="ci-avatar ci-si">✓</div>
-            <div class="ci-texto"><strong>Secuencia de 3 emails</strong> — bienvenida, seguimiento y cierre. Setup en la herramienta del cliente (Mailchimp / Brevo / la que use).</div>
-          </div>
-          <div class="check-item">
-            <div class="ci-avatar ci-si">✓</div>
-            <div class="ci-texto"><strong>Dominio conectado</strong> — si el cliente tiene dominio propio, conectarlo a la landing. Si no, se usa subdominio.</div>
-          </div>
-          <div class="check-item">
-            <div class="ci-avatar ci-si">✓</div>
-            <div class="ci-texto"><strong>Entrega de accesos</strong> — credenciales organizadas y funcionando. Sin dejar nada en tu poder.</div>
-          </div>
-        </div>
-        <div class="check-col">
-          <div class="check-titulo" style="color:var(--rojo)">🚫 No incluido — fuera del alcance</div>
-
-          <div class="check-item">
-            <div class="ci-avatar ci-no">✗</div>
-            <div class="ci-texto"><strong>Diseño de marca desde cero</strong> — el cliente llega con logo y colores. Si no tiene, no es parte de este paquete.</div>
-          </div>
-          <div class="check-item">
-            <div class="ci-avatar ci-no">✗</div>
-            <div class="ci-texto"><strong>Más de 1 landing page</strong> — si piden páginas adicionales, es trabajo extra con nuevo presupuesto.</div>
-          </div>
-          <div class="check-item">
-            <div class="ci-avatar ci-no">✗</div>
-            <div class="ci-texto"><strong>Integración de pasarela de pago</strong> — Hotmart, Stripe, PayU, etc. No incluido en este nivel.</div>
-          </div>
-          <div class="check-item">
-            <div class="ci-avatar ci-no">✗</div>
-            <div class="ci-texto"><strong>Automatizaciones complejas</strong> — flujos multi-rama, lógica condicional avanzada, CRM integrado. Eso es Paquete Sistema.</div>
-          </div>
-          <div class="check-item">
-            <div class="ci-avatar ci-no">✗</div>
-            <div class="ci-texto"><strong>Pauta publicitaria</strong> — la configura Fernanda. Tú no tocas Meta Ads ni Google Ads en este paquete.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tl-wrap">
-        <div class="tl-titulo-sec">⏱ Timeline — lo que se espera de ti</div>
-        <div class="tl-row">
-          <div class="tl-step">
-            <div class="tl-dot" style="background:var(--verde)">1</div>
-            <div class="tl-s-titulo">Día 1</div>
-            <div class="tl-s-sub">Recibes el brief completo de Fernanda</div>
-          </div>
-          <div class="tl-step">
-            <div class="tl-dot" style="background:var(--verde)">2</div>
-            <div class="tl-s-titulo">Días 2–7</div>
-            <div class="tl-s-sub">Desarrollas landing + bot + emails</div>
-          </div>
-          <div class="tl-step">
-            <div class="tl-dot" style="background:var(--verde)">3</div>
-            <div class="tl-s-titulo">Día 8</div>
-            <div class="tl-s-sub">Entrega a Fernanda para revisión interna</div>
-          </div>
-          <div class="tl-step">
-            <div class="tl-dot" style="background:var(--verde)">4</div>
-            <div class="tl-s-titulo">Día 9–10</div>
-            <div class="tl-s-sub">Ajustes si los hay (1 ronda)</div>
-          </div>
-          <div class="tl-step">
-            <div class="tl-dot" style="background:var(--verde)">5</div>
-            <div class="tl-s-titulo">Día 11</div>
-            <div class="tl-s-sub">Entrega final + accesos</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="paq-footer">
-        <div class="pf-item">🔁 <span><strong>1 ronda</strong> de ajustes incluida</span></div>
-        <div class="pf-item">🛠 <span>Soporte técnico <strong>15 días</strong> post-entrega</span></div>
-        <div class="pf-item">💳 <span>Recibes tu pago <strong>al entregar</strong></span></div>
-      </div>
-    </div>
+  <div class="piloto-mes">
+    <div class="pm-num">Mes 2</div>
+    <div class="pm-titulo">Optimizar el proceso</div>
+    <div class="pm-item">Ajustar tiempos de clasificación y entrega</div>
+    <div class="pm-item">Afinar el pre-brief según lo que te haya faltado</div>
+    <div class="pm-item">2 proyectos si el mes 1 fue bien</div>
+    <div class="pm-item">Confirmar rangos de precio si algo quedó mal calibrado</div>
   </div>
-
-  <!-- ── PANEL S ── -->
-  <div class="panel" id="panel-s">
-    <div class="paq-wrap" style="border-color:rgba(249,115,22,.3);">
-      <div class="paq-top" style="background:rgba(249,115,22,.04);">
-        <div class="paq-top-row">
-          <div>
-            <div class="paq-badge" style="color:var(--naranja)">⚙️ Paquete Sistema</div>
-            <div class="paq-nombre">Sistema de captación completo</div>
-          </div>
-          <div class="paq-pago-box">
-            <div class="paq-pago-lbl">Lo que recibes tú</div>
-            <div class="paq-pago-val" style="color:var(--naranja)">$700 USD</div>
-            <div class="paq-pago-nota">Pago fijo · Sin variables</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="check-grid">
-        <div class="check-col">
-          <div class="check-titulo" style="color:var(--naranja)">✅ Incluido — lo que construyes</div>
-          <div class="check-item"><div class="ci-avatar ci-si">✓</div><div class="ci-texto"><strong>Sitio web hasta 5 páginas</strong> — home, servicios, sobre mí, blog y contacto. Responsivo, optimizado.</div></div>
-          <div class="check-item"><div class="ci-avatar ci-si">✓</div><div class="ci-texto"><strong>Automatización WhatsApp + email</strong> — flujos completos con lógica condicional, segmentación y seguimiento automático.</div></div>
-          <div class="check-item"><div class="ci-avatar ci-si">✓</div><div class="ci-texto"><strong>CRM básico conectado</strong> — los leads entran solos al CRM. Puede ser Notion, Airtable, HubSpot free o similar.</div></div>
-          <div class="check-item"><div class="ci-avatar ci-si">✓</div><div class="ci-texto"><strong>Pixel de Meta instalado + eventos</strong> — PageView, Lead, Purchase configurados y verificados.</div></div>
-          <div class="check-item"><div class="ci-avatar ci-si">✓</div><div class="ci-texto"><strong>Setup de 2 anuncios en Meta Ads</strong> — estructura de campaña + audiencias creadas. No se lanzan hasta que Fernanda apruebe.</div></div>
-          <div class="check-item"><div class="ci-avatar ci-si">✓</div><div class="ci-texto"><strong>Entrega con documentación</strong> — credenciales + video corto de qué hace qué.</div></div>
-        </div>
-        <div class="check-col">
-          <div class="check-titulo" style="color:var(--rojo)">🚫 No incluido — fuera del alcance</div>
-          <div class="check-item"><div class="ci-avatar ci-no">✗</div><div class="ci-texto"><strong>Más de 5 páginas</strong> — cada página extra se cotiza por separado antes de arrancar.</div></div>
-          <div class="check-item"><div class="ci-avatar ci-no">✗</div><div class="ci-texto"><strong>Marketplace o tienda online</strong> — si tiene productos con carrito de compras, eso es Ecosistema o presupuesto aparte.</div></div>
-          <div class="check-item"><div class="ci-avatar ci-no">✗</div><div class="ci-texto"><strong>Más de 2 anuncios</strong> — los anuncios adicionales o la gestión mensual de pauta no están incluidos.</div></div>
-          <div class="check-item"><div class="ci-avatar ci-no">✗</div><div class="ci-texto"><strong>App móvil</strong> — nativo iOS/Android ni PWA avanzada. Si lo necesitan, es Ecosistema.</div></div>
-          <div class="check-item"><div class="ci-avatar ci-no">✗</div><div class="ci-texto"><strong>Integración con sistema de facturación</strong> — SIIGO, Alegra, etc. Se cotiza aparte si aplica.</div></div>
-        </div>
-      </div>
-
-      <div class="tl-wrap">
-        <div class="tl-titulo-sec">⏱ Timeline — lo que se espera de ti</div>
-        <div class="tl-row">
-          <div class="tl-step"><div class="tl-dot" style="background:var(--naranja)">1</div><div class="tl-s-titulo">Días 1–3</div><div class="tl-s-sub">Revisas brief, confirmas dudas con Fernanda</div></div>
-          <div class="tl-step"><div class="tl-dot" style="background:var(--naranja)">2</div><div class="tl-s-titulo">Días 4–12</div><div class="tl-s-sub">Desarrollas sitio + automatizaciones + pixel</div></div>
-          <div class="tl-step"><div class="tl-dot" style="background:var(--naranja)">3</div><div class="tl-s-titulo">Días 13–14</div><div class="tl-s-sub">Entrega a Fernanda — revisión interna</div></div>
-          <div class="tl-step"><div class="tl-dot" style="background:var(--naranja)">4</div><div class="tl-s-titulo">Días 15–17</div><div class="tl-s-sub">Hasta 2 rondas de ajustes</div></div>
-          <div class="tl-step"><div class="tl-dot" style="background:var(--naranja)">5</div><div class="tl-s-titulo">Días 18–21</div><div class="tl-s-sub">Entrega final + todos los accesos</div></div>
-        </div>
-      </div>
-
-      <div class="paq-footer">
-        <div class="pf-item">🔁 <span><strong>2 rondas</strong> de ajustes incluidas</span></div>
-        <div class="pf-item">🛠 <span>Soporte técnico <strong>30 días</strong> post-entrega</span></div>
-        <div class="pf-item">💳 <span>50% al recibir brief · 50% al entregar</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── PANEL E ── -->
-  <div class="panel" id="panel-e">
-    <div class="paq-wrap" style="border-color:rgba(245,184,0,.3);">
-      <div class="paq-top" style="background:rgba(245,184,0,.03);">
-        <div class="paq-top-row">
-          <div>
-            <div class="paq-badge" style="color:var(--dorado)">👑 Paquete Ecosistema</div>
-            <div class="paq-nombre">Ecosistema digital completo</div>
-          </div>
-          <div class="paq-pago-box">
-            <div class="paq-pago-lbl">Lo que recibes tú</div>
-            <div class="paq-pago-val" style="color:var(--dorado)">$1.500 USD</div>
-            <div class="paq-pago-nota">Pago fijo · Sin variables</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="check-grid">
-        <div class="check-col">
-          <div class="check-titulo" style="color:var(--dorado)">✅ Incluido — lo que construyes</div>
-          <div class="check-item"><div class="ci-avatar ci-si">✓</div><div class="ci-texto"><strong>Todo el Paquete Sistema</strong> — sitio web, automatizaciones, CRM, pixel + ads setup.</div></div>
-          <div class="check-item"><div class="ci-avatar ci-si">✓</div><div class="ci-texto"><strong>App o herramienta a medida</strong> — definida en el brief. Puede ser web app, PWA, herramienta interna o bot avanzado. El alcance exacto se detalla antes de arrancar.</div></div>
-          <div class="check-item"><div class="ci-avatar ci-si">✓</div><div class="ci-texto"><strong>Dashboard de métricas</strong> — Looker Studio / Metabase / custom. Conectado a las fuentes del cliente. El cliente ve leads, conversiones y ventas en tiempo real.</div></div>
-          <div class="check-item"><div class="ci-avatar ci-si">✓</div><div class="ci-texto"><strong>Documentación técnica completa</strong> — README, credenciales, arquitectura básica del sistema, instrucciones de mantenimiento.</div></div>
-          <div class="check-item"><div class="ci-avatar ci-si">✓</div><div class="ci-texto"><strong>2 sesiones de capacitación técnica</strong> — enseñas al equipo del cliente a usar lo que construiste. Máx 1h cada una, via Zoom.</div></div>
-        </div>
-        <div class="check-col">
-          <div class="check-titulo" style="color:var(--rojo)">🚫 No incluido — fuera del alcance</div>
-          <div class="check-item"><div class="ci-avatar ci-no">✗</div><div class="ci-texto"><strong>Apps nativas iOS/Android</strong> — si el brief no lo especifica explícitamente. Requiere negociación de precio separada.</div></div>
-          <div class="check-item"><div class="ci-avatar ci-no">✗</div><div class="ci-texto"><strong>Integraciones no especificadas en brief</strong> — cualquier plataforma que no esté listada en el brief firmado va a presupuesto adicional.</div></div>
-          <div class="check-item"><div class="ci-avatar ci-no">✗</div><div class="ci-texto"><strong>Mantenimiento mensual</strong> — el soporte de 60 días es para bugs. Mantenimiento continuo se cotiza por separado.</div></div>
-          <div class="check-item"><div class="ci-avatar ci-no">✗</div><div class="ci-texto"><strong>Más de 2 sesiones de capacitación</strong> — sesiones adicionales se cotizan por separado (min $80 USD/sesión).</div></div>
-        </div>
-      </div>
-
-      <div class="tl-wrap">
-        <div class="tl-titulo-sec">⏱ Timeline — lo que se espera de ti</div>
-        <div class="tl-row">
-          <div class="tl-step"><div class="tl-dot" style="background:var(--dorado)">1</div><div class="tl-s-titulo">Semana 1</div><div class="tl-s-sub">Diagnóstico + brief técnico detallado acordado</div></div>
-          <div class="tl-step"><div class="tl-dot" style="background:var(--dorado)">2</div><div class="tl-s-titulo">Semanas 2–3</div><div class="tl-s-sub">Desarrollo web + automatizaciones + app/tool</div></div>
-          <div class="tl-step"><div class="tl-dot" style="background:var(--dorado)">3</div><div class="tl-s-titulo">Semana 4</div><div class="tl-s-sub">Revisiones (hasta 3 rondas) + dashboard</div></div>
-          <div class="tl-step"><div class="tl-dot" style="background:var(--dorado)">4</div><div class="tl-s-titulo">Semana 5</div><div class="tl-s-sub">Entrega final + capacitaciones + accesos</div></div>
-        </div>
-      </div>
-
-      <div class="paq-footer">
-        <div class="pf-item">🔁 <span><strong>3 rondas</strong> de ajustes incluidas</span></div>
-        <div class="pf-item">🛠 <span>Soporte técnico <strong>60 días</strong> post-entrega</span></div>
-        <div class="pf-item">💳 <span>50% al brief · 25% semana 3 · 25% entrega</span></div>
-      </div>
-    </div>
+  <div class="piloto-mes">
+    <div class="pm-num">Mes 3</div>
+    <div class="pm-titulo">Escalar y decidir</div>
+    <div class="pm-item">3–4 proyectos si hay capacidad</div>
+    <div class="pm-item">Evaluar si firmamos acuerdo formal de canal</div>
+    <div class="pm-item">Definir si agregamos exclusividad en algún nicho</div>
+    <div class="pm-item">Proyectar los siguientes 6 meses juntos</div>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- ═══════════ CUÁNDO TE PAGAN ═══════════ -->
-<div class="bloque">
-  <div class="sl">Tu pago</div>
-  <h2 class="sh">Cuándo y <em>cómo recibes.</em></h2>
-  <p class="sp">Tu pago depende del paquete. Siempre recibes parte antes de arrancar — no trabajas de gratis esperando.</p>
-  <div class="pagos-fila">
-    <div class="pago" style="border-top:3px solid var(--verde)">
-      <div class="pago-pct" style="color:var(--verde)">$400</div>
-      <div class="pago-cuando">Paquete Arranque</div>
-      <div class="pago-desc">Pago único al entregar el proyecto aprobado por Fernanda.</div>
-    </div>
-    <div class="pago" style="border-top:3px solid var(--naranja)">
-      <div class="pago-pct" style="color:var(--naranja)">$700</div>
-      <div class="pago-cuando">Paquete Sistema</div>
-      <div class="pago-desc">$350 al recibir el brief · $350 al entregar el proyecto.</div>
-    </div>
-    <div class="pago" style="border-top:3px solid var(--dorado)">
-      <div class="pago-pct" style="color:var(--dorado)">$1.500</div>
-      <div class="pago-cuando">Paquete Ecosistema</div>
-      <div class="pago-desc">$750 al brief · $375 semana 3 · $375 entrega final.</div>
-    </div>
+<!-- ═══ PROTECCIONES ═══ -->
+<div class="sl">Acuerdos base</div>
+<h2 class="sh">Lo que protege<br><em>a los dos.</em></h2>
+<div class="prot-grid">
+  <div class="prot">
+    <div class="prot-num">Para ti</div>
+    <div class="prot-titulo">Nunca cotizas sin pre-brief completo</div>
+    <div class="prot-desc">Si el pre-brief llega incompleto, tienes derecho a rechazarlo y pedirlo completo antes de clasificar. No arrancas nunca a ciegas.</div>
+  </div>
+  <div class="prot">
+    <div class="prot-num">Para ti</div>
+    <div class="prot-titulo">Change order para todo lo que está fuera del alcance</div>
+    <div class="prot-desc">Lo que no estaba en el alcance acordado se cotiza aparte. Yo lo manejo con el cliente — tú no negocias directamente con él.</div>
+  </div>
+  <div class="prot">
+    <div class="prot-num">Para Fernanda</div>
+    <div class="prot-titulo">Los clientes son de Fernanda</div>
+    <div class="prot-desc">No puedes contactar ni ofrecer servicios directamente a los clientes referidos por Fernanda sin su autorización. Esto aplica durante y después del piloto.</div>
+  </div>
+  <div class="prot">
+    <div class="prot-num">Para los dos</div>
+    <div class="prot-titulo">Sin exclusividad durante el piloto</div>
+    <div class="prot-desc">Los dos podemos trabajar con otras personas durante los 90 días. Si la sociedad funciona, revisamos exclusividad en el mes 3.</div>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- ═══════════ COMUNICACIÓN ═══════════ -->
-<div class="bloque">
-  <div class="sl">Protocolo</div>
-  <h2 class="sh">Cómo nos<em> comunicamos.</em></h2>
-  <p class="sp">Claridad en los canales evita confusión y retrasos. Esto aplica desde el primer proyecto.</p>
-  <div class="com-grid">
-    <div class="com-card" style="border-left:3px solid var(--verde)">
-      <div class="com-titulo">✅ Canal oficial entre nosotros</div>
-      <div class="com-item">WhatsApp — para urgencias y preguntas rápidas</div>
-      <div class="com-item">Correo o Notion — para briefs, entregables y feedback documentado</div>
-      <div class="com-item">Tiempo de respuesta esperado: máx 4h en horario laboral</div>
-      <div class="com-item">Si hay dudas del brief, preguntar ANTES de construir — no después</div>
-    </div>
-    <div class="com-card" style="border-left:3px solid var(--rojo)">
-      <div class="com-titulo">🚫 Lo que no hacemos</div>
-      <div class="com-item"><strong style="color:var(--blanco)">No contactas al cliente directamente</strong> — todo pasa por Fernanda</div>
-      <div class="com-item">No mencionas tu empresa al cliente bajo ninguna circunstancia</div>
-      <div class="com-item">No propones cambios al cliente — si el cliente pide algo diferente, Fernanda te lo comunica</div>
-      <div class="com-item">No arrancas trabajo extra sin confirmación escrita y pago adicional acordado</div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- ═══════════ PILOTO ═══════════ -->
-<div class="bloque">
-  <div class="sl">Cómo arrancamos</div>
-  <h2 class="sh">Piloto de <em>90 días.</em></h2>
-  <p class="sp">Sin contratos largos ni exclusividades desde el día 1. Probamos que funciona antes de comprometernos a algo mayor.</p>
-  <div class="piloto-grid">
-    <div class="piloto-mes">
-      <div class="pm-num">Mes 1</div>
-      <div class="pm-titulo">1 proyecto piloto</div>
-      <div class="pm-item">Paquete Arranque o Sistema</div>
-      <div class="pm-item">Medir tiempo real de entrega</div>
-      <div class="pm-item">Evaluar la calidad del brief</div>
-      <div class="pm-item">Identificar fricciones del proceso</div>
-    </div>
-    <div class="piloto-mes">
-      <div class="pm-num">Mes 2</div>
-      <div class="pm-titulo">Optimizar y documentar</div>
-      <div class="pm-item">Ajustar el proceso de handoff</div>
-      <div class="pm-item">Confirmar precios si aplica</div>
-      <div class="pm-item">Formalizar el brief template</div>
-      <div class="pm-item">2 proyectos si el mes 1 fue bien</div>
-    </div>
-    <div class="piloto-mes">
-      <div class="pm-num">Mes 3</div>
-      <div class="pm-titulo">Escalar y decidir</div>
-      <div class="pm-item">3–5 proyectos si hay capacidad</div>
-      <div class="pm-item">Evaluar si firmamos algo formal</div>
-      <div class="pm-item">Proyectar los siguientes 6 meses</div>
-      <div class="pm-item">Sin exclusividad hasta este punto</div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- ═══════════ PROTECCIONES MUTUAS ═══════════ -->
-<div class="bloque">
-  <div class="sl">Acuerdos básicos</div>
-  <h2 class="sh">Lo que protege<br><em>a los dos.</em></h2>
-  <p class="sp">No es un contrato legal — es un acuerdo de buena fe para arrancar. Si la sociedad crece, formalizamos.</p>
-  <div class="prot-grid">
-    <div class="prot">
-      <div class="prot-num">Para ti</div>
-      <div class="prot-titulo">Precio fijo por 6 meses</div>
-      <div class="prot-desc">Los precios acordados en esta propuesta no los cambia Fernanda por 6 meses desde la firma. Tú puedes avisar cambios con 30 días de anticipación.</div>
-    </div>
-    <div class="prot">
-      <div class="prot-num">Para Fernanda</div>
-      <div class="prot-titulo">No contacto directo con sus clientes</div>
-      <div class="prot-desc">Los clientes que llegan a través de Fernanda son de Fernanda. No se les puede ofrecer servicios directamente sin su autorización expresa.</div>
-    </div>
-    <div class="prot">
-      <div class="prot-num">Para los dos</div>
-      <div class="prot-titulo">Brief firmado = alcance cerrado</div>
-      <div class="prot-desc">Lo que no está en el brief no está incluido. Cualquier adición posterior se cotiza. Esto protege tu tiempo y la promesa al cliente.</div>
-    </div>
-    <div class="prot">
-      <div class="prot-num">Para los dos</div>
-      <div class="prot-titulo">Sin exclusividad en el piloto</div>
-      <div class="prot-desc">Cualquiera de los dos puede trabajar con otros durante los 90 días de piloto. Si la sociedad funciona, revisamos en el mes 3.</div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- ═══════════ RESUMEN FINAL ═══════════ -->
+<!-- RESUMEN -->
 <div class="resumen">
-  <h3>Resumen de lo que obtienes</h3>
-  <p>Clientes calificados ya cerrados, briefs claros, pago garantizado y cero gestión comercial. Tú solo construyes.</p>
+  <h3>En resumen: tú te enfocas en construir</h3>
+  <p>Yo consigo los clientes, gestiono la relación y pago tu comisión. Tú clasificas, cotizas y construyes bajo tu metodología. Nadie asume riesgos de alcance sin información. Nadie paga costos del otro.</p>
   <div class="resumen-nums">
     <div class="rn-box">
-      <div class="rn-val">$400</div>
-      <div class="rn-lbl">Paquete mínimo</div>
+      <div class="rn-val">20%</div>
+      <div class="rn-lbl">Comisión Fernanda</div>
     </div>
     <div class="rn-box">
-      <div class="rn-val">$1.500</div>
-      <div class="rn-lbl">Paquete máximo</div>
+      <div class="rn-val">5 tallas</div>
+      <div class="rn-lbl">XS → XL para cotizar</div>
+    </div>
+    <div class="rn-box">
+      <div class="rn-val">48h</div>
+      <div class="rn-lbl">Tiempo máx para cotizar S/M</div>
     </div>
     <div class="rn-box">
       <div class="rn-val">90 días</div>
       <div class="rn-lbl">Piloto sin compromiso</div>
     </div>
   </div>
-  <p style="font-size:.82rem;color:var(--muted);margin-bottom:0">¿Tienes preguntas o quieres ajustar algo antes de arrancar?<br>
+  <p style="font-size:.82rem;color:var(--muted);margin-bottom:0">¿Listo para arrancar el primer proyecto piloto?<br>
   <strong style="color:var(--blanco)">Escríbele a Fernanda → wa.me/573044166768</strong></p>
 </div>
 
 </div>
-
-<script>
-function mostrarPanel(id, btn){
-  document.querySelectorAll('#panel-a,#panel-s,#panel-e').forEach(p => p.classList.remove('visible'));
-  btn.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('activo'));
-  document.getElementById('panel-'+id).classList.add('visible');
-  btn.classList.add('activo');
-}
-function mostrarBrief(id, btn){
-  document.querySelectorAll('#brief-a,#brief-s,#brief-e').forEach(p => p.classList.remove('visible'));
-  btn.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('activo'));
-  document.getElementById('brief-'+id).classList.add('visible');
-  btn.classList.add('activo');
-}
-</script>
 </body>
 </html>
