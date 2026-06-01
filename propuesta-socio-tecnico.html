@@ -171,6 +171,23 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .prot-titulo{font-size:.86rem;font-weight:800;color:var(--blanco);margin-bottom:5px;}
 .prot-desc{font-size:.75rem;color:var(--muted);line-height:1.55;}
 
+/* ─── BRIEF TEMPLATE ─── */
+.brief-wrap{background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;margin-bottom:24px;}
+.brief-header{padding:20px 26px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.brief-header-left .brief-tag{font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.brief-header-left .brief-nombre{font-size:1rem;font-weight:900;color:var(--blanco);}
+.brief-badge{font-size:.65rem;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.5px;}
+.brief-fields{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.04);}
+.brief-field{background:var(--negro);padding:16px 20px;}
+.bf-label{font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.bf-desc{font-size:.78rem;color:#c0b8d8;line-height:1.5;}
+.bf-desc strong{color:var(--blanco);}
+.bf-desc em{color:var(--dorado);font-style:normal;font-size:.71rem;}
+.brief-aceptacion{padding:18px 24px;background:rgba(16,185,129,.04);border-top:1px solid rgba(16,185,129,.15);}
+.ba-titulo{font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--verde);margin-bottom:10px;}
+.ba-item{display:flex;align-items:flex-start;gap:8px;font-size:.76rem;color:#c0b8d8;margin-bottom:5px;line-height:1.4;}
+.ba-check{color:var(--verde);flex-shrink:0;margin-top:1px;}
+
 /* ─── RESUMEN FINAL ─── */
 .resumen{background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(109,40,217,.06));
   border:1px solid rgba(59,130,246,.2);border-radius:20px;padding:32px;text-align:center;}
@@ -248,6 +265,165 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
       <div class="rol-item"><span class="rol-ico">🛠</span>Setup técnico completo</div>
       <div class="rol-item"><span class="rol-ico">🔧</span>Ajustes dentro de las revisiones acordadas</div>
       <div class="rol-item"><span class="rol-ico">📦</span>Entregar accesos y documentación</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════ BRIEF ESTRUCTURADO ═══════════ -->
+<div class="bloque">
+  <div class="sl">El brief que recibes</div>
+  <h2 class="sh">Alcance definido<br><em>antes de arrancar.</em></h2>
+  <p class="sp">Antes de que empieces a construir cualquier cosa, recibirás un brief completo con todo lo que necesitas. Sin ambigüedad, sin "lo que consideres", sin adivinar. Aquí está exactamente qué contiene el brief de cada paquete.</p>
+
+  <div class="tabs" id="tabs-brief">
+    <button class="tab t-a activo" onclick="mostrarBrief('a',this)">🚀 Brief Arranque</button>
+    <button class="tab t-s"        onclick="mostrarBrief('s',this)">⚙️ Brief Sistema</button>
+    <button class="tab t-e"        onclick="mostrarBrief('e',this)">👑 Brief Ecosistema</button>
+  </div>
+
+  <!-- ── BRIEF A ── -->
+  <div class="panel visible" id="brief-a">
+    <div class="brief-wrap" style="border-color:rgba(16,185,129,.25)">
+      <div class="brief-header" style="background:rgba(16,185,129,.04)">
+        <div class="brief-header-left">
+          <div class="brief-tag" style="color:var(--verde)">🚀 Paquete Arranque — $400 USD</div>
+          <div class="brief-nombre">Brief de entrega — lo que recibes antes del día 1</div>
+        </div>
+        <div class="brief-badge" style="background:rgba(16,185,129,.15);color:var(--verde)">✅ Todo entregado antes de arrancar</div>
+      </div>
+      <div class="brief-fields">
+        <div class="brief-field">
+          <div class="bf-label">Negocio y objetivo</div>
+          <div class="bf-desc">Nombre del negocio, qué vende, a quién le vende. <strong>Objetivo principal de la landing</strong> (captar leads / agendar cita / vender producto). <em>→ Define el foco del proyecto.</em></div>
+        </div>
+        <div class="brief-field">
+          <div class="bf-label">Assets listos para usar</div>
+          <div class="bf-desc"><strong>Logo + colores (hex) + tipografía</strong> entregados en Drive. Sin assets = no arranque. <em>→ Sin decisiones de diseño de tu parte.</em></div>
+        </div>
+        <div class="brief-field">
+          <div class="bf-label">Copy completo de la landing</div>
+          <div class="bf-desc"><strong>Todo el texto escrito por Fernanda</strong> — título, subtítulo, bullets de beneficios, CTA, footer. Tú solo construyes, no redactas. <em>→ Sin interpretaciones.</em></div>
+        </div>
+        <div class="brief-field">
+          <div class="bf-label">Herramienta de email</div>
+          <div class="bf-desc"><strong>Plataforma que usa el cliente</strong> (Mailchimp, Brevo, ActiveCampaign…) + acceso entregado. Textos de los 3 emails escritos y listos. <em>→ Solo configuras, no escribes.</em></div>
+        </div>
+        <div class="brief-field">
+          <div class="bf-label">WhatsApp Business + dominio</div>
+          <div class="bf-desc"><strong>Número de WA Business</strong> del cliente + acceso confirmado. <strong>Dominio</strong> disponible o instrucción de subdominio. <em>→ Sin gestión de cuentas de tu parte.</em></div>
+        </div>
+        <div class="brief-field">
+          <div class="bf-label">Referencias visuales</div>
+          <div class="bf-desc">2–3 landings de referencia que el cliente aprobó. <strong>Estilo visual acordado</strong> antes de que construyas. <em>→ Sin "no era lo que imaginaba" al entregar.</em></div>
+        </div>
+      </div>
+      <div class="brief-aceptacion">
+        <div class="ba-titulo">Criterios de aceptación — cuándo el proyecto está terminado</div>
+        <div class="ba-item"><span class="ba-check">✓</span>Landing carga correctamente en móvil y desktop</div>
+        <div class="ba-item"><span class="ba-check">✓</span>Formulario de captura guarda el lead en la herramienta de email del cliente</div>
+        <div class="ba-item"><span class="ba-check">✓</span>Botón de WhatsApp abre la conversación en el número correcto</div>
+        <div class="ba-item"><span class="ba-check">✓</span>Bot de WA responde el mensaje de bienvenida automáticamente al primer mensaje</div>
+        <div class="ba-item"><span class="ba-check">✓</span>Secuencia de 3 emails se activa correctamente al registrarse un nuevo lead</div>
+        <div class="ba-item"><span class="ba-check">✓</span>Dominio conectado y funcionando (o subdominio si aplica)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BRIEF S ── -->
+  <div class="panel" id="brief-s">
+    <div class="brief-wrap" style="border-color:rgba(249,115,22,.3)">
+      <div class="brief-header" style="background:rgba(249,115,22,.04)">
+        <div class="brief-header-left">
+          <div class="brief-tag" style="color:var(--naranja)">⚙️ Paquete Sistema — $700 USD</div>
+          <div class="brief-nombre">Brief de entrega — lo que recibes antes del día 1</div>
+        </div>
+        <div class="brief-badge" style="background:rgba(249,115,22,.15);color:var(--naranja)">✅ Todo entregado + reunión de 30 min de alineación</div>
+      </div>
+      <div class="brief-fields">
+        <div class="brief-field">
+          <div class="bf-label">Todo lo del Brief Arranque</div>
+          <div class="bf-desc">Assets, copy, herramientas, dominio, referencias — entregados antes de arrancar. <em>→ Base ya definida.</em></div>
+        </div>
+        <div class="brief-field">
+          <div class="bf-label">Mapa del sitio (5 páginas máx)</div>
+          <div class="bf-desc"><strong>Lista exacta de páginas</strong> con nombre y objetivo de cada una. <strong>Contenido completo escrito</strong> para cada página. <em>→ Sin páginas sorpresa ni contenido por construir.</em></div>
+        </div>
+        <div class="brief-field">
+          <div class="bf-label">Flujo de automatización documentado</div>
+          <div class="bf-desc"><strong>Diagrama o descripción paso a paso</strong> del flujo WA + email: qué dispara qué, qué condiciones hay, qué mensaje va en cada momento. <em>→ Tú implementas el flujo, no lo diseñas.</em></div>
+        </div>
+        <div class="brief-field">
+          <div class="bf-label">CRM y herramientas definidas</div>
+          <div class="bf-desc"><strong>Plataforma acordada</strong> (Notion / Airtable / HubSpot free). <strong>Campos del CRM</strong> que deben capturarse. Accesos entregados. <em>→ Sin decidir stack de tu parte.</em></div>
+        </div>
+        <div class="brief-field">
+          <div class="bf-label">Pixel Meta + 2 anuncios</div>
+          <div class="bf-desc"><strong>ID del Pixel</strong> del cliente entregado. <strong>Brief de los 2 anuncios</strong>: objetivo, copy, imagen/video, audiencia target. <em>→ Tú configuras, no defines estrategia.</em></div>
+        </div>
+        <div class="brief-field">
+          <div class="bf-label">Integraciones requeridas (lista cerrada)</div>
+          <div class="bf-desc"><strong>Lista explícita y cerrada</strong> de todas las integraciones: plataformas, APIs y herramientas a conectar. <strong>Lo que no está en la lista no está incluido.</strong> <em>→ Alcance delimitado desde el inicio.</em></div>
+        </div>
+      </div>
+      <div class="brief-aceptacion">
+        <div class="ba-titulo">Criterios de aceptación — cuándo el proyecto está terminado</div>
+        <div class="ba-item"><span class="ba-check">✓</span>Todas las páginas del sitio cargan correctamente en móvil y desktop</div>
+        <div class="ba-item"><span class="ba-check">✓</span>Leads entran automáticamente al CRM con los campos acordados</div>
+        <div class="ba-item"><span class="ba-check">✓</span>Flujo de automatización WA + email se ejecuta según el diagrama del brief</div>
+        <div class="ba-item"><span class="ba-check">✓</span>Pixel de Meta dispara PageView, Lead y Purchase correctamente (verificado en Meta Events Manager)</div>
+        <div class="ba-item"><span class="ba-check">✓</span>2 anuncios creados en Meta Ads listos para revisión de Fernanda antes de activar</div>
+        <div class="ba-item"><span class="ba-check">✓</span>Todas las integraciones de la lista cerrada funcionan y están documentadas</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BRIEF E ── -->
+  <div class="panel" id="brief-e">
+    <div class="brief-wrap" style="border-color:rgba(245,184,0,.3)">
+      <div class="brief-header" style="background:rgba(245,184,0,.03)">
+        <div class="brief-header-left">
+          <div class="brief-tag" style="color:var(--dorado)">👑 Paquete Ecosistema — $1.500 USD</div>
+          <div class="brief-nombre">Brief técnico detallado — sesión de alineación incluida en semana 1</div>
+        </div>
+        <div class="brief-badge" style="background:rgba(245,184,0,.12);color:var(--dorado)">✅ Semana 1 = discovery + documento de alcance firmado</div>
+      </div>
+      <div class="brief-fields">
+        <div class="brief-field">
+          <div class="bf-label">Todo lo del Brief Sistema</div>
+          <div class="bf-desc">Assets, copy, mapa del sitio, flujos, CRM, pixel, integraciones — entregados en la semana 1. <em>→ Base ya definida.</em></div>
+        </div>
+        <div class="brief-field">
+          <div class="bf-label">Definición de la app / herramienta</div>
+          <div class="bf-desc"><strong>Descripción funcional completa</strong>: qué hace, para quién, flujo principal (casos de uso). <strong>Stack permitido o restricciones</strong> de infraestructura. <em>→ Tú arquitectas dentro de los límites definidos.</em></div>
+        </div>
+        <div class="brief-field">
+          <div class="bf-label">Infraestructura y costos (quién paga qué)</div>
+          <div class="bf-desc"><strong>Hosting / servidor</strong>: quién lo provee y quién lo paga. <strong>APIs externas</strong>: quién crea las cuentas y asume los costos. <em>→ Sin sorpresas de costos operativos.</em></div>
+        </div>
+        <div class="brief-field">
+          <div class="bf-label">IA — si aplica (tipo + proveedor + costos)</div>
+          <div class="bf-desc"><strong>Tipo de solución</strong>: chatbot, RAG, agente, clasificación, etc. <strong>Proveedor</strong>: OpenAI, Anthropic, otro. <strong>Quién asume los tokens</strong> de consumo. <em>→ Sin ambigüedad en el alcance de IA.</em></div>
+        </div>
+        <div class="brief-field">
+          <div class="bf-label">Fuentes del dashboard de métricas</div>
+          <div class="bf-desc"><strong>Lista de fuentes de datos</strong>: Meta Ads, Google Analytics, CRM, base de datos propia, etc. <strong>Accesos entregados</strong> antes de construir. <em>→ Tú conectas, no investigas qué conectar.</em></div>
+        </div>
+        <div class="brief-field">
+          <div class="bf-label">Documento de alcance firmado</div>
+          <div class="bf-desc">Al final de la semana 1, <strong>ambas partes firman el documento de alcance</strong>. Funcionalidades acordadas, integraciones listadas, exclusiones documentadas. <strong>Cualquier cambio posterior = cotización adicional.</strong> <em>→ Protege tu tiempo.</em></div>
+        </div>
+      </div>
+      <div class="brief-aceptacion">
+        <div class="ba-titulo">Criterios de aceptación — cuándo el proyecto está terminado</div>
+        <div class="ba-item"><span class="ba-check">✓</span>Todos los criterios del Paquete Sistema verificados</div>
+        <div class="ba-item"><span class="ba-check">✓</span>App/herramienta cumple los casos de uso definidos en el documento de alcance firmado</div>
+        <div class="ba-item"><span class="ba-check">✓</span>Dashboard muestra datos en tiempo real de todas las fuentes de la lista acordada</div>
+        <div class="ba-item"><span class="ba-check">✓</span>Documentación técnica entregada: README + credenciales + arquitectura básica + instrucciones de mantenimiento</div>
+        <div class="ba-item"><span class="ba-check">✓</span>2 sesiones de capacitación completadas y el equipo del cliente puede operar lo construido</div>
+        <div class="ba-item"><span class="ba-check">✓</span>Funcionalidades fuera del documento de alcance firmado → cotizadas y aprobadas por separado</div>
+      </div>
     </div>
   </div>
 </div>
@@ -628,9 +804,15 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 <script>
 function mostrarPanel(id, btn){
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('visible'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('activo'));
+  document.querySelectorAll('#panel-a,#panel-s,#panel-e').forEach(p => p.classList.remove('visible'));
+  btn.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('activo'));
   document.getElementById('panel-'+id).classList.add('visible');
+  btn.classList.add('activo');
+}
+function mostrarBrief(id, btn){
+  document.querySelectorAll('#brief-a,#brief-s,#brief-e').forEach(p => p.classList.remove('visible'));
+  btn.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('activo'));
+  document.getElementById('brief-'+id).classList.add('visible');
   btn.classList.add('activo');
 }
 </script>
