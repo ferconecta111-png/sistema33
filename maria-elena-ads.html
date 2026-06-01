@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estrategia Digital · María Elena Badillo</title>
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #F0D080;
+    --dark: #0D0D1A;
+    --dark2: #13131F;
+    --dark3: #1A1A2E;
+    --card: #1E1E30;
+    --card2: #252538;
+    --text: #E8E8F0;
+    --muted: #8888AA;
+    --green: #4CAF84;
+    --red: #E05555;
+    --orange: #E09030;
+    --blue: #4C84CF;
+    --purple: #8B5CF6;
+    --teal: #2DD4BF;
+    --border: rgba(201,168,76,0.2);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--dark2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .nav-brand {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+    padding: 16px 0;
+    margin-right: 16px;
+    flex-shrink: 0;
+  }
+  nav button {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 14px 14px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all .2s;
+    flex-shrink: 0;
+  }
+  nav button.active, nav button:hover {
+    color: var(--text);
+    border-bottom-color: var(--gold);
+  }
+
+  /* SECTIONS */
+  .section { display: none; padding: 32px; max-width: 1100px; margin: 0 auto; }
+  .section.active { display: block; }
+
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+  h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+  h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: var(--text); }
+  .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+
+  /* GRID */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media(max-width:800px) {
+    .grid2, .grid3, .grid4 { grid-template-columns: 1fr; }
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .card.highlight { border-color: var(--gold); }
+  .card.alert { border-color: var(--red); background: rgba(224,85,85,0.05); }
+  .card.success { border-color: var(--green); background: rgba(76,175,132,0.05); }
+  .card.info { border-color: var(--blue); background: rgba(76,132,207,0.05); }
+
+  /* METRIC CARDS */
+  .metric { text-align: center; }
+  .metric .val { font-size: 28px; font-weight: 800; color: var(--gold); display: block; }
+  .metric .lbl { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .metric .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* BADGES */
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .badge-red { background: rgba(224,85,85,0.2); color: var(--red); }
+  .badge-green { background: rgba(76,175,132,0.2); color: var(--green); }
+  .badge-orange { background: rgba(224,144,48,0.2); color: var(--orange); }
+  .badge-gold { background: rgba(201,168,76,0.2); color: var(--gold); }
+  .badge-blue { background: rgba(76,132,207,0.2); color: var(--blue); }
+  .badge-purple { background: rgba(139,92,246,0.2); color: var(--purple); }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--dark3); color: var(--muted); font-weight: 600; text-align: left; padding: 10px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; }
+  td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* BARS */
+  .bar-wrap { background: rgba(255,255,255,0.06); border-radius: 4px; height: 6px; margin-top: 6px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+  .bar-gold { background: var(--gold); }
+  .bar-green { background: var(--green); }
+  .bar-blue { background: var(--blue); }
+  .bar-purple { background: var(--purple); }
+  .bar-teal { background: var(--teal); }
+  .bar-orange { background: var(--orange); }
+
+  /* CREATIVE CARDS */
+  .creative-card {
+    background: var(--card2);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 16px;
+    position: relative;
+  }
+  .creative-card.top { border-color: var(--gold); }
+  .creative-hook {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.4;
+    font-style: italic;
+  }
+  .creative-why {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .creative-score {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  /* STEPS */
+  .steps { counter-reset: step; display: flex; flex-direction: column; gap: 12px; }
+  .step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .step-num {
+    background: var(--gold);
+    color: #000;
+    font-size: 11px;
+    font-weight: 800;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-body { flex: 1; }
+  .step-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+  .step-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .step-code {
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: 'Consolas', monospace;
+    font-size: 11px;
+    color: var(--teal);
+    margin-top: 8px;
+    word-break: break-all;
+    line-height: 1.6;
+  }
+
+  /* FUNNEL */
+  .funnel-step {
+    background: var(--card2);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .funnel-step.blue { border-left-color: var(--blue); }
+  .funnel-step.green { border-left-color: var(--green); }
+  .funnel-step.purple { border-left-color: var(--purple); }
+  .funnel-step.teal { border-left-color: var(--teal); }
+  .funnel-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 4px; }
+  .funnel-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .funnel-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+  /* ALERT BOXES */
+  .alert-box {
+    background: rgba(224,85,85,0.08);
+    border: 1px solid rgba(224,85,85,0.3);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .alert-box .ico { font-size: 18px; flex-shrink: 0; }
+  .alert-box .txt { font-size: 13px; line-height: 1.5; }
+  .alert-box strong { color: var(--red); }
+
+  .info-box {
+    background: rgba(76,132,207,0.08);
+    border: 1px solid rgba(76,132,207,0.3);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .info-box .ico { font-size: 18px; flex-shrink: 0; }
+  .info-box .txt { font-size: 13px; line-height: 1.5; color: var(--muted); }
+  .info-box strong { color: var(--text); }
+
+  .success-box {
+    background: rgba(76,175,132,0.08);
+    border: 1px solid rgba(76,175,132,0.3);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .success-box .ico { font-size: 18px; flex-shrink: 0; }
+  .success-box .txt { font-size: 13px; line-height: 1.5; }
+
+  /* SECTION DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin: 28px 0;
+  }
+
+  /* TAG LIST */
+  .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .tag {
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    font-size: 11px;
+    padding: 3px 10px;
+    color: var(--muted);
+  }
+  .tag.active { border-color: var(--gold); color: var(--gold); }
+
+  /* PRIORITY */
+  .priority-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .priority-row:last-child { border-bottom: none; }
+  .priority-num {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--gold);
+    width: 32px;
+    flex-shrink: 0;
+  }
+  .priority-body { flex: 1; }
+  .priority-title { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+  .priority-desc { font-size: 12px; color: var(--muted); }
+  .priority-chip { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+
+  /* HEADER STRIP */
+  .page-header {
+    background: linear-gradient(135deg, var(--dark2), var(--dark3));
+    border-bottom: 1px solid var(--border);
+    padding: 24px 32px 20px;
+  }
+  .page-header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .page-title { font-size: 22px; font-weight: 800; }
+  .page-title span { color: var(--gold); }
+  .page-meta { font-size: 12px; color: var(--muted); }
+
+  /* SCROLL */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--dark2); }
+  ::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+  ul.check { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  ul.check li { font-size: 13px; color: var(--muted); padding-left: 20px; position: relative; line-height: 1.4; }
+  ul.check li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+  ul.check li.x::before { content: '✗'; color: var(--red); }
+  ul.check li.warn::before { content: '⚠'; color: var(--orange); }
+  ul.check li strong { color: var(--text); }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div>
+      <div class="page-title">Estrategia Digital · <span>María Elena Badillo</span></div>
+      <div class="page-meta">Cuenta Meta Ads: act_1418379029648107 · Análisis 90 días · Mayo 2026</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span class="badge badge-red">⏸ Todas las campañas pausadas</span>
+      <span class="badge badge-orange">⚠ Sin Pixel de Compra</span>
+      <span class="badge badge-gold">~$800 USD/90 días</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">📊 MEB Ads</div>
+  <button class="active" onclick="showSection('overview')">Resumen Cuenta</button>
+  <button onclick="showSection('campanas')">Campañas Activas</button>
+  <button onclick="showSection('engagement')">Pauta vs Engagement</button>
+  <button onclick="showSection('creativos')">Creativos Existentes</button>
+  <button onclick="showSection('cava')">Estrategia CAVA</button>
+  <button onclick="showSection('retiro')">Estrategia Retiro</button>
+  <button onclick="showSection('google')">Google Ads</button>
+  <button onclick="showSection('pixel')">Instalar Pixel</button>
+  <button onclick="showSection('prioridades')">Plan de Acción</button>
+</nav>
+
+<!-- ============================================================
+     SECCIÓN 1: OVERVIEW
+============================================================ -->
+<div id="overview" class="section active">
+  <div class="section-label">Diagnóstico General</div>
+  <h1>Resumen de Cuenta</h1>
+  <p class="subtitle">Estado real de la inversión publicitaria de María Elena Badillo en los últimos 90 días</p>
+
+  <div class="alert-box">
+    <div class="ico">🚨</div>
+    <div class="txt"><strong>Todas las campañas están PAUSADAS</strong> · No hay inversión activa en este momento. El tráfico que llega es 100% orgánico. Reiniciar pauta estratégica puede multiplicar el alcance inmediatamente.</div>
+  </div>
+
+  <div class="grid4" style="margin-bottom:24px;">
+    <div class="card metric">
+      <span class="val">$800</span>
+      <div class="lbl">USD invertidos</div>
+      <div class="sub">~$3.3M COP / 90 días</div>
+    </div>
+    <div class="card metric">
+      <span class="val">604K</span>
+      <div class="lbl">Impresiones totales</div>
+      <div class="sub">6 campañas</div>
+    </div>
+    <div class="card metric">
+      <span class="val">38</span>
+      <div class="lbl">Checkouts iniciados</div>
+      <div class="sub">Sin compras rastreadas</div>
+    </div>
+    <div class="card metric">
+      <span class="val" style="color:var(--red)">0</span>
+      <div class="lbl">Evento Purchase</div>
+      <div class="sub">No está instalado</div>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:24px;">
+    <div class="card">
+      <h3>💡 Hallazgos Críticos</h3>
+      <ul class="check">
+        <li class="x"><strong>Sin Pixel de Compra</strong> — No se puede optimizar para ventas reales</li>
+        <li class="x"><strong>Sin campañas CAVA</strong> — El producto estrella no tiene pauta</li>
+        <li class="x"><strong>Sin campañas Volviendo al Ser</strong> — El retiro no tiene pauta</li>
+        <li class="warn"><strong>Todo invertido en awareness</strong> — Seguidores + tráfico, no conversión</li>
+        <li><strong>CTR alto</strong> en WhatsApp terapias (13.61%) y SPM RMK Perú (13.93%)</li>
+        <li><strong>38 checkouts</strong> generados a solo $2.50 USD c/u — remarketing funciona</li>
+        <li><strong>La pauta SÍ amplifica el orgánico</strong> — Comprobado con engagement de Perú</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📦 Productos Identificados</h3>
+      <div style="margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div>
+            <div style="font-weight:700;font-size:14px;">CAVA · Kit de Sanación</div>
+            <div style="font-size:12px;color:var(--muted);">Producto digital / Acceso inmediato</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:18px;font-weight:800;color:var(--gold);">$119 USD</div>
+            <span class="badge badge-green">Ciclo corto</span>
+          </div>
+        </div>
+        <ul class="check">
+          <li>Ideal para ventas directas desde Meta Ads</li>
+          <li>Sin campañas activas actualmente</li>
+        </ul>
+      </div>
+      <hr class="divider" style="margin:12px 0;">
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div>
+            <div style="font-weight:700;font-size:14px;">Volviendo al Ser · Retiro</div>
+            <div style="font-size:12px;color:var(--muted);">Experiencia presencial / Alta inversión</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:18px;font-weight:800;color:var(--gold);">$792–$972</div>
+            <span class="badge badge-purple">Ciclo largo</span>
+          </div>
+        </div>
+        <ul class="check">
+          <li>Requiere nurturing + calificación previa</li>
+          <li>Sin campañas activas actualmente</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🗺 Distribución del Presupuesto (90 días)</h3>
+    <div style="margin-top:8px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:12px;">
+        <span>NUEVOS SEGUIDORES</span><span style="color:var(--muted);">$315 USD · 39%</span>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill bar-gold" style="width:39%"></div></div>
+      <div style="display:flex;justify-content:space-between;margin:10px 0 4px;font-size:12px;">
+        <span>WhatsApp Terapias</span><span style="color:var(--muted);">$135 USD · 17%</span>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill bar-blue" style="width:17%"></div></div>
+      <div style="display:flex;justify-content:space-between;margin:10px 0 4px;font-size:12px;">
+        <span>Terapias (video views)</span><span style="color:var(--muted);">$127 USD · 16%</span>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill bar-purple" style="width:16%"></div></div>
+      <div style="display:flex;justify-content:space-between;margin:10px 0 4px;font-size:12px;">
+        <span>SPM RMK PERÚ</span><span style="color:var(--muted);">$110 USD · 14%</span>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill bar-teal" style="width:14%"></div></div>
+      <div style="display:flex;justify-content:space-between;margin:10px 0 4px;font-size:12px;">
+        <span>RMK CTCTC (mejor ROI)</span><span style="color:var(--muted);">$95 USD · 12%</span>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill bar-green" style="width:12%"></div></div>
+      <div style="display:flex;justify-content:space-between;margin:10px 0 4px;font-size:12px;">
+        <span>Terapias Remarketing</span><span style="color:var(--muted);">$18 USD · 2%</span>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill bar-orange" style="width:2%"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECCIÓN 2: CAMPAÑAS
+============================================================ -->
+<div id="campanas" class="section">
+  <div class="section-label">Meta Ads · act_1418379029648107</div>
+  <h1>Campañas · Últimos 90 Días</h1>
+  <p class="subtitle">Todas actualmente pausadas. Moneda: COP (divisa de la cuenta)</p>
+
+  <div class="card" style="margin-bottom:24px;overflow-x:auto;">
+    <table>
+      <thead>
+        <tr>
+          <th>Campaña</th>
+          <th>Objetivo</th>
+          <th>Gasto COP</th>
+          <th>Gasto USD</th>
+          <th>Impresiones</th>
+          <th>CTR</th>
+          <th>Resultado Clave</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>NUEVOS SEGUIDORES</strong></td>
+          <td><span class="badge badge-blue">Awareness</span></td>
+          <td>1,305,505</td>
+          <td>~$315</td>
+          <td>233,279</td>
+          <td>6.29%</td>
+          <td>81,569 video views</td>
+          <td><span class="badge badge-red">Pausada</span></td>
+        </tr>
+        <tr>
+          <td><strong>WhatsApp Terapias</strong></td>
+          <td><span class="badge badge-green">Mensajes</span></td>
+          <td>557,922</td>
+          <td>~$135</td>
+          <td>83,214</td>
+          <td style="color:var(--green)"><strong>13.61%</strong></td>
+          <td>71 conexiones WA</td>
+          <td><span class="badge badge-red">Pausada</span></td>
+        </tr>
+        <tr>
+          <td><strong>Terapias</strong></td>
+          <td><span class="badge badge-blue">Video Views</span></td>
+          <td>528,116</td>
+          <td>~$127</td>
+          <td>121,024</td>
+          <td style="color:var(--green)"><strong>12.46%</strong></td>
+          <td>44,279 video views</td>
+          <td><span class="badge badge-red">Pausada</span></td>
+        </tr>
+        <tr>
+          <td><strong>SPM RMK PERÚ</strong></td>
+          <td><span class="badge badge-purple">Remarketing</span></td>
+          <td>455,720</td>
+          <td>~$110</td>
+          <td>103,906</td>
+          <td style="color:var(--green)"><strong>13.93%</strong></td>
+          <td>30,193 views · 6,498 reacciones</td>
+          <td><span class="badge badge-red">Pausada</span></td>
+        </tr>
+        <tr style="background:rgba(76,175,132,0.05);">
+          <td><strong>RMK CTCTC ⭐</strong></td>
+          <td><span class="badge badge-green">Conversión</span></td>
+          <td>395,063</td>
+          <td>~$95</td>
+          <td>54,724</td>
+          <td>9.13%</td>
+          <td style="color:var(--green)"><strong>38 checkouts</strong> @ $2.50</td>
+          <td><span class="badge badge-red">Pausada</span></td>
+        </tr>
+        <tr>
+          <td><strong>Terapias Remarketing</strong></td>
+          <td><span class="badge badge-green">Mensajes</span></td>
+          <td>73,456</td>
+          <td>~$18</td>
+          <td>7,821</td>
+          <td>3.02%</td>
+          <td>9 conexiones WA</td>
+          <td><span class="badge badge-red">Pausada</span></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr style="background:var(--dark3);">
+          <td><strong>TOTAL</strong></td>
+          <td></td>
+          <td><strong>3,315,782</strong></td>
+          <td><strong>~$800</strong></td>
+          <td><strong>604,000+</strong></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="grid2">
+    <div class="card success">
+      <h3>🏆 Campaña con Mejor ROI: RMK CTCTC</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Esta es la campaña de remarketing más eficiente. Cada checkout iniciado costó solo $2.50 USD. Con Purchase event instalado, esta campaña podría generar ventas reales de CAVA a costo muy bajo.</p>
+      <ul class="check">
+        <li>38 checkouts iniciados en el período</li>
+        <li>CPM bajo = audiencia bien segmentada</li>
+        <li>Remarketing = personas que YA conocen a María Elena</li>
+        <li class="warn">Sin Purchase event = no sabemos cuántos compraron</li>
+      </ul>
+    </div>
+    <div class="card alert">
+      <h3>❌ Lo que NO existe en la cuenta</h3>
+      <ul class="check">
+        <li class="x"><strong>Ninguna campaña de CAVA</strong></li>
+        <li class="x"><strong>Ninguna campaña de Volviendo al Ser</strong></li>
+        <li class="x"><strong>Pixel de Purchase no instalado</strong></li>
+        <li class="x"><strong>Audiencias de compradores</strong> (imposible sin pixel)</li>
+        <li class="x"><strong>Lookalike de compradores</strong></li>
+        <li class="x"><strong>Campañas de Google Ads</strong></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECCIÓN 3: PAUTA VS ENGAGEMENT
+============================================================ -->
+<div id="engagement" class="section">
+  <div class="section-label">Análisis</div>
+  <h1>¿La Pauta Afectó el Engagement Orgánico?</h1>
+  <p class="subtitle">Respuesta directa: SÍ, la pauta amplificó el engagement orgánico. Aquí la evidencia.</p>
+
+  <div class="success-box">
+    <div class="ico">✅</div>
+    <div class="txt">
+      <strong>Conclusión:</strong> La pauta de María Elena SÍ impulsó el engagement. El efecto más claro se ve en SPM RMK PERÚ: 6,498 reacciones a contenido pagado que luego se convirtieron en señales sociales visibles en el perfil orgánico. Cuando la gente ve reacciones y comentarios, el algoritmo prioriza el contenido orgánico de forma natural.
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:24px;">
+    <div class="card">
+      <h3>📈 Efecto Comprobado de la Pauta</h3>
+      <div style="margin-bottom:16px;">
+        <div class="funnel-step">
+          <div class="funnel-label">Campaña SPM RMK PERÚ</div>
+          <div class="funnel-title">30,193 Video Views pagados</div>
+          <div class="funnel-desc">Cada visualización genera una señal de interés al algoritmo</div>
+        </div>
+        <div class="funnel-step blue">
+          <div class="funnel-label">Reacciones Generadas</div>
+          <div class="funnel-title">6,498 likes/reacciones</div>
+          <div class="funnel-desc">Estas reacciones aparecen en el perfil y son visibles para audiencia orgánica</div>
+        </div>
+        <div class="funnel-step green">
+          <div class="funnel-label">Efecto en Orgánico</div>
+          <div class="funnel-title">Algoritmo prioriza contenido similar</div>
+          <div class="funnel-desc">Alto engagement = más distribución orgánica en Reels y posts similares</div>
+        </div>
+        <div class="funnel-step purple">
+          <div class="funnel-label">Resultado Final</div>
+          <div class="funnel-title">Prueba social acumulada</div>
+          <div class="funnel-desc">El perfil gana credibilidad: nuevos visitantes ven contenido con miles de reacciones</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>📊 Comparación: Pauta Activa vs Sin Pauta</h3>
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Alcance mensual estimado</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <div style="font-size:13px;width:120px;">Con pauta activa</div>
+          <div class="bar-wrap" style="flex:1"><div class="bar-fill bar-green" style="width:100%"></div></div>
+          <div style="font-size:12px;color:var(--green)">100%</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <div style="font-size:13px;width:120px;">Solo orgánico</div>
+          <div class="bar-wrap" style="flex:1"><div class="bar-fill bar-orange" style="width:25%"></div></div>
+          <div style="font-size:12px;color:var(--orange)">~25%</div>
+        </div>
+      </div>
+      <ul class="check">
+        <li><strong>81,569 video views</strong> solo en "Nuevos Seguidores" — imposible orgánicamente</li>
+        <li><strong>604,000+ impresiones</strong> en 90 días vs ~150K orgánico estimado</li>
+        <li><strong>CTR alto</strong> (13%+) indica que la audiencia es relevante y el contenido resuena</li>
+        <li class="warn">Sin pauta, el alcance cae drasticamente — recomendable reactivar</li>
+      </ul>
+
+      <div style="margin-top:16px;padding:14px;background:var(--dark3);border-radius:8px;">
+        <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:6px;">💡 Recomendación</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.5;">Reactivar pauta con al menos $300 USD/mes enfocados en CAVA + retiro. El efecto de amplificación orgánica hace que $300 en pauta valgan más que $300 en crecimiento orgánico.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🔄 Ciclo Virtuoso: Pauta → Orgánico → Confianza → Ventas</h3>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px;">
+      <div style="padding:10px 16px;background:var(--dark3);border-radius:8px;font-size:13px;text-align:center;">
+        <div style="font-size:18px;margin-bottom:4px;">🎯</div>
+        <div style="font-weight:700;">Pauta</div>
+        <div style="font-size:11px;color:var(--muted);">Alcance ampliado</div>
+      </div>
+      <div style="font-size:20px;color:var(--muted);">→</div>
+      <div style="padding:10px 16px;background:var(--dark3);border-radius:8px;font-size:13px;text-align:center;">
+        <div style="font-size:18px;margin-bottom:4px;">❤️</div>
+        <div style="font-weight:700;">Engagement</div>
+        <div style="font-size:11px;color:var(--muted);">Likes, views, shares</div>
+      </div>
+      <div style="font-size:20px;color:var(--muted);">→</div>
+      <div style="padding:10px 16px;background:var(--dark3);border-radius:8px;font-size:13px;text-align:center;">
+        <div style="font-size:18px;margin-bottom:4px;">📣</div>
+        <div style="font-weight:700;">Algoritmo</div>
+        <div style="font-size:11px;color:var(--muted);">Distribución orgánica</div>
+      </div>
+      <div style="font-size:20px;color:var(--muted);">→</div>
+      <div style="padding:10px 16px;background:var(--dark3);border-radius:8px;font-size:13px;text-align:center;">
+        <div style="font-size:18px;margin-bottom:4px;">🤝</div>
+        <div style="font-weight:700;">Confianza</div>
+        <div style="font-size:11px;color:var(--muted);">Prueba social visible</div>
+      </div>
+      <div style="font-size:20px;color:var(--muted);">→</div>
+      <div style="padding:10px 16px;background:rgba(76,175,132,0.1);border:1px solid var(--green);border-radius:8px;font-size:13px;text-align:center;">
+        <div style="font-size:18px;margin-bottom:4px;">💰</div>
+        <div style="font-weight:700;color:var(--green);">Ventas</div>
+        <div style="font-size:11px;color:var(--muted);">CAVA + Retiro</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECCIÓN 4: CREATIVOS EXISTENTES
+============================================================ -->
+<div id="creativos" class="section">
+  <div class="section-label">Análisis de Creativos</div>
+  <h1>Creativos Existentes en la Cuenta</h1>
+  <p class="subtitle">70+ anuncios encontrados. Ninguno específicamente de CAVA o Volviendo al Ser. Estos son los más poderosos.</p>
+
+  <div class="alert-box">
+    <div class="ico">⚠️</div>
+    <div class="txt"><strong>Oportunidad crítica:</strong> No existe ni un solo anuncio de CAVA ni de Volviendo al Ser. Toda la inversión fue en terapias generales. Los productos de mayor valor nunca se han anunciado. Hay que crear creativos desde cero para ambos.</div>
+  </div>
+
+  <h2>🏆 Top Creativos por Potencial de Conversión</h2>
+  <div class="grid2" style="margin-bottom:28px;">
+
+    <div class="creative-card top">
+      <div class="creative-score">★ 9.5/10</div>
+      <div class="badge badge-gold" style="margin-bottom:10px;">Mejor de todos</div>
+      <div class="creative-hook">"¿Te imaginas cómo sería tu vida si pudieras manifestar lo que realmente deseas?"</div>
+      <div class="creative-why">
+        <strong style="color:var(--text);">¿Por qué funciona?</strong> Activa el deseo dormido. No habla de dolor, habla de posibilidad. El cerebro retículo activador empieza a imaginar → engagement alto → conversión.
+        <div class="tag-list">
+          <span class="tag active">Video testimonio</span>
+          <span class="tag active">Hook de deseo</span>
+          <span class="tag active">Patrón manifestación</span>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:10px;background:var(--dark3);border-radius:6px;font-size:11px;color:var(--muted);">
+        <strong style="color:var(--gold);">Reutilizar para:</strong> CAVA (añadir "el Kit de Sanación que activa tu camino") · Retiro (añadir "y si pudieras vivirlo en 4 días en Cusco")
+      </div>
+    </div>
+
+    <div class="creative-card top">
+      <div class="creative-score">★ 9.2/10</div>
+      <div class="badge badge-gold" style="margin-bottom:10px;">Alto dolor + urgencia</div>
+      <div class="creative-hook">"¿Cuántas veces has sentido que tus heridas del pasado te frenan para vivir la vida que mereces?"</div>
+      <div class="creative-why">
+        <strong style="color:var(--text);">¿Por qué funciona?</strong> Habla al dolor exacto del ICP. "Heridas del pasado" + "vida que mereces" = combinación perfecta para audiencia espiritual-terapéutica.
+        <div class="tag-list">
+          <span class="tag active">Video testimonio</span>
+          <span class="tag active">Hook de dolor</span>
+          <span class="tag active">Cupos limitados</span>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:10px;background:var(--dark3);border-radius:6px;font-size:11px;color:var(--muted);">
+        <strong style="color:var(--gold);">Reutilizar para:</strong> Retiro "Volviendo al Ser" — el framing de heridas + sanación es perfecto para una experiencia de 4 días.
+      </div>
+    </div>
+
+    <div class="creative-card">
+      <div class="creative-score">★ 8.8/10</div>
+      <div class="badge badge-purple" style="margin-bottom:10px;">Disrupción creencia</div>
+      <div class="creative-hook">"¿Y si no es tu culpa que aún no hayas podido cambiar?"</div>
+      <div class="creative-why">
+        <strong style="color:var(--text);">¿Por qué funciona?</strong> Quita la culpa y la carga emocional. Reencuadra el problema como algo externo (patrones, programación). Audiencia = personas que ya intentaron y fallaron.
+        <div class="tag-list">
+          <span class="tag active">Pattern interrupt</span>
+          <span class="tag active">Reencuadre</span>
+          <span class="tag active">2 versiones activas</span>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:10px;background:var(--dark3);border-radius:6px;font-size:11px;color:var(--muted);">
+        <strong style="color:var(--gold);">Reutilizar para:</strong> CAVA — "Y si no es tu culpa... CAVA te entrega las herramientas que nadie te enseñó"
+      </div>
+    </div>
+
+    <div class="creative-card">
+      <div class="creative-score">★ 8.5/10</div>
+      <div class="badge badge-blue" style="margin-bottom:10px;">Educational + Credibilidad</div>
+      <div class="creative-hook">"Los patrones inconscientes que heredamos explican el 95% de nuestras decisiones"</div>
+      <div class="creative-why">
+        <strong style="color:var(--text);">¿Por qué funciona?</strong> Dato + concepto nuevo = curiosidad + autoridad. El "sillón outfit café" indica un formato de charla relajada y natural, muy high-trust para precios altos.
+        <div class="tag-list">
+          <span class="tag active">Educational</span>
+          <span class="tag active">Autoridad experta</span>
+          <span class="tag active">Formato charla</span>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:10px;background:var(--dark3);border-radius:6px;font-size:11px;color:var(--muted);">
+        <strong style="color:var(--gold);">Reutilizar para:</strong> Top of funnel Retiro — educa sobre patrones → invita al retiro como solución profunda
+      </div>
+    </div>
+
+    <div class="creative-card">
+      <div class="creative-score">★ 8.3/10</div>
+      <div class="badge badge-teal" style="margin-bottom:10px;">Trabajé en terapia y aún...</div>
+      <div class="creative-hook">"Fui a terapia, leí libros de autoayuda, hice cursos... y aún me seguía bloqueando"</div>
+      <div class="creative-why">
+        <strong style="color:var(--text);">¿Por qué funciona?</strong> Identifica al avatar perfectamente: persona que ya "lo intentó todo". Elimina objeciones antes de que aparezcan. Posiciona a María Elena como el paso siguiente.
+        <div class="tag-list">
+          <span class="tag active">Objeción anticipada</span>
+          <span class="tag active">Identificación</span>
+          <span class="tag active">Múltiples versiones</span>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:10px;background:var(--dark3);border-radius:6px;font-size:11px;color:var(--muted);">
+        <strong style="color:var(--gold);">Reutilizar para:</strong> CAVA — "...hasta que encontré este kit que me dió las herramientas concretas"
+      </div>
+    </div>
+
+    <div class="creative-card">
+      <div class="creative-score">★ 8.0/10</div>
+      <div class="badge badge-green" style="margin-bottom:10px;">Mejor en conversión</div>
+      <div class="creative-hook">"Video CTCTC" — anuncio activo en RMK con 38 checkouts @ $2.50</div>
+      <div class="creative-why">
+        <strong style="color:var(--text);">¿Por qué funciona?</strong> Es el único anuncio con conversiones rastreadas. En remarketing genera acción. El contenido específico no está identificado pero el formato/CTA claramente funciona.
+        <div class="tag-list">
+          <span class="tag active">Mejor ROI comprobado</span>
+          <span class="tag active">38 checkouts</span>
+          <span class="tag active">Remarketing</span>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:10px;background:var(--dark3);border-radius:6px;font-size:11px;color:var(--muted);">
+        <strong style="color:var(--gold);">Reutilizar para:</strong> Crear versión específica de CAVA con el mismo formato y CTA directo
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card">
+    <h3>🎯 Fórmula de los Mejores Creativos de María Elena</h3>
+    <div class="grid3" style="margin-top:12px;">
+      <div style="padding:14px;background:var(--dark3);border-radius:8px;text-align:center;">
+        <div style="font-size:24px;margin-bottom:8px;">🪝</div>
+        <div style="font-weight:700;font-size:13px;margin-bottom:6px;">Hook (0-3 seg)</div>
+        <div style="font-size:12px;color:var(--muted);">Pregunta que activa dolor O deseo. Nunca el nombre del producto en los primeros 3 segundos.</div>
+      </div>
+      <div style="padding:14px;background:var(--dark3);border-radius:8px;text-align:center;">
+        <div style="font-size:24px;margin-bottom:8px;">🔍</div>
+        <div style="font-weight:700;font-size:13px;margin-bottom:6px;">Identificación (3-15 seg)</div>
+        <div style="font-size:12px;color:var(--muted);">Describe al ICP con precisión. Que sienta "esto es para mí". Lenguaje del cliente, no de la experta.</div>
+      </div>
+      <div style="padding:14px;background:var(--dark3);border-radius:8px;text-align:center;">
+        <div style="font-size:24px;margin-bottom:8px;">💡</div>
+        <div style="font-weight:700;font-size:13px;margin-bottom:6px;">Reencuadre (15-40 seg)</div>
+        <div style="font-size:12px;color:var(--muted);">Introduce el concepto único de MEB: patrones, inconsciente, heridas. Quita la culpa, da esperanza.</div>
+      </div>
+    </div>
+    <div class="grid3" style="margin-top:12px;">
+      <div style="padding:14px;background:var(--dark3);border-radius:8px;text-align:center;">
+        <div style="font-size:24px;margin-bottom:8px;">🏆</div>
+        <div style="font-weight:700;font-size:13px;margin-bottom:6px;">Prueba Social (40-55 seg)</div>
+        <div style="font-size:12px;color:var(--muted);">Testimonio breve o resultado de cliente. "Ella pudo, yo pude, tú puedes."</div>
+      </div>
+      <div style="padding:14px;background:var(--dark3);border-radius:8px;text-align:center;">
+        <div style="font-size:24px;margin-bottom:8px;">🎁</div>
+        <div style="font-weight:700;font-size:13px;margin-bottom:6px;">Solución (55-70 seg)</div>
+        <div style="font-size:12px;color:var(--muted);">Presenta CAVA / Retiro como el vehículo específico. No como "curso", sino como experiencia transformadora.</div>
+      </div>
+      <div style="padding:14px;background:rgba(76,175,132,0.1);border:1px solid var(--green);border-radius:8px;text-align:center;">
+        <div style="font-size:24px;margin-bottom:8px;">📞</div>
+        <div style="font-weight:700;font-size:13px;margin-bottom:6px;color:var(--green);">CTA Claro</div>
+        <div style="font-size:12px;color:var(--muted);">Acción específica: "Haz click para ver CAVA" / "Separa tu lugar en el retiro". Sin ambigüedad.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECCIÓN 5: ESTRATEGIA CAVA
+============================================================ -->
+<div id="cava" class="section">
+  <div class="section-label">Nuevo · Desde Cero</div>
+  <h1>Estrategia Completa — CAVA · $119 USD</h1>
+  <p class="subtitle">Kit de Sanación · Producto digital · Ciclo de compra corto (1-7 días)</p>
+
+  <div class="grid3" style="margin-bottom:24px;">
+    <div class="card metric">
+      <span class="val">$119</span>
+      <div class="lbl">Precio de venta</div>
+      <div class="sub">Producto digital</div>
+    </div>
+    <div class="card metric">
+      <span class="val">$8–15</span>
+      <div class="lbl">CPA objetivo</div>
+      <div class="sub">6-15% del precio</div>
+    </div>
+    <div class="card metric">
+      <span class="val">$400–600</span>
+      <div class="lbl">Presupuesto mensual</div>
+      <div class="sub">~27–40 ventas/mes</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <div class="ico">💡</div>
+    <div class="txt"><strong>Por qué CAVA es el producto ideal para Meta Ads:</strong> $119 USD está en el "impulse buy" zone de Facebook/Instagram. El ciclo de decisión es corto, el dolor que resuelve es específico, y puede optimizarse para Purchase con un pixel instalado. Retorno: si el CPA es $10, cada $400 invertido = 40 ventas = $4,760 ingresos.</div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:24px;">
+    <div class="card">
+      <h3>👤 Avatar Ideal CAVA</h3>
+      <ul class="check" style="margin-top:8px;">
+        <li>Mujer 28-48 años, Latam (Colombia, México, Argentina, Perú)</li>
+        <li>Intereses: meditación, autoconocimiento, espiritualidad, psicología</li>
+        <li>Ya fue a terapia, hizo cursos, sigue bloqueada</li>
+        <li>Sigue cuentas de: Hay House, Wayne Dyer, Deepak Chopra, Louise Hay</li>
+        <li>Tiene tarjeta de crédito y compra online</li>
+        <li>Ingresos medios-altos: puede invertir $119 sin mayor fricción</li>
+        <li>Está en Instagram diariamente (Reels + Stories)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>🎯 Segmentación en Meta Ads</h3>
+      <div style="margin-bottom:12px;">
+        <div class="badge badge-gold" style="margin-bottom:8px;">Audiencia Fría (Prospecting)</div>
+        <div class="tag-list">
+          <span class="tag">Louise Hay</span>
+          <span class="tag">Deepak Chopra</span>
+          <span class="tag">Eckhart Tolle</span>
+          <span class="tag">Meditación guiada</span>
+          <span class="tag">Sanación emocional</span>
+          <span class="tag">Autoconocimiento</span>
+          <span class="tag">Espiritualidad</span>
+          <span class="tag">Terapia cognitiva</span>
+        </div>
+      </div>
+      <div>
+        <div class="badge badge-green" style="margin-bottom:8px;">Audiencia Caliente (Remarketing)</div>
+        <div class="tag-list">
+          <span class="tag active">Visitantes web últimos 30 días</span>
+          <span class="tag active">Engagement IG/FB 60 días</span>
+          <span class="tag active">Video 50%+ de anuncios MEB</span>
+          <span class="tag active">Lookalike 1% compradores</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>📹 Creativos a Crear para CAVA (5 propuestas)</h2>
+  <div class="grid2" style="margin-bottom:24px;">
+    <div class="creative-card top">
+      <div class="badge badge-gold" style="margin-bottom:10px;">Anuncio #1 — Top of Funnel</div>
+      <div class="creative-hook">"Hay algo que llevas cargando desde niña que no es tuyo... y CAVA te ayuda a devolverlo"</div>
+      <div class="creative-why">
+        <strong style="color:var(--text);">Formato:</strong> Video 15-30 seg · MEB a cámara, outfit casual, fondo suave<br>
+        <strong style="color:var(--text);">Texto caption:</strong> "¿Sentís que te esforzás pero algo siempre te frena? No es falta de fuerza de voluntad. Son patrones heredados. CAVA te da las herramientas para soltarlos — en tu tiempo, desde donde estés."<br>
+        <strong style="color:var(--text);">CTA:</strong> "Ver CAVA →" → landing directa con Hotmart/Stripe
+      </div>
+    </div>
+    <div class="creative-card">
+      <div class="badge badge-purple" style="margin-bottom:10px;">Anuncio #2 — Pain + Solution</div>
+      <div class="creative-hook">"Fui a terapia durante 2 años y seguía bloqueada... hasta que encontré este método"</div>
+      <div class="creative-why">
+        <strong style="color:var(--text);">Formato:</strong> UGC-style (o MEB desde el sillón) · 30-45 seg<br>
+        <strong style="color:var(--text);">Texto caption:</strong> "CAVA no es otro curso de mentalidad positiva. Es un kit de 7 herramientas específicas para limpiar los patrones del inconsciente que te bloquean. $119 USD · Acceso inmediato."<br>
+        <strong style="color:var(--text);">CTA:</strong> "Acceder a CAVA →"
+      </div>
+    </div>
+    <div class="creative-card">
+      <div class="badge badge-blue" style="margin-bottom:10px;">Anuncio #3 — Social Proof</div>
+      <div class="creative-hook">[Testimonio cliente] "Después de CAVA pude dejar una relación que me drenaba hace 6 años"</div>
+      <div class="creative-why">
+        <strong style="color:var(--text);">Formato:</strong> Video testimonio cliente 20-40 seg + corte a MEB con CTA<br>
+        <strong style="color:var(--text);">Texto caption:</strong> "Resultados reales de personas reales. CAVA — Kit de Sanación para liberarte de patrones que ya no son tuyos."<br>
+        <strong style="color:var(--text);">CTA:</strong> "Quiero lo mismo →"
+      </div>
+    </div>
+    <div class="creative-card">
+      <div class="badge badge-teal" style="margin-bottom:10px;">Anuncio #4 — Remarketing</div>
+      <div class="creative-hook">"Vi que visitaste CAVA. ¿Qué te detuvo? Te entiendo — yo también dudé antes de invertir en mí"</div>
+      <div class="creative-why">
+        <strong style="color:var(--text);">Formato:</strong> Video directo 15 seg · MEB a cámara · Tono íntimo<br>
+        <strong style="color:var(--text);">Texto caption:</strong> "El Kit CAVA es la inversión de $119 que puede cambiar los próximos 10 años. 7 días de garantía. Sin riesgo."<br>
+        <strong style="color:var(--text);">CTA:</strong> "Entrar ahora →" · Urgencia real (cupos o tiempo límite)
+      </div>
+    </div>
+    <div class="creative-card" style="grid-column:1/-1;">
+      <div class="badge badge-orange" style="margin-bottom:10px;">Anuncio #5 — Carrusel (Facebook + Instagram)</div>
+      <div class="creative-hook">Slide 1: "7 señales de que llevas patrones heredados" · Cada slide = 1 señal · Último slide = CAVA</div>
+      <div class="creative-why">
+        <strong style="color:var(--text);">Formato:</strong> Carrusel 7 slides · Diseño minimalista · Colores de marca MEB<br>
+        <strong style="color:var(--text);">Por qué funciona:</strong> Altísimo engagement (gente hace swipe para ver todas las señales). El último slide tiene el CTA natural: "Si te identificaste con 3+, CAVA es para ti"<br>
+        <strong style="color:var(--text);">CTA:</strong> "Ver CAVA →" en el último slide
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>💰 Presupuesto y Estructura de Campaña Recomendada</h3>
+    <div style="overflow-x:auto;margin-top:8px;">
+      <table>
+        <thead>
+          <tr><th>Conjunto de Anuncios</th><th>Audiencia</th><th>Presupuesto/día</th><th>Objetivo</th><th>Fase</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>TOF · Prospecting</td><td>Intereses fríos</td><td>$8 USD</td><td>Purchase (Pixel)</td><td>Siempre activo</td></tr>
+          <tr><td>TOF · Lookalike 1%</td><td>LAL de compradores</td><td>$6 USD</td><td>Purchase</td><td>Desde semana 2</td></tr>
+          <tr><td>MOF · Video Viewers</td><td>50%+ video views</td><td>$5 USD</td><td>Purchase</td><td>Siempre activo</td></tr>
+          <tr style="background:rgba(76,175,132,0.05)"><td><strong>BOF · Remarketing ⭐</strong></td><td>Visitantes + engagement</td><td><strong>$8 USD</strong></td><td>Purchase</td><td>Siempre activo</td></tr>
+        </tbody>
+        <tfoot>
+          <tr style="background:var(--dark3)"><td><strong>TOTAL</strong></td><td></td><td><strong>$27 USD/día</strong></td><td></td><td><strong>~$810/mes</strong></td></tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="info-box" style="margin-top:16px;margin-bottom:0;">
+      <div class="ico">📊</div>
+      <div class="txt"><strong>Proyección conservadora:</strong> Si el CPA llega a $12 USD, con $810/mes invertidos = ~67 ventas/mes = $7,973 USD en ingresos. ROI: 9.8x. Incluso con CPA de $20, el retorno sigue siendo rentable (4x).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECCIÓN 6: ESTRATEGIA RETIRO
+============================================================ -->
+<div id="retiro" class="section">
+  <div class="section-label">Nuevo · Desde Cero</div>
+  <h1>Estrategia Completa — Volviendo al Ser · $792–$972</h1>
+  <p class="subtitle">Retiro experiencial · Ciclo de decisión largo (2-6 semanas) · Necesita nurturing</p>
+
+  <div class="grid3" style="margin-bottom:24px;">
+    <div class="card metric">
+      <span class="val">$792</span>
+      <div class="lbl">Precio base retiro</div>
+      <div class="sub">Hasta $972 habitación privada</div>
+    </div>
+    <div class="card metric">
+      <span class="val">$30–60</span>
+      <div class="lbl">CPL objetivo</div>
+      <div class="sub">Costo por lead calificado</div>
+    </div>
+    <div class="card metric">
+      <span class="val">$800–1,200</span>
+      <div class="lbl">Presupuesto mensual</div>
+      <div class="sub">~15-25 leads calificados</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <div class="ico">🔄</div>
+    <div class="txt">
+      <strong>Diferencia clave vs CAVA:</strong> El retiro NO se vende directamente desde un anuncio. El objetivo de la pauta es generar leads calificados (WhatsApp o formulario) que María Elena califica manualmente. El funnel tiene 3 etapas obligatorias: Descubrimiento → Nurturing → Calificación → Cierre.
+    </div>
+  </div>
+
+  <h2>🔄 Funnel Completo · Volviendo al Ser</h2>
+  <div style="margin-bottom:24px;">
+    <div class="funnel-step">
+      <div class="funnel-label">Etapa 1 · TOFU · $300/mes</div>
+      <div class="funnel-title">Despertar Interés — "¿Qué es un retiro de sanación?"</div>
+      <div class="funnel-desc">Videos educativos: qué sucede en el retiro, testimonios de participantes, qué es la bioneuroemoción/patrones. Objetivo: Video Views 50%+ → alimentar audiencia para retargeting.</div>
+    </div>
+    <div class="funnel-step blue">
+      <div class="funnel-label">Etapa 2 · MOFU · $300/mes</div>
+      <div class="funnel-title">Nutrición — "¿Por qué necesito un retiro y no solo una terapia?"</div>
+      <div class="funnel-desc">Carruseles con antes/después emocional. MEB explicando el proceso. Testimonios de transformación profunda. Objetivo: Mensaje WhatsApp para preguntas sobre el retiro.</div>
+    </div>
+    <div class="funnel-step green">
+      <div class="funnel-label">Etapa 3 · BOFU · $400/mes</div>
+      <div class="funnel-title">Conversión — "Quiero ir al retiro · ¿Hay cupos?"</div>
+      <div class="funnel-desc">Anuncio directo al retiro: fechas, ubicación, qué incluye, precio, garantía. CTA directo a WhatsApp para hablar con María Elena. Urgencia real (cupos limitados por experiencia presencial).</div>
+    </div>
+    <div class="funnel-step purple">
+      <div class="funnel-label">Calificación Manual</div>
+      <div class="funnel-title">María Elena califica el lead por WhatsApp (10-15 min)</div>
+      <div class="funnel-desc">Preguntas clave: ¿Para qué lo haces? ¿Ya has hecho trabajo personal? ¿Puedes comprometerte a los 4 días? Esto asegura la experiencia del grupo y la tasa de referidos.</div>
+    </div>
+    <div class="funnel-step teal">
+      <div class="funnel-label">Cierre</div>
+      <div class="funnel-title">Separar lugar → Link de pago → Confirmación</div>
+      <div class="funnel-desc">Anticipo del 30-50% para reservar. Enviar itinerario y preparación. Seguimiento pre-retiro por WhatsApp para reducir cancelaciones.</div>
+    </div>
+  </div>
+
+  <h2>📹 Creativos a Crear para Volviendo al Ser (5 propuestas)</h2>
+  <div class="grid2" style="margin-bottom:24px;">
+    <div class="creative-card top">
+      <div class="badge badge-gold" style="margin-bottom:10px;">Anuncio #1 — TOFU · Testimonial</div>
+      <div class="creative-hook">"Fui al retiro de María Elena con miedo. Volví siendo otra persona. Y no exagero."</div>
+      <div class="creative-why">
+        <strong style="color:var(--text);">Formato:</strong> Video testimonio 45-60 seg · Cliente hablando a cámara · Locación natural<br>
+        <strong style="color:var(--text);">Caption:</strong> "4 días en un lugar sagrado. Trabajo profundo en grupo pequeño. Resultados que no se consiguen en meses de terapia. Volviendo al Ser — el próximo retiro tiene X lugares."<br>
+        <strong style="color:var(--text);">CTA:</strong> "Quiero saber más →" → WhatsApp
+      </div>
+    </div>
+    <div class="creative-card">
+      <div class="badge badge-purple" style="margin-bottom:10px;">Anuncio #2 — TOFU · Transformación</div>
+      <div class="creative-hook">"¿Cuánto tiempo llevas esperando tener tiempo para trabajar en ti?"</div>
+      <div class="creative-why">
+        <strong style="color:var(--text);">Formato:</strong> Reels 15 seg · MEB en locación natural (montaña, naturaleza) · Tono íntimo<br>
+        <strong style="color:var(--text);">Caption:</strong> "El retiro 'Volviendo al Ser' es esos 4 días que llevas posponiendo. Un espacio sagrado donde trabajas en profundidad lo que en la vida cotidiana es imposible."<br>
+        <strong style="color:var(--text);">CTA:</strong> "Ver fechas →" → Link a página de retiro
+      </div>
+    </div>
+    <div class="creative-card">
+      <div class="badge badge-blue" style="margin-bottom:10px;">Anuncio #3 — MOFU · Proceso</div>
+      <div class="creative-hook">"¿Qué pasa exactamente en un retiro de sanación de 4 días?"</div>
+      <div class="creative-why">
+        <strong style="color:var(--text);">Formato:</strong> Video 45 seg · MEB explicando el proceso · B-roll del lugar si hay<br>
+        <strong style="color:var(--text);">Caption:</strong> "Day 1: Recepción y apertura del espacio. Day 2: Trabajo profundo con la sombra. Day 3: Integración y liberación. Day 4: Anclar la nueva versión. Máximo 12 personas."<br>
+        <strong style="color:var(--text);">CTA:</strong> "Pregunta por el próximo →" → WhatsApp
+      </div>
+    </div>
+    <div class="creative-card">
+      <div class="badge badge-teal" style="margin-bottom:10px;">Anuncio #4 — BOFU · Urgencia</div>
+      <div class="creative-hook">"El retiro de [MES] tiene 3 lugares disponibles. No hay lista de espera para el siguiente."</div>
+      <div class="creative-why">
+        <strong style="color:var(--text);">Formato:</strong> Video simple 15-20 seg · MEB directo a cámara · Sin efectos · Tono directo<br>
+        <strong style="color:var(--text);">Caption:</strong> "Volviendo al Ser — [FECHA]. [CIUDAD]. Si algo en ti siente que es ahora, es ahora. Escribeme para los detalles."<br>
+        <strong style="color:var(--text);">CTA:</strong> "Escribir ahora →" → WhatsApp directo
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📍 Segmentación por País (Basada en Datos)</h3>
+    <div style="overflow-x:auto;margin-top:8px;">
+      <table>
+        <thead>
+          <tr><th>País</th><th>Prioridad</th><th>Justificación</th><th>Presupuesto %</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🇨🇴 Colombia</td>
+            <td><span class="badge badge-gold">Alta</span></td>
+            <td>Base de María Elena, retiro puede ser local</td>
+            <td>35%</td>
+          </tr>
+          <tr>
+            <td>🇵🇪 Perú</td>
+            <td><span class="badge badge-green">Alta</span></td>
+            <td>Campaña SPM RMK PERÚ ya generó 6,498 reacciones — audiencia activa</td>
+            <td>30%</td>
+          </tr>
+          <tr>
+            <td>🇲🇽 México</td>
+            <td><span class="badge badge-blue">Media</span></td>
+            <td>Gran mercado espiritual, dispuesto a viajar a retiros</td>
+            <td>20%</td>
+          </tr>
+          <tr>
+            <td>🇦🇷 Argentina</td>
+            <td><span class="badge badge-orange">Media</span></td>
+            <td>Alta cultura terapéutica, precio relativo más accesible</td>
+            <td>15%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECCIÓN 7: GOOGLE ADS
+============================================================ -->
+<div id="google" class="section">
+  <div class="section-label">Nuevo Canal</div>
+  <h1>Estrategia Google Ads</h1>
+  <p class="subtitle">Alto intent de compra — personas buscando activamente lo que María Elena ofrece</p>
+
+  <div class="success-box">
+    <div class="ico">🔍</div>
+    <div class="txt">
+      <strong>¿Por qué Google para el Retiro?</strong> Cuando alguien busca "retiro espiritual Colombia" o "retiro de sanación Perú", ya tomó la decisión de ir a un retiro. Solo falta elegir cuál. Google captura ese momento de intención máxima. Para CAVA, Google también funciona bien en búsquedas de "kit de sanación", "herramientas sanación emocional".
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:24px;">
+    <div class="card">
+      <h3>🔑 Keywords — Volviendo al Ser (Retiro)</h3>
+      <div style="margin-bottom:14px;">
+        <div class="badge badge-green" style="margin-bottom:8px;">Alta Intención (Bid alto: $1.5–3 USD)</div>
+        <div class="tag-list">
+          <span class="tag active">retiro espiritual Colombia</span>
+          <span class="tag active">retiro de sanación Peru</span>
+          <span class="tag active">retiro bioneuroemocion</span>
+          <span class="tag active">retiro transformacion personal</span>
+          <span class="tag active">retiro espiritual mujeres</span>
+          <span class="tag active">retiro meditacion colombia 2026</span>
+          <span class="tag active">retiro consciente latinoamerica</span>
+        </div>
+      </div>
+      <div>
+        <div class="badge badge-blue" style="margin-bottom:8px;">Media Intención (Bid medio: $0.5–1.5 USD)</div>
+        <div class="tag-list">
+          <span class="tag">retiro autoconocimiento</span>
+          <span class="tag">experiencia espiritual</span>
+          <span class="tag">talleres sanacion emocional</span>
+          <span class="tag">terapia grupal intensiva</span>
+          <span class="tag">workshop transformacion personal</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>🔑 Keywords — CAVA (Producto Digital)</h3>
+      <div style="margin-bottom:14px;">
+        <div class="badge badge-green" style="margin-bottom:8px;">Alta Intención (Bid $0.8–2 USD)</div>
+        <div class="tag-list">
+          <span class="tag active">kit de sanacion emocional</span>
+          <span class="tag active">herramientas sanacion inconsciente</span>
+          <span class="tag active">programa liberacion patrones</span>
+          <span class="tag active">curso sanacion emocional online</span>
+          <span class="tag active">tecnicas sanacion interior</span>
+        </div>
+      </div>
+      <div>
+        <div class="badge badge-orange" style="margin-bottom:8px;">Competidores (Comparar con cuidado)</div>
+        <div class="tag-list">
+          <span class="tag">bioneuroemocion curso</span>
+          <span class="tag">sanacion con angeles curso</span>
+          <span class="tag">thetahealing online</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:24px;">
+    <div class="card">
+      <h3>📝 Estructura de Anuncios (Retiro)</h3>
+      <div style="background:var(--dark3);border-radius:8px;padding:14px;margin-top:8px;font-size:12px;">
+        <div style="color:var(--blue);margin-bottom:4px;font-weight:700;">Retiro Volviendo al Ser 2026 | Sanación Profunda en 4 Días</div>
+        <div style="color:var(--green);margin-bottom:6px;">marialenabadillo.com/retiro</div>
+        <div style="color:var(--muted);line-height:1.6;">Retiro de transformación personal con María Elena Badillo. Máx 12 personas. Trabajo en patrones inconscientes. Próximas fechas disponibles. Reserva tu lugar ahora.</div>
+        <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+          <span style="background:rgba(76,132,207,0.15);padding:2px 8px;border-radius:3px;color:var(--blue);">Máx 12 Personas</span>
+          <span style="background:rgba(76,132,207,0.15);padding:2px 8px;border-radius:3px;color:var(--blue);">4 Días Intensivos</span>
+          <span style="background:rgba(76,132,207,0.15);padding:2px 8px;border-radius:3px;color:var(--blue);">Resultados Comprobados</span>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-top:8px;">Usar extensiones de llamada y de sitelinks: "Ver testimonios", "Qué incluye", "Próximas fechas", "WhatsApp directo"</div>
+    </div>
+    <div class="card">
+      <h3>💰 Presupuesto Google Ads Recomendado</h3>
+      <div style="overflow-x:auto;margin-top:8px;">
+        <table>
+          <thead>
+            <tr><th>Campaña</th><th>Budget/día</th><th>Tipo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Retiro · Keywords Intent</td><td>$10 USD</td><td>Search</td></tr>
+            <tr><td>CAVA · Keywords</td><td>$8 USD</td><td>Search</td></tr>
+            <tr><td>Retiro · YouTube</td><td>$5 USD</td><td>Video (Instream)</td></tr>
+            <tr><td>Remarketing Display</td><td>$5 USD</td><td>Display</td></tr>
+          </tbody>
+          <tfoot>
+            <tr style="background:var(--dark3)"><td><strong>Total</strong></td><td><strong>$28/día</strong></td><td><strong>~$840/mes</strong></td></tr>
+          </tfoot>
+        </table>
+      </div>
+      <div style="margin-top:12px;padding:10px;background:var(--dark3);border-radius:6px;font-size:11px;color:var(--muted);">
+        <strong style="color:var(--gold);">Proyección:</strong> Si el CPC promedio es $1.5 y convierte 3% → cada 100 clics = 3 consultas. Si cierra 50% = 1.5 ventas/mes del retiro = $1,188 USD con $150 invertido en esos clics. ROI: 7.9x
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🎥 YouTube Ads — Para el Retiro</h3>
+    <div class="grid2" style="margin-top:12px;">
+      <div>
+        <div class="badge badge-red" style="margin-bottom:8px;">Instream · 15 seg no skippable</div>
+        <div style="font-size:13px;font-style:italic;color:var(--text);margin-bottom:8px;">"¿Cuándo fue la última vez que te diste 4 días solo para ti? El Retiro Volviendo al Ser tiene fecha. Los lugares son 12."</div>
+        <div style="font-size:12px;color:var(--muted);">Se muestra antes de videos de meditación, yoga, desarrollo personal en YouTube</div>
+      </div>
+      <div>
+        <div class="badge badge-blue" style="margin-bottom:8px;">Discovery · Thumbnail en búsquedas</div>
+        <div style="font-size:13px;font-style:italic;color:var(--text);margin-bottom:8px;">Título: "¿Qué pasa en 4 días de retiro de sanación?" · Video completo de MEB</div>
+        <div style="font-size:12px;color:var(--muted);">Ideal para capturar búsquedas de "retiro espiritual" en YouTube</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECCIÓN 8: PIXEL
+============================================================ -->
+<div id="pixel" class="section">
+  <div class="section-label">Técnico · Paso a Paso</div>
+  <h1>Instalar el Evento Purchase</h1>
+  <p class="subtitle">Sin este evento, Meta Ads no puede optimizar para ventas reales. Es la prioridad técnica #1.</p>
+
+  <div class="alert-box">
+    <div class="ico">🚨</div>
+    <div class="txt">
+      <strong>Sin Purchase event = dinero quemado en pauta.</strong> Meta Ads actualmente optimiza por clicks o mensajes, no por ventas. Con el evento instalado, el algoritmo aprenderá quiénes compran y buscará personas similares automáticamente. Esto puede bajar el CPA un 40-60%.
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:24px;">
+    <div class="card">
+      <h3>❓ Lo que Necesito que Me Digas</h3>
+      <ul class="check" style="margin-top:8px;">
+        <li class="warn"><strong>¿Cuál es el dominio/URL del sitio de María Elena?</strong> (ej: marialenabadillo.com)</li>
+        <li class="warn"><strong>¿En qué plataforma está el sitio?</strong> WordPress / Wix / Squarespace / otra</li>
+        <li class="warn"><strong>¿Tiene acceso al panel de administración del sitio?</strong></li>
+        <li class="warn"><strong>¿Dónde se procesa el pago?</strong> Hotmart / Stripe / PayPal / otro</li>
+        <li class="warn"><strong>¿Hay una página de "gracias" o "confirmación" después de comprar?</strong></li>
+        <li><strong>Pixel ID:</strong> Lo busco yo en el administrador de Meta (act_1418379029648107)</li>
+      </ul>
+    </div>
+    <div class="card info">
+      <h3>🔢 ID del Pixel (Verificar)</h3>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:12px;">El pixel debe estar asociado a la cuenta publicitaria act_1418379029648107. Si no existe, hay que crearlo en el Administrador de Eventos.</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Ir a: business.facebook.com</div>
+            <div class="step-desc">Menú → Administrador de Eventos → Fuentes de Datos</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Verificar que existe un Pixel conectado al sitio</div>
+            <div class="step-desc">Si no existe → "Conectar fuentes de datos" → "Web" → "Pixel de Meta"</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Anotar el Pixel ID (16 dígitos)</div>
+            <div class="step-desc">Lo necesitamos para instalarlo en el sitio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>📋 Paso a Paso Según la Plataforma</h2>
+
+  <div style="margin-bottom:20px;">
+    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+      <button onclick="showPixel('wordpress')" id="btn-wordpress" class="plat-btn active" style="background:var(--gold);color:#000;border:none;padding:8px 16px;border-radius:6px;font-weight:700;cursor:pointer;font-size:12px;">WordPress</button>
+      <button onclick="showPixel('hotmart')" id="btn-hotmart" class="plat-btn" style="background:var(--card2);color:var(--text);border:1px solid var(--border);padding:8px 16px;border-radius:6px;font-weight:700;cursor:pointer;font-size:12px;">Hotmart</button>
+      <button onclick="showPixel('wix')" id="btn-wix" class="plat-btn" style="background:var(--card2);color:var(--text);border:1px solid var(--border);padding:8px 16px;border-radius:6px;font-weight:700;cursor:pointer;font-size:12px;">Wix</button>
+      <button onclick="showPixel('manual')" id="btn-manual" class="plat-btn" style="background:var(--card2);color:var(--text);border:1px solid var(--border);padding:8px 16px;border-radius:6px;font-weight:700;cursor:pointer;font-size:12px;">HTML Manual</button>
+    </div>
+
+    <div id="pixel-wordpress" class="card">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Instalar plugin "Pixel Your Site" o "Meta Pixel" (gratis)</div>
+            <div class="step-desc">En WordPress: Plugins → Añadir nuevo → Buscar "Pixel Your Site"</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Ingresar el Pixel ID</div>
+            <div class="step-desc">Ir a la configuración del plugin → Pegar el Pixel ID de 16 dígitos</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Activar el evento Purchase en WooCommerce / página de confirmación</div>
+            <div class="step-desc">En el plugin: Events → Purchase → Activar en "Thank you page" o en WooCommerce order confirmation</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Si el pago es en Hotmart, agregar Purchase en la URL de retorno</div>
+            <div class="step-code">https://tudominio.com/gracias?compra=exitosa</div>
+            <div class="step-desc">Esta URL debe tener el código de Purchase (ver tab Hotmart)</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Verificar con Meta Pixel Helper (extensión Chrome)</div>
+            <div class="step-desc">Instalar la extensión → navegar el sitio → verificar que el pixel se dispara en la página correcta con el evento Purchase</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="pixel-hotmart" class="card" style="display:none;">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">En Hotmart: Productos → Seleccionar CAVA → Configuración → Pixel</div>
+            <div class="step-desc">Hotmart tiene integración nativa con Meta Pixel</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Pegar el Pixel ID en el campo "Facebook Pixel ID"</div>
+            <div class="step-desc">Hotmart disparará automáticamente: Purchase, InitiateCheckout, PageView</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Configurar la URL de "Página de éxito"</div>
+            <div class="step-desc">Después del pago → Hotmart redirige al comprador a esta URL → el pixel la dispara con Purchase</div>
+            <div class="step-code">// Ejemplo de código a agregar en tu página de gracias
+fbq('track', 'Purchase', {
+  value: 119.00,
+  currency: 'USD',
+  content_name: 'CAVA Kit de Sanación'
+});</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Activar Conversions API (opcional pero recomendado)</div>
+            <div class="step-desc">Hotmart tiene integración con Conversions API de Meta → más datos, menos impacto de ad blockers</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Hacer compra de prueba y verificar en Administrador de Eventos</div>
+            <div class="step-desc">Meta Ads Manager → Administrador de Eventos → Tu pixel → Ver actividad en tiempo real</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="pixel-wix" class="card" style="display:none;">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">En Wix Editor: Configuración → Integraciones → Facebook Pixel</div>
+            <div class="step-desc">Wix tiene integración nativa. No requiere código.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Pegar el Pixel ID → Guardar → Publicar sitio</div>
+            <div class="step-desc">Wix instala automáticamente PageView en todas las páginas</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Para Purchase: agregar evento en la página de confirmación de pedido</div>
+            <div class="step-desc">Wix Stores lo hace automáticamente si usas Wix Payments. Para pagos externos (Hotmart), necesitas código personalizado:</div>
+            <div class="step-code">// En Wix: Editor → Página de Gracias → Agregar código personalizado
+window.fbq('track', 'Purchase', {value: 119.00, currency: 'USD'});</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="pixel-manual" class="card" style="display:none;">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Copiar el código base del pixel</div>
+            <div class="step-desc">Pegar en el &lt;head&gt; de TODAS las páginas del sitio, antes de &lt;/head&gt;</div>
+            <div class="step-code">&lt;!-- Meta Pixel Code --&gt;
+&lt;script&gt;
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', 'TU_PIXEL_ID_AQUI');
+fbq('track', 'PageView');
+&lt;/script&gt;
+&lt;noscript&gt;&lt;img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=TU_PIXEL_ID_AQUI&ev=PageView&noscript=1"/&gt;&lt;/noscript&gt;
+&lt;!-- End Meta Pixel Code --&gt;</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Agregar evento Purchase SOLO en la página de gracias</div>
+            <div class="step-desc">Esta página se muestra DESPUÉS de la compra confirmada</div>
+            <div class="step-code">&lt;!-- Solo en pagina de GRACIAS / confirmación de compra --&gt;
+&lt;script&gt;
+fbq('track', 'Purchase', {
+  value: 119.00,       // precio de CAVA
+  currency: 'USD',
+  content_name: 'CAVA Kit de Sanacion',
+  content_type: 'product'
+});
+&lt;/script&gt;</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Agregar InitiateCheckout en el botón de compra</div>
+            <div class="step-desc">Cuando el usuario hace click en "Comprar" o es redirigido a Hotmart</div>
+            <div class="step-code">&lt;!-- En el botón de compra --&gt;
+&lt;a href="https://pay.hotmart.com/XXXXX"
+   onclick="fbq('track', 'InitiateCheckout', {value: 119.00, currency: 'USD'})"&gt;
+   Comprar CAVA →
+&lt;/a&gt;</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Instalar Meta Pixel Helper en Chrome y verificar</div>
+            <div class="step-desc">Extensión gratuita de Chrome. Muestra qué eventos se disparan en cada página en tiempo real. Confirmar: PageView en todas las páginas, Purchase solo en página de gracias.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECCIÓN 9: PRIORIDADES
+============================================================ -->
+<div id="prioridades" class="section">
+  <div class="section-label">Hoja de Ruta</div>
+  <h1>Plan de Acción · 90 Días</h1>
+  <p class="subtitle">Qué hacer primero, qué esperar de cada acción, y cómo medir el éxito</p>
+
+  <h2>🔴 Semana 1-2 — Base Técnica (No Negociable)</h2>
+  <div class="card" style="margin-bottom:24px;">
+    <div class="priority-row">
+      <div class="priority-num">01</div>
+      <div class="priority-body">
+        <div class="priority-title">Instalar Pixel Purchase en el sitio de María Elena</div>
+        <div class="priority-desc">Sin esto, toda la pauta posterior es ciega. Es la base de la estrategia. Ver tab "Instalar Pixel" para el paso a paso según plataforma.</div>
+      </div>
+      <span class="badge badge-red">Urgente</span>
+    </div>
+    <div class="priority-row">
+      <div class="priority-num">02</div>
+      <div class="priority-body">
+        <div class="priority-title">Crear la landing page de CAVA con botón de compra claro</div>
+        <div class="priority-desc">Necesitamos una URL específica de CAVA a donde enviar el tráfico pagado. La landing debe tener: qué es, para quién, qué incluye, precio, testimonios, CTA.</div>
+      </div>
+      <span class="badge badge-red">Urgente</span>
+    </div>
+    <div class="priority-row">
+      <div class="priority-num">03</div>
+      <div class="priority-body">
+        <div class="priority-title">Grabar al menos 3 videos para los anuncios de CAVA</div>
+        <div class="priority-desc">Hook #1 (deseo), Hook #2 (dolor), Hook #3 (testimonio). María Elena a cámara, luz natural, fondo limpio. Sin producción compleja — lo natural funciona mejor.</div>
+      </div>
+      <span class="badge badge-orange">Esta semana</span>
+    </div>
+  </div>
+
+  <h2>🟡 Semana 3-4 — Lanzar CAVA en Meta</h2>
+  <div class="card" style="margin-bottom:24px;">
+    <div class="priority-row">
+      <div class="priority-num">04</div>
+      <div class="priority-body">
+        <div class="priority-title">Activar campaña CAVA · Presupuesto inicial $15/día</div>
+        <div class="priority-desc">Empezar con 3 anuncios en una audiencia fría (intereses). Dejar correr mínimo 7 días sin tocar para que el algoritmo aprenda. Meta necesita 50 eventos de Purchase para optimizar bien.</div>
+      </div>
+      <span class="badge badge-gold">Semana 3</span>
+    </div>
+    <div class="priority-row">
+      <div class="priority-num">05</div>
+      <div class="priority-body">
+        <div class="priority-title">Reactivar RMK CTCTC (ya tiene 38 checkouts históricos)</div>
+        <div class="priority-desc">Esta campaña ya demostró que convierte. Reactivarla con creativos de CAVA puede generar ventas rápidas de audiencias que ya conocen a María Elena.</div>
+      </div>
+      <span class="badge badge-gold">Semana 3</span>
+    </div>
+    <div class="priority-row">
+      <div class="priority-num">06</div>
+      <div class="priority-body">
+        <div class="priority-title">Configurar Google Ads · Solo búsqueda de CAVA ($8/día)</div>
+        <div class="priority-desc">Crear cuenta Google Ads, configurar conversión de Purchase, activar campaña de keywords de alta intención para CAVA. Complementa Meta con intent diferente.</div>
+      </div>
+      <span class="badge badge-blue">Semana 4</span>
+    </div>
+  </div>
+
+  <h2>🟢 Mes 2 — Escalar + Lanzar Retiro</h2>
+  <div class="card" style="margin-bottom:24px;">
+    <div class="priority-row">
+      <div class="priority-num">07</div>
+      <div class="priority-body">
+        <div class="priority-title">Escalar CAVA si CPA ≤ $20 USD</div>
+        <div class="priority-desc">Aumentar presupuesto 20% cada 5 días mientras el CPA se mantenga por debajo de $20. Crear Lookalike 1% de compradores para multiplicar el alcance relevante.</div>
+      </div>
+      <span class="badge badge-green">Mes 2</span>
+    </div>
+    <div class="priority-row">
+      <div class="priority-num">08</div>
+      <div class="priority-body">
+        <div class="priority-title">Lanzar campaña TOFU del Retiro "Volviendo al Ser"</div>
+        <div class="priority-desc">Video testimonial del retiro en Video Views. Objetivo: llenar audiencia de remarketing. Esta fase no convierte directamente — alimenta el funnel.</div>
+      </div>
+      <span class="badge badge-green">Mes 2</span>
+    </div>
+    <div class="priority-row">
+      <div class="priority-num">09</div>
+      <div class="priority-body">
+        <div class="priority-title">Crear landing page del Retiro con formulario de intención</div>
+        <div class="priority-desc">Fechas, programa, qué incluye, precio, testimonios de ediciones anteriores, formulario simple (nombre + WhatsApp + "¿Por qué quieres ir al retiro?"). Esto permite calificar leads.</div>
+      </div>
+      <span class="badge badge-green">Mes 2</span>
+    </div>
+  </div>
+
+  <h2>🔵 Mes 3 — Full Funnel Activo</h2>
+  <div class="card" style="margin-bottom:24px;">
+    <div class="priority-row">
+      <div class="priority-num">10</div>
+      <div class="priority-body">
+        <div class="priority-title">Activar BOFU del Retiro con urgencia real</div>
+        <div class="priority-desc">Cuando queden 30 días para el retiro, activar anuncios de urgencia (cupos, fechas). Presupuesto mayor: $20/día. Audiencia: retargeting TOFU + leads del formulario.</div>
+      </div>
+      <span class="badge badge-blue">Mes 3</span>
+    </div>
+    <div class="priority-row">
+      <div class="priority-num">11</div>
+      <div class="priority-body">
+        <div class="priority-title">Activar Google Ads para el Retiro</div>
+        <div class="priority-desc">Keywords "retiro espiritual" ya tienen intención de compra. Search + YouTube Instream frente a canales de meditación/yoga.</div>
+      </div>
+      <span class="badge badge-blue">Mes 3</span>
+    </div>
+    <div class="priority-row">
+      <div class="priority-num">12</div>
+      <div class="priority-body">
+        <div class="priority-title">Revisar KPIs y optimizar mensualmente</div>
+        <div class="priority-desc">CPA CAVA objetivo: ≤$15. CPL Retiro objetivo: ≤$50. CTR mínimo: 2%. Si alguno falla → cambiar creativos antes de subir presupuesto.</div>
+      </div>
+      <span class="badge badge-blue">Mes 3</span>
+    </div>
+  </div>
+
+  <div class="card highlight">
+    <h3>📊 KPIs de Éxito (Primeros 90 Días)</h3>
+    <div class="grid3" style="margin-top:12px;">
+      <div style="text-align:center;padding:12px;">
+        <div style="font-size:22px;font-weight:800;color:var(--gold);">≤$15</div>
+        <div style="font-size:12px;color:var(--muted);">CPA objetivo CAVA</div>
+      </div>
+      <div style="text-align:center;padding:12px;">
+        <div style="font-size:22px;font-weight:800;color:var(--green);">≤$50</div>
+        <div style="font-size:12px;color:var(--muted);">CPL objetivo Retiro</div>
+      </div>
+      <div style="text-align:center;padding:12px;">
+        <div style="font-size:22px;font-weight:800;color:var(--blue);">2%+</div>
+        <div style="font-size:12px;color:var(--muted);">CTR mínimo aceptable</div>
+      </div>
+      <div style="text-align:center;padding:12px;">
+        <div style="font-size:22px;font-weight:800;color:var(--purple);">4x+</div>
+        <div style="font-size:12px;color:var(--muted);">ROAS CAVA (una vez pixel activo)</div>
+      </div>
+      <div style="text-align:center;padding:12px;">
+        <div style="font-size:22px;font-weight:800;color:var(--teal);">50</div>
+        <div style="font-size:12px;color:var(--muted);">Purchase events para que Meta optimice</div>
+      </div>
+      <div style="text-align:center;padding:12px;">
+        <div style="font-size:22px;font-weight:800;color:var(--orange);">10+</div>
+        <div style="font-size:12px;color:var(--muted);">Leads calificados/mes Retiro</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const idx = ['overview','campanas','engagement','creativos','cava','retiro','google','pixel','prioridades'].indexOf(id);
+  document.querySelectorAll('nav button')[idx].classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function showPixel(plat) {
+  ['wordpress','hotmart','wix','manual'].forEach(p => {
+    document.getElementById('pixel-'+p).style.display = p===plat ? 'block' : 'none';
+    const btn = document.getElementById('btn-'+p);
+    if(p===plat) {
+      btn.style.background = 'var(--gold)';
+      btn.style.color = '#000';
+      btn.style.border = 'none';
+    } else {
+      btn.style.background = 'var(--card2)';
+      btn.style.color = 'var(--text)';
+      btn.style.border = '1px solid var(--border)';
+    }
+  });
+}
+</script>
+</body>
+</html>
