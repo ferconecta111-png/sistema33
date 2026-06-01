@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="theme-color" content="#08060f">
-<meta property="og:title" content="Implementamos el sistema — Fernanda Conde">
-<meta property="og:description" content="Contenido, automatización y pauta. Nosotros lo hacemos. Tú te enfocas en tu negocio.">
-<title>Implementamos el sistema — @ferconde__</title>
+<meta property="og:title" content="Implementamos tu sistema digital — @ferconde__">
+<meta property="og:description" content="Captación, automatización y pauta. El sistema completo corriendo en tu negocio. Tú te enfocas en atender.">
+<title>Implementamos tu sistema digital — @ferconde__</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
@@ -21,7 +21,6 @@
 
 html,body{min-height:100%;font-family:'Inter',sans-serif;background:var(--negro);color:#e8e0f0;overflow-x:hidden;}
 
-/* grano */
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E");}
 
@@ -43,9 +42,14 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   animation:pulse 1.8s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
 
+.chip-gold{display:inline-flex;align-items:center;gap:7px;
+  background:rgba(245,184,0,.08);border:1px solid rgba(245,184,0,.25);
+  border-radius:20px;padding:5px 14px;font-size:.7rem;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--dorado);margin-bottom:20px;}
+
 /* ── HERO TEXTO ── */
 .hero-titulo{
-  font-size:clamp(2.4rem,7vw,4.2rem);font-weight:900;line-height:1.0;
+  font-size:clamp(2.2rem,7vw,4rem);font-weight:900;line-height:1.0;
   letter-spacing:-1.5px;color:var(--blanco);margin-bottom:16px;
 }
 .hero-titulo em{
@@ -55,6 +59,18 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 }
 .hero-sub{font-size:clamp(.9rem,2.5vw,1.08rem);color:var(--muted);line-height:1.75;
   max-width:520px;margin:0 auto 36px;}
+
+/* ── DOLOR OPENER ── */
+.dolor-box{
+  background:rgba(109,40,217,.07);border:1px solid rgba(109,40,217,.2);
+  border-radius:20px;padding:28px 28px;margin-bottom:32px;text-align:left;
+}
+.dolor-titulo{font-size:1rem;font-weight:800;color:var(--blanco);margin-bottom:14px;}
+.dolor-lista{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.dolor-lista li{font-size:.86rem;color:var(--muted);line-height:1.5;
+  display:flex;align-items:flex-start;gap:10px;}
+.dolor-lista li::before{content:'';width:6px;height:6px;background:var(--morado);
+  border-radius:50%;flex-shrink:0;margin-top:6px;}
 
 /* ── VSL CONTAINER ── */
 .vsl-wrap{
@@ -90,15 +106,33 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);
   max-width:680px;margin:0 auto;}
 
+/* ── RESULTADOS HERO ── */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px;}
+.stat-pill{
+  background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
+  border-top:2px solid var(--dorado);
+  border-radius:16px;padding:18px 14px;text-align:center;
+}
+.stat-num{font-size:1.55rem;font-weight:900;color:var(--dorado);line-height:1;margin-bottom:5px;}
+.stat-label{font-size:.68rem;color:var(--muted);line-height:1.45;}
+
 /* ── PARA QUIÉN ── */
-.para-quien{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
-.pq-card{
+.pq-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+.pq-si{
+  background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.15);
+  border-radius:16px;padding:18px 20px;grid-column:span 2;
+}
+.pq-no{
   background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
   border-radius:16px;padding:18px 20px;
 }
-.pq-ico{font-size:1.5rem;margin-bottom:10px;}
-.pq-titulo{font-size:.88rem;font-weight:800;color:var(--blanco);margin-bottom:5px;}
-.pq-desc{font-size:.76rem;color:var(--muted);line-height:1.55;}
+.pq-ico{font-size:1.4rem;margin-bottom:10px;}
+.pq-titulo{font-size:.88rem;font-weight:800;color:var(--blanco);margin-bottom:8px;}
+.pq-lista{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.pq-lista li{font-size:.78rem;color:var(--muted);line-height:1.5;
+  display:flex;align-items:flex-start;gap:8px;}
+.pq-lista li::before{content:'✓';color:#34d399;font-weight:900;flex-shrink:0;}
+.pq-lista.no li::before{content:'✗';color:#f87171;}
 
 /* ── QUÉ INCLUYE ── */
 .incluye-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
@@ -127,15 +161,62 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 }
 .paso-titulo{font-size:.96rem;font-weight:800;color:var(--blanco);margin-bottom:5px;}
 .paso-desc{font-size:.8rem;color:var(--muted);line-height:1.6;}
+.paso-tag{display:inline-block;background:rgba(245,184,0,.1);color:var(--dorado);
+  font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  padding:3px 10px;border-radius:20px;margin-top:6px;}
 
-/* ── RESULTADOS ── */
-.resultados-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px;}
-.res-card{
-  background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
-  border-radius:16px;padding:18px 16px;text-align:center;
+/* ── TALLAS / PRICING ── */
+.tallas-intro{
+  background:rgba(245,184,0,.06);border:1px solid rgba(245,184,0,.15);
+  border-radius:16px;padding:20px 24px;margin-bottom:20px;
 }
-.res-num{font-size:1.6rem;font-weight:900;color:var(--dorado);line-height:1;margin-bottom:6px;}
-.res-desc{font-size:.72rem;color:var(--muted);line-height:1.5;}
+.tallas-intro p{font-size:.84rem;color:#c4b8e0;line-height:1.7;}
+.tallas-intro strong{color:var(--dorado);}
+.tallas-grid{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
+.talla-row{
+  display:flex;align-items:center;gap:14px;
+  background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;padding:14px 18px;
+}
+.talla-badge{
+  width:40px;height:40px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;font-weight:900;letter-spacing:.5px;
+}
+.talla-xs{background:rgba(16,185,129,.15);color:#34d399;}
+.talla-s{background:rgba(59,130,246,.15);color:#60a5fa;}
+.talla-m{background:rgba(245,184,0,.15);color:var(--dorado);}
+.talla-l{background:rgba(245,102,0,.15);color:#fb923c;}
+.talla-xl{background:rgba(236,72,153,.15);color:#f472b6;}
+.talla-info{flex:1;}
+.talla-nombre{font-size:.84rem;font-weight:800;color:var(--blanco);margin-bottom:2px;}
+.talla-ejemplo{font-size:.72rem;color:var(--muted);line-height:1.45;}
+.talla-precio{font-size:.9rem;font-weight:900;color:var(--blanco);white-space:nowrap;}
+.talla-nota{font-size:.65rem;color:var(--muted);}
+
+/* ── OBJECIONES / GARANTÍAS ── */
+.obj-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+.obj-card{
+  background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;padding:18px 20px;
+}
+.obj-q{font-size:.78rem;font-weight:700;color:var(--muted);margin-bottom:8px;font-style:italic;}
+.obj-a{font-size:.82rem;color:#c4b8e0;line-height:1.55;}
+.obj-a strong{color:var(--dorado);}
+
+/* ── PRUEBA SOCIAL ── */
+.prueba-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:8px;}
+.prueba-card{
+  background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
+  border-left:3px solid var(--dorado);
+  border-radius:16px;padding:20px 22px;
+}
+.prueba-num{font-size:1.4rem;font-weight:900;color:var(--dorado);line-height:1;margin-bottom:4px;}
+.prueba-desc{font-size:.82rem;color:#c4b8e0;line-height:1.55;margin-bottom:10px;}
+.prueba-cliente{font-size:.7rem;color:var(--muted);font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+.prueba-stats{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;}
+.prueba-stat{font-size:.75rem;color:var(--muted);}
+.prueba-stat strong{color:#c4b8e0;}
 
 /* ── CTA PRINCIPAL ── */
 .cta-box{
@@ -147,7 +228,8 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .cta-titulo{font-size:1.5rem;font-weight:900;color:var(--blanco);margin-bottom:10px;line-height:1.2;}
 .cta-titulo em{font-style:normal;background:linear-gradient(135deg,var(--dorado),#ff9900);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.cta-sub{font-size:.86rem;color:var(--muted);margin-bottom:28px;line-height:1.7;max-width:420px;margin-left:auto;margin-right:auto;}
+.cta-sub{font-size:.86rem;color:var(--muted);margin-bottom:28px;line-height:1.7;
+  max-width:420px;margin-left:auto;margin-right:auto;}
 .btn-wa{
   display:inline-flex;align-items:center;gap:12px;
   background:linear-gradient(135deg,#25d366,#128c47);
@@ -182,16 +264,38 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .nav-link:hover{color:var(--dorado);}
 body{padding-top:52px;}
 
+/* ── CTA FLOTANTE MOBILE ── */
+.cta-float{
+  display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;
+  padding:12px 16px;
+  background:linear-gradient(0deg,rgba(8,6,15,1) 60%,transparent);
+}
+.btn-wa-sm{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:linear-gradient(135deg,#25d366,#128c47);
+  color:var(--blanco);font-size:.9rem;font-weight:900;
+  padding:16px 24px;border-radius:14px;text-decoration:none;
+  box-shadow:0 8px 28px rgba(37,211,102,.35);
+  font-family:'Inter',sans-serif;
+}
+
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
 @media(max-width:600px){
-  .para-quien{grid-template-columns:1fr;}
+  .pq-grid{grid-template-columns:1fr;}
+  .pq-si{grid-column:span 1;}
   .incluye-grid{grid-template-columns:1fr;}
-  .resultados-grid{grid-template-columns:1fr 1fr;}
+  .obj-grid{grid-template-columns:1fr;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .stats-row .stat-pill:last-child{grid-column:span 2;}
   .sec{padding:52px 16px;}
   .cta-box{padding:28px 20px;}
   .btn-wa{font-size:.9rem;padding:16px 24px;}
   .proceso::before{left:20px;}
+  .talla-row{flex-wrap:wrap;}
+  .talla-precio{width:100%;}
+  .cta-float{display:block;}
+  body{padding-bottom:80px;}
 }
 </style>
 </head>
@@ -206,11 +310,22 @@ body{padding-top:52px;}
 </nav>
 
 <!-- ══ HERO ══ -->
-<div class="sec sec-center" style="padding-bottom:48px;">
+<div class="sec sec-center" style="padding-bottom:36px;">
   <div class="sec-inner">
-    <div class="chip"><span></span>Servicios · Implementación</div>
-    <h1 class="hero-titulo">Nosotros<br>lo <em>implementamos.</em><br>Tú te enfocas<br>en crecer.</h1>
-    <p class="hero-sub">Contenido, automatización y pauta — el sistema completo corriendo en tu negocio. Sin que tengas que aprenderlo tú.</p>
+    <div class="chip"><span></span>Implementación · Colombia & LatAm</div>
+    <h1 class="hero-titulo">Tu negocio<br>necesita un<br><em>sistema digital.</em><br>No otro curso.</h1>
+    <p class="hero-sub">Captación de clientes, automatización y pauta — implementado y funcionando en tu negocio. Sin que tengas que aprender tecnología ni contratar un equipo.</p>
+
+    <div class="dolor-box">
+      <div class="dolor-titulo">¿Te identificas con alguno de estos?</div>
+      <ul class="dolor-lista">
+        <li>Tienes un buen producto o servicio pero no te llegan suficientes clientes cada mes</li>
+        <li>Intentaste hacer marketing tú mismo y fue tiempo y plata perdidos</li>
+        <li>Contrataste alguien que "hacía redes" y no te generó resultados medibles</li>
+        <li>No sabes si tu pauta en Meta está funcionando o si estás regalando dinero</li>
+        <li>Tu competencia crece digitalmente y tú sigues dependiendo del voz a voz</li>
+      </ul>
+    </div>
   </div>
 </div>
 
@@ -229,7 +344,46 @@ body{padding-top:52px;}
       style="width:100%;display:block;aspect-ratio:16/9;object-fit:cover;">
     </video>
   </div>
-  <p class="vsl-caption">👆 Mira cómo trabajamos antes de escribirme · @ferconde__</p>
+  <p class="vsl-caption">👆 Mira el sistema en acción antes de escribirme · @ferconde__</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ RESULTADOS REALES ══ -->
+<div class="sec sec-center">
+  <div class="sec-inner">
+    <div class="sec-label">Resultados reales · Mayo 2026</div>
+    <h2 class="sec-titulo">Números de<br>clientes <em>reales.</em></h2>
+    <p class="sec-desc">No proyecciones. No promesas. Esto es lo que generó el sistema el mes pasado con clientes activos en Colombia.</p>
+    <div class="stats-row">
+      <div class="stat-pill">
+        <div class="stat-num">860</div>
+        <div class="stat-label">consultas por WhatsApp en un mes · sector salud</div>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-num">59</div>
+        <div class="stat-label">preinscritos a curso en un mes · educación</div>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-num">523K</div>
+        <div class="stat-label">seguidores orgánicos · sector salud · @doctorcamilo_</div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px;">
+      <div class="prueba-card" style="border-left-color:#34d399;">
+        <div class="prueba-num">30 cierres en mayo</div>
+        <div class="prueba-desc">Un consultorio de columna en Sincelejo y Montería generó 860 contactos por WhatsApp en un mes. De esos, 30 se convirtieron en pacientes pagos — con pauta en Meta de $1.4M COP. <strong>Costo por cierre: $49,000 COP.</strong></div>
+        <div class="prueba-cliente">@columna_vital · Sincelejo & Montería · Colombia</div>
+        <div class="prueba-stats">
+          <div class="prueba-stat">CTR <strong>4.56%</strong></div>
+          <div class="prueba-stat">CPC <strong>$98 COP</strong></div>
+          <div class="prueba-stat">Inversión <strong>$1.48M COP</strong></div>
+          <div class="prueba-stat">Retorno estimado <strong>×8</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="divider"></div>
@@ -239,27 +393,37 @@ body{padding-top:52px;}
   <div class="sec-inner">
     <div class="sec-label">Para quién es</div>
     <h2 class="sec-titulo">¿Este servicio<br>es para <em>ti?</em></h2>
-    <p class="sec-desc">Trabajamos con negocios que ya existen y quieren escalar — no empezamos de cero contigo.</p>
-    <div class="para-quien">
-      <div class="pq-card">
+    <p class="sec-desc">Trabajamos con negocios que ya existen y quieren crecer digitalmente — no partimos de cero ni hacemos experimentos con tu presupuesto.</p>
+    <div class="pq-grid">
+      <div class="pq-si">
         <div class="pq-ico">✅</div>
-        <div class="pq-titulo">Sí es para ti si...</div>
-        <div class="pq-desc">Tienes un negocio funcionando, no tienes tiempo para el contenido y quieres delegar toda la parte digital.</div>
+        <div class="pq-titulo">Sí trabajamos contigo si...</div>
+        <ul class="pq-lista">
+          <li>Tienes un negocio funcionando en Colombia, México, Argentina o Chile</li>
+          <li>Ya tienes clientes y quieres más — o tienes producto listo para vender</li>
+          <li>Quieres delegar toda la parte digital y enfocarte en operar tu negocio</li>
+          <li>Entiendes que el marketing digital requiere inversión, no solo tiempo</li>
+          <li>Buscas resultados medibles, no "presencia en redes" sin propósito</li>
+        </ul>
       </div>
-      <div class="pq-card">
+      <div class="pq-no">
         <div class="pq-ico">❌</div>
         <div class="pq-titulo">No es para ti si...</div>
-        <div class="pq-desc">Estás en la etapa 0 sin producto ni clientes, o buscas a alguien que trabaje por $200 al mes.</div>
+        <ul class="pq-lista no">
+          <li>Estás en etapa 0 sin producto ni clientes validados</li>
+          <li>Buscas alguien que trabaje por $200 USD al mes</li>
+          <li>Quieres resultados en la primera semana sin pauta activa</li>
+        </ul>
       </div>
-      <div class="pq-card">
+      <div class="pq-no">
         <div class="pq-ico">🏥</div>
         <div class="pq-titulo">Sectores que atendemos</div>
-        <div class="pq-desc">Salud, infoproductos, servicios profesionales, emprendedores digitales, clínicas y consultorios.</div>
-      </div>
-      <div class="pq-card">
-        <div class="pq-ico">🌎</div>
-        <div class="pq-titulo">Dónde trabajamos</div>
-        <div class="pq-desc">Colombia, México, Argentina, Chile y resto de Latinoamérica. 100% remoto.</div>
+        <ul class="pq-lista">
+          <li>Salud: clínicas, consultorios, especialistas</li>
+          <li>Educación: cursos, academias, formación</li>
+          <li>Servicios profesionales y agencias</li>
+          <li>Infoproductos y emprendedores digitales</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -267,36 +431,36 @@ body{padding-top:52px;}
 
 <div class="divider"></div>
 
-<!-- ══ QUÉ INCLUYE ══ -->
+<!-- ══ QUÉ IMPLEMENTAMOS ══ -->
 <div class="sec">
   <div class="sec-inner">
     <div class="sec-label">Qué implementamos</div>
     <h2 class="sec-titulo">El sistema<br><em>completo.</em></h2>
-    <p class="sec-desc">No vendemos piezas sueltas. Implementamos el ecosistema entero para que funcione solo.</p>
+    <p class="sec-desc">No vendemos piezas sueltas. Implementamos el ecosistema entero — cada pieza conectada con la siguiente, diseñada para traer clientes y convertirlos.</p>
     <div class="incluye-grid">
       <div class="inc-item">
-        <div class="inc-titulo">📱 Estrategia de contenido</div>
-        <div class="inc-desc">Calendario editorial, captions, hooks y guiones. Tu perfil habla por ti aunque no publiques tú.</div>
+        <div class="inc-titulo">🎯 Pauta estratégica en Meta</div>
+        <div class="inc-desc">Anuncios creados, lanzados y optimizados. Cada peso invertido con objetivo de retorno, no de "visibilidad".</div>
       </div>
       <div class="inc-item">
         <div class="inc-titulo">🤖 Automatización con IA</div>
-        <div class="inc-desc">Respuestas automáticas, captación de leads, seguimiento por WhatsApp. El negocio atiende 24/7.</div>
+        <div class="inc-desc">Respuestas automáticas por WhatsApp, captación de leads 24/7, seguimiento sin que tengas que estar pegado al teléfono.</div>
       </div>
       <div class="inc-item">
-        <div class="inc-titulo">🎯 Pauta estratégica</div>
-        <div class="inc-desc">Anuncios que atraen al cliente correcto. Sin quemar presupuesto en personas que no van a comprar.</div>
+        <div class="inc-titulo">📱 Estrategia de contenido</div>
+        <div class="inc-desc">Calendario editorial, guiones y piezas que posicionan tu autoridad y atraen al cliente correcto antes de que te contacte.</div>
       </div>
       <div class="inc-item">
-        <div class="inc-titulo">📊 Dashboard de métricas</div>
-        <div class="inc-desc">Tú ves en tiempo real qué funciona. Sin adivinar, sin reportes confusos, sin depender de nosotros para entender.</div>
+        <div class="inc-titulo">🌐 Landings que convierten</div>
+        <div class="inc-desc">Páginas diseñadas para que el visitante tome acción. No se ven bonitas solamente — están probadas para cerrar.</div>
       </div>
       <div class="inc-item">
-        <div class="inc-titulo">🌐 Web y landing pages</div>
-        <div class="inc-desc">Página que convierte. No solo se ve bonita — está diseñada para que el visitante tome acción.</div>
+        <div class="inc-titulo">📊 Métricas en tiempo real</div>
+        <div class="inc-desc">Ves exactamente cuánto estás invirtiendo y cuántos clientes estás generando. Sin adivinar, sin reportes confusos.</div>
       </div>
       <div class="inc-item">
         <div class="inc-titulo">⚡ Integraciones y CRM</div>
-        <div class="inc-desc">Todo conectado: formularios, emails, WhatsApp, pagos. El cliente entra solo al sistema.</div>
+        <div class="inc-desc">WhatsApp, formularios, pagos y email conectados. El cliente entra al sistema y avanza solo — tú solo cierras.</div>
       </div>
     </div>
   </div>
@@ -309,34 +473,38 @@ body{padding-top:52px;}
   <div class="sec-inner">
     <div class="sec-label">Cómo trabajamos</div>
     <h2 class="sec-titulo">Del diagnóstico<br>a los <em>resultados.</em></h2>
-    <p class="sec-desc">Proceso claro, sin reuniones infinitas ni entregas que nunca llegan.</p>
+    <p class="sec-desc">Proceso claro, sin reuniones eternas ni entregas que se van postergando. Sabes en todo momento qué se está construyendo y cuándo lo recibes.</p>
     <div class="proceso">
       <div class="paso">
         <div class="paso-num">1</div>
         <div>
           <div class="paso-titulo">Diagnóstico estratégico</div>
-          <div class="paso-desc">Analizamos tu negocio, tu audiencia y lo que ya tienes. Entendemos qué falta y qué hay que construir. Sin asumir nada.</div>
+          <div class="paso-desc">Analizamos tu negocio, tu audiencia actual y lo que ya tienes corriendo. Identificamos qué falta, qué hay que construir y cuál es la ruta más rápida a resultados.</div>
+          <span class="paso-tag">30 min · gratis para proyectos pequeños</span>
         </div>
       </div>
       <div class="paso">
         <div class="paso-num">2</div>
         <div>
-          <div class="paso-titulo">Diseño del sistema</div>
-          <div class="paso-desc">Te presentamos el mapa completo: qué piezas vamos a implementar, en qué orden y con qué objetivo medible.</div>
+          <div class="paso-titulo">Alcance y propuesta</div>
+          <div class="paso-desc">Te presentamos exactamente qué vamos a implementar, en qué orden, con qué objetivo medible y a qué costo. Sin sorpresas, sin letra pequeña.</div>
+          <span class="paso-tag">Documento firmado antes de empezar</span>
         </div>
       </div>
       <div class="paso">
         <div class="paso-num">3</div>
         <div>
           <div class="paso-titulo">Implementación</div>
-          <div class="paso-desc">Ejecutamos nosotros. Tú apruebas las piezas clave. Sin que tengas que aprender herramientas ni estar encima de nadie.</div>
+          <div class="paso-desc">Ejecutamos nosotros. Tú apruebas las piezas clave y ves el avance. No tienes que aprender herramientas ni estar encima de nadie.</div>
+          <span class="paso-tag">Tiempos pactados por escrito</span>
         </div>
       </div>
       <div class="paso">
         <div class="paso-num">4</div>
         <div>
-          <div class="paso-titulo">Entrega y traspaso</div>
-          <div class="paso-desc">El sistema queda en tus manos funcionando. Te explicamos cómo verlo, medirlo y qué ajustar. No dependes de nosotros para siempre.</div>
+          <div class="paso-titulo">Entrega y activación</div>
+          <div class="paso-desc">El sistema queda en tus manos funcionando. Te explicamos cómo leer las métricas y qué ajustar. No dependes de nosotros para siempre.</div>
+          <span class="paso-tag">Dashboard de métricas incluido</span>
         </div>
       </div>
     </div>
@@ -345,24 +513,100 @@ body{padding-top:52px;}
 
 <div class="divider"></div>
 
-<!-- ══ RESULTADOS ══ -->
-<div class="sec sec-center">
+<!-- ══ PRECIOS / TALLAS ══ -->
+<div class="sec">
   <div class="sec-inner">
-    <div class="sec-label">Resultados reales</div>
-    <h2 class="sec-titulo">Números que<br>hablan <em>solos.</em></h2>
-    <p class="sec-desc">Con clientes reales en Colombia, en sectores distintos, con el mismo sistema.</p>
-    <div class="resultados-grid">
-      <div class="res-card">
-        <div class="res-num">523K</div>
-        <div class="res-desc">Seguidores orgánicos — sector salud · @doctorcamilo_</div>
+    <div class="sec-label">Inversión</div>
+    <h2 class="sec-titulo">Precios que se<br>ajustan a tu <em>proyecto.</em></h2>
+    <div class="tallas-intro">
+      <p>No cobramos lo mismo por una landing de una página que por un ecosistema con IA, CRM y pauta activa. <strong>El costo depende del alcance real de tu proyecto.</strong> En el diagnóstico definimos juntos qué necesitas y te damos la cifra exacta — sin cotizaciones genéricas.</p>
+    </div>
+    <div class="tallas-grid">
+      <div class="talla-row">
+        <div class="talla-badge talla-xs">XS</div>
+        <div class="talla-info">
+          <div class="talla-nombre">Arranque rápido</div>
+          <div class="talla-ejemplo">Landing page · bot simple · automatización básica de WhatsApp</div>
+        </div>
+        <div>
+          <div class="talla-precio">$200 – $400 USD</div>
+          <div class="talla-nota">~7-11 días</div>
+        </div>
       </div>
-      <div class="res-card">
-        <div class="res-num">519</div>
-        <div class="res-desc">Consultas generadas en un mes · @columna_vital</div>
+      <div class="talla-row">
+        <div class="talla-badge talla-s">S</div>
+        <div class="talla-info">
+          <div class="talla-nombre">Ecosistema básico</div>
+          <div class="talla-ejemplo">Landing + bot + pauta activa + contenido del mes</div>
+        </div>
+        <div>
+          <div class="talla-precio">$400 – $900 USD</div>
+          <div class="talla-nota">~14-21 días</div>
+        </div>
       </div>
-      <div class="res-card">
-        <div class="res-num">$108K</div>
-        <div class="res-desc">USD en ventas — infoproductos</div>
+      <div class="talla-row">
+        <div class="talla-badge talla-m">M</div>
+        <div class="talla-info">
+          <div class="talla-nombre">Sistema completo</div>
+          <div class="talla-ejemplo">Multi-canal · automatizaciones · CRM básico · métricas</div>
+        </div>
+        <div>
+          <div class="talla-precio">$900 – $2,000 USD</div>
+          <div class="talla-nota">~21-35 días</div>
+        </div>
+      </div>
+      <div class="talla-row">
+        <div class="talla-badge talla-l">L</div>
+        <div class="talla-info">
+          <div class="talla-nombre">Ecosistema avanzado</div>
+          <div class="talla-ejemplo">IA integrada · múltiples integraciones · analítica avanzada</div>
+        </div>
+        <div>
+          <div class="talla-precio">$2,000 – $4,500 USD</div>
+          <div class="talla-nota">~5-8 semanas</div>
+        </div>
+      </div>
+      <div class="talla-row">
+        <div class="talla-badge talla-xl">XL</div>
+        <div class="talla-info">
+          <div class="talla-nombre">Transformación digital</div>
+          <div class="talla-ejemplo">Sistema empresarial completo · equipo dedicado · discovery pagado</div>
+        </div>
+        <div>
+          <div class="talla-precio">$4,500+ USD</div>
+          <div class="talla-nota">Scopeado a medida</div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:.75rem;color:var(--muted);margin-top:16px;line-height:1.6;">
+      ⚡ El diagnóstico es gratis para proyectos XS y S. Para M en adelante incluye una llamada de 30 minutos. Para L y XL el alcance se documenta por escrito antes de cualquier pago.
+    </p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ OBJECIONES ══ -->
+<div class="sec">
+  <div class="sec-inner">
+    <div class="sec-label">Lo que nos preguntan</div>
+    <h2 class="sec-titulo">Dudas<br><em>frecuentes.</em></h2>
+    <div class="obj-grid">
+      <div class="obj-card">
+        <div class="obj-q">"¿Cuánto debo invertir en pauta además del servicio?"</div>
+        <div class="obj-a">Lo definimos en el diagnóstico según tu sector. Para resultados como los de Columna Vital, la inversión en pauta fue <strong>$1.4M COP en un mes</strong>. Nunca te pedimos invertir sin antes calcular el retorno esperado.</div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">"¿Cuánto tarda en verse resultados?"</div>
+        <div class="obj-a">Las primeras consultas o leads suelen llegar en la primera semana de pauta activa. El sistema completo madura entre 30 y 60 días. <strong>No prometemos magia instantánea</strong> — prometemos un proceso claro.</div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">"¿Trabajo contigo directamente o con un equipo?"</div>
+        <div class="obj-a">Yo soy tu punto de contacto directo. La implementación técnica la hace un equipo especializado que trabaja con metodología probada. <strong>Tú nunca tienes que hablar con varios proveedores</strong> — yo coordino todo.</div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">"¿Y si el proyecto es más grande de lo que pensaba?"</div>
+        <div class="obj-a">Definimos el alcance exacto antes de empezar y lo firmamos. Si en el camino surge algo nuevo, <strong>se cotiza por separado y tú decides</strong> — nunca hay costos sorpresa.</div>
       </div>
     </div>
   </div>
@@ -370,25 +614,38 @@ body{padding-top:52px;}
 
 <div class="divider"></div>
 
-<!-- ══ CTA ══ -->
+<!-- ══ CTA PRINCIPAL ══ -->
 <div class="sec sec-center">
   <div class="sec-inner">
     <div class="cta-box">
-      <div class="cta-titulo">¿Quieres que lo<br><em>implementemos</em> en tu negocio?</div>
-      <p class="cta-sub">Escríbeme directo por WhatsApp. Sin formularios, sin esperas. Si tiene sentido trabajar juntos, lo vemos en una llamada de 30 minutos.</p>
+      <div class="chip-gold">Cupos limitados · junio 2026</div>
+      <div class="cta-titulo">¿Listo para tener<br>un sistema que<br><em>trae clientes solo?</em></div>
+      <p class="cta-sub">Escríbeme por WhatsApp. Me cuentas de tu negocio y en 24 horas te digo si podemos trabajar juntos, qué necesitas y cuánto costaría. Sin compromiso.</p>
 
-      <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20quiero%20que%20implementemos%20el%20sistema%20en%20mi%20negocio"
+      <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20implementar%20el%20sistema%20digital%20en%20mi%20negocio"
          class="btn-wa" id="btn-wa" target="_blank">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
           <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.122 1.528 5.855L.057 23.882l6.204-1.626A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.85 0-3.584-.507-5.072-1.38l-.36-.214-3.744.982.999-3.648-.235-.374A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
         </svg>
-        Quiero que lo implementemos →
+        Quiero mi diagnóstico gratuito →
       </a>
 
-      <p class="cta-nota">⏱ Respondo en menos de 24 horas · Sin compromiso de compra</p>
+      <p class="cta-nota">⏱ Respondo en menos de 24 horas · Sin compromiso · 100% remoto</p>
     </div>
   </div>
+</div>
+
+<!-- CTA FLOTANTE MOBILE -->
+<div class="cta-float">
+  <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20implementar%20el%20sistema%20digital%20en%20mi%20negocio"
+     class="btn-wa-sm" target="_blank">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.122 1.528 5.855L.057 23.882l6.204-1.626A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.85 0-3.584-.507-5.072-1.38l-.36-.214-3.744.982.999-3.648-.235-.374A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+    </svg>
+    Diagnóstico gratuito por WhatsApp
+  </a>
 </div>
 
 <script>
@@ -398,7 +655,6 @@ body{padding-top:52px;}
     overlay.style.display = 'none';
     video.play();
   }
-  // Ocultar overlay cuando el video termine de reproducirse manualmente
   document.getElementById('vsl-video').addEventListener('play', function(){
     document.getElementById('vsl-overlay').style.display = 'none';
   });
