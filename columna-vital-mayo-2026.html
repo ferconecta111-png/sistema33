@@ -291,16 +291,25 @@
   <div class="entity-block cv">
     <div class="entity-name">Columna Vital</div>
     <div class="spend">$1.481.584</div>
-    <div class="spend-sub">COP gastados — Campaña IG Sincelejo (Sincelejo + Montería)</div>
+    <div class="spend-sub">COP — Campaña IG Sincelejo (Sincelejo + Montería) · vía API</div>
   </div>
   <div class="entity-block fund">
     <div class="entity-name">Fundación (Terapeutas)</div>
     <div class="spend">$561.229</div>
-    <div class="spend-sub">COP gastados — Campaña terapeutas &nbsp;·&nbsp; <strong style="color:#22c55e">59 preinscritos en cursos</strong></div>
+    <div class="spend-sub">COP — Campaña terapeutas · vía API &nbsp;·&nbsp; <strong style="color:#22c55e">59 preinscritos en cursos</strong></div>
+  </div>
+</div>
+<div style="background:#1a1a0a;border-bottom:1px solid #ca8a04;padding:14px 40px;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+  <div style="display:flex;align-items:center;gap:10px">
+    <span style="font-size:18px">⚠️</span>
+    <div>
+      <div style="font-size:13px;font-weight:700;color:#fbbf24">Factura Meta (1/5 – 1/6/2026): <strong style="font-size:16px">$2.539.756 COP</strong></div>
+      <div style="font-size:12px;color:#92400e;margin-top:2px">API analizada: $2.042.813 COP &nbsp;·&nbsp; Diferencia no identificada: <strong style="color:#f59e0b">$496.943 COP</strong> — puede ser otras campañas o cargos de la cuenta</div>
+    </div>
   </div>
 </div>
 <div class="total-bar">
-  Total cuenta mayo: <strong>$2.042.813 COP</strong> &nbsp;·&nbsp; Cierres CV: <strong>30 consultas</strong> (28 WA + 2 presenciales) &nbsp;·&nbsp; Fundación: <strong style="color:#22c55e">59 preinscritos en cursos</strong> (15.3% conversión WA) &nbsp;·&nbsp; Costo/preinscrito Fundación: <strong>$9.512 COP</strong>
+  Período: <strong>1 mayo — 31 mayo 2026</strong> &nbsp;·&nbsp; Cierres CV: <strong>30 consultas</strong> (28 WA + 2 presenciales) &nbsp;·&nbsp; Fundación: <strong style="color:#22c55e">59 preinscritos</strong> &nbsp;·&nbsp; Total facturado Meta: <strong>$2.539.756 COP</strong>
 </div>
 
 <nav>
@@ -360,6 +369,21 @@
         <div class="kpi-value">$49.386</div>
         <div class="kpi-sub">COP — vs $40.505 en abril</div>
       </div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px;border-color:#ca8a04;background:rgba(202,138,4,0.05)">
+      <h3 style="color:#fbbf24">📄 Conciliación — Factura Meta vs Análisis API</h3>
+      <table>
+        <thead><tr><th>Concepto</th><th>Importe COP</th><th>Fuente</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr><td>Campaña IG Sincelejo (Columna Vital)</td><td style="color:#00b4d8;font-weight:600">$1.481.584</td><td>API Meta Ads</td><td><span class="badge badge-blue">Analizado</span></td></tr>
+          <tr><td>Campaña Terapeutas (Fundación)</td><td style="color:#f59e0b;font-weight:600">$561.229</td><td>API Meta Ads</td><td><span class="badge badge-gold">Analizado</span></td></tr>
+          <tr><td><strong>Subtotal analizado</strong></td><td><strong>$2.042.813</strong></td><td>API Meta Ads</td><td></td></tr>
+          <tr style="background:rgba(202,138,4,0.08)"><td style="color:#fbbf24">Otras campañas / cargos no identificados</td><td style="color:#fbbf24;font-weight:600">$496.943</td><td>Factura Meta</td><td><span class="badge badge-gold">⚠️ Por revisar</span></td></tr>
+          <tr style="background:rgba(255,255,255,0.03)"><td><strong>Total facturado por Meta</strong></td><td style="color:#ffffff;font-weight:800;font-size:16px">$2.539.756</td><td>Factura oficial</td><td><span class="badge badge-green">✅ Confirmado</span></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:12px;color:#92400e;margin-top:12px">⚠️ Los $496.943 COP aparecen en la factura pero no en las campañas analizadas vía API. Puede ser campañas pausadas con gasto anterior, o cargos de períodos anteriores que se cobraron en mayo. Revisar en el Administrador de Anuncios → Facturación → Historial de cobros.</p>
     </div>
 
     <div class="two-col">
