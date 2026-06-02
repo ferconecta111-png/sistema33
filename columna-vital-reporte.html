@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte Meta Ads — Columna Vital</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', sans-serif; background: #0f0f0f; color: #e0e0e0; }
+  .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); padding: 40px; text-align: center; border-bottom: 2px solid #00d4ff; }
+  .header h1 { font-size: 2rem; color: #fff; font-weight: 700; }
+  .header p { color: #9ab; margin-top: 8px; font-size: 0.95rem; }
+  .badge { display: inline-block; background: #00d4ff22; border: 1px solid #00d4ff; color: #00d4ff; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; margin-top: 10px; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 30px; }
+  .kpi { background: #1a1a2e; border: 1px solid #2a2a4e; border-radius: 12px; padding: 20px; text-align: center; }
+  .kpi .val { font-size: 1.8rem; font-weight: 700; color: #00d4ff; }
+  .kpi .lbl { font-size: 0.78rem; color: #778; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi.green .val { color: #00ff88; }
+  .kpi.yellow .val { color: #ffd700; }
+  .kpi.pink .val { color: #ff6eb4; }
+  .kpi.orange .val { color: #ff8c42; }
+  .section-title { font-size: 1.1rem; color: #00d4ff; font-weight: 600; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 1px solid #2a2a4e; }
+  .active-badge { display: inline-block; background: #00ff8822; border: 1px solid #00ff88; color: #00ff88; padding: 2px 10px; border-radius: 20px; font-size: 0.72rem; margin-left: 8px; }
+  .paused-badge { display: inline-block; background: #ffffff11; border: 1px solid #555; color: #777; padding: 2px 10px; border-radius: 20px; font-size: 0.72rem; margin-left: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  thead th { background: #1a1a2e; color: #9ab; padding: 10px 12px; text-align: left; border-bottom: 2px solid #2a2a4e; font-weight: 600; white-space: nowrap; }
+  tbody tr { border-bottom: 1px solid #1e1e3e; transition: background 0.2s; }
+  tbody tr:hover { background: #1a1a3e; }
+  tbody td { padding: 10px 12px; vertical-align: middle; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .spend { color: #ffd700; font-weight: 600; }
+  .conv { color: #00ff88; font-weight: 600; }
+  .cpc-good { color: #00ff88; }
+  .cpc-mid { color: #ffd700; }
+  .cpc-bad { color: #ff6b6b; }
+  .total-row td { background: #1a1a3e; color: #fff; font-weight: 700; border-top: 2px solid #00d4ff; }
+  .bar-wrap { height: 6px; background: #2a2a4e; border-radius: 3px; margin-top: 4px; }
+  .bar { height: 6px; background: linear-gradient(90deg, #00d4ff, #0080ff); border-radius: 3px; }
+  .top3 { background: #0f2030 !important; }
+  .footer { text-align: center; padding: 30px; color: #446; font-size: 0.8rem; border-top: 1px solid #1a1a3e; margin-top: 40px; }
+  .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 30px; }
+  .insight-card { background: #1a1a2e; border: 1px solid #2a2a4e; border-radius: 12px; padding: 20px; }
+  .insight-card h4 { color: #00d4ff; font-size: 0.85rem; margin-bottom: 12px; }
+  .insight-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #2a2a3e; font-size: 0.82rem; }
+  .insight-item:last-child { border-bottom: none; }
+  .insight-val { color: #fff; font-weight: 600; }
+  @media (max-width: 768px) { table { display: block; overflow-x: auto; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Columna Vital — Reporte Meta Ads</h1>
+  <p>Inversión histórica acumulada desde octubre 2024</p>
+  <span class="badge">Datos al 2 de junio 2026 · act_1580150792635428</span>
+</div>
+
+<div class="container">
+
+  <!-- KPIs principales -->
+  <div class="section-title">Resumen General</div>
+  <div class="kpi-grid">
+    <div class="kpi yellow">
+      <div class="val">$22.1M</div>
+      <div class="lbl">Total invertido (COP)</div>
+    </div>
+    <div class="kpi">
+      <div class="val">6.2M</div>
+      <div class="lbl">Impresiones totales</div>
+    </div>
+    <div class="kpi">
+      <div class="val">1.9M</div>
+      <div class="lbl">Alcance total</div>
+    </div>
+    <div class="kpi green">
+      <div class="val">14,657</div>
+      <div class="lbl">Conversaciones WA iniciadas</div>
+    </div>
+    <div class="kpi pink">
+      <div class="val">20,800</div>
+      <div class="lbl">Conexiones de mensajería</div>
+    </div>
+    <div class="kpi orange">
+      <div class="val">163,764</div>
+      <div class="lbl">Clics totales</div>
+    </div>
+    <div class="kpi">
+      <div class="val">1,106,164</div>
+      <div class="lbl">Reproducciones de video</div>
+    </div>
+    <div class="kpi green">
+      <div class="val">$1,507</div>
+      <div class="lbl">Costo por conversación WA</div>
+    </div>
+  </div>
+
+  <!-- Top campañas por conversaciones WhatsApp -->
+  <div class="section-title">Top Campañas — Conversaciones WhatsApp Generadas</div>
+  <div class="insight-grid">
+    <div class="insight-card">
+      <h4>🏆 Mayor inversión</h4>
+      <div class="insight-item"><span>Remarketing seguidores</span><span class="insight-val">$5,602,736</span></div>
+      <div class="insight-item"><span>IG Sincelejo (ACTIVA)</span><span class="insight-val">$3,057,091</span></div>
+      <div class="insight-item"><span>trafico</span><span class="insight-val">$2,547,061</span></div>
+      <div class="insight-item"><span>ciudades</span><span class="insight-val">$2,079,175</span></div>
+      <div class="insight-item"><span>REMARKETING PUBLICOS</span><span class="insight-val">$1,197,082</span></div>
+    </div>
+    <div class="insight-card">
+      <h4>💬 Más conversaciones WA</h4>
+      <div class="insight-item"><span>Remarketing seguidores</span><span class="insight-val">4,493</span></div>
+      <div class="insight-item"><span>ciudades</span><span class="insight-val">3,171</span></div>
+      <div class="insight-item"><span>IG Sincelejo (ACTIVA)</span><span class="insight-val">1,625</span></div>
+      <div class="insight-item"><span>REMARKETING PUBLICOS</span><span class="insight-val">956</span></div>
+      <div class="insight-item"><span>whatsapp Montería | Sinc.</span><span class="insight-val">523</span></div>
+    </div>
+    <div class="insight-card">
+      <h4>📊 Mejor costo por conversación</h4>
+      <div class="insight-item"><span>ciudades</span><span class="insight-val">$656/conv</span></div>
+      <div class="insight-item"><span>Remarketing seguidores</span><span class="insight-val">$1,247/conv</span></div>
+      <div class="insight-item"><span>REMARKETING PUBLICOS</span><span class="insight-val">$1,252/conv</span></div>
+      <div class="insight-item"><span>IG Sincelejo (ACTIVA)</span><span class="insight-val">$1,881/conv</span></div>
+      <div class="insight-item"><span>whatsapp Montería | Sinc.</span><span class="insight-val">$1,905/conv</span></div>
+    </div>
+  </div>
+
+  <!-- Tabla detallada -->
+  <div class="section-title">Detalle por Campaña</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Campaña</th>
+        <th>Estado</th>
+        <th class="num">Inversión (COP)</th>
+        <th class="num">Impresiones</th>
+        <th class="num">Alcance</th>
+        <th class="num">Clics</th>
+        <th class="num">CTR</th>
+        <th class="num">CPC</th>
+        <th class="num">CPM</th>
+        <th class="num">Conv. WA</th>
+        <th class="num">Video Views</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="top3">
+        <td>Remarketing seguidores</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$5,602,736</td>
+        <td class="num">1,381,729</td>
+        <td class="num">241,612</td>
+        <td class="num">40,893</td>
+        <td class="num">2.96%</td>
+        <td class="num cpc-good">$137</td>
+        <td class="num">$4,055</td>
+        <td class="num conv">4,493</td>
+        <td class="num">310,830</td>
+      </tr>
+      <tr class="top3">
+        <td>IG Sincelejo</td>
+        <td><span class="active-badge">ACTIVA</span></td>
+        <td class="num spend">$3,057,091</td>
+        <td class="num">653,188</td>
+        <td class="num">187,122</td>
+        <td class="num">25,703</td>
+        <td class="num">3.94%</td>
+        <td class="num cpc-good">$119</td>
+        <td class="num">$4,680</td>
+        <td class="num conv">1,625</td>
+        <td class="num">205,136</td>
+      </tr>
+      <tr class="top3">
+        <td>trafico</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$2,547,061</td>
+        <td class="num">747,576</td>
+        <td class="num">255,053</td>
+        <td class="num">16,806</td>
+        <td class="num">2.25%</td>
+        <td class="num cpc-mid">$152</td>
+        <td class="num">$3,407</td>
+        <td class="num conv">99</td>
+        <td class="num">195,846</td>
+      </tr>
+      <tr>
+        <td>ciudades</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$2,079,175</td>
+        <td class="num">994,816</td>
+        <td class="num">271,225</td>
+        <td class="num">19,144</td>
+        <td class="num">1.92%</td>
+        <td class="num cpc-good">$109</td>
+        <td class="num">$2,090</td>
+        <td class="num conv">3,171</td>
+        <td class="num">225,050</td>
+      </tr>
+      <tr>
+        <td>REMARKETING PUBLICOS</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$1,197,082</td>
+        <td class="num">365,941</td>
+        <td class="num">130,809</td>
+        <td class="num">8,294</td>
+        <td class="num">2.27%</td>
+        <td class="num cpc-mid">$144</td>
+        <td class="num">$3,271</td>
+        <td class="num conv">956</td>
+        <td class="num">116,516</td>
+      </tr>
+      <tr>
+        <td>Reconocimiento ciudades</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$1,138,085</td>
+        <td class="num">425,550</td>
+        <td class="num">132,250</td>
+        <td class="num">8,262</td>
+        <td class="num">1.94%</td>
+        <td class="num cpc-mid">$138</td>
+        <td class="num">$2,674</td>
+        <td class="num conv">171</td>
+        <td class="num">118,848</td>
+      </tr>
+      <tr>
+        <td>whatsapp Montería | Sincelejo</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$996,601</td>
+        <td class="num">224,958</td>
+        <td class="num">87,207</td>
+        <td class="num">5,680</td>
+        <td class="num">2.52%</td>
+        <td class="num cpc-mid">$175</td>
+        <td class="num">$4,430</td>
+        <td class="num conv">523</td>
+        <td class="num">62,339</td>
+      </tr>
+      <tr>
+        <td>trafico al perfil</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$935,668</td>
+        <td class="num">346,153</td>
+        <td class="num">177,994</td>
+        <td class="num">14,884</td>
+        <td class="num">4.30%</td>
+        <td class="num cpc-good">$63</td>
+        <td class="num">$2,703</td>
+        <td class="num conv">100</td>
+        <td class="num">112,263</td>
+      </tr>
+      <tr>
+        <td>ventas a whatsapp 25 cop mayo 15</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$587,709</td>
+        <td class="num">176,031</td>
+        <td class="num">62,911</td>
+        <td class="num">3,569</td>
+        <td class="num">2.03%</td>
+        <td class="num cpc-mid">$165</td>
+        <td class="num">$3,339</td>
+        <td class="num conv">569</td>
+        <td class="num">34,017</td>
+      </tr>
+      <tr>
+        <td>Columna vital / VIDEOS / 29/10/2024</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$556,915</td>
+        <td class="num">152,349</td>
+        <td class="num">91,205</td>
+        <td class="num">3,626</td>
+        <td class="num">2.38%</td>
+        <td class="num cpc-mid">$154</td>
+        <td class="num">$3,656</td>
+        <td class="num conv">665</td>
+        <td class="num">34,200</td>
+      </tr>
+      <tr>
+        <td>campaña terapeutas</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$561,229</td>
+        <td class="num">47,581</td>
+        <td class="num">21,588</td>
+        <td class="num">2,191</td>
+        <td class="num">4.60%</td>
+        <td class="num cpc-bad">$256</td>
+        <td class="num">$11,795</td>
+        <td class="num conv">386</td>
+        <td class="num">17,938</td>
+      </tr>
+      <tr>
+        <td>trafico sincelejo</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$568,883</td>
+        <td class="num">197,251</td>
+        <td class="num">118,845</td>
+        <td class="num">8,265</td>
+        <td class="num">4.19%</td>
+        <td class="num cpc-good">$69</td>
+        <td class="num">$2,884</td>
+        <td class="num conv">5</td>
+        <td class="num">68,921</td>
+      </tr>
+      <tr>
+        <td>ventas whatsapp</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$457,675</td>
+        <td class="num">130,876</td>
+        <td class="num">56,618</td>
+        <td class="num">3,650</td>
+        <td class="num">2.79%</td>
+        <td class="num cpc-mid">$125</td>
+        <td class="num">$3,497</td>
+        <td class="num conv">300</td>
+        <td class="num">35,471</td>
+      </tr>
+      <tr>
+        <td>REMARKETING</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$414,532</td>
+        <td class="num">124,339</td>
+        <td class="num">63,367</td>
+        <td class="num">6,038</td>
+        <td class="num">4.86%</td>
+        <td class="num cpc-good">$69</td>
+        <td class="num">$3,334</td>
+        <td class="num conv">575</td>
+        <td class="num">50,734</td>
+      </tr>
+      <tr>
+        <td>Clientes potenciales a whatsapp</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$295,934</td>
+        <td class="num">87,934</td>
+        <td class="num">42,566</td>
+        <td class="num">2,495</td>
+        <td class="num">2.84%</td>
+        <td class="num cpc-mid">$119</td>
+        <td class="num">$3,365</td>
+        <td class="num conv">270</td>
+        <td class="num">29,565</td>
+      </tr>
+      <tr>
+        <td>Columna vital / VIDEOS / 31/10/2024</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$293,455</td>
+        <td class="num">104,311</td>
+        <td class="num">73,838</td>
+        <td class="num">2,992</td>
+        <td class="num">2.87%</td>
+        <td class="num cpc-good">$98</td>
+        <td class="num">$2,813</td>
+        <td class="num conv">508</td>
+        <td class="num">44,311</td>
+      </tr>
+      <tr>
+        <td>ventas frio por ubicacion</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$250,441</td>
+        <td class="num">54,751</td>
+        <td class="num">26,808</td>
+        <td class="num">740</td>
+        <td class="num">1.35%</td>
+        <td class="num cpc-bad">$338</td>
+        <td class="num">$4,574</td>
+        <td class="num conv">78</td>
+        <td class="num">10,660</td>
+      </tr>
+      <tr>
+        <td>Clientes potenciales</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$129,689</td>
+        <td class="num">31,424</td>
+        <td class="num">16,831</td>
+        <td class="num">1,485</td>
+        <td class="num">4.73%</td>
+        <td class="num cpc-good">$87</td>
+        <td class="num">$4,127</td>
+        <td class="num conv">36</td>
+        <td class="num">6,021</td>
+      </tr>
+      <tr>
+        <td>visitas perfil</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$130,152</td>
+        <td class="num">59,059</td>
+        <td class="num">36,749</td>
+        <td class="num">1,837</td>
+        <td class="num">3.11%</td>
+        <td class="num cpc-good">$71</td>
+        <td class="num">$2,204</td>
+        <td class="num conv">6</td>
+        <td class="num">17,868</td>
+      </tr>
+      <tr>
+        <td>ig fundacion</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$97,689</td>
+        <td class="num">32,210</td>
+        <td class="num">25,976</td>
+        <td class="num">1,177</td>
+        <td class="num">3.65%</td>
+        <td class="num cpc-good">$83</td>
+        <td class="num">$3,033</td>
+        <td class="num conv">1</td>
+        <td class="num">539</td>
+      </tr>
+      <tr>
+        <td>Campaña de Tráfico recomendada</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$98,963</td>
+        <td class="num">33,056</td>
+        <td class="num">24,311</td>
+        <td class="num">1,038</td>
+        <td class="num">3.14%</td>
+        <td class="num cpc-good">$95</td>
+        <td class="num">$2,994</td>
+        <td class="num conv">105</td>
+        <td class="num">14,607</td>
+      </tr>
+      <tr>
+        <td>clientes potenciales WHATSAPP</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$28,894</td>
+        <td class="num">9,650</td>
+        <td class="num">7,923</td>
+        <td class="num">250</td>
+        <td class="num">2.59%</td>
+        <td class="num cpc-mid">$116</td>
+        <td class="num">$2,994</td>
+        <td class="num conv">9</td>
+        <td class="num">2,363</td>
+      </tr>
+      <tr>
+        <td>Ventas a whatsapp</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$24,695</td>
+        <td class="num">6,139</td>
+        <td class="num">4,227</td>
+        <td class="num">190</td>
+        <td class="num">3.09%</td>
+        <td class="num cpc-mid">$130</td>
+        <td class="num">$4,023</td>
+        <td class="num conv">—</td>
+        <td class="num">1,428</td>
+      </tr>
+      <tr>
+        <td>Llamadas</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$11,797</td>
+        <td class="num">2,567</td>
+        <td class="num">1,980</td>
+        <td class="num">52</td>
+        <td class="num">2.03%</td>
+        <td class="num cpc-bad">$227</td>
+        <td class="num">$4,596</td>
+        <td class="num conv">1</td>
+        <td class="num">478</td>
+      </tr>
+      <tr>
+        <td>campaña interacion ejemplo</td>
+        <td><span class="paused-badge">Pausada</span></td>
+        <td class="num spend">$6,819</td>
+        <td class="num">4,592</td>
+        <td class="num">4,460</td>
+        <td class="num">61</td>
+        <td class="num">1.33%</td>
+        <td class="num cpc-mid">$112</td>
+        <td class="num">$1,485</td>
+        <td class="num conv">—</td>
+        <td class="num">2,127</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="2">TOTAL</td>
+        <td class="num spend">$22,068,970</td>
+        <td class="num">6,194,030</td>
+        <td class="num">~1.9M</td>
+        <td class="num">163,764</td>
+        <td class="num">~2.6%</td>
+        <td class="num">$135 prom.</td>
+        <td class="num">$3,564 prom.</td>
+        <td class="num conv">14,657</td>
+        <td class="num">1,106,164</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Conclusiones -->
+  <div class="section-title" style="margin-top:40px">Conclusiones Clave</div>
+  <div class="insight-grid">
+    <div class="insight-card">
+      <h4>✅ Lo que mejor funcionó</h4>
+      <div class="insight-item"><span>Mejor costo/conv WA</span><span class="insight-val">Ciudades $656</span></div>
+      <div class="insight-item"><span>Más conversaciones</span><span class="insight-val">RMK Seguidores 4,493</span></div>
+      <div class="insight-item"><span>Mayor alcance</span><span class="insight-val">trafico 255K personas</span></div>
+      <div class="insight-item"><span>Mejor CTR</span><span class="insight-val">trafico al perfil 4.30%</span></div>
+    </div>
+    <div class="insight-card">
+      <h4>⚠️ Campañas menos eficientes</h4>
+      <div class="insight-item"><span>CPM más caro</span><span class="insight-val">terapeutas $11,795</span></div>
+      <div class="insight-item"><span>CPC más caro</span><span class="insight-val">ventas frío $338</span></div>
+      <div class="insight-item"><span>Pocas conv. vs inversión</span><span class="insight-val">trafico sincelejo 5 conv.</span></div>
+    </div>
+    <div class="insight-card">
+      <h4>🎯 Campaña activa ahora</h4>
+      <div class="insight-item"><span>Nombre</span><span class="insight-val">IG Sincelejo</span></div>
+      <div class="insight-item"><span>Invertido</span><span class="insight-val">$3,057,091 COP</span></div>
+      <div class="insight-item"><span>Conversaciones WA</span><span class="insight-val">1,625</span></div>
+      <div class="insight-item"><span>Costo por conv.</span><span class="insight-val">$1,881 COP</span></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Reporte generado el 2 de junio 2026 · Cuenta publicitaria: act_1580150792635428 · Columna Vital
+</div>
+
+</body>
+</html>
