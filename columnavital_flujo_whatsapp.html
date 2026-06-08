@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Columna Vital — Diagnóstico + Flujo WhatsApp | 8 junio 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Segoe UI',sans-serif; background:#0d0d0d; color:#e0e0e0; }
+
+.header { background: linear-gradient(135deg, #1a3a2a 0%, #0d1f16 100%); padding: 32px 40px; border-bottom: 1px solid #2a4a3a; }
+.header h1 { font-size:24px; font-weight:700; color:#fff; }
+.header p { color:#7ab898; font-size:13px; margin-top:4px; }
+
+.nav { display:flex; gap:0; border-bottom:1px solid #222; background:#111; overflow-x:auto; }
+.nav button { padding:14px 20px; background:none; border:none; color:#888; font-size:13px; cursor:pointer; white-space:nowrap; border-bottom:2px solid transparent; transition:all 0.2s; }
+.nav button.active, .nav button:hover { color:#4caf50; border-bottom-color:#4caf50; background:#151515; }
+
+.tab { display:none; padding:32px 40px; }
+.tab.active { display:block; }
+
+/* Cards */
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-bottom:28px; }
+.card { background:#1a1a1a; border-radius:10px; padding:18px; border-top:3px solid #333; }
+.card.green { border-top-color:#43a047; }
+.card.red { border-top-color:#e53935; }
+.card.yellow { border-top-color:#ffa726; }
+.card.blue { border-top-color:#1976d2; }
+.card.teal { border-top-color:#00897b; }
+.card-label { font-size:11px; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; }
+.card-value { font-size:22px; font-weight:700; color:#fff; }
+.card-sub { font-size:11px; color:#aaa; margin-top:3px; }
+
+/* Tables */
+table { width:100%; border-collapse:collapse; background:#1a1a1a; border-radius:10px; overflow:hidden; margin-bottom:24px; font-size:13px; }
+thead { background:#222; }
+th { padding:11px 14px; text-align:left; color:#888; font-weight:600; text-transform:uppercase; font-size:11px; letter-spacing:0.5px; }
+td { padding:11px 14px; border-top:1px solid #252525; vertical-align:top; }
+tr:hover td { background:#1e1e1e; }
+
+.badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; }
+.badge-green { background:#1b5e20; color:#81c784; }
+.badge-red { background:#3e0000; color:#ef9a9a; }
+.badge-gray { background:#2a2a2a; color:#888; }
+.badge-yellow { background:#3e2800; color:#ffcc80; }
+
+.section-title { font-size:15px; font-weight:700; color:#fff; margin:24px 0 14px; padding-left:10px; border-left:3px solid #43a047; }
+
+.alert { border-radius:10px; padding:18px 22px; margin-bottom:20px; }
+.alert-red { background:#1a0808; border:1px solid #c62828; }
+.alert-red h3 { color:#ef5350; margin-bottom:8px; font-size:14px; }
+.alert-green { background:#071a0e; border:1px solid #2e7d32; }
+.alert-green h3 { color:#66bb6a; margin-bottom:8px; font-size:14px; }
+.alert-yellow { background:#1a1200; border:1px solid #e65100; }
+.alert-yellow h3 { color:#ffa726; margin-bottom:8px; font-size:14px; }
+.alert p { font-size:13px; color:#ccc; line-height:1.7; }
+.alert strong { color:#fff; }
+
+.chart-wrap { background:#1a1a1a; border-radius:10px; padding:20px; margin-bottom:24px; }
+
+/* FLUJO */
+.flow-container { display:flex; flex-direction:column; gap:0; }
+.flow-step { display:flex; gap:20px; position:relative; }
+.flow-step::before { content:''; position:absolute; left:19px; top:40px; bottom:-10px; width:2px; background:#2a4a3a; z-index:0; }
+.flow-step:last-child::before { display:none; }
+.flow-icon { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; z-index:1; }
+.flow-icon.trigger { background:#1b3a2b; border:2px solid #43a047; }
+.flow-icon.msg { background:#1a2b3a; border:2px solid #1976d2; }
+.flow-icon.wait { background:#2a2218; border:2px solid #ffa726; }
+.flow-icon.action { background:#2a1a2a; border:2px solid #7b1fa2; }
+.flow-icon.end { background:#2a1a1a; border:2px solid #e53935; }
+.flow-body { background:#1a1a1a; border-radius:10px; padding:16px 20px; flex:1; margin-bottom:12px; }
+.flow-body .step-label { font-size:10px; text-transform:uppercase; letter-spacing:0.5px; color:#888; margin-bottom:4px; }
+.flow-body .step-title { font-size:14px; font-weight:700; color:#fff; margin-bottom:8px; }
+.flow-body .step-desc { font-size:12px; color:#aaa; line-height:1.5; }
+.flow-body .tag-list { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+.flow-tag { font-size:11px; padding:2px 8px; border-radius:12px; }
+.flow-tag.green { background:#1b3a2b; color:#66bb6a; }
+.flow-tag.blue { background:#1a2b3a; color:#64b5f6; }
+.flow-tag.purple { background:#2a1a3a; color:#ce93d8; }
+
+/* Mensaje WA */
+.wa-msg { background:#1e2d22; border:1px solid #2a4a32; border-radius:10px; padding:16px 18px; margin:10px 0; font-size:13px; line-height:1.8; color:#d4edda; white-space:pre-wrap; font-family:inherit; position:relative; }
+.wa-msg::before { content:'💬'; position:absolute; top:-10px; left:14px; font-size:16px; }
+.wa-label { font-size:11px; color:#555; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; }
+.copy-btn { background:#1b3a2b; border:1px solid #2a5a3a; color:#66bb6a; padding:4px 12px; border-radius:6px; font-size:11px; cursor:pointer; float:right; margin-top:-4px; }
+.copy-btn:hover { background:#2a5a3a; }
+
+.flujo-section { background:#141414; border:1px solid #222; border-radius:12px; padding:20px; margin-bottom:20px; }
+.flujo-section h3 { font-size:14px; font-weight:700; color:#43a047; margin-bottom:4px; }
+.flujo-section .trigger-info { font-size:12px; color:#888; margin-bottom:14px; }
+
+.instrucciones { background:#1a1a2a; border:1px solid #2a2a4a; border-radius:10px; padding:18px; margin-bottom:16px; }
+.instrucciones h4 { color:#64b5f6; font-size:13px; margin-bottom:10px; }
+.instrucciones ol, .instrucciones ul { padding-left:18px; }
+.instrucciones li { font-size:13px; color:#ccc; line-height:1.8; }
+.instrucciones code { background:#252535; padding:2px 6px; border-radius:4px; font-family:monospace; color:#ce93d8; font-size:12px; }
+
+.footer { text-align:center; color:#444; font-size:11px; padding:24px; border-top:1px solid #1a1a1a; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Columna Vital — Diagnóstico + Estrategia WhatsApp</h1>
+  <p>Cuenta act_1580150792635428 · 30 días (9 mayo – 7 junio 2026) · Dr. Ciro Meza · $80.000 COP/consulta</p>
+</div>
+
+<div class="nav">
+  <button class="active" onclick="showTab('diagnostico')">📊 Diagnóstico</button>
+  <button onclick="showTab('embudo')">🔽 Embudo WA</button>
+  <button onclick="showTab('flujo')">⚡ Flujo Automatización</button>
+  <button onclick="showTab('mensajes')">💬 Mensajes Exactos</button>
+  <button onclick="showTab('remarketing')">📣 Remarketing</button>
+  <button onclick="showTab('setup')">⚙️ Setup FunnelChat</button>
+</div>
+
+<!-- TAB 1: DIAGNÓSTICO -->
+<div id="diagnostico" class="tab active">
+
+  <p class="section-title">Resumen ejecutivo — últimos 30 días</p>
+
+  <div class="cards">
+    <div class="card blue">
+      <div class="card-label">Gasto total</div>
+      <div class="card-value">$2.65M</div>
+      <div class="card-sub">COP · 5 campañas</div>
+    </div>
+    <div class="card green">
+      <div class="card-label">Conversaciones WA</div>
+      <div class="card-value">1,427</div>
+      <div class="card-sub">Leads entrantes</div>
+    </div>
+    <div class="card yellow">
+      <div class="card-label">Costo/conversación</div>
+      <div class="card-value">$1,857</div>
+      <div class="card-sub">COP promedio</div>
+    </div>
+    <div class="card red">
+      <div class="card-label">Cierres estimados</div>
+      <div class="card-value">~20</div>
+      <div class="card-sub">Solo 2.1% convierte</div>
+    </div>
+    <div class="card teal">
+      <div class="card-label">Revenue estimado</div>
+      <div class="card-value">$1.6M</div>
+      <div class="card-sub">COP · 20 × $80K</div>
+    </div>
+    <div class="card red">
+      <div class="card-label">ROAS actual</div>
+      <div class="card-value">0.6x</div>
+      <div class="card-sub">⚠️ Gasta más de lo que entra</div>
+    </div>
+  </div>
+
+  <div class="alert alert-red">
+    <h3>⚠️ Diagnóstico crítico: el problema no es los anuncios — es el cierre</h3>
+    <p>Los anuncios están trayendo <strong>1,427 conversaciones de WhatsApp</strong> a buen costo ($1,857 COP cada una). El CTR de 4.55% es excelente. Pero de esas 1,427 personas que escribieron, solo <strong>~20 agendaron consulta</strong> — una tasa de cierre del <strong>2.1%</strong>. Si ese número sube al 10%, pasamos de 20 a 143 consultas sin gastar un peso más en pauta.</p>
+  </div>
+
+  <div class="alert alert-yellow">
+    <h3>💡 La gran oportunidad: base de contactos sin trabajar</h3>
+    <p>Hay <strong>miles de contactos acumulados en FunnelChat</strong> que escribieron, les respondieron (o no), y nunca volvieron. Nunca se les hizo remarketing. Una sola difusión bien escrita puede recuperar decenas de consultas <strong>a costo casi cero</strong> — ya pagaste por adquirir esos leads.</p>
+  </div>
+
+  <p class="section-title">Estado de campañas</p>
+  <table>
+    <thead>
+      <tr><th>Campaña</th><th>Estado</th><th>Gasto COP</th><th>Impresiones</th><th>CTR</th><th>CPC</th><th>Conv WA</th><th>Costo/WA</th><th>Diagnóstico</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>IG Sincelejo</strong></td>
+        <td><span class="badge badge-green">ACTIVA</span></td>
+        <td>$1,718,376</td>
+        <td>394,086</td>
+        <td>4.55%</td>
+        <td>$96</td>
+        <td><strong>955</strong></td>
+        <td>$1,799</td>
+        <td>✅ Campaña principal — buen rendimiento</td>
+      </tr>
+      <tr>
+        <td><strong>Terapia Neural | Audiencias Tibias</strong></td>
+        <td><span class="badge badge-green">ACTIVA</span></td>
+        <td>$165,350</td>
+        <td>11,907</td>
+        <td>3.85%</td>
+        <td>$361</td>
+        <td>74</td>
+        <td>$2,234</td>
+        <td>⚠️ CPC alto ($361), costo/WA mayor — necesita optimización</td>
+      </tr>
+      <tr>
+        <td><strong>campaña terapeutas</strong></td>
+        <td><span class="badge badge-gray">PAUSADA</span></td>
+        <td>$561,229</td>
+        <td>47,581</td>
+        <td>4.60%</td>
+        <td>$256</td>
+        <td>386</td>
+        <td>$1,454</td>
+        <td>Tenía buen costo/WA — revisar por qué se pausó</td>
+      </tr>
+      <tr>
+        <td><strong>trafico sincelejo</strong></td>
+        <td><span class="badge badge-gray">PAUSADA</span></td>
+        <td>$154,371</td>
+        <td>52,440</td>
+        <td>5.41%</td>
+        <td>$54</td>
+        <td>0</td>
+        <td>—</td>
+        <td>Objetivo tráfico — sin conversaciones WA</td>
+      </tr>
+      <tr>
+        <td><strong>Remarketing seguidores</strong></td>
+        <td><span class="badge badge-gray">PAUSADA</span></td>
+        <td>$50,404</td>
+        <td>10,082</td>
+        <td>1.71%</td>
+        <td>$293</td>
+        <td>12</td>
+        <td>$4,200</td>
+        <td>⚠️ CTR bajo, muy caro — audiencia saturada</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="chart-wrap">
+    <p class="section-title" style="margin:0 0 16px;">Conversaciones WA por campaña</p>
+    <canvas id="convChart" height="70"></canvas>
+  </div>
+
+  <p class="section-title">Oportunidades inmediatas</p>
+  <table>
+    <thead><tr><th>#</th><th>Acción</th><th>Impacto</th><th>Esfuerzo</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><strong>Implementar flujo de automatización WhatsApp</strong> (este documento)</td><td>🔴 MUY ALTO</td><td>1 día</td></tr>
+      <tr><td>2</td><td><strong>Difusión remarketing a toda la base</strong> de contactos FunnelChat sin agendar</td><td>🔴 MUY ALTO</td><td>2 horas</td></tr>
+      <tr><td>3</td><td><strong>Optimizar Terapia Neural</strong> — revisar creativos, bajar CPC de $361 a <$200</td><td>🟡 MEDIO</td><td>1 hora</td></tr>
+      <tr><td>4</td><td><strong>Reactivar "campaña terapeutas"</strong> — tenía el mejor costo/WA ($1,454)</td><td>🟡 MEDIO</td><td>30 min</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- TAB 2: EMBUDO -->
+<div id="embudo" class="tab">
+  <p class="section-title">Embudo de conversión WhatsApp — IG Sincelejo (campaña principal)</p>
+
+  <div class="cards">
+    <div class="card blue"><div class="card-label">Impresiones</div><div class="card-value">394K</div></div>
+    <div class="card blue"><div class="card-label">Clics totales</div><div class="card-value">17,936</div><div class="card-sub">CTR 4.55%</div></div>
+    <div class="card green"><div class="card-label">Conv WA iniciadas</div><div class="card-value">955</div><div class="card-sub">$1,799/conv</div></div>
+    <div class="card yellow"><div class="card-label">Primera respuesta</div><div class="card-value">815</div><div class="card-sub">85% apertura ✅</div></div>
+    <div class="card yellow"><div class="card-label">Profundidad 2</div><div class="card-value">337</div><div class="card-sub">35% continúan</div></div>
+    <div class="card yellow"><div class="card-label">Profundidad 3+</div><div class="card-value">181</div><div class="card-sub">19% siguen</div></div>
+    <div class="card teal"><div class="card-label">Muy comprometidos</div><div class="card-value">178</div><div class="card-sub">Profundidad 5</div></div>
+    <div class="card red"><div class="card-label">Consultas agendadas</div><div class="card-value">~20</div><div class="card-sub">2.1% cierre ⚠️</div></div>
+  </div>
+
+  <div class="alert alert-red">
+    <h3>⚠️ Dónde se pierde el dinero: entre el primer y segundo mensaje</h3>
+    <p>De <strong>955 personas que escribieron</strong>, solo <strong>337 (35%)</strong> pasaron del primer intercambio. Eso significa que <strong>618 personas escribieron, recibieron respuesta y desaparecieron</strong>. Sin un flujo automatizado de seguimiento, esos leads se pierden para siempre. Con el flujo propuesto, se recupera entre un 15-30% de esos contactos.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <p class="section-title" style="margin:0 0 16px;">Caída del embudo</p>
+    <canvas id="funnelChart" height="100"></canvas>
+  </div>
+
+  <p class="section-title">¿Qué pasa en cada etapa?</p>
+  <table>
+    <thead><tr><th>Etapa</th><th>Cantidad</th><th>% del anterior</th><th>Problema</th><th>Solución</th></tr></thead>
+    <tbody>
+      <tr><td>Escriben por WA</td><td>955</td><td>100%</td><td>—</td><td>—</td></tr>
+      <tr><td>Responden el 1er mensaje</td><td>815</td><td>85% ✅</td><td>Normal</td><td>Respuesta inmediata automática</td></tr>
+      <tr><td>Continúan (profundidad 2)</td><td>337</td><td>41%</td><td>⚠️ 59% abandona</td><td>Calificación rápida + empatía</td></tr>
+      <tr><td>Siguen (profundidad 3)</td><td>181</td><td>54%</td><td>Conversación se enfría</td><td>Propuesta de consulta en este punto</td></tr>
+      <tr><td>Muy comprometidos (d5)</td><td>178</td><td>98%</td><td>Aún no agendan</td><td>Captura de datos + confirmación</td></tr>
+      <tr><td><strong>Agendan consulta</strong></td><td>~20</td><td><strong>2.1% ⚠️</strong></td><td>Sin flujo de cierre</td><td><strong>Flujo de automatización</strong></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- TAB 3: FLUJO -->
+<div id="flujo" class="tab">
+  <p class="section-title">Arquitectura del flujo de automatización</p>
+
+  <div class="alert alert-green">
+    <h3>✅ Diseñado para FunnelChat (sin API)</h3>
+    <p>Este flujo funciona 100% dentro de FunnelChat usando triggers de palabras clave, tiempos de espera y etiquetas. No requiere programación. En el tab "Setup" están las instrucciones paso a paso para configurarlo.</p>
+  </div>
+
+  <!-- FLUJO 1 -->
+  <div class="flujo-section">
+    <h3>FLUJO 1 — Bienvenida y Calificación</h3>
+    <p class="trigger-info">🎯 Trigger: Cualquier mensaje nuevo de un contacto que NO tiene etiqueta "agendado" ni "consultado"</p>
+
+    <div class="flow-container">
+      <div class="flow-step">
+        <div class="flow-icon trigger">🎯</div>
+        <div class="flow-body">
+          <div class="step-label">Trigger</div>
+          <div class="step-title">Primer mensaje entrante</div>
+          <div class="step-desc">El lead escribe desde el anuncio. FunnelChat detecta contacto nuevo.</div>
+          <div class="tag-list"><span class="flow-tag green">Aplica etiqueta: nuevo-lead</span></div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon msg">💬</div>
+        <div class="flow-body">
+          <div class="step-label">Mensaje 1 — Inmediato (0-30 seg)</div>
+          <div class="step-title">Bienvenida + Selección de Ciudad</div>
+          <div class="step-desc">Respuesta automática inmediata. Califica por ciudad para enrutar correctamente.</div>
+          <div class="tag-list"><span class="flow-tag blue">Ver mensaje completo → Tab Mensajes</span></div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon msg">💬</div>
+        <div class="flow-body">
+          <div class="step-label">Mensaje 2 — Después de respuesta de ciudad</div>
+          <div class="step-title">Captura del dolor / motivo de consulta</div>
+          <div class="step-desc">Pregunta empática por la molestia. Humaniza la conversación antes de hablar de precio.</div>
+          <div class="tag-list"><span class="flow-tag green">Aplica etiqueta según ciudad respondida</span></div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon msg">💬</div>
+        <div class="flow-body">
+          <div class="step-label">Mensaje 3 — Inmediato después</div>
+          <div class="step-title">Empatía + Propuesta de consulta con precio</div>
+          <div class="step-desc">Conecta el dolor con la solución. Presenta al Dr. Ciro Meza. Menciona precio $80.000 COP y pregunta si quiere agendar.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon action">🏷️</div>
+        <div class="flow-body">
+          <div class="step-label">Bifurcación</div>
+          <div class="step-title">¿Dice SÍ quiere agendar?</div>
+          <div class="step-desc">Si responde afirmativamente → Flujo de agendamiento. Si no responde en 24h → Flujo seguimiento.</div>
+          <div class="tag-list"><span class="flow-tag green">SÍ → Etiqueta: quiere-agendar</span><span class="flow-tag purple">No responde → Flujo 2</span></div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon msg">💬</div>
+        <div class="flow-body">
+          <div class="step-label">Mensaje 4 — Tras confirmación de interés</div>
+          <div class="step-title">Solicitud de datos para agendar</div>
+          <div class="step-desc">Pide nombre, día preferido y horario. El asesor humano toma el hilo aquí para confirmar disponibilidad.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon end">✅</div>
+        <div class="flow-body">
+          <div class="step-label">Mensaje 5 — Confirmación (manual o automático)</div>
+          <div class="step-title">Cita confirmada</div>
+          <div class="step-desc">Confirma día, hora, dirección y precio. Indica que recibirá recordatorio 24h antes.</div>
+          <div class="tag-list"><span class="flow-tag green">Aplica etiqueta: agendado</span><span class="flow-tag purple">Remueve: quiere-agendar</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLUJO 2 -->
+  <div class="flujo-section">
+    <h3>FLUJO 2 — Seguimiento 24h (lead que no respondió)</h3>
+    <p class="trigger-info">🎯 Trigger: Contacto con etiqueta "nuevo-lead" SIN etiqueta "agendado" después de 24 horas</p>
+
+    <div class="flow-container">
+      <div class="flow-step">
+        <div class="flow-icon wait">⏰</div>
+        <div class="flow-body">
+          <div class="step-label">Espera 24 horas</div>
+          <div class="step-title">No respondió o se enfrió</div>
+          <div class="step-desc">FunnelChat espera 24h desde el último mensaje sin respuesta del lead.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon msg">💬</div>
+        <div class="flow-body">
+          <div class="step-label">Mensaje 6 — Reactivación suave</div>
+          <div class="step-title">Seguimiento empático sin presión</div>
+          <div class="step-desc">Recuerda al lead que estamos disponibles. No vende directamente — genera reapertura de conversación.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon wait">⏰</div>
+        <div class="flow-body">
+          <div class="step-label">Espera 72 horas más</div>
+          <div class="step-title">Si sigue sin responder</div>
+          <div class="step-desc">Segunda oportunidad de recuperar el lead.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon end">💬</div>
+        <div class="flow-body">
+          <div class="step-label">Mensaje 7 — Último intento</div>
+          <div class="step-title">Urgencia suave + disponibilidad</div>
+          <div class="step-desc">Menciona disponibilidad limitada. Cierra el ciclo sin ser invasivo.</div>
+          <div class="tag-list"><span class="flow-tag purple">Si no responde → Etiqueta: lead-frio</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLUJO 3 -->
+  <div class="flujo-section">
+    <h3>FLUJO 3 — Recordatorio de Cita (24h antes)</h3>
+    <p class="trigger-info">🎯 Trigger: Contacto con etiqueta "agendado" — enviar 24h después del agendamiento</p>
+
+    <div class="flow-container">
+      <div class="flow-step">
+        <div class="flow-icon wait">⏰</div>
+        <div class="flow-body">
+          <div class="step-label">24 horas después de agendar</div>
+          <div class="step-title">Recordatorio automático</div>
+          <div class="step-desc">Envía recordatorio con fecha, hora y dirección. Pide confirmación de asistencia.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon action">🏷️</div>
+        <div class="flow-body">
+          <div class="step-label">Bifurcación por respuesta</div>
+          <div class="step-title">¿Confirma o no?</div>
+          <div class="step-desc">Si confirma → OK. Si dice NO o no responde → ofrecer reagendamiento para no perder el paciente.</div>
+          <div class="tag-list"><span class="flow-tag green">Confirma → mantiene etiqueta agendado</span><span class="flow-tag purple">No → Flujo reagendamiento</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLUJO 4 -->
+  <div class="flujo-section">
+    <h3>FLUJO 4 — Post Consulta (fidelización)</h3>
+    <p class="trigger-info">🎯 Trigger: Contacto con etiqueta "agendado" — enviar 48h después (post consulta estimada)</p>
+
+    <div class="flow-container">
+      <div class="flow-step">
+        <div class="flow-icon msg">💬</div>
+        <div class="flow-body">
+          <div class="step-label">Mensaje post-consulta</div>
+          <div class="step-title">Seguimiento de bienestar</div>
+          <div class="step-desc">Pregunta cómo se sintió. Abre la puerta para continuar con sesiones de tratamiento.</div>
+          <div class="tag-list"><span class="flow-tag green">Aplica etiqueta: consultado</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 4: MENSAJES EXACTOS -->
+<div id="mensajes" class="tab">
+
+  <!-- FLUJO 1 -->
+  <p class="section-title">FLUJO 1 — Bienvenida y Calificación</p>
+
+  <div class="wa-label">MSG 1 — Bienvenida inmediata (trigger: primer mensaje)</div>
+  <div class="wa-msg" id="msg1">¡Hola! 👋 Bienvenido a *Columna Vital*.
+
+Soy tu asistente y en unos instantes uno de nuestros especialistas te atenderá personalmente.
+
+Para orientarte mejor — ¿desde qué ciudad nos escribes?
+
+*1️⃣ Sincelejo*
+*2️⃣ Montería*
+*3️⃣ Barranquilla*
+*4️⃣ Cartagena*
+*5️⃣ Valledupar*
+*6️⃣ Otra ciudad / prefiero consulta virtual*</div>
+
+  <div class="wa-label">MSG 2 — Captura del dolor (después de que responde ciudad)</div>
+  <div class="wa-msg" id="msg2">Perfecto, [CIUDAD] 📍 Anotado.
+
+Cuéntame: ¿cuál es la molestia o dolor que te trajo hasta aquí?
+
+_Por ejemplo: dolor de espalda, cuello, hernia discal, ciática, dolor de hombros, postura..._</div>
+
+  <div class="wa-label">MSG 3 — Empatía + Propuesta de consulta</div>
+  <div class="wa-msg" id="msg3">Entiendo, eso puede afectar mucho tu calidad de vida 😔
+
+Lo bueno es que trabajamos exactamente esos casos con *Terapia Manual Integrativa* — sin cirugías ni medicamentos.
+
+El Dr. *Ciro Meza* atiende con un enfoque personalizado que ya ha ayudado a más de *500 pacientes* a recuperar su bienestar.
+
+💰 *Consulta de valoración: $80.000 COP*
+✅ Incluye evaluación completa + plan de tratamiento personalizado
+
+¿Te gustaría agendar una cita esta semana? 😊</div>
+
+  <div class="wa-label">MSG 4 — Solicitud de datos para agendar (tras respuesta positiva)</div>
+  <div class="wa-msg" id="msg4">¡Excelente! 🙌 Vamos a organizarte la cita.
+
+Necesito estos datos rápidos:
+
+📝 *Tu nombre completo*
+📅 *Día de preferencia* (lunes a viernes, también sábados)
+🕐 *Horario preferido:* mañana (8am–12m) o tarde (2pm–5pm)</div>
+
+  <div class="wa-label">MSG 5 — Confirmación de cita (personalizar con datos reales)</div>
+  <div class="wa-msg" id="msg5">¡Listo, [NOMBRE]! ✅ Tu cita está confirmada.
+
+📅 *[DÍA]*
+🕐 *[HORA]*
+📍 *[DIRECCIÓN SEGÚN CIUDAD]*
+👨‍⚕️ Dr. Ciro Meza
+💰 $80.000 COP
+
+Te enviaremos un recordatorio el día anterior 😊
+
+_Si necesitas cambiar la fecha escríbenos con anticipación, con gusto te reagendamos._
+
+¡Nos vemos pronto! 💚</div>
+
+  <!-- FLUJO 2 -->
+  <p class="section-title">FLUJO 2 — Seguimiento leads fríos</p>
+
+  <div class="wa-label">MSG 6 — Seguimiento 24h (no respondió)</div>
+  <div class="wa-msg" id="msg6">Hola de nuevo 👋
+
+Vi que nos escribiste ayer y quiero asegurarme de que encontraste la información que necesitabas.
+
+En Columna Vital estamos aquí para ayudarte a moverte sin dolor 💚
+
+¿Tienes alguna pregunta o quieres saber si tenemos disponibilidad esta semana?</div>
+
+  <div class="wa-label">MSG 7 — Último seguimiento 72h</div>
+  <div class="wa-msg" id="msg7">Hola 👋 Solo queríamos saber cómo estás.
+
+Si todavía tienes esa molestia que te trajo hasta aquí, esta semana aún tenemos citas disponibles con el Dr. Ciro Meza.
+
+Una valoración a tiempo puede evitar que el problema avance más.
+
+¿Agendamos? Solo responde con tu nombre y te buscamos el espacio 🙌</div>
+
+  <!-- FLUJO 3 -->
+  <p class="section-title">FLUJO 3 — Recordatorio de cita</p>
+
+  <div class="wa-label">MSG 8 — Recordatorio 24h antes de la cita</div>
+  <div class="wa-msg" id="msg8">Hola [NOMBRE] 👋
+
+Te recordamos que *mañana* tienes tu consulta con el Dr. Ciro Meza en Columna Vital.
+
+📅 *[DÍA]* a las *[HORA]*
+📍 *[DIRECCIÓN]*
+💰 $80.000 COP
+
+¿Confirmas tu asistencia?
+✅ Responde *SÍ*
+🔄 Responde *REAGENDAR* si necesitas cambiar</div>
+
+  <div class="wa-label">MSG 9 — Respuesta si no puede asistir</div>
+  <div class="wa-msg" id="msg9">Entendemos perfectamente, los imprevistos pasan 🙏
+
+No hay ningún problema. ¿Cuándo te quedaría mejor para reagendar?
+
+Tenemos disponibilidad esta semana y la próxima. Solo dinos el día y horario preferido 😊</div>
+
+  <!-- FLUJO 4 -->
+  <p class="section-title">FLUJO 4 — Post consulta</p>
+
+  <div class="wa-label">MSG 10 — Seguimiento 48h después de consulta</div>
+  <div class="wa-msg" id="msg10">Hola [NOMBRE] 👋
+
+¿Cómo te fue en tu consulta con el Dr. Ciro Meza?
+
+Esperamos que hayas encontrado la orientación que necesitabas 💚
+
+Si tienes preguntas sobre el plan de tratamiento o quieres continuar con las sesiones de terapia, aquí estamos — con gusto te acompañamos en todo el proceso.</div>
+
+</div>
+
+<!-- TAB 5: REMARKETING -->
+<div id="remarketing" class="tab">
+
+  <p class="section-title">Difusión de remarketing — Contactos acumulados en FunnelChat</p>
+
+  <div class="alert alert-yellow">
+    <h3>📣 ¿A quién enviar esta difusión?</h3>
+    <p>Todos los contactos en FunnelChat que:<br>
+    ✓ Escribieron en los últimos <strong>6 meses</strong><br>
+    ✓ <strong>NO tienen etiqueta "agendado"</strong> ni "consultado"<br>
+    ✓ Pueden tener etiqueta "nuevo-lead", "lead-frio" o sin etiqueta<br><br>
+    Estima que tienes <strong>miles de estos contactos</strong> acumulados desde octubre 2024 (14,657 conversaciones históricas según datos de la cuenta).</p>
+  </div>
+
+  <div class="alert alert-green">
+    <h3>💡 Potencial de esta difusión</h3>
+    <p>Si tienes 5,000 contactos y solo el <strong>5% responde</strong> = 250 personas interesadas.<br>
+    Si el <strong>20% de esos agenda</strong> = 50 nuevas consultas.<br>
+    50 × $80,000 COP = <strong>$4,000,000 COP en revenue</strong> a costo prácticamente cero.</p>
+  </div>
+
+  <div class="wa-label">MENSAJE DE DIFUSIÓN — Versión A (empatía + reactivación)</div>
+  <div class="wa-msg" id="rmk1">Hola [NOMBRE] 👋
+
+¿Recuerdas que hace un tiempo nos escribiste?
+
+Queremos saber cómo estás — y si esa molestia que tenías ya mejoró...
+
+Si todavía sientes dolor en tu columna, cuello o espalda, este es el momento de atenderte.
+
+En Columna Vital seguimos con citas disponibles esta semana con el Dr. *Ciro Meza*.
+
+🧪 *Terapia Manual Integrativa* — sin cirugías, sin medicamentos
+💰 $80.000 COP la consulta de valoración
+📍 Sincelejo | Montería | Barranquilla | Cartagena | Valledupar
+
+Más de *500 pacientes* ya recuperaron su calidad de vida.
+
+¿Agendamos? Solo responde con tu nombre y te buscamos el espacio 🙌</div>
+
+  <div class="wa-label" style="margin-top:20px;">MENSAJE DE DIFUSIÓN — Versión B (urgencia + resultado)</div>
+  <div class="wa-msg" id="rmk2">Hola [NOMBRE] 👋
+
+El dolor de columna no mejora solo — y esperar lo empeora.
+
+En Columna Vital trabajamos con *Terapia Manual Integrativa*: un método que ya ha ayudado a más de 500 personas a volver a moverse sin dolor, sin cirugías y sin medicamentos.
+
+Esta semana tenemos espacios disponibles con el Dr. *Ciro Meza*.
+
+📍 Sincelejo | Montería | Barranquilla | Cartagena | Valledupar
+💰 Consulta de valoración: *$80.000 COP*
+
+Si quieres saber si tu caso tiene solución, el primer paso es la consulta.
+
+¿Te agendamos? 😊</div>
+
+  <div class="wa-label" style="margin-top:20px;">MENSAJE DE DIFUSIÓN — Versión C (emocional, para terapia neural)</div>
+  <div class="wa-msg" id="rmk3">Hola [NOMBRE] 👋
+
+Hay dolores que uno aprende a "aguantar" — pero aguantar no es sanar.
+
+Si llevas tiempo conviviendo con dolor de columna, cuello o alguna molestia que no te deja hacer tu vida normal, quiero que sepas que existe una alternativa.
+
+Con *Terapia Neural* y manipulación manual, el Dr. *Ciro Meza* trabaja directamente la causa del dolor — no solo el síntoma.
+
+📍 Atendemos en Sincelejo, Montería, Barranquilla, Cartagena y Valledupar
+💰 Consulta de valoración: *$80.000 COP*
+
+¿Le damos una oportunidad a tu recuperación? 💚
+
+Solo responde este mensaje y te organizamos la cita.</div>
+
+  <p class="section-title">Instrucciones para enviar la difusión en FunnelChat</p>
+  <div class="instrucciones">
+    <h4>Paso a paso</h4>
+    <ol>
+      <li>Entra a FunnelChat → <code>Transmisiones</code> o <code>Difusiones</code></li>
+      <li>Haz clic en <code>Nueva transmisión</code></li>
+      <li>En filtro de contactos, selecciona: <code>Sin etiqueta "agendado"</code> + <code>Sin etiqueta "consultado"</code></li>
+      <li>Agrega también filtro por fecha: contactos que escribieron en los últimos <code>180 días</code></li>
+      <li>Escoge el mensaje de difusión (Versión A, B o C — prueba las 3 en grupos distintos)</li>
+      <li>Programa el envío para un <strong>martes, miércoles o jueves entre 9am–11am</strong> (mejor tasa de apertura)</li>
+      <li>Activa el flujo de respuesta para que cuando alguien responda "SÍ" entre al Flujo 1 automáticamente</li>
+    </ol>
+  </div>
+</div>
+
+<!-- TAB 6: SETUP FUNNELCHAT -->
+<div id="setup" class="tab">
+
+  <p class="section-title">Configuración en FunnelChat — paso a paso</p>
+
+  <div class="instrucciones">
+    <h4>1. Crear etiquetas primero</h4>
+    <p style="font-size:13px;color:#ccc;margin-bottom:10px;">Ve a Configuración → Etiquetas y crea estas:</p>
+    <ul>
+      <li><code>nuevo-lead</code> — se aplica cuando entra el primer mensaje</li>
+      <li><code>sincelejo</code> / <code>monteria</code> / <code>barranquilla</code> / <code>cartagena</code> / <code>valledupar</code> / <code>virtual</code></li>
+      <li><code>quiere-agendar</code> — respondió que sí quiere cita</li>
+      <li><code>agendado</code> — cita confirmada</li>
+      <li><code>consultado</code> — ya tuvo su consulta</li>
+      <li><code>lead-frio</code> — no respondió después de 2 seguimientos</li>
+    </ul>
+  </div>
+
+  <div class="instrucciones">
+    <h4>2. Crear Flujo 1 — Bienvenida</h4>
+    <ol>
+      <li>Ve a <code>Flujos</code> → <code>Nuevo flujo</code></li>
+      <li>Nombre: <code>CV - Bienvenida Nuevo Lead</code></li>
+      <li>Trigger: <code>Primer mensaje del contacto</code> (o "Contacto nuevo")</li>
+      <li>Condición: Contacto NO tiene etiqueta <code>agendado</code></li>
+      <li>Acción 1: Aplicar etiqueta <code>nuevo-lead</code></li>
+      <li>Acción 2: Enviar MSG 1 (copiar del tab Mensajes Exactos)</li>
+      <li>Esperar respuesta → Enviar MSG 2</li>
+      <li>Esperar respuesta → Enviar MSG 3</li>
+      <li>Si responde afirmativamente → Aplicar etiqueta <code>quiere-agendar</code> → Enviar MSG 4</li>
+    </ol>
+  </div>
+
+  <div class="instrucciones">
+    <h4>3. Crear Flujo 2 — Seguimiento 24h</h4>
+    <ol>
+      <li>Nombre: <code>CV - Seguimiento Lead Frío</code></li>
+      <li>Trigger: <code>Tiempo transcurrido</code> → 24 horas</li>
+      <li>Condición: Tiene etiqueta <code>nuevo-lead</code> Y NO tiene etiqueta <code>agendado</code></li>
+      <li>Enviar MSG 6</li>
+      <li>Esperar 72 horas más → Si no responde → Enviar MSG 7</li>
+      <li>Si sigue sin responder → Aplicar etiqueta <code>lead-frio</code></li>
+    </ol>
+  </div>
+
+  <div class="instrucciones">
+    <h4>4. Crear Flujo 3 — Recordatorio de cita</h4>
+    <ol>
+      <li>Nombre: <code>CV - Recordatorio Cita</code></li>
+      <li>Trigger: Aplicación de etiqueta <code>agendado</code></li>
+      <li>Esperar 24 horas</li>
+      <li>Enviar MSG 8 (personalizar día/hora/dirección manualmente antes de enviar)</li>
+      <li>Si responde "REAGENDAR" → Enviar MSG 9</li>
+    </ol>
+  </div>
+
+  <div class="instrucciones">
+    <h4>5. Crear Flujo 4 — Post consulta</h4>
+    <ol>
+      <li>Nombre: <code>CV - Post Consulta</code></li>
+      <li>Trigger: Etiqueta <code>agendado</code> con 48h de antigüedad</li>
+      <li>Enviar MSG 10</li>
+      <li>Aplicar etiqueta <code>consultado</code></li>
+    </ol>
+  </div>
+
+  <div class="instrucciones">
+    <h4>6. Orden de prioridad para implementar</h4>
+    <ol>
+      <li>🔴 <strong>HOY</strong>: Enviar difusión de remarketing (Versión A) a todos los contactos sin agendar</li>
+      <li>🔴 <strong>HOY</strong>: Crear etiquetas en FunnelChat</li>
+      <li>🟡 <strong>MAÑANA</strong>: Configurar Flujo 1 (Bienvenida) — el más importante</li>
+      <li>🟡 <strong>MAÑANA</strong>: Configurar Flujo 2 (Seguimiento 24h)</li>
+      <li>🟢 <strong>ESTA SEMANA</strong>: Flujo 3 (Recordatorio) y Flujo 4 (Post consulta)</li>
+    </ol>
+  </div>
+
+  <div class="alert alert-green">
+    <h3>✅ Resultado esperado en 30 días con el flujo activo</h3>
+    <p>
+    Tasa de cierre actual: <strong>2.1%</strong> (20 consultas / 955 leads)<br>
+    Tasa de cierre esperada con flujo: <strong>8–12%</strong><br>
+    Con mismo volumen de leads (955): <strong>76–114 consultas</strong><br>
+    Revenue incremental: <strong>$4.5M–$7.5M COP/mes</strong> sin aumentar pauta
+    </p>
+  </div>
+</div>
+
+<div class="footer">Generado por Claude · 8 junio 2026 · Columna Vital · Dr. Ciro Meza · act_1580150792635428</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// Chart: conversaciones WA
+new Chart(document.getElementById('convChart').getContext('2d'), {
+  type: 'bar',
+  data: {
+    labels: ['IG Sincelejo\n(activa)', 'campaña terapeutas\n(pausada)', 'Terapia Neural\n(activa)', 'Remarketing seg.\n(pausada)', 'trafico sincelejo\n(pausada)'],
+    datasets: [{
+      label: 'Conv WA',
+      data: [955, 386, 74, 12, 0],
+      backgroundColor: ['#43a047','#555','#ffa726','#555','#555'],
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive:true,
+    plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: c => ' '+c.parsed.y+' conversaciones WA' } } },
+    scales:{
+      x:{ticks:{color:'#888'},grid:{color:'#222'}},
+      y:{ticks:{color:'#888'},grid:{color:'#222'}}
+    }
+  }
+});
+
+// Chart: funnel
+new Chart(document.getElementById('funnelChart').getContext('2d'), {
+  type: 'bar',
+  data: {
+    labels: ['Inician conv','Responden','Profundidad 2','Profundidad 3','Profundidad 5','Agendan'],
+    datasets: [{
+      data: [955, 815, 337, 181, 178, 20],
+      backgroundColor: ['#1976d2','#0288d1','#0097a7','#00897b','#43a047','#e53935'],
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    indexAxis:'y',
+    responsive:true,
+    plugins:{ legend:{display:false} },
+    scales:{
+      x:{ticks:{color:'#888'},grid:{color:'#222'}},
+      y:{ticks:{color:'#ccc'},grid:{color:'#222'}}
+    }
+  }
+});
+</script>
+</body>
+</html>
