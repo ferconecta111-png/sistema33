@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte Compras — Maria Elena Badillo | 8 junio 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', sans-serif; background: #0f0f0f; color: #e0e0e0; padding: 24px; }
+  h1 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .subtitle { color: #888; font-size: 13px; margin-bottom: 28px; }
+
+  .alert-box { background: #1a0a0a; border: 2px solid #e53935; border-radius: 12px; padding: 20px 24px; margin-bottom: 28px; }
+  .alert-box h2 { color: #ef5350; font-size: 15px; margin-bottom: 10px; }
+  .alert-box p { font-size: 13px; line-height: 1.7; color: #ccc; }
+  .alert-box strong { color: #fff; }
+
+  .good-box { background: #0a1a0a; border: 2px solid #43a047; border-radius: 12px; padding: 20px 24px; margin-bottom: 28px; }
+  .good-box h2 { color: #66bb6a; font-size: 15px; margin-bottom: 10px; }
+  .good-box p { font-size: 13px; line-height: 1.7; color: #ccc; }
+  .good-box strong { color: #fff; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .card { background: #1a1a1a; border-radius: 10px; padding: 18px; border-left: 4px solid #555; }
+  .card.green { border-left-color: #43a047; }
+  .card.red { border-left-color: #e53935; }
+  .card.yellow { border-left-color: #ffa726; }
+  .card.blue { border-left-color: #1976d2; }
+  .card.gray { border-left-color: #555; }
+  .card-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .card-value { font-size: 24px; font-weight: 700; color: #fff; }
+  .card-sub { font-size: 11px; color: #aaa; margin-top: 4px; }
+
+  table { width: 100%; border-collapse: collapse; background: #1a1a1a; border-radius: 10px; overflow: hidden; margin-bottom: 28px; font-size: 13px; }
+  thead { background: #222; }
+  th { padding: 12px 14px; text-align: left; color: #888; font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+  td { padding: 12px 14px; border-top: 1px solid #2a2a2a; }
+  tr:hover td { background: #222; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .badge-green { background: #1b5e20; color: #81c784; }
+  .badge-red { background: #3e0000; color: #ef9a9a; }
+  .badge-gray { background: #2a2a2a; color: #888; }
+  .badge-yellow { background: #3e2800; color: #ffcc80; }
+
+  .section-title { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 14px; padding-left: 4px; border-left: 3px solid #1976d2; padding-left: 10px; }
+
+  .funnel-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 28px; }
+  .funnel-step { background: #1a1a1a; border-radius: 8px; padding: 14px; text-align: center; }
+  .funnel-step .f-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 6px; }
+  .funnel-step .f-val { font-size: 20px; font-weight: 700; color: #fff; }
+  .funnel-step .f-arrow { font-size: 18px; color: #444; margin-top: 4px; }
+  .funnel-step.warn .f-val { color: #ffa726; }
+  .funnel-step.danger .f-val { color: #ef5350; }
+  .funnel-step.good .f-val { color: #66bb6a; }
+
+  .warning-tag { background: #e53935; color: #fff; font-size: 10px; padding: 2px 7px; border-radius: 4px; margin-left: 6px; font-weight: 700; vertical-align: middle; }
+  .ok-tag { background: #43a047; color: #fff; font-size: 10px; padding: 2px 7px; border-radius: 4px; margin-left: 6px; font-weight: 700; vertical-align: middle; }
+
+  .chart-wrap { background: #1a1a1a; border-radius: 10px; padding: 20px; margin-bottom: 28px; }
+
+  .footer { color: #555; font-size: 11px; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+
+<h1>Maria Elena Badillo — Reporte de Compras</h1>
+<p class="subtitle">Últimos 30 días (9 mayo – 7 junio 2026) · Cuenta act_1418379029648107</p>
+
+<!-- ALERTA PRINCIPAL -->
+<div class="alert-box">
+  <h2>⚠️ ALERTA: Las compras reportadas no son confiables</h2>
+  <p>
+    La campaña <strong>RMK CAVA</strong> reporta <strong>57 compras</strong>, pero solo hubo <strong>7 checkouts iniciados</strong>.
+    Esto es matemáticamente imposible en un embudo real.<br><br>
+    <strong>¿Qué está pasando?</strong> Meta está usando <strong>atribución de vista</strong> (1-day view): atribuye la compra a tu anuncio si alguien lo VIO (sin hacer clic) y luego compró por otro canal (WhatsApp, orgánico, etc.) dentro de 24 horas.
+    Esto infla los números artificialmente.<br><br>
+    <strong>Compras reales estimadas por clic:</strong> máximo 7 ·
+    <strong>Compras infladas (view-through):</strong> ~50 de 57
+  </p>
+</div>
+
+<!-- TARJETAS RESUMEN -->
+<div class="cards">
+  <div class="card red">
+    <div class="card-label">Compras reportadas</div>
+    <div class="card-value">57</div>
+    <div class="card-sub">Solo RMK CAVA · 30d</div>
+  </div>
+  <div class="card yellow">
+    <div class="card-label">Compras reales (click-through)</div>
+    <div class="card-value">~7</div>
+    <div class="card-sub">Checkouts iniciados</div>
+  </div>
+  <div class="card red">
+    <div class="card-label">Gasto total</div>
+    <div class="card-value">$771K</div>
+    <div class="card-sub">COP · 3 campañas</div>
+  </div>
+  <div class="card gray">
+    <div class="card-label">Ingresos en pixel</div>
+    <div class="card-value">$0</div>
+    <div class="card-sub">Pixel no envía valores ⚠️</div>
+  </div>
+  <div class="card yellow">
+    <div class="card-label">Costo/compra real</div>
+    <div class="card-value">$23.4K</div>
+    <div class="card-sub">COP · basado en 7</div>
+  </div>
+</div>
+
+<!-- EMBUDO RMK CAVA -->
+<p class="section-title">Embudo de conversión — RMK CAVA | Ventas Web</p>
+<div class="funnel-row">
+  <div class="funnel-step">
+    <div class="f-label">Impresiones</div>
+    <div class="f-val">20,638</div>
+  </div>
+  <div class="funnel-step">
+    <div class="f-label">Clics</div>
+    <div class="f-val">955</div>
+  </div>
+  <div class="funnel-step">
+    <div class="f-label">Landing Page Views</div>
+    <div class="f-val">284</div>
+  </div>
+  <div class="funnel-step danger">
+    <div class="f-label">Initiate Checkout</div>
+    <div class="f-val">7</div>
+    <div class="f-arrow">↓ solo 2.5%</div>
+  </div>
+  <div class="funnel-step warn">
+    <div class="f-label">Compras Meta</div>
+    <div class="f-val">57 ⚠️</div>
+    <div class="f-arrow">Inflado x8</div>
+  </div>
+</div>
+
+<!-- TABLA DE CAMPAÑAS -->
+<p class="section-title">Estado de todas las campañas (30 días)</p>
+<table>
+  <thead>
+    <tr>
+      <th>Campaña</th>
+      <th>Estado</th>
+      <th>Objetivo</th>
+      <th>Gasto COP</th>
+      <th>CTR</th>
+      <th>CPC</th>
+      <th>Compras Meta</th>
+      <th>Checkouts</th>
+      <th>Diagnóstico</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>RMK CAVA | Ventas Web</strong></td>
+      <td><span class="badge badge-green">ACTIVA</span></td>
+      <td>Sales</td>
+      <td>$163,988</td>
+      <td>4.63%</td>
+      <td>$172</td>
+      <td>57 <span class="warning-tag">⚠️ inflado</span></td>
+      <td>7 ✓</td>
+      <td>View-through attribution</td>
+    </tr>
+    <tr>
+      <td><strong>AWS Visitas Perfil | Volviendo al Ser</strong></td>
+      <td><span class="badge badge-green">ACTIVA</span></td>
+      <td>Traffic</td>
+      <td>$52,830</td>
+      <td>4.55%</td>
+      <td>$106</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Solo tráfico al perfil</td>
+    </tr>
+    <tr>
+      <td><strong>NUEVOS SEGUIDORES MARIA ELENA</strong></td>
+      <td><span class="badge badge-gray">PAUSADA</span></td>
+      <td>Traffic</td>
+      <td>$554,111</td>
+      <td>5.43%</td>
+      <td>$122</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Solo engagement / followers</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- PROBLEMA DEL PIXEL -->
+<div class="alert-box" style="border-color:#ffa726; background:#1a1200;">
+  <h2 style="color:#ffa726;">⚠️ Pixel no envía valores de compra</h2>
+  <p>
+    Meta no tiene registrado ningún ingreso en <code>action_values</code>. El pixel está disparando el evento <strong>Purchase</strong>,
+    pero <strong>no está enviando el valor (precio)</strong> de la compra al momento de la conversión.<br><br>
+    Esto significa que no puedes calcular ROAS real.
+    Debes verificar en <strong>Eventos del Administrador → Actividad de eventos → Purchase</strong>
+    si el parámetro <code>value</code> llega con el monto correcto, o si llega en $0.
+  </p>
+</div>
+
+<!-- GRÁFICO GASTO -->
+<div class="chart-wrap">
+  <p class="section-title" style="margin-bottom:16px;">Distribución del gasto por campaña</p>
+  <canvas id="gastoChart" height="80"></canvas>
+</div>
+
+<!-- RECOMENDACIONES -->
+<p class="section-title">Acciones a tomar</p>
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Acción</th>
+      <th>Urgencia</th>
+      <th>Quién</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><strong>Cambiar atribución de RMK CAVA a "7-day click only"</strong> — quitar 1-day view para ver compras reales</td>
+      <td><span class="badge badge-red">ALTA</span></td>
+      <td>Fernanda en Ads Manager</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><strong>Verificar pixel Purchase + valor</strong> — ir a Meta Events Manager y confirmar que el parámetro <code>value</code> llega con precio real</td>
+      <td><span class="badge badge-red">ALTA</span></td>
+      <td>Técnico / Fernanda</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><strong>Revisar landing page</strong> — 284 views, solo 7 checkouts = 2.5% de conversión a carrito. La página de venta puede estar frenando la compra</td>
+      <td><span class="badge badge-yellow">MEDIA</span></td>
+      <td>Fernanda + equipo</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><strong>AWS Visitas Perfil ($52K gastados)</strong> — cero conversiones. Evaluar si el objetivo del tráfico al perfil justifica el gasto mientras CAVA no vende</td>
+      <td><span class="badge badge-yellow">MEDIA</span></td>
+      <td>Fernanda</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="footer">Generado por Claude · 8 junio 2026 · Maria Elena Badillo · act_1418379029648107</div>
+
+<script>
+const ctx = document.getElementById('gastoChart').getContext('2d');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['NUEVOS SEGUIDORES\n(pausada)', 'RMK CAVA\n(activa)', 'AWS Visitas Perfil\n(activa)'],
+    datasets: [{
+      label: 'Gasto COP',
+      data: [554111, 163988, 52830],
+      backgroundColor: ['#555', '#e53935', '#ffa726'],
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: (c) => ' $' + c.parsed.y.toLocaleString('es-CO') + ' COP'
+        }
+      }
+    },
+    scales: {
+      x: { ticks: { color: '#888' }, grid: { color: '#2a2a2a' } },
+      y: {
+        ticks: {
+          color: '#888',
+          callback: (v) => '$' + (v/1000).toFixed(0) + 'K'
+        },
+        grid: { color: '#2a2a2a' }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
