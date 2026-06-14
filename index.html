@@ -465,6 +465,73 @@
 
 <div class="divider"></div>
 
+<!-- ══ VSL PRINCIPAL ══ -->
+<div class="sec" style="padding:56px 20px 64px;">
+  <div style="max-width:800px;margin:0 auto;text-align:center;">
+
+    <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:18px;">
+      <div style="height:1px;flex:1;max-width:80px;background:linear-gradient(90deg,transparent,rgba(245,184,0,.35));"></div>
+      <span style="font-size:.68rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dorado);">Mira esto primero</span>
+      <div style="height:1px;flex:1;max-width:80px;background:linear-gradient(90deg,rgba(245,184,0,.35),transparent);"></div>
+    </div>
+
+    <h2 style="font-size:clamp(1.4rem,4vw,2.1rem);margin-bottom:8px;color:var(--blanco);line-height:1.25;">
+      Cómo funciona <em style="color:var(--dorado);font-style:normal;">Sistema 33</em>
+    </h2>
+    <p style="color:var(--muted);font-size:.9rem;margin-bottom:28px;">2 minutos que pueden cambiar cómo piensas en monetización digital</p>
+
+    <!-- Player VSL -->
+    <div style="position:relative;border-radius:20px;overflow:hidden;
+                box-shadow:0 30px 100px rgba(0,0,0,.7), 0 0 0 1px rgba(245,184,0,.15), 0 0 60px rgba(109,40,217,.2);
+                background:#000;aspect-ratio:16/9;">
+
+      <div id="vsl-overlay" onclick="playVSL()" style="
+        position:absolute;inset:0;z-index:2;cursor:pointer;
+        background:linear-gradient(180deg,rgba(0,0,0,.1) 0%,rgba(0,0,0,.55) 100%);
+        display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;">
+
+        <div style="
+          width:80px;height:80px;border-radius:50%;
+          background:linear-gradient(135deg,var(--dorado),#ff9900);
+          display:flex;align-items:center;justify-content:center;
+          box-shadow:0 0 50px rgba(245,184,0,.6);
+          transition:transform .2s,box-shadow .2s;"
+          onmouseover="this.style.transform='scale(1.08)';this.style.boxShadow='0 0 70px rgba(245,184,0,.8)'"
+          onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 0 50px rgba(245,184,0,.6)'">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="#0a0614">
+            <polygon points="6,3 20,12 6,21"/>
+          </svg>
+        </div>
+
+        <div style="text-align:center;">
+          <div style="color:var(--blanco);font-size:.9rem;font-weight:700;letter-spacing:.5px;">Ver el video completo</div>
+          <div style="color:rgba(255,255,255,.5);font-size:.72rem;margin-top:4px;">· 2 min · Fernanda Conde ·</div>
+        </div>
+      </div>
+
+      <video
+        id="vsl-main"
+        src="vsl_sistema33_v4.mp4"
+        playsinline
+        preload="none"
+        controls
+        style="width:100%;height:100%;display:block;object-fit:cover;">
+      </video>
+    </div>
+
+    <script>
+      function playVSL(){
+        document.getElementById('vsl-overlay').style.display='none';
+        document.getElementById('vsl-main').play();
+      }
+    </script>
+
+    <p style="color:var(--muted);font-size:.76rem;margin-top:16px;opacity:.7;">
+      Fernanda Conde · Estratega de contenido digital · @ferconde__
+    </p>
+  </div>
+</div>
+
 <!-- ══ LA HERIDA ══ -->
 <div class="sec">
   <span class="label">¿Eres tú esto?</span>
