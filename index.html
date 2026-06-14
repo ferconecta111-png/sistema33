@@ -82,9 +82,15 @@ p { color:#b0a4cc; line-height:1.85; font-size:.97rem; }
 .hero > * { position:relative; z-index:1; }
 .hero-chip { display:inline-flex; align-items:center; gap:8px; background:rgba(201,148,56,.08); border:1px solid rgba(201,148,56,.25); padding:8px 22px; border-radius:30px; font-size:.78rem; color:var(--dorado); font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:24px; }
 .hero-chip span { width:7px; height:7px; background:var(--dorado); border-radius:50%; animation:pulse 1.8s ease-in-out infinite; }
-.hero h1 {
-  font-size:clamp(3.8rem,12vw,8rem); font-weight:900; line-height:.95;
-  letter-spacing:-2px; margin-bottom:10px;
+.hero h1 { display:flex; flex-direction:column; align-items:center; gap:0; margin-bottom:10px; }
+.h1-tag {
+  font-size:clamp(.75rem,2vw,1rem); font-weight:400;
+  letter-spacing:.55em; padding-right:.55em;
+  color:var(--dorado); opacity:.8; text-transform:uppercase;
+}
+.h1-num {
+  font-size:clamp(4.8rem,13vw,8.5rem); font-weight:900;
+  letter-spacing:-3px; line-height:.88;
   background:linear-gradient(160deg,#6a4400 0%,#a87000 12%,#c99438 25%,#e8c870 38%,#ffffff 45%,#e8c870 52%,#c99438 62%,#c08000 75%,#a87000 85%,#c99438 100%);
   background-size:200% 200%;
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
@@ -274,7 +280,7 @@ footer { background:#040309; padding:24px 20px; text-align:center; color:#3a2e58
   .r1{width:300px;height:300px} .r2{width:420px;height:420px} .r4{width:220px;height:220px}
   .p-geo{width:380px;height:380px} .p-geo2{width:280px;height:280px} .p-glow{width:300px;height:180px}
   .hero { padding:48px 16px 52px; min-height:auto; }
-  .hero h1 { font-size:clamp(3rem,17vw,5rem); letter-spacing:-1px; margin-bottom:8px; }
+  .h1-num { font-size:clamp(3rem,17vw,5rem); letter-spacing:-1px; margin-bottom:8px; }
   .hero-tagline { font-size:.8rem; letter-spacing:2px; margin-bottom:18px; }
   .hero-promise { font-size:1.1rem; margin-bottom:8px; }
   .precio-box { padding:20px; width:100%; max-width:340px; }
@@ -308,7 +314,7 @@ footer { background:#040309; padding:24px 20px; text-align:center; color:#3a2e58
 }
 @media(max-width:420px){
   .ruta { grid-template-columns:1fr; }
-  .hero h1 { font-size:clamp(2.6rem,16vw,3.5rem); }
+  .h1-num { font-size:clamp(2.6rem,16vw,3.5rem); }
   .precio-sec .monto { font-size:2.8rem; }
 }
 </style>
@@ -343,10 +349,23 @@ footer { background:#040309; padding:24px 20px; text-align:center; color:#3a2e58
   </div>
 
   <div class="hero-chip"><span></span>Acompañamiento · 11 cupos · Cierra el 5 de junio</div>
-  <h1>SISTEMA 33</h1>
+  <h1><span class="h1-tag">sistema</span><span class="h1-num">33</span></h1>
   <div class="hero-tagline">Sin Jefe · Sin Permiso · Sin Límites</div>
   <p class="hero-promise">El sistema completo — contenido, automatización y pauta — <em>para vivir de lo que sabes hacer.</em></p>
   <p class="hero-nota">No es un curso. Es acompañamiento real con cupos limitados.</p>
+
+  <div style="width:100%;max-width:700px;margin:32px auto 0;">
+    <div class="vsl-player" style="margin-top:0;">
+      <div class="vsl-overlay" id="vsl-ov" onclick="playVSL()">
+        <div class="vsl-play">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#08060f"><polygon points="6,3 20,12 6,21"/></svg>
+        </div>
+        <div class="vsl-lbl">Ver el video · 2 min</div>
+      </div>
+      <video id="vsl-v" src="vsl_sistema33_v4.mp4" playsinline preload="none" controls style="width:100%;height:100%;display:block;object-fit:cover;"></video>
+    </div>
+    <p style="color:var(--muted);font-size:.7rem;margin-top:10px;text-align:center;">Fernanda Conde · @ferconde__ · Estratega de marketing digital</p>
+  </div>
 
   <div class="precio-box">
     <div class="tachado">Precio regular $297 USD</div>
@@ -366,24 +385,6 @@ footer { background:#040309; padding:24px 20px; text-align:center; color:#3a2e58
   </div>
 </div>
 
-<div class="divider"></div>
-
-<!-- VSL -->
-<div class="sec">
-  <span class="label">Mira esto primero</span>
-  <h2>Fernanda te explica el sistema <em>en 2 minutos</em></h2>
-  <p>Antes de decidir, escucha cómo funciona y si esto es para ti.</p>
-  <div class="vsl-player">
-    <div class="vsl-overlay" id="vsl-ov" onclick="playVSL()">
-      <div class="vsl-play">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="#08060f"><polygon points="6,3 20,12 6,21"/></svg>
-      </div>
-      <div class="vsl-lbl">Ver el video · 2 min</div>
-    </div>
-    <video id="vsl-v" src="vsl_sistema33_v4.mp4" playsinline preload="none" controls style="width:100%;height:100%;display:block;object-fit:cover;"></video>
-  </div>
-  <p style="color:var(--muted);font-size:.7rem;margin-top:14px;text-align:center;">Fernanda Conde · @ferconde__ · Estratega de marketing digital</p>
-</div>
 <script>function playVSL(){ document.getElementById('vsl-ov').style.display='none'; document.getElementById('vsl-v').play(); }</script>
 
 <div class="divider"></div>
