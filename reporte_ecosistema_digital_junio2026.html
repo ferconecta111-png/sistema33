@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard — María Elena Badillo</title>
+<style>
+:root{
+  --crema:#fdf6ee;
+  --dorado:#c9a84c;
+  --dorado2:#e8c87a;
+  --vino:#6b2737;
+  --vino2:#8b3a4e;
+  --verde:#3a7d5e;
+  --verde2:#4caf80;
+  --rojo:#c0392b;
+  --rojo2:#e74c3c;
+  --oscuro:#1a0a0f;
+  --gris:#5a4a52;
+  --gris2:#8a7a82;
+  --blanco:#fff;
+  --fondo:#f5ede5;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--fondo);color:var(--oscuro);min-height:100vh}
+.header{background:linear-gradient(135deg,var(--vino) 0%,#3d0f1a 60%,#1a0a0f 100%);padding:32px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid var(--dorado)}
+.header-left h1{font-size:1.6rem;font-weight:300;color:var(--crema);letter-spacing:2px;text-transform:uppercase}
+.header-left h1 strong{font-weight:700;color:var(--dorado)}
+.header-left p{color:var(--dorado2);font-size:.8rem;letter-spacing:1px;margin-top:4px}
+.header-right{text-align:right}
+.header-right .fecha{color:rgba(255,255,255,.5);font-size:.75rem;letter-spacing:1px}
+.header-right .account{color:var(--dorado);font-size:.8rem;margin-top:4px;font-weight:600}
+.tabs{display:flex;background:var(--vino);border-bottom:2px solid var(--dorado);overflow-x:auto}
+.tab{padding:14px 28px;font-size:.82rem;font-weight:600;letter-spacing:.5px;color:rgba(255,255,255,.5);cursor:pointer;text-transform:uppercase;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap}
+.tab.active,.tab:hover{color:var(--dorado);border-bottom-color:var(--dorado);background:rgba(201,168,76,.08)}
+.main{padding:32px 40px;max-width:1400px;margin:0 auto}
+.section{margin-bottom:40px}
+.section-title{font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gris2);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(107,39,55,.3),transparent)}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:32px}
+.kpi{background:var(--blanco);border-radius:12px;padding:20px 22px;border:1px solid rgba(201,168,76,.15);box-shadow:0 2px 12px rgba(107,39,55,.06);position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kpi.gold::before{background:linear-gradient(90deg,var(--dorado),var(--dorado2))}
+.kpi.verde::before{background:linear-gradient(90deg,var(--verde),var(--verde2))}
+.kpi.vino::before{background:linear-gradient(90deg,var(--vino),var(--vino2))}
+.kpi-label{font-size:.7rem;color:var(--gris2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.kpi-val{font-size:2rem;font-weight:700;line-height:1;color:var(--oscuro)}
+.kpi-val.big{font-size:2.4rem}
+.kpi-sub{font-size:.72rem;color:var(--gris2);margin-top:4px}
+.kpi-badge{display:inline-block;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:6px}
+.badge-green{background:#d4edda;color:#155724}
+.badge-red{background:#f8d7da;color:#721c24}
+.badge-yellow{background:#fff3cd;color:#856404}
+.camp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:20px}
+.camp-card{background:var(--blanco);border-radius:14px;padding:24px;border:1px solid rgba(201,168,76,.12);box-shadow:0 2px 16px rgba(107,39,55,.07)}
+.camp-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px}
+.camp-name{font-size:.9rem;font-weight:700;color:var(--oscuro);line-height:1.3;max-width:200px}
+.camp-status{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:700;padding:4px 10px;border-radius:20px}
+.status-active{background:#d4edda;color:#155724}
+.status-paused{background:#fff3cd;color:#856404}
+.camp-obj{font-size:.68rem;color:var(--gris2);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+.camp-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.metric{background:var(--fondo);border-radius:8px;padding:10px;text-align:center}
+.metric-val{font-size:1.2rem;font-weight:700;color:var(--oscuro)}
+.metric-lbl{font-size:.62rem;color:var(--gris2);text-transform:uppercase;margin-top:2px}
+.camp-footer{margin-top:14px;padding-top:14px;border-top:1px solid rgba(107,39,55,.08);display:flex;justify-content:space-between;align-items:center}
+.spend-label{font-size:.7rem;color:var(--gris2)}
+.spend-val{font-size:1.1rem;font-weight:700;color:var(--vino)}
+.cpa-box{text-align:right}
+.cpa-label{font-size:.65rem;color:var(--gris2)}
+.cpa-val{font-size:1rem;font-weight:700;color:var(--verde)}
+.freq-warning{display:flex;align-items:center;gap:6px;background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:8px 12px;margin-top:12px;font-size:.72rem;color:#856404}
+.alerts{display:flex;flex-direction:column;gap:12px}
+.alert{border-radius:12px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
+.alert-pos{background:#f0faf5;border:1px solid #a3d9b6;border-left:4px solid var(--verde)}
+.alert-neg{background:#fff5f5;border:1px solid #f5c0c0;border-left:4px solid var(--rojo)}
+.alert-warn{background:#fffbf0;border:1px solid #f5dfa0;border-left:4px solid #e0a020}
+.alert-icon{font-size:1.4rem;line-height:1;flex-shrink:0}
+.alert-body h4{font-size:.85rem;font-weight:700;margin-bottom:4px}
+.alert-body p{font-size:.78rem;color:var(--gris);line-height:1.5}
+.alert-body .solucion{margin-top:8px;font-size:.75rem;background:rgba(0,0,0,.04);border-radius:6px;padding:6px 10px;color:var(--oscuro)}
+.alert-body .solucion strong{color:var(--verde)}
+.tabla{width:100%;border-collapse:collapse;background:var(--blanco);border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(107,39,55,.06)}
+.tabla th{background:var(--vino);color:var(--crema);font-size:.7rem;letter-spacing:1px;text-transform:uppercase;padding:12px 16px;text-align:left;font-weight:600}
+.tabla td{padding:12px 16px;font-size:.82rem;border-bottom:1px solid rgba(107,39,55,.07)}
+.tabla tr:last-child td{border-bottom:none}
+.tabla tr:hover td{background:rgba(201,168,76,.04)}
+.verde-text{color:var(--verde);font-weight:700}
+.rojo-text{color:var(--rojo);font-weight:700}
+.pendientes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.pend{background:var(--blanco);border-radius:10px;padding:14px 16px;display:flex;gap:12px;align-items:center;border:1px solid rgba(107,39,55,.1)}
+.pend-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;background:#f8f0f3}
+.pend-text h5{font-size:.8rem;font-weight:700;margin-bottom:2px}
+.pend-text p{font-size:.7rem;color:var(--gris2);line-height:1.4}
+.page-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.page-card{background:var(--blanco);border-radius:12px;padding:20px;border:1px solid rgba(201,168,76,.12);text-align:center;box-shadow:0 2px 12px rgba(107,39,55,.06)}
+.page-card .platform{font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--gris2);margin-bottom:8px}
+.page-card .big-num{font-size:2.2rem;font-weight:700;color:var(--oscuro)}
+.page-card .sub{font-size:.72rem;color:var(--gris2);margin-top:4px}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.footer{text-align:center;padding:24px;color:var(--gris2);font-size:.72rem;border-top:1px solid rgba(107,39,55,.1);margin-top:20px}
+@media(max-width:768px){.main{padding:16px}.header{padding:20px 16px;flex-direction:column;gap:12px}.kpi-grid{grid-template-columns:repeat(2,1fr)}.camp-metrics{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1><strong>María Elena Badillo</strong> — Ecosistema Digital</h1>
+    <p>Dashboard de Campañas · Rendimiento · Incidencias · Acciones</p>
+  </div>
+  <div class="header-right">
+    <div class="fecha">Período: May 16 — Jun 15, 2026</div>
+    <div class="account">act_1418379029648107 · COP</div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab('resumen',this)">Resumen General</div>
+  <div class="tab" onclick="showTab('campanas',this)">Campañas</div>
+  <div class="tab" onclick="showTab('incidencias',this)">Incidencias</div>
+  <div class="tab" onclick="showTab('pendientes',this)">Pendientes</div>
+</div>
+
+<div class="main">
+
+<!-- TAB RESUMEN -->
+<div class="tab-content active" id="tab-resumen">
+  <div class="section">
+    <div class="section-title">Comunidad & Plataformas</div>
+    <div class="page-grid">
+      <div class="page-card">
+        <div class="platform">📘 Facebook Page</div>
+        <div class="big-num">120,025</div>
+        <div class="sub">Seguidores totales</div>
+        <span class="kpi-badge badge-green">Activa ✓</span>
+      </div>
+      <div class="page-card">
+        <div class="platform">📸 Instagram</div>
+        <div class="big-num">—</div>
+        <div class="sub">Ver en Meta Business Suite</div>
+        <span class="kpi-badge badge-yellow">Token de página requerido</span>
+      </div>
+      <div class="page-card">
+        <div class="platform">🎵 TikTok</div>
+        <div class="big-num">—</div>
+        <div class="sub">No integrado aún</div>
+        <span class="kpi-badge badge-yellow">Pendiente conectar</span>
+      </div>
+      <div class="page-card">
+        <div class="platform">💰 Gasto Total Cuenta</div>
+        <div class="big-num" style="font-size:1.5rem">$7,047,824</div>
+        <div class="sub">COP desde inicio de cuenta</div>
+        <span class="kpi-badge badge-green">Cuenta activa ✓</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">KPIs Últimos 30 Días — Campañas Activas</div>
+    <div class="kpi-grid">
+      <div class="kpi gold">
+        <div class="kpi-label">Gasto Total 30d</div>
+        <div class="kpi-val">$686K</div>
+        <div class="kpi-sub">COP — 3 campañas activas</div>
+      </div>
+      <div class="kpi verde">
+        <div class="kpi-label">Compras Registradas</div>
+        <div class="kpi-val big">57</div>
+        <div class="kpi-sub">RMK Ventas Web (CAVA)</div>
+        <span class="kpi-badge badge-green">Pixel activo ✓</span>
+      </div>
+      <div class="kpi verde">
+        <div class="kpi-label">Costo por Compra</div>
+        <div class="kpi-val">$7,038</div>
+        <div class="kpi-sub">COP — ticket $119 USD (~$490K COP)</div>
+        <span class="kpi-badge badge-green">ROAS ~69x 🔥</span>
+      </div>
+      <div class="kpi gold">
+        <div class="kpi-label">Alcance Total</div>
+        <div class="kpi-val">22,330</div>
+        <div class="kpi-sub">Personas únicas alcanzadas</div>
+      </div>
+      <div class="kpi gold">
+        <div class="kpi-label">Impresiones Totales</div>
+        <div class="kpi-val">63,272</div>
+        <div class="kpi-sub">3 campañas combinadas</div>
+      </div>
+      <div class="kpi gold">
+        <div class="kpi-label">CTR Promedio</div>
+        <div class="kpi-val">4.6%</div>
+        <div class="kpi-sub">Benchmark industria: 1–2%</div>
+        <span class="kpi-badge badge-green">Muy por encima ✓</span>
+      </div>
+      <div class="kpi gold">
+        <div class="kpi-label">Initiate Checkout</div>
+        <div class="kpi-val">39</div>
+        <div class="kpi-sub">Personas en proceso de compra</div>
+      </div>
+      <div class="kpi vino">
+        <div class="kpi-label">Conversaciones WhatsApp</div>
+        <div class="kpi-val">59</div>
+        <div class="kpi-sub">Iniciadas — sin ManyChat activo</div>
+        <span class="kpi-badge badge-yellow">Potencial sin aprovechar</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROAS COMERCIAL -->
+  <div class="section">
+    <div class="section-title">Resultados Comerciales Reales — 58 Cierres CAVA · Junio 2026</div>
+    <!-- FÓRMULA ROAS -->
+    <div style="background:var(--blanco);border-radius:12px;padding:18px 24px;margin-bottom:16px;border:1px solid rgba(201,168,76,.3);display:flex;flex-wrap:wrap;align-items:center;gap:12px;font-size:.82rem">
+      <span style="color:var(--gris2);font-size:.68rem;text-transform:uppercase;letter-spacing:1px;font-weight:700">Fórmula ROAS</span>
+      <span style="background:var(--fondo);border-radius:8px;padding:6px 14px;font-weight:700;color:var(--oscuro)">Ingresos Totales</span>
+      <span style="color:var(--dorado);font-size:1.2rem;font-weight:700">÷</span>
+      <span style="background:var(--fondo);border-radius:8px;padding:6px 14px;font-weight:700;color:var(--oscuro)">Inversión Publicitaria</span>
+      <span style="color:var(--dorado);font-size:1.2rem;font-weight:700">=</span>
+      <span style="background:var(--vino);border-radius:8px;padding:6px 14px;font-weight:900;color:var(--dorado);font-size:1rem">ROAS</span>
+      <span style="margin-left:8px;color:var(--gris2);font-size:.75rem">→</span>
+      <span style="font-weight:700;color:var(--oscuro)">$28,988,400 COP</span>
+      <span style="color:var(--dorado);font-size:1.2rem;font-weight:700">÷</span>
+      <span style="font-weight:700;color:var(--oscuro)">$668,000 COP</span>
+      <span style="color:var(--dorado);font-size:1.2rem;font-weight:700">=</span>
+      <span style="font-weight:900;color:var(--verde);font-size:1.3rem">43.4x</span>
+      <span style="margin-left:auto;font-size:.68rem;color:var(--gris2);background:var(--fondo);padding:4px 10px;border-radius:20px">58 cierres CAVA · junio 2026 · inversión 30d</span>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#3d0f1a 0%,#6b2737 100%);border-radius:16px;padding:28px 32px;margin-bottom:20px;border:1px solid var(--dorado)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:20px">
+        <div style="text-align:center">
+          <div style="font-size:.65rem;color:var(--dorado2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Inscritos Reales</div>
+          <div style="font-size:3rem;font-weight:900;color:var(--dorado);line-height:1">58</div>
+          <div style="font-size:.68rem;color:rgba(255,255,255,.5);margin-top:4px">cierres reales junio</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:.65rem;color:var(--dorado2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Revenue Total</div>
+          <div style="font-size:1.9rem;font-weight:900;color:#fff;line-height:1">$6,902</div>
+          <div style="font-size:.68rem;color:rgba(255,255,255,.5);margin-top:4px">USD · $28,988,400 COP</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:.65rem;color:var(--dorado2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">ROAS 30 Días</div>
+          <div style="font-size:3rem;font-weight:900;color:var(--dorado);line-height:1">43.4x</div>
+          <div style="font-size:.68rem;color:rgba(255,255,255,.5);margin-top:4px">sobre $668,000 COP invertidos</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:.65rem;color:var(--dorado2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">ROI</div>
+          <div style="font-size:2.4rem;font-weight:900;color:#4caf80;line-height:1">4,240%</div>
+          <div style="font-size:.68rem;color:rgba(255,255,255,.5);margin-top:4px">retorno sobre inversión</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:.65rem;color:var(--dorado2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">CPA Real</div>
+          <div style="font-size:2rem;font-weight:900;color:#fff;line-height:1">$11,517</div>
+          <div style="font-size:.68rem;color:rgba(255,255,255,.5);margin-top:4px">COP por cierre ($2.74 USD)</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:.65rem;color:var(--dorado2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">CVR Clicks→Venta</div>
+          <div style="font-size:2rem;font-weight:900;color:#fff;line-height:1">1.77%</div>
+          <div style="font-size:.68rem;color:rgba(255,255,255,.5);margin-top:4px">58 de 3,277 clicks</div>
+        </div>
+      </div>
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(201,168,76,.25);display:flex;flex-wrap:wrap;gap:12px;justify-content:center;font-size:.72rem;color:rgba(255,255,255,.6)">
+        <span>📦 Precio CAVA: $119 USD/inscrito</span>
+        <span>·</span>
+        <span>💱 TRM estimada: $4,200 COP/USD</span>
+        <span>·</span>
+        <span>🎯 Inversión junio: $668,000 COP (~$159 USD)</span>
+        <span>·</span>
+        <span>⚠️ Pixel subreporta: 1 venta no atribuida vs admin</span>
+      </div>
+    </div>
+
+    <!-- Comparación pixel vs real -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:var(--blanco);border-radius:12px;padding:18px;border:1px solid rgba(201,168,76,.15)">
+        <div style="font-size:.68rem;color:var(--gris2);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">📊 Lo que reporta Meta (pixel)</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:.78rem">Compras registradas</span><strong>57</strong></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:.78rem">CPA según pixel</span><strong>$12,040 COP</strong></div>
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:.78rem">ROAS según pixel</span><strong style="color:var(--verde)">~69x</strong></div>
+        <div style="margin-top:10px;font-size:.68rem;color:var(--rojo);background:#fff5f5;padding:6px 10px;border-radius:6px">⚠️ Subestima en 18 ventas no atribuidas</div>
+      </div>
+      <div style="background:var(--blanco);border-radius:12px;padding:18px;border:2px solid var(--dorado)">
+        <div style="font-size:.68rem;color:var(--gris2);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">✅ Realidad confirmada (admin)</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:.78rem">Cierres reales</span><strong style="color:var(--verde)">58</strong></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:.78rem">CPA real</span><strong style="color:var(--verde)">$11,517 COP</strong></div>
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:.78rem">ROAS real</span><strong style="color:var(--verde)">43.4x</strong></div>
+        <div style="margin-top:10px;font-size:.68rem;color:var(--verde);background:#f0faf5;padding:6px 10px;border-radius:6px">✓ Fuente: registros de WooCommerce / admin</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Lo Positivo ✅</div>
+    <div class="alerts">
+      <div class="alert alert-pos">
+        <div class="alert-icon">🏆</div>
+        <div class="alert-body">
+          <h4>57 compras de CAVA — ROAS de ~69x extraordinario</h4>
+          <p>RMK Ventas Web logró 57 compras en 30 días con costo de solo $7,038 COP por compra. El ticket es $119 USD (~$490,000 COP). Retorno ~69x sobre la inversión. Una de las métricas más sólidas posibles en Meta Ads.</p>
+        </div>
+      </div>
+      <div class="alert alert-pos">
+        <div class="alert-icon">📈</div>
+        <div class="alert-body">
+          <h4>CTR del 5.6% — muy por encima del benchmark</h4>
+          <p>El promedio de la industria en Meta Ads para servicios digitales es 1–2%. La campaña principal tiene 5.63%, indicando que el creative y la audiencia están perfectamente alineados.</p>
+        </div>
+      </div>
+      <div class="alert alert-pos">
+        <div class="alert-icon">👥</div>
+        <div class="alert-body">
+          <h4>120,025 seguidores en Facebook — comunidad sólida</h4>
+          <p>Base de retargeting muy valiosa y audiencia orgánica consolidada que reduce el costo de adquisición de las campañas pagadas.</p>
+        </div>
+      </div>
+      <div class="alert alert-pos">
+        <div class="alert-icon">⚡</div>
+        <div class="alert-body">
+          <h4>Pixel activo registrando compras con valor real</h4>
+          <p>Pixel 869224069161784 via GTM reporta PageView, ViewContent y Purchase con valor monetario desde woocommerce_thankyou hook. La infraestructura de medición funciona.</p>
+        </div>
+      </div>
+      <div class="alert alert-pos">
+        <div class="alert-icon">🎯</div>
+        <div class="alert-body">
+          <h4>11 públicos de remarketing construidos — lista para escalar</h4>
+          <p>Arquitectura completa: web 30/60d, checkout sin compra, compradores 180d, Facebook e Instagram 30/60/180d. Base para escalar campañas de forma inteligente.</p>
+        </div>
+      </div>
+      <div class="alert alert-pos">
+        <div class="alert-icon">🤖</div>
+        <div class="alert-body">
+          <h4>Bot ClaudePM activo 24/7 en Slack del equipo</h4>
+          <p>Sistema de IA corriendo en Railway asistiendo al equipo del Centro de Bienestar en tiempo real. Canales activos: estrategia, campañas, diseño, copy, video, ventas, terapeutas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB CAMPAÑAS -->
+<div class="tab-content" id="tab-campanas">
+  <div class="section">
+    <div class="section-title">Campañas Activas — Últimos 30 Días</div>
+    <div class="camp-grid">
+
+      <div class="camp-card">
+        <div class="camp-header">
+          <div>
+            <div class="camp-name">RMK CAVA | Ventas Web</div>
+            <div class="camp-obj">🎯 Objetivo: Conversiones</div>
+          </div>
+          <span class="camp-status status-active">● ACTIVA</span>
+        </div>
+        <div class="camp-metrics">
+          <div class="metric"><div class="metric-val">42,150</div><div class="metric-lbl">Impresiones</div></div>
+          <div class="metric"><div class="metric-val">8,525</div><div class="metric-lbl">Alcance</div></div>
+          <div class="metric"><div class="metric-val verde-text">57</div><div class="metric-lbl">Compras</div></div>
+          <div class="metric"><div class="metric-val">5.63%</div><div class="metric-lbl">CTR</div></div>
+          <div class="metric"><div class="metric-val">$169</div><div class="metric-lbl">CPC COP</div></div>
+          <div class="metric"><div class="metric-val verde-text">$7,038</div><div class="metric-lbl">CPA COP</div></div>
+        </div>
+        <div class="camp-footer">
+          <div><div class="spend-label">Gasto 30d</div><div class="spend-val">$401,187 COP</div></div>
+          <div class="cpa-box"><div class="cpa-label">ROAS estimado</div><div class="cpa-val">~69x 🔥</div></div>
+        </div>
+        <div class="freq-warning" style="background:#fde8e8;border-color:#e74c3c;color:#721c24">
+          ⚠️ Frecuencia 4.94 — Alta. Renovar creativos urgente.
+        </div>
+      </div>
+
+      <div class="camp-card">
+        <div class="camp-header">
+          <div>
+            <div class="camp-name">AWS CAVA | Visitas Perfil | CO-US-ES-IT-PA</div>
+            <div class="camp-obj">🌐 Objetivo: Tráfico / Awareness</div>
+          </div>
+          <span class="camp-status status-active">● ACTIVA</span>
+        </div>
+        <div class="camp-metrics">
+          <div class="metric"><div class="metric-val">13,615</div><div class="metric-lbl">Impresiones</div></div>
+          <div class="metric"><div class="metric-val">9,719</div><div class="metric-lbl">Alcance</div></div>
+          <div class="metric"><div class="metric-val">255</div><div class="metric-lbl">Visitas LP</div></div>
+          <div class="metric"><div class="metric-val">4.64%</div><div class="metric-lbl">CTR</div></div>
+          <div class="metric"><div class="metric-val">$259</div><div class="metric-lbl">CPC COP</div></div>
+          <div class="metric"><div class="metric-val">$641</div><div class="metric-lbl">Costo/Visita</div></div>
+        </div>
+        <div class="camp-footer">
+          <div><div class="spend-label">Gasto 30d</div><div class="spend-val">$163,557 COP</div></div>
+          <div class="cpa-box"><div class="cpa-label">Video views</div><div class="cpa-val">5,285 👁️</div></div>
+        </div>
+      </div>
+
+      <div class="camp-card">
+        <div class="camp-header">
+          <div>
+            <div class="camp-name">RMK CAVA | Ventas WhatsApp - Copia</div>
+            <div class="camp-obj">💬 Objetivo: Mensajes WhatsApp</div>
+          </div>
+          <span class="camp-status status-active">● ACTIVA</span>
+        </div>
+        <div class="camp-metrics">
+          <div class="metric"><div class="metric-val">7,507</div><div class="metric-lbl">Impresiones</div></div>
+          <div class="metric"><div class="metric-val">4,086</div><div class="metric-lbl">Alcance</div></div>
+          <div class="metric"><div class="metric-val">59</div><div class="metric-lbl">Convs. WA</div></div>
+          <div class="metric"><div class="metric-val">3.64%</div><div class="metric-lbl">CTR</div></div>
+          <div class="metric"><div class="metric-val">$445</div><div class="metric-lbl">CPC COP</div></div>
+          <div class="metric"><div class="metric-val rojo-text">3</div><div class="metric-lbl">Checkouts</div></div>
+        </div>
+        <div class="camp-footer">
+          <div><div class="spend-label">Gasto 30d</div><div class="spend-val">$121,533 COP</div></div>
+          <div class="cpa-box"><div class="cpa-label">Primeras respuestas</div><div class="cpa-val">55 💬</div></div>
+        </div>
+        <div class="freq-warning" style="background:#fde8e8;border-color:#e74c3c;color:#721c24">
+          ⚠️ 59 conversaciones → solo 3 checkouts (5%). ManyChat no activo.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Campañas Pausadas — Historial</div>
+    <table class="tabla">
+      <thead><tr><th>Campaña</th><th>Objetivo</th><th>Estado</th><th>Inicio</th></tr></thead>
+      <tbody>
+        <tr><td>RMK CAVA | Ventas WhatsApp (original)</td><td>Ventas</td><td><span class="kpi-badge badge-yellow">PAUSADA</span></td><td>9 jun 2026</td></tr>
+        <tr><td>NUEVOS SEGUIDORES MARIA ELENA</td><td>Tráfico</td><td><span class="kpi-badge badge-yellow">PAUSADA</span></td><td>19 abr 2026</td></tr>
+        <tr><td>whatsapp terapias</td><td>Ventas</td><td><span class="kpi-badge badge-yellow">PAUSADA</span></td><td>15 abr 2026</td></tr>
+        <tr><td>terapias remarketing</td><td>Ventas</td><td><span class="kpi-badge badge-yellow">PAUSADA</span></td><td>14 abr 2026</td></tr>
+        <tr><td>Terapias</td><td>Ventas</td><td><span class="kpi-badge badge-yellow">PAUSADA</span></td><td>17 mar 2026</td></tr>
+        <tr><td>mensajes a whatsapp / RMK CTCTC</td><td>Ventas</td><td><span class="kpi-badge badge-yellow">PAUSADA</span></td><td>feb–mar 2026</td></tr>
+        <tr><td>SPM España (sitio web, WA, IG)</td><td>Ventas</td><td><span class="kpi-badge badge-yellow">PAUSADA</span></td><td>ene 2026</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TAB INCIDENCIAS -->
+<div class="tab-content" id="tab-incidencias">
+  <div class="section">
+    <div class="section-title">Problemas Detectados & Soluciones</div>
+    <div class="alerts">
+
+      <div class="alert alert-neg">
+        <div class="alert-icon">🔄</div>
+        <div class="alert-body">
+          <h4>Frecuencia 4.94 — Fatiga creativa inminente en RMK Ventas Web</h4>
+          <p>La misma persona ve el anuncio casi 5 veces. Benchmark recomendado para remarketing: máximo 3.0. Por encima de eso el CPM sube, la audiencia oculta el anuncio y el CPA empeora.</p>
+          <div class="solucion">💡 <strong>Solución:</strong> Crear nuevo reel o imagen de CAVA esta semana. Rotar mínimo 3 creativos diferentes. Considerar ampliar la audiencia de remarketing a 60–90 días para bajar frecuencia.</div>
+        </div>
+      </div>
+
+      <div class="alert alert-warn">
+        <div class="alert-icon">📉</div>
+        <div class="alert-body">
+          <h4>Pixel subreporta ventas — 57 Meta vs 75 reales (18 ventas sin atribuir)</h4>
+          <p>Los registros de admin confirman 75 inscritos. El pixel solo registró 57 compras. Hay 18 ventas (24% del total) que no fueron atribuidas a las campañas. Esto significa el ROAS real es <strong>43.4x</strong>, no el 69x que reporta Meta. Las causas más comunes: conversiones via WhatsApp, compras directas, o ventana de atribución vencida.</p>
+          <div class="solucion">💡 <strong>Solución:</strong> Implementar <code>event_id</code> en GTM para deduplicación y mejorar cobertura del pixel. Activar la API de conversiones (CAPI) del servidor para capturar ventas que el pixel del navegador pierde. Esto subirá el ROAS reportado en Meta y mejorará la optimización de las campañas.</div>
+        </div>
+      </div>
+
+      <div class="alert alert-neg">
+        <div class="alert-icon">💬</div>
+        <div class="alert-body">
+          <h4>WhatsApp: 59 conversaciones — solo 3 checkouts (5% conversión)</h4>
+          <p>La campaña genera conversaciones pero sin ManyChat activo no hay seguimiento automatizado. Las personas llegan y se pierden sin secuencia de nutrición.</p>
+          <div class="solucion">💡 <strong>Solución:</strong> Activar ManyChat con los 3 mensajes ya redactados para Volviendo al Ser (0h / 24h / 48h). Los mensajes están aprobados, solo falta cargarlos.</div>
+        </div>
+      </div>
+
+      <div class="alert alert-warn">
+        <div class="alert-icon">📋</div>
+        <div class="alert-body">
+          <h4>Campaña duplicada: WhatsApp original PAUSADA + copia ACTIVA</h4>
+          <p>Existe la original (ID 120248987648720732, pausada) y una copia activa (ID 120249063179530732). Genera confusión en reportes y en la lectura del presupuesto.</p>
+          <div class="solucion">💡 <strong>Solución:</strong> Confirmar cuál mantener activa. Archivar o eliminar la original pausada para mantener el account limpio.</div>
+        </div>
+      </div>
+
+      <div class="alert alert-warn">
+        <div class="alert-icon">🔗</div>
+        <div class="alert-body">
+          <h4>ManyChat no configurado — secuencia lista pero sin activar</h4>
+          <p>Los 3 mensajes de nutrición para Volviendo al Ser (Mensajes 1, 2 y 3) están redactados y aprobados pero no han sido cargados en ManyChat. El tráfico de awareness llega a un vacío.</p>
+          <div class="solucion">💡 <strong>Solución:</strong> Sesión de 1–2 horas para configurar ManyChat. Todo el copy está listo para copiar y pegar.</div>
+        </div>
+      </div>
+
+      <div class="alert alert-warn">
+        <div class="alert-icon">💰</div>
+        <div class="alert-body">
+          <h4>Campañas de remarketing por $1,300,000 COP sin crear</h4>
+          <p>Se definió el presupuesto (RMK CAVA $1,040K + Visitas Perfil $260K) y los 11 públicos ya están creados, pero las campañas no se han lanzado.</p>
+          <div class="solucion">💡 <strong>Solución:</strong> Crear ambas campañas en Meta Ads usando los públicos ya disponibles. Creative de CAVA (DUq2OG_kc7Z) existe. Necesario 2do reel para A/B test.</div>
+        </div>
+      </div>
+
+      <div class="alert alert-warn">
+        <div class="alert-icon">📅</div>
+        <div class="alert-body">
+          <h4>Calendarios de terapeutas no conectados a Slack</h4>
+          <p>Canal #terapeutas activo pero los calendarios de las 4 terapeutas no están sincronizados automáticamente. La gestión de citas sigue siendo manual.</p>
+          <div class="solucion">💡 <strong>Solución:</strong> Integrar Google Calendar o Calendly de cada terapeuta via Zapier o Make → notificaciones automáticas al canal de Slack.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- TAB PENDIENTES -->
+<div class="tab-content" id="tab-pendientes">
+  <div class="section">
+    <div class="section-title">Acciones Prioritarias</div>
+    <div class="pendientes">
+      <div class="pend"><div class="pend-icon">🔴</div><div class="pend-text"><h5>Renovar creativos RMK Ventas Web</h5><p>Frecuencia 4.94. Nuevo reel o imagen urgente antes de que suba el CPA.</p></div></div>
+      <div class="pend"><div class="pend-icon">🔴</div><div class="pend-text"><h5>Verificar anomalía pixel 3 junio</h5><p>Cruzar 57 compras Meta vs pedidos reales WooCommerce. Implementar event_id si hay duplicados.</p></div></div>
+      <div class="pend"><div class="pend-icon">🔴</div><div class="pend-text"><h5>Activar ManyChat — secuencia lista</h5><p>3 mensajes aprobados para Volviendo al Ser. Solo falta cargarlos en la plataforma.</p></div></div>
+      <div class="pend"><div class="pend-icon">🟡</div><div class="pend-text"><h5>Crear campañas RMK $1,300,000 COP</h5><p>RMK CAVA $1,040K + Visitas Perfil $260K. Públicos ya listos.</p></div></div>
+      <div class="pend"><div class="pend-icon">🟡</div><div class="pend-text"><h5>Segundo reel de CAVA para RMK</h5><p>Solo existe DUq2OG_kc7Z. Necesario 2do creative para A/B test y bajar frecuencia.</p></div></div>
+      <div class="pend"><div class="pend-icon">🟡</div><div class="pend-text"><h5>Archivar campaña WhatsApp original duplicada</h5><p>Dejar solo la copia activa. Limpiar account para claridad en reportes.</p></div></div>
+      <div class="pend"><div class="pend-icon">🟡</div><div class="pend-text"><h5>Conectar calendarios terapeutas → Slack</h5><p>4 terapeutas. Integrar via Zapier/Make con canal #terapeutas.</p></div></div>
+      <div class="pend"><div class="pend-icon">🟡</div><div class="pend-text"><h5>Conectar Trello → Slack</h5><p>Notificaciones automáticas de tareas al workspace del equipo.</p></div></div>
+      <div class="pend"><div class="pend-icon">🟢</div><div class="pend-text"><h5>Pixel instalado ✓</h5><p>PageView + ViewContent + Purchase con valor real. GTM activo y funcionando.</p></div></div>
+      <div class="pend"><div class="pend-icon">🟢</div><div class="pend-text"><h5>11 públicos de remarketing creados ✓</h5><p>Web 30/60d, CAVA, checkout, compradores 180d, FB e IG 30/60/180d.</p></div></div>
+      <div class="pend"><div class="pend-icon">🟢</div><div class="pend-text"><h5>Bot ClaudePM corriendo en Railway ✓</h5><p>24/7 activo en el Slack del Centro de Bienestar.</p></div></div>
+      <div class="pend"><div class="pend-icon">🟢</div><div class="pend-text"><h5>Mensajes ManyChat redactados ✓</h5><p>3 mensajes (0h/24h/48h) para Volviendo al Ser — aprobados y listos.</p></div></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  Dashboard generado automáticamente · María Elena Badillo — Centro de Bienestar · Datos: Meta Ads API v20.0 · Junio 2026
+</div>
+
+<script>
+function showTab(id, el){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>
