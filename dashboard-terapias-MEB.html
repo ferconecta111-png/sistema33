@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estrategia de Pauta — Terapias MEB</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', sans-serif; background: #f5f0fa; color: #2d1b4e; }
+
+  .header {
+    background: linear-gradient(135deg, #4a1b8a, #8b3fc8, #c068e8);
+    color: white; padding: 40px; text-align: center;
+  }
+  .header h1 { font-size: 28px; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; }
+  .header h2 { font-size: 16px; font-weight: 300; opacity: 0.85; margin-top: 8px; }
+  .header .badge {
+    display: inline-block; background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 4px 16px; border-radius: 20px; font-size: 12px;
+    margin-top: 12px; letter-spacing: 1px;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
+
+  .section-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: #8b3fc8;
+    border-left: 3px solid #8b3fc8; padding-left: 12px;
+    margin-bottom: 20px; margin-top: 40px;
+  }
+
+  .card {
+    background: white; border-radius: 16px;
+    padding: 24px; box-shadow: 0 2px 16px rgba(74,27,138,0.08);
+    margin-bottom: 16px;
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+  /* TERAPEUTAS */
+  .terapeuta-card { border-radius: 12px; padding: 20px; text-align: center; }
+  .terapeuta-card.fr { background: linear-gradient(135deg, #f3e5f5, #fce4ff); border: 1px solid #e040fb33; }
+  .terapeuta-card.el { background: linear-gradient(135deg, #e3f2fd, #bbdefb); border: 1px solid #2196f333; }
+  .terapeuta-card.no { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border: 1px solid #4caf5033; }
+  .terapeuta-card.ad { background: linear-gradient(135deg, #fff3e0, #ffe0b2); border: 1px solid #ff980033; }
+  .terapeuta-card .nombre { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .terapeuta-card .especialidad { font-size: 12px; color: #666; margin-bottom: 12px; }
+  .terapeuta-card .tema-hook { font-size: 12px; font-style: italic; color: #555; line-height: 1.5; }
+
+  /* PROPUESTAS */
+  .propuesta-card {
+    background: white; border-radius: 16px;
+    box-shadow: 0 2px 20px rgba(74,27,138,0.1);
+    margin-bottom: 24px; overflow: hidden;
+  }
+  .propuesta-header {
+    padding: 20px 28px; display: flex; align-items: center; gap: 16px;
+  }
+  .propuesta-header.p1 { background: linear-gradient(135deg, #4a1b8a, #7b2fbe); color: white; }
+  .propuesta-header.p2 { background: linear-gradient(135deg, #1a6b8a, #2196f3); color: white; }
+  .propuesta-header.p3 { background: linear-gradient(135deg, #2e7d32, #66bb6a); color: white; }
+  .propuesta-num {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(255,255,255,0.25); border: 2px solid rgba(255,255,255,0.5);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 800; flex-shrink: 0;
+  }
+  .propuesta-header .info h3 { font-size: 18px; font-weight: 700; margin-bottom: 3px; }
+  .propuesta-header .info p { font-size: 13px; opacity: 0.85; }
+  .propuesta-body { padding: 24px 28px; }
+
+  /* FLUJO VISUAL DE REEL */
+  .reel-flow {
+    display: flex; align-items: stretch; gap: 0;
+    border-radius: 10px; overflow: hidden; margin-bottom: 20px;
+  }
+  .reel-block {
+    flex: 1; padding: 14px 10px; text-align: center;
+  }
+  .reel-block.hook { background: #4a1b8a; color: white; }
+  .reel-block.body1 { background: #f3e0ff; color: #4a1b8a; }
+  .reel-block.body2 { background: #dceeff; color: #1b3a6e; }
+  .reel-block.body3 { background: #dcffe8; color: #1b4e2a; }
+  .reel-block.body4 { background: #fff0dc; color: #4e2e1b; }
+  .reel-block.cta { background: #c068e8; color: white; }
+  .reel-block.equipo { background: linear-gradient(135deg,#f3e0ff,#dceeff,#dcffe8,#fff0dc); color: #2d1b4e; flex: 3; }
+  .reel-block.meb-solo { background: #e8d5f7; color: #4a1b8a; flex: 3; }
+  .reel-block .time { font-size: 9px; font-weight: 700; letter-spacing: 1px; opacity: 0.7; margin-bottom: 4px; }
+  .reel-block .role { font-size: 11px; font-weight: 700; margin-bottom: 2px; }
+  .reel-block .desc { font-size: 10px; opacity: 0.8; line-height: 1.3; }
+
+  /* GUIONES */
+  .guion { border-left: 4px solid; padding: 14px 18px; border-radius: 0 10px 10px 0; margin-bottom: 10px; }
+  .guion.hook { border-color: #4a1b8a; background: #f3eeff; }
+  .guion.fr   { border-color: #e040fb; background: #fce4ff; }
+  .guion.el   { border-color: #2196f3; background: #e3f2fd; }
+  .guion.no   { border-color: #4caf50; background: #e8f5e9; }
+  .guion.ad   { border-color: #ff9800; background: #fff3e0; }
+  .guion.cta  { border-color: #c068e8; background: #f8e8ff; }
+  .guion.eq   { border-color: #7b2fbe; background: #f3eeff; }
+  .guion.meb  { border-color: #4a1b8a; background: #f0eaff; }
+  .guion .tag { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.6; margin-bottom: 6px; }
+  .guion .texto { font-size: 13px; line-height: 1.7; font-style: italic; color: #333; }
+  .guion .nota { font-size: 11px; color: #888; margin-top: 6px; }
+
+  /* PRO / CON */
+  .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .pros { background: #f0fff4; border: 1px solid #b7e4c7; border-radius: 10px; padding: 14px; }
+  .cons { background: #fff5f5; border: 1px solid #ffc0c0; border-radius: 10px; padding: 14px; }
+  .pros h4 { color: #2d6a4f; font-size: 12px; font-weight: 700; margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase; }
+  .cons h4 { color: #9b2226; font-size: 12px; font-weight: 700; margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase; }
+  .pros li, .cons li { font-size: 12px; line-height: 1.7; margin-left: 14px; color: #444; }
+
+  .necesita {
+    background: #fafafa; border: 1px dashed #d0b8f5;
+    border-radius: 10px; padding: 14px; margin-top: 14px;
+  }
+  .necesita h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #8b3fc8; margin-bottom: 8px; }
+  .necesita li { font-size: 12px; line-height: 1.7; margin-left: 14px; color: #555; }
+
+  .rec-badge {
+    display: inline-block; padding: 3px 12px; border-radius: 20px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; margin-left: 10px; vertical-align: middle;
+  }
+  .rec-badge.recomendada { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+  .rec-badge.alternativa { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+  .rec-badge.opcion3 { background: #f3eeff; color: #4a1b8a; border: 1px solid #d0b8f5; }
+
+  /* CAMPAÑA */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #4a1b8a; color: white; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 11px; letter-spacing: 0.5px; }
+  td { padding: 10px 14px; border-bottom: 1px solid #f0e6ff; }
+  tr:hover td { background: #faf5ff; }
+
+  /* SEGMENTACIÓN */
+  .seg-pill {
+    display: inline-block; padding: 4px 12px; border-radius: 20px;
+    font-size: 11px; background: #f3eeff; color: #4a1b8a;
+    margin: 3px; border: 1px solid #d9b8f5;
+  }
+  .tag-verde { background: #e8f5e9; color: #2e7d32; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+  .tag-rojo { background: #ffebee; color: #c62828; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+  .tag-naranja { background: #fff3e0; color: #e65100; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+
+  /* CAMPAÑA VISUAL */
+  .camp-tree { display: flex; flex-direction: column; gap: 12px; }
+  .camp-root {
+    background: linear-gradient(135deg, #4a1b8a, #7b2fbe);
+    color: white; border-radius: 12px; padding: 18px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .camp-root .camp-name { font-size: 16px; font-weight: 700; }
+  .camp-root .camp-meta { font-size: 12px; opacity: 0.85; margin-top: 3px; }
+  .camp-root .camp-budget { text-align: right; }
+  .camp-root .camp-budget .big { font-size: 22px; font-weight: 800; }
+  .camp-root .camp-budget .sub { font-size: 11px; opacity: 0.8; }
+
+  .adsets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+  .adset {
+    border-radius: 12px; overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .adset-header {
+    padding: 14px 16px; color: white; display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .adset-header.hot  { background: linear-gradient(135deg, #c62828, #ef5350); }
+  .adset-header.warm { background: linear-gradient(135deg, #e65100, #ff9800); }
+  .adset-header.cool { background: linear-gradient(135deg, #1565c0, #42a5f5); }
+  .adset-header .temp { font-size: 20px; }
+  .adset-header .adset-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+  .adset-header .adset-sub { font-size: 11px; opacity: 0.85; }
+  .adset-header .adset-bud { text-align: right; }
+  .adset-header .adset-bud .num { font-size: 18px; font-weight: 800; }
+  .adset-header .adset-bud .pct { font-size: 10px; opacity: 0.85; }
+
+  .adset-body { background: white; padding: 14px 16px; }
+  .aud-item {
+    display: flex; align-items: flex-start; gap: 8px;
+    padding: 7px 0; border-bottom: 1px solid #f5f0fa; font-size: 12px;
+  }
+  .aud-item:last-child { border-bottom: none; }
+  .aud-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+  .dot-hot  { background: #ef5350; }
+  .dot-warm { background: #ff9800; }
+  .dot-cool { background: #42a5f5; }
+  .aud-item .aud-name { font-weight: 600; color: #2d1b4e; line-height: 1.3; }
+  .aud-item .aud-id { font-size: 9px; color: #aaa; font-family: monospace; display: block; margin-top: 1px; }
+
+  .excl-box {
+    background: #fff5f5; border: 1px solid #ffcdd2; border-radius: 8px;
+    padding: 10px 14px; margin-top: 10px; font-size: 12px; color: #c62828;
+  }
+  .excl-box strong { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+
+  .budget-visual {
+    display: flex; height: 14px; border-radius: 7px; overflow: hidden; margin: 12px 0;
+  }
+  .bv-hot  { background: #ef5350; }
+  .bv-warm { background: #ff9800; }
+  .bv-cool { background: #42a5f5; }
+
+  .creative-note {
+    background: #f3eeff; border-radius: 10px; padding: 14px 16px;
+    font-size: 12px; color: #4a1b8a; margin-top: 12px; line-height: 1.6;
+  }
+  .creative-note strong { display: block; margin-bottom: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* FUNNEL */
+  .funnel { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .funnel-step {
+    width: 100%; padding: 13px 20px; text-align: center;
+    font-size: 13px; font-weight: 600; color: white;
+    clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+    margin-bottom: 2px;
+  }
+  .funnel-step.s1 { background: #4a1b8a; }
+  .funnel-step.s2 { background: #6b2fa0; width: 92%; }
+  .funnel-step.s3 { background: #8b3fc8; width: 84%; }
+  .funnel-step.s4 { background: #a855d4; width: 76%; }
+  .funnel-step.s5 { background: #c068e8; width: 68%; clip-path: none; border-radius: 0 0 8px 8px; }
+
+  /* HALLAZGOS */
+  .hallazgo {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 14px; border-radius: 10px; background: #fafafa;
+    border: 1px solid #f0e6ff; margin-bottom: 10px;
+  }
+  .hallazgo .emoji { font-size: 22px; flex-shrink: 0; }
+  .hallazgo .titulo { font-size: 13px; font-weight: 700; margin-bottom: 3px; color: #4a1b8a; }
+  .hallazgo .texto { font-size: 12px; color: #555; line-height: 1.5; }
+
+  /* CHECKLIST */
+  .check-row td:last-child { text-align: center; }
+
+  .alert {
+    background: #fff8e1; border: 1px solid #ffc107; border-radius: 10px;
+    padding: 14px 18px; font-size: 13px; color: #5d4037; margin-bottom: 16px;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+
+  .footer {
+    text-align: center; padding: 30px; font-size: 11px; color: #aaa;
+    border-top: 1px solid #f0e6ff; margin-top: 40px;
+  }
+
+  @media (max-width: 768px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .reel-flow { flex-direction: column; }
+    .pros-cons { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Estrategia de Pauta Digital</h1>
+  <h2>Centro de Bienestar Maria Elena Badillo — Terapias Online</h2>
+  <div class="badge">Julio 2026 · act_1418379029648107</div>
+</div>
+
+<div class="container">
+
+  <!-- TERAPEUTAS -->
+  <div class="section-title">Las 4 terapeutas del Centro de Bienestar</div>
+  <div class="grid-4">
+    <div class="terapeuta-card fr">
+      <div class="nombre">Fransury González</div>
+      <div class="especialidad">Relaciones · Pareja · Autoestima</div>
+      <div class="tema-hook">"¿Cuántas veces has perdonado algo que no debiste perdonar?"</div>
+    </div>
+    <div class="terapeuta-card el">
+      <div class="nombre">Elizabet García</div>
+      <div class="especialidad">Ansiedad · Heridas de infancia · Familia</div>
+      <div class="tema-hook">"La ansiedad no aparece de la nada. Hay algo que lleva años esperando ser escuchado."</div>
+    </div>
+    <div class="terapeuta-card no">
+      <div class="nombre">Noelia Benegas</div>
+      <div class="especialidad">Nutrición Integral · Ayurveda</div>
+      <div class="tema-hook">"No es hambre. Es una emoción que tu cuerpo resuelve con comida."</div>
+    </div>
+    <div class="terapeuta-card ad">
+      <div class="nombre">Adriana Vargas</div>
+      <div class="especialidad">Sexualidad · Reiki · Energía femenina</div>
+      <div class="tema-hook">"¿Cuándo fue la última vez que te sentiste presente en tu cuerpo?"</div>
+    </div>
+  </div>
+
+  <!-- PROPUESTAS CREATIVAS -->
+  <div class="section-title">Propuestas de creativo</div>
+
+  <!-- PROPUESTA 1 -->
+  <div class="propuesta-card">
+    <div class="propuesta-header p1">
+      <div class="propuesta-num">1</div>
+      <div class="info">
+        <h3>1 Hook · 4 Reels distintos · 1 CTA <span class="rec-badge recomendada">Recomendada</span></h3>
+        <p>Maria Elena abre y cierra. Cada terapeuta presenta su especialidad en el cuerpo del reel. 4 piezas separadas que Meta optimiza automáticamente.</p>
+      </div>
+    </div>
+    <div class="propuesta-body">
+      <div class="reel-flow">
+        <div class="reel-block hook">
+          <div class="time">0–8 SEG</div>
+          <div class="role">HOOK</div>
+          <div class="desc">Maria Elena<br>igual en los 4</div>
+        </div>
+        <div class="reel-block body1">
+          <div class="time">8–25 SEG</div>
+          <div class="role">FRANSURY</div>
+          <div class="desc">Relaciones</div>
+        </div>
+        <div class="reel-block body2">
+          <div class="time">8–25 SEG</div>
+          <div class="role">ELIZABET</div>
+          <div class="desc">Ansiedad</div>
+        </div>
+        <div class="reel-block body3">
+          <div class="time">8–25 SEG</div>
+          <div class="role">NOELIA</div>
+          <div class="desc">Nutrición</div>
+        </div>
+        <div class="reel-block body4">
+          <div class="time">8–25 SEG</div>
+          <div class="role">ADRIANA</div>
+          <div class="desc">Energía</div>
+        </div>
+        <div class="reel-block cta">
+          <div class="time">25–35 SEG</div>
+          <div class="role">CTA</div>
+          <div class="desc">Maria Elena<br>igual en los 4</div>
+        </div>
+      </div>
+
+      <div class="guion hook">
+        <div class="tag">Hook — Maria Elena (igual en los 4 reels)</div>
+        <div class="texto">"Hay algo que nadie te enseñó: que pedir acompañamiento profesional no es debilidad — es el acto de amor más poderoso que puedes hacer contigo misma. En mi Centro de Bienestar tengo especialistas listas para acompañarte."</div>
+        <div class="nota">⏱ 8 seg · tono cálido y directo · cámara fija</div>
+      </div>
+      <div class="guion fr">
+        <div class="tag">Cuerpo 1 — Fransury González</div>
+        <div class="texto">"Soy Fransury, psicóloga especialista en relaciones. Si sientes que repites los mismos patrones en el amor, que das más de lo que recibes o que tienes miedo de quedarte sola — esto es para ti. Te acompaño a entender de dónde viene ese patrón y a construir relaciones desde un lugar diferente."</div>
+        <div class="nota">⏱ 15–18 seg · Fransury habla directo a cámara</div>
+      </div>
+      <div class="guion el">
+        <div class="tag">Cuerpo 2 — Elizabet García</div>
+        <div class="texto">"Soy Elizabet, psicóloga clínica. La ansiedad, la sensación de que algo no está bien, o los conflictos que se repiten en tu familia — no aparecen de la nada. Hay algo más profundo. Te acompaño a encontrarlo y a sanar desde adentro."</div>
+        <div class="nota">⏱ 15–18 seg · Elizabet habla directo a cámara</div>
+      </div>
+      <div class="guion no">
+        <div class="tag">Cuerpo 3 — Noelia Benegas</div>
+        <div class="texto">"Soy Noelia, nutricionista integral. Si comes cuando te angustias, si llevas años sin poder mantener hábitos o si sientes que la comida controla tus emociones más que tú — hay una razón emocional detrás. Te ayudo a sanar esa relación desde adentro."</div>
+        <div class="nota">⏱ 15–18 seg · Noelia habla directo a cámara</div>
+      </div>
+      <div class="guion ad">
+        <div class="tag">Cuerpo 4 — Adriana Vargas</div>
+        <div class="texto">"Soy Adriana, terapeuta en energía y bienestar. Si te sientes desconectada de tu cuerpo, de tu energía o de tu propia vida — ese bloqueo tiene un origen. A través de Reiki y terapia consciente te acompaño a volver a sentirte presente y poderosa."</div>
+        <div class="nota">⏱ 15–18 seg · Adriana habla directo a cámara</div>
+      </div>
+      <div class="guion cta">
+        <div class="tag">CTA — Maria Elena (igual en los 4 reels)</div>
+        <div class="texto">"Escríbenos por WhatsApp ahora mismo. Cuéntanos cómo te sientes y te conectamos con la especialista que más necesitas. El momento es hoy."</div>
+        <div class="nota">⏱ 8 seg · número WhatsApp visible en pantalla</div>
+      </div>
+
+      <div class="pros-cons">
+        <div class="pros">
+          <h4>A favor</h4>
+          <ul>
+            <li>Mensaje específico por dolor = mayor conexión emocional</li>
+            <li>Meta optimiza automáticamente al reel con mejor rendimiento</li>
+            <li>Equidad total — las 4 terapeutas tienen su propio espacio</li>
+            <li>Si una no funciona, se pausa sin afectar las otras</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>A tener en cuenta</h4>
+          <ul>
+            <li>Requiere grabar a las 4 terapeutas por separado</li>
+            <li>4 ediciones de video distintas</li>
+            <li>Más piezas para gestionar en el administrador</li>
+          </ul>
+        </div>
+      </div>
+      <div class="necesita">
+        <h4>Para ejecutar necesitas</h4>
+        <ul>
+          <li>Contenido existente de Maria Elena para el hook (relaciones o ansiedad)</li>
+          <li>Grabar a cada terapeuta 15–18 seg con el guión aprobado</li>
+          <li>Editor de video que ensamble los 3 bloques por reel</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROPUESTA 2 -->
+  <div class="propuesta-card">
+    <div class="propuesta-header p2">
+      <div class="propuesta-num">2</div>
+      <div class="info">
+        <h3>1 Solo reel con las 4 terapeutas juntas <span class="rec-badge alternativa">Alternativa</span></h3>
+        <p>Un único video donde Maria Elena presenta a todo el equipo. Una sola producción, equidad visual garantizada, ideal para pautar como publicación existente.</p>
+      </div>
+    </div>
+    <div class="propuesta-body">
+      <div class="reel-flow">
+        <div class="reel-block hook">
+          <div class="time">0–8 SEG</div>
+          <div class="role">HOOK</div>
+          <div class="desc">Maria Elena</div>
+        </div>
+        <div class="reel-block equipo">
+          <div class="time">8–55 SEG</div>
+          <div class="role">EQUIPO — las 4 terapeutas</div>
+          <div class="desc">Fransury · Elizabet · Noelia · Adriana — ~10 seg cada una</div>
+        </div>
+        <div class="reel-block cta">
+          <div class="time">55–65 SEG</div>
+          <div class="role">CTA</div>
+          <div class="desc">Maria Elena</div>
+        </div>
+      </div>
+
+      <div class="guion hook">
+        <div class="tag">Hook — Maria Elena</div>
+        <div class="texto">"Si hay algo que sé después de años acompañando personas, es que sanar no se hace sola. Por eso construí un equipo que trabaja desde el mismo lugar que yo: con ciencia, con amor y con profundidad. Permíteme presentártelas."</div>
+        <div class="nota">⏱ 8 seg · Maria Elena a cámara · tono cálido</div>
+      </div>
+      <div class="guion eq">
+        <div class="tag">Cuerpo — Las 4 terapeutas (10 seg c/u, aparecen en orden)</div>
+        <div class="texto">
+          <strong>Fransury:</strong> "Soy Fransury. Te acompaño si repites patrones en el amor o sientes que no eres suficiente."<br><br>
+          <strong>Elizabet:</strong> "Soy Elizabet. Trabajo contigo la ansiedad, las heridas de infancia y los conflictos que no logras resolver."<br><br>
+          <strong>Noelia:</strong> "Soy Noelia. Te ayudo a sanar tu relación con la comida y las emociones que hay detrás."<br><br>
+          <strong>Adriana:</strong> "Soy Adriana. Te acompaño a reconectar con tu cuerpo, tu energía y tu bienestar."
+        </div>
+        <div class="nota">⏱ ~40 seg en total · cada una habla 10 seg directo a cámara · edición dinámica</div>
+      </div>
+      <div class="guion cta">
+        <div class="tag">CTA — Maria Elena</div>
+        <div class="texto">"¿Con cuál de ellas necesitas hablar hoy? Escríbenos por WhatsApp y te conectamos de inmediato."</div>
+        <div class="nota">⏱ 8 seg · número visible en pantalla</div>
+      </div>
+
+      <div class="pros-cons">
+        <div class="pros">
+          <h4>A favor</h4>
+          <ul>
+            <li>Una sola producción — menos esfuerzo de edición</li>
+            <li>Equidad perfecta, todas aparecen en el mismo video</li>
+            <li>Funciona como publicación orgánica Y como anuncio pautado</li>
+            <li>Formato "conoce mi equipo" genera más confianza antes de comprar</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>A tener en cuenta</h4>
+          <ul>
+            <li>Video más largo (~65 seg) — mayor riesgo de perder atención</li>
+            <li>Sin personalización por dolor específico</li>
+            <li>Meta no puede testear cuál especialidad convierte mejor</li>
+          </ul>
+        </div>
+      </div>
+      <div class="necesita">
+        <h4>Para ejecutar necesitas</h4>
+        <ul>
+          <li>Grabar a Maria Elena el hook y el CTA</li>
+          <li>Grabar a cada terapeuta ~10 seg con el guión corto</li>
+          <li>1 edición de video con transiciones dinámicas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROPUESTA 3 -->
+  <div class="propuesta-card">
+    <div class="propuesta-header p3">
+      <div class="propuesta-num">3</div>
+      <div class="info">
+        <h3>Contenido nuevo de Maria Elena sobre terapias — pautado como publicación existente <span class="rec-badge opcion3">Opción 3</span></h3>
+        <p>Maria Elena graba reels propios hablando de los dolores que sus terapeutas atienden. Se publican orgánicamente y luego se pauean como "publicación existente" con el botón de WhatsApp.</p>
+      </div>
+    </div>
+    <div class="propuesta-body">
+      <div class="reel-flow">
+        <div class="reel-block hook">
+          <div class="time">0–5 SEG</div>
+          <div class="role">HOOK</div>
+          <div class="desc">Maria Elena</div>
+        </div>
+        <div class="reel-block meb-solo">
+          <div class="time">5–50 SEG</div>
+          <div class="role">MARIA ELENA habla del dolor / tema</div>
+          <div class="desc">Contenido 100% orgánico de ella sobre relaciones, ansiedad, cuerpo o nutrición emocional</div>
+        </div>
+        <div class="reel-block cta">
+          <div class="time">50–60 SEG</div>
+          <div class="role">CTA</div>
+          <div class="desc">Slide final o texto en video</div>
+        </div>
+      </div>
+
+      <div class="guion meb">
+        <div class="tag">Ejemplo — Reel sobre relaciones (para que Fransury reciba consultas)</div>
+        <div class="texto">"Si llevas años eligiendo personas que no te valoran, no es mala suerte. Es un patrón que aprendiste mucho antes del primer amor. Ese patrón tiene nombre, tiene origen y — lo más importante — tiene solución. En mi Centro de Bienestar tenemos una especialista en relaciones que trabaja exactamente esto contigo."</div>
+        <div class="nota">⏱ 45–55 seg · Maria Elena sola a cámara · estilo orgánico sin producción elaborada · CTA al final: "Escríbenos" con flecha al link de WhatsApp</div>
+      </div>
+      <div class="guion meb">
+        <div class="tag">Ejemplo — Reel sobre ansiedad (para que Elizabet reciba consultas)</div>
+        <div class="texto">"La ansiedad crónica no es una condición — es una señal. Tu sistema nervioso lleva tiempo diciéndote que hay algo sin resolver. Ignóralo y se hace más fuerte. Escúchalo con la guía correcta y empieza a calmarse. Por eso en mi equipo tengo a Elizabet, psicóloga clínica especialista en exactamente esto."</div>
+        <div class="nota">⏱ 45–55 seg · mismo estilo orgánico</div>
+      </div>
+
+      <div class="pros-cons">
+        <div class="pros">
+          <h4>A favor</h4>
+          <ul>
+            <li>Solo aparece Maria Elena — la cara más conocida y confiable</li>
+            <li>El reel puede crecer orgánicamente antes de pautar</li>
+            <li>Publicación existente tiene prueba social (likes, comentarios) visible en el anuncio</li>
+            <li>Cero dependencia de grabar a las terapeutas</li>
+            <li>El contenido es reutilizable para otras campañas</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>A tener en cuenta</h4>
+          <ul>
+            <li>Las terapeutas no aparecen — el equipo queda invisible hasta el WhatsApp</li>
+            <li>Requiere que Maria Elena grabe contenido específico de terapias</li>
+            <li>Puede tardar más en convertir — es funnel más largo</li>
+          </ul>
+        </div>
+      </div>
+      <div class="necesita">
+        <h4>Para ejecutar necesitas</h4>
+        <ul>
+          <li>Grabar a Maria Elena 3–4 reels hablando de los dolores (relaciones, ansiedad, cuerpo, nutrición)</li>
+          <li>Publicarlos como posts orgánicos en Instagram</li>
+          <li>Esperarles 24–48 hrs de engagement orgánico</li>
+          <li>Pautar como "usar publicación existente" con objetivo Mensajes WhatsApp</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAMPAÑA -->
+  <div class="section-title">Configuración técnica de campaña — 100% Remarketing</div>
+  <div class="card">
+    <div class="camp-tree">
+
+      <!-- RAÍZ DE CAMPAÑA -->
+      <div class="camp-root">
+        <div>
+          <div class="camp-name">TERAPIAS ONLINE — MEB 2026</div>
+          <div class="camp-meta">Objetivo: Mensajes WhatsApp &nbsp;·&nbsp; Los 3 conjuntos van a WhatsApp &nbsp;·&nbsp; Reels 9:16 &nbsp;·&nbsp; Refresh cada 21 días</div>
+        </div>
+        <div class="camp-budget">
+          <div class="big">$1,500,000</div>
+          <div class="sub">COP / mes · $50,000/día</div>
+        </div>
+      </div>
+
+      <!-- BARRA DE PRESUPUESTO VISUAL -->
+      <div style="padding: 0 4px;">
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#666;margin-bottom:5px;">
+          <span style="color:#c62828;font-weight:700;">HOT — 36% · $18,000/día</span>
+          <span style="color:#e65100;font-weight:700;">WARM — 40% · $20,000/día</span>
+          <span style="color:#1565c0;font-weight:700;">COOL — 24% · $12,000/día</span>
+        </div>
+        <div class="budget-visual">
+          <div class="bv-hot"  style="width:36%"></div>
+          <div class="bv-warm" style="width:40%"></div>
+          <div class="bv-cool" style="width:24%"></div>
+        </div>
+      </div>
+
+      <!-- LOS 3 CONJUNTOS -->
+      <div class="adsets-grid">
+
+        <!-- CONJUNTO 1 — HOT -->
+        <div class="adset">
+          <div class="adset-header hot">
+            <div>
+              <div style="font-size:18px;margin-bottom:3px;">🔥</div>
+              <div class="adset-name">Conjunto 1 — HOT</div>
+              <div class="adset-sub">Intención máxima · audiencias pequeñas</div>
+            </div>
+            <div class="adset-bud">
+              <div class="num">$18K</div>
+              <div class="pct">COP/día · 36%</div>
+            </div>
+          </div>
+          <div class="adset-body">
+            <div class="aud-item">
+              <div class="aud-dot dot-hot"></div>
+              <div>
+                <div class="aud-name">Checkout sin compra — 30d</div>
+                <div class="aud-id">ID: 120248370113920732</div>
+              </div>
+            </div>
+            <div class="aud-item">
+              <div class="aud-dot dot-hot"></div>
+              <div>
+                <div class="aud-name">Web visitantes — 30d</div>
+                <div class="aud-id">ID: 120248370097450732</div>
+              </div>
+            </div>
+            <div class="aud-item">
+              <div class="aud-dot dot-hot"></div>
+              <div>
+                <div class="aud-name">CAVA ViewContent — 90d</div>
+                <div class="aud-id">ID: 120248370108980732</div>
+              </div>
+            </div>
+            <div class="aud-item">
+              <div class="aud-dot dot-hot"></div>
+              <div>
+                <div class="aud-name">Visitantes /consulta-psicologica-online/ — 30d</div>
+                <div class="aud-id">Crear nueva audiencia en pixel</div>
+              </div>
+            </div>
+            <div class="excl-box">
+              <strong>Excluir</strong>
+              Clientes con sesiones activas
+            </div>
+            <div class="creative-note">
+              <strong>CTA → WhatsApp</strong>
+              Urgencia suave · "Ya diste el primer paso, el siguiente es escribirnos ahora"
+            </div>
+          </div>
+        </div>
+
+        <!-- CONJUNTO 2 — WARM -->
+        <div class="adset">
+          <div class="adset-header warm">
+            <div>
+              <div style="font-size:18px;margin-bottom:3px;">🌡️</div>
+              <div class="adset-name">Conjunto 2 — WARM</div>
+              <div class="adset-sub">Engagement reciente · audiencias medianas</div>
+            </div>
+            <div class="adset-bud">
+              <div class="num">$20K</div>
+              <div class="pct">COP/día · 40%</div>
+            </div>
+          </div>
+          <div class="adset-body">
+            <div class="aud-item">
+              <div class="aud-dot dot-warm"></div>
+              <div>
+                <div class="aud-name">Instagram engagement — 30d</div>
+                <div class="aud-id">ID: 120248370138230732</div>
+              </div>
+            </div>
+            <div class="aud-item">
+              <div class="aud-dot dot-warm"></div>
+              <div>
+                <div class="aud-name">Facebook engagement — 30d</div>
+                <div class="aud-id">ID: 120248370124720732</div>
+              </div>
+            </div>
+            <div class="aud-item">
+              <div class="aud-dot dot-warm"></div>
+              <div>
+                <div class="aud-name">Web visitantes — 60d</div>
+                <div class="aud-id">ID: 120248370102800732</div>
+              </div>
+            </div>
+            <div class="aud-item">
+              <div class="aud-dot dot-warm"></div>
+              <div>
+                <div class="aud-name">Instagram engagement — 60d</div>
+                <div class="aud-id">ID: 120248370140970732</div>
+              </div>
+            </div>
+            <div class="excl-box">
+              <strong>Excluir</strong>
+              Audiencias del Conjunto 1 + Clientes activos
+            </div>
+            <div class="creative-note">
+              <strong>CTA → WhatsApp</strong>
+              El reel elegido (Prop 1, 2 o 3) · botón directo a WhatsApp +57 310 4048185
+            </div>
+          </div>
+        </div>
+
+        <!-- CONJUNTO 3 — COOL -->
+        <div class="adset">
+          <div class="adset-header cool">
+            <div>
+              <div style="font-size:18px;margin-bottom:3px;">🌊</div>
+              <div class="adset-name">Conjunto 3 — COOL</div>
+              <div class="adset-sub">Audiencia amplia · mayor alcance</div>
+            </div>
+            <div class="adset-bud">
+              <div class="num">$12K</div>
+              <div class="pct">COP/día · 24%</div>
+            </div>
+          </div>
+          <div class="adset-body">
+            <div class="aud-item">
+              <div class="aud-dot dot-cool"></div>
+              <div>
+                <div class="aud-name">Facebook engagement — 60d</div>
+                <div class="aud-id">ID: 120248370129800732</div>
+              </div>
+            </div>
+            <div class="aud-item">
+              <div class="aud-dot dot-cool"></div>
+              <div>
+                <div class="aud-name">Facebook engagement — 180d</div>
+                <div class="aud-id">ID: 120248370134290732</div>
+              </div>
+            </div>
+            <div class="aud-item">
+              <div class="aud-dot dot-cool"></div>
+              <div>
+                <div class="aud-name">Instagram engagement — 180d</div>
+                <div class="aud-id">ID: 120248370148660732</div>
+              </div>
+            </div>
+            <div class="aud-item">
+              <div class="aud-dot dot-cool"></div>
+              <div>
+                <div class="aud-name">Compradores anteriores — 180d</div>
+                <div class="aud-id">ID: 120248370118220732 · upsell</div>
+              </div>
+            </div>
+            <div class="excl-box">
+              <strong>Excluir</strong>
+              Audiencias de Conjuntos 1 y 2
+            </div>
+            <div class="creative-note">
+              <strong>CTA → WhatsApp</strong>
+              Mismo reel · Meta optimiza hacia quien tiene más probabilidad de escribir
+            </div>
+          </div>
+        </div>
+
+      </div><!-- fin adsets-grid -->
+
+      <!-- RESUMEN TÉCNICO -->
+      <div style="background:#f3eeff;border-radius:12px;padding:18px 22px;">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center;">
+          <div>
+            <div style="font-size:22px;font-weight:800;color:#4a1b8a;">11</div>
+            <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:1px;">Audiencias conectadas</div>
+          </div>
+          <div>
+            <div style="font-size:22px;font-weight:800;color:#4a1b8a;">3</div>
+            <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:1px;">Conjuntos de anuncios</div>
+          </div>
+          <div>
+            <div style="font-size:22px;font-weight:800;color:#4a1b8a;">$50K</div>
+            <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:1px;">COP por día</div>
+          </div>
+          <div>
+            <div style="font-size:22px;font-weight:800;color:#4a1b8a;">100%</div>
+            <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:1px;">Remarketing</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fin camp-tree -->
+  </div>
+
+  <!-- FUNNEL -->
+  <div class="section-title">Funnel de conversión</div>
+  <div class="card">
+    <div class="grid-2">
+      <div class="funnel">
+        <div class="funnel-step s1">Reel pautado en Instagram / Facebook</div>
+        <div class="funnel-step s2">Clic → WhatsApp o comentario</div>
+        <div class="funnel-step s3">Equipo de ventas califica la necesidad</div>
+        <div class="funnel-step s4">Presenta la terapeuta ideal</div>
+        <div class="funnel-step s5">Pago en web (PayU) → Sesión agendada</div>
+      </div>
+      <div>
+        <div class="alert">
+          <span>⚠️</span>
+          <div>El equipo de ventas en WhatsApp es el eslabón más importante. La pregunta de entrada es clave para conectar a la persona con la terapeuta correcta.</div>
+        </div>
+        <div style="background:#f3eeff;border-radius:10px;padding:16px;">
+          <p style="font-size:13px;font-weight:700;color:#4a1b8a;margin-bottom:10px;">Guión de primer mensaje WhatsApp</p>
+          <p style="font-size:12px;color:#444;line-height:1.7;font-style:italic;">"Hola, qué alegría que estés aquí 🤍 Cuéntame, ¿qué está pasando contigo en este momento? Quiero entender cómo podemos acompañarte mejor."</p>
+          <p style="font-size:11px;color:#888;margin-top:8px;">Según la respuesta → presenta la terapeuta específica + link a la página de compra.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HALLAZGOS -->
+  <div class="section-title">Hallazgos de la investigación</div>
+  <div class="grid-2">
+    <div>
+      <div class="hallazgo">
+        <div class="emoji">🏆</div>
+        <div>
+          <div class="titulo">Los Reels ya tienen 4.72% CTR en la cuenta — 3x el promedio</div>
+          <div class="texto">La industria promedia 1–2% CTR. El formato Reel es el ganador comprobado y debe ser el 100% del creativo de terapias.</div>
+        </div>
+      </div>
+      <div class="hallazgo">
+        <div class="emoji">💬</div>
+        <div>
+          <div class="titulo">Costo por conversación WhatsApp: $1,053 COP ($0.26 USD)</div>
+          <div class="texto">Extremadamente eficiente. El objetivo Mensajes es el más rentable en esta cuenta y debe mantenerse para terapias.</div>
+        </div>
+      </div>
+      <div class="hallazgo">
+        <div class="emoji">💰</div>
+        <div>
+          <div class="titulo">Colombia es 4–8x más barato que USA en Meta Ads</div>
+          <div class="texto">CPM Colombia: ~$2–4 USD. CPM USA: ~$12–18 USD. El mismo presupuesto genera hasta 8 veces más alcance aquí.</div>
+        </div>
+      </div>
+      <div class="hallazgo">
+        <div class="emoji">🏥</div>
+        <div>
+          <div class="titulo">La competencia principal (Selia) tiene 600+ terapeutas pero cero marca personal</div>
+          <div class="texto">La diferencia de Maria Elena es exactamente la opuesta: marca fuerte, confianza personal y metodología propia. Eso no se compra con volumen.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="hallazgo">
+        <div class="emoji">💲</div>
+        <div>
+          <div class="titulo">Precio de mercado: $110,000–$160,000 COP por sesión online</div>
+          <div class="texto">psicologa.co cobra $110,000 COP/60 min. Maria Elena con su marca premium debería estar por encima de ese rango.</div>
+        </div>
+      </div>
+      <div class="hallazgo">
+        <div class="emoji">🚫</div>
+        <div>
+          <div class="titulo">Meta restringe lenguaje de salud mental — palabras prohibidas</div>
+          <div class="texto">"Cura tu depresión" o "elimina tu ansiedad" activan filtros automáticos. Los guiones están redactados para pasar esos filtros sin perder impacto emocional.</div>
+        </div>
+      </div>
+      <div class="hallazgo">
+        <div class="emoji">📣</div>
+        <div>
+          <div class="titulo">Publicación existente con engagement suma prueba social al anuncio</div>
+          <div class="texto">Cuando se pauta una publicación que ya tiene likes y comentarios, el público ve esa interacción en el anuncio. Genera más confianza que un anuncio oscuro (dark post).</div>
+        </div>
+      </div>
+      <div class="hallazgo">
+        <div class="emoji">🔁</div>
+        <div>
+          <div class="titulo">Frecuencia actual de la cuenta: 3.20 — necesita creativos nuevos</div>
+          <div class="texto">Las mismas 19,368 personas ven los mismos anuncios 3+ veces. Los creativos de terapias refrescan el algoritmo y bajan la fatiga.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="section-title">Checklist de activación</div>
+  <div class="card">
+    <table>
+      <tr><th>Paso</th><th>Acción</th><th>Responsable</th><th>Estado</th></tr>
+      <tr class="check-row"><td>1</td><td>Decidir propuesta creativa (1, 2 o 3)</td><td>Fernanda + Maria Elena</td><td><span class="tag-naranja">Decisión pendiente</span></td></tr>
+      <tr class="check-row"><td>2</td><td>Grabar a cada terapeuta según propuesta elegida</td><td>Equipo de video</td><td><span class="tag-naranja">Pendiente</span></td></tr>
+      <tr class="check-row"><td>3</td><td>Editar los reels con hook + cuerpo + CTA</td><td>Editor de video</td><td><span class="tag-naranja">Pendiente</span></td></tr>
+      <tr class="check-row"><td>4</td><td>Agregar pixel ViewContent en /consulta-psicologica-online/</td><td>Técnico web / GTM</td><td><span class="tag-naranja">Pendiente</span></td></tr>
+      <tr class="check-row"><td>5</td><td>Crear campaña TERAPIAS ONLINE en Meta Ads con 2 conjuntos</td><td>Media buyer</td><td><span class="tag-naranja">Pendiente</span></td></tr>
+      <tr class="check-row"><td>6</td><td>Briefear equipo de ventas WhatsApp con guión de entrada</td><td>Equipo ventas</td><td><span class="tag-naranja">Pendiente</span></td></tr>
+      <tr class="check-row"><td>7</td><td>Evaluar métricas a los 7 días y optimizar presupuesto</td><td>Media buyer</td><td><span class="tag-rojo">Aún no inicia</span></td></tr>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">
+  Centro de Bienestar Maria Elena Badillo · Estrategia de Pauta Terapias Online · Julio 2026
+</div>
+
+</body>
+</html>
