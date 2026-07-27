@@ -3,80 +3,165 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="theme-color" content="#08060f">
-<meta property="og:title" content="Implementamos tu sistema digital — @ferconde__">
-<meta property="og:description" content="Captación, automatización y pauta. El sistema completo corriendo en tu negocio. Tú te enfocas en atender.">
-<title>Implementamos tu sistema digital — @ferconde__</title>
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:title" content="Fernanda Conde — Implementacion Digital para Negocios en LatAm">
+<meta property="og:description" content="Captacion, automatizacion y pauta. El sistema completo corriendo en tu negocio.">
+<meta property="og:image" content="fer_foto1.jpeg">
+<title>Fernanda Conde — Sistema Digital para tu Negocio</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&display=swap');
+
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 
 :root{
-  --negro:#08060f; --oscuro:#110e1f;
-  --verde:#10b981; --verde2:#059669;
-  --morado:#6d28d9;
-  --dorado:#f5b800; --dorado2:#e07b00;
-  --blanco:#ffffff; --muted:#7c6fa0;
+  --negro:  #0a0a0a;
+  --card:   rgba(255,255,255,0.04);
+  --borde:  rgba(255,255,255,0.09);
+  --rojo:   #d42b2b;
+  --rojo2:  #e83c3c;
+  --blanco: #ffffff;
+  --gris:   #a0a0a0;
+  --gris2:  #5a5a5a;
+  --verde:  #1db954;
 }
 
-html,body{min-height:100%;font-family:'Inter',sans-serif;background:var(--negro);color:#e8e0f0;overflow-x:hidden;}
+html,body{min-height:100%;font-family:'Inter',sans-serif;background:var(--negro);color:var(--blanco);overflow-x:hidden;}
+body{padding-top:56px;}
 
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E");}
-
-.glow-top{position:fixed;top:-120px;left:50%;transform:translateX(-50%);
-  width:700px;height:500px;pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse,rgba(109,40,217,.13) 0%,transparent 65%);}
-
-/* ── SECCIONES ── */
-.sec{position:relative;z-index:1;width:100%;padding:72px 20px;}
-.sec-inner{max-width:680px;margin:0 auto;}
-.sec-center{text-align:center;}
-
-/* ── ETIQUETAS ── */
-.chip{display:inline-flex;align-items:center;gap:7px;
-  background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);
-  border-radius:20px;padding:5px 14px;font-size:.7rem;font-weight:700;
-  letter-spacing:1.5px;text-transform:uppercase;color:#34d399;margin-bottom:20px;}
-.chip span{width:6px;height:6px;background:#34d399;border-radius:50%;
-  animation:pulse 1.8s ease-in-out infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
-
-.chip-gold{display:inline-flex;align-items:center;gap:7px;
-  background:rgba(245,184,0,.08);border:1px solid rgba(245,184,0,.25);
-  border-radius:20px;padding:5px 14px;font-size:.7rem;font-weight:700;
-  letter-spacing:1.5px;text-transform:uppercase;color:var(--dorado);margin-bottom:20px;}
-
-/* ── HERO TEXTO ── */
-.hero-titulo{
-  font-size:clamp(2.2rem,7vw,4rem);font-weight:900;line-height:1.0;
-  letter-spacing:-1.5px;color:var(--blanco);margin-bottom:16px;
+/* NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(10,10,10,0.92);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--borde);
+  padding:14px 24px;display:flex;align-items:center;justify-content:space-between;
 }
-.hero-titulo em{
-  font-style:normal;
-  background:linear-gradient(135deg,var(--dorado),#ff9900);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+.nav-marca{font-size:.88rem;font-weight:700;color:var(--blanco);letter-spacing:.5px;}
+.nav-marca span{color:var(--rojo);}
+.nav-link{
+  font-size:.78rem;color:var(--gris);text-decoration:none;font-weight:500;
+  transition:color .2s;border:1px solid var(--borde);
+  padding:6px 14px;border-radius:20px;
 }
-.hero-sub{font-size:clamp(.9rem,2.5vw,1.08rem);color:var(--muted);line-height:1.75;
-  max-width:520px;margin:0 auto 36px;}
+.nav-link:hover{color:var(--blanco);border-color:rgba(255,255,255,.2);}
 
-/* ── DOLOR OPENER ── */
-.dolor-box{
-  background:rgba(109,40,217,.07);border:1px solid rgba(109,40,217,.2);
-  border-radius:20px;padding:28px 28px;margin-bottom:32px;text-align:left;
+/* TIPOGRAFIA */
+.label{
+  display:block;font-size:.68rem;letter-spacing:3px;text-transform:uppercase;
+  font-weight:600;color:var(--rojo);margin-bottom:12px;
 }
-.dolor-titulo{font-size:1rem;font-weight:800;color:var(--blanco);margin-bottom:14px;}
-.dolor-lista{list-style:none;display:flex;flex-direction:column;gap:10px;}
-.dolor-lista li{font-size:.86rem;color:var(--muted);line-height:1.5;
-  display:flex;align-items:flex-start;gap:10px;}
-.dolor-lista li::before{content:'';width:6px;height:6px;background:var(--morado);
-  border-radius:50%;flex-shrink:0;margin-top:6px;}
+h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.9rem,4.5vw,3rem);font-weight:800;line-height:1.12;
+  color:var(--blanco);margin-bottom:16px;
+}
+h2 em{font-style:italic;color:var(--rojo);}
+p{color:var(--gris);line-height:1.85;font-size:.96rem;}
 
-/* ── VSL CONTAINER ── */
+.btn-wa{
+  display:inline-flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,#25d366,#1aa352);
+  color:#fff;font-size:1rem;font-weight:700;
+  padding:18px 36px;border-radius:14px;text-decoration:none;
+  box-shadow:0 8px 32px rgba(37,211,102,.25);
+  transition:all .25s;letter-spacing:.2px;
+  font-family:'Inter',sans-serif;
+}
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(37,211,102,.35);}
+
+/* HERO */
+.hero{
+  min-height:92vh;display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  max-width:1100px;margin:0 auto;
+  padding:60px 32px;gap:48px;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;margin-bottom:28px;
+}
+.hero-eyebrow-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--rojo);
+  box-shadow:0 0 10px rgba(212,43,43,.6);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
+.hero-eyebrow span{
+  font-size:.74rem;font-weight:600;color:var(--gris);
+  letter-spacing:1.5px;text-transform:uppercase;
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.4rem,5vw,3.8rem);
+  font-weight:800;line-height:1.08;
+  color:var(--blanco);margin-bottom:20px;
+}
+.hero h1 em{font-style:italic;color:var(--rojo);}
+.hero-sub{
+  font-size:1rem;color:var(--gris);line-height:1.8;
+  margin-bottom:36px;max-width:460px;
+}
+.hero-cta-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.hero-nota{font-size:.75rem;color:var(--gris2);line-height:1.5;}
+
+.hero-foto{position:relative;display:flex;align-items:flex-end;justify-content:center;}
+.hero-foto img{
+  width:100%;max-width:460px;border-radius:20px;
+  object-fit:cover;object-position:top;aspect-ratio:3/4;
+  display:block;box-shadow:0 40px 80px rgba(0,0,0,.7);
+}
+.hero-badge{
+  position:absolute;bottom:24px;left:-16px;
+  background:var(--negro);border:1px solid var(--borde);
+  border-left:3px solid var(--rojo);
+  border-radius:12px;padding:14px 18px;
+  box-shadow:0 16px 40px rgba(0,0,0,.6);
+  min-width:190px;
+}
+.hb-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:var(--rojo);line-height:1;}
+.hb-txt{font-size:.7rem;color:var(--gris);margin-top:4px;line-height:1.4;}
+.hero-badge2{
+  position:absolute;top:28px;right:-12px;
+  background:var(--negro);border:1px solid var(--borde);
+  border-left:3px solid var(--blanco);
+  border-radius:12px;padding:12px 16px;
+  box-shadow:0 16px 40px rgba(0,0,0,.6);
+}
+.hb2-num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:var(--blanco);line-height:1;}
+.hb2-txt{font-size:.67rem;color:var(--gris);margin-top:3px;}
+
+/* DOLOR */
+.dolor{
+  background:rgba(212,43,43,.03);
+  border-top:1px solid rgba(212,43,43,.1);
+  border-bottom:1px solid rgba(212,43,43,.1);
+  padding:60px 32px;
+}
+.dolor-inner{max-width:760px;margin:0 auto;}
+.dolor-titulo{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.3rem,3vw,1.8rem);font-weight:700;
+  color:var(--blanco);margin-bottom:28px;font-style:italic;
+}
+.dolor-lista{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.dolor-lista li{
+  font-size:.87rem;color:var(--gris);line-height:1.6;
+  display:flex;align-items:flex-start;gap:12px;
+  background:var(--card);border:1px solid var(--borde);
+  border-radius:12px;padding:16px 18px;
+}
+.dolor-lista li::before{
+  content:'';width:5px;height:5px;border-radius:50%;
+  background:var(--rojo);flex-shrink:0;margin-top:7px;
+}
+
+/* VSL */
+.vsl-sec{padding:72px 32px;max-width:860px;margin:0 auto;}
+.vsl-label{text-align:center;margin-bottom:28px;}
+.vsl-label p{font-size:.88rem;color:var(--gris);margin-top:8px;}
 .vsl-wrap{
-  max-width:680px;margin:0 auto 0;
   border-radius:20px;overflow:hidden;
-  box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06);
+  box-shadow:0 40px 80px rgba(0,0,0,.7),0 0 0 1px var(--borde);
   background:#000;position:relative;
 }
 .vsl-wrap video{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;}
@@ -86,214 +171,225 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 }
 .vsl-overlay:hover{background:rgba(0,0,0,.25);}
 .play-circle{
-  width:80px;height:80px;border-radius:50%;
-  background:rgba(245,184,0,.92);
+  width:76px;height:76px;border-radius:50%;
+  background:var(--rojo);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 0 0 16px rgba(245,184,0,.12),0 8px 40px rgba(245,184,0,.45);
-  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 0 0 16px rgba(212,43,43,.12),0 8px 40px rgba(212,43,43,.4);
+  transition:transform .2s;
 }
-.vsl-overlay:hover .play-circle{
-  transform:scale(1.08);
-  box-shadow:0 0 0 20px rgba(245,184,0,.1),0 12px 48px rgba(245,184,0,.55);
-}
+.vsl-overlay:hover .play-circle{transform:scale(1.07);}
 .play-circle svg{margin-left:5px;}
-.vsl-caption{
-  text-align:center;font-size:.75rem;color:var(--muted);
-  margin-top:14px;line-height:1.6;
+.vsl-caption{text-align:center;font-size:.75rem;color:var(--gris2);margin-top:12px;line-height:1.6;}
+
+/* DIVIDER */
+.divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--borde),transparent);
+  max-width:860px;margin:0 auto;
 }
 
-/* ── DIVIDER ── */
-.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);
-  max-width:680px;margin:0 auto;}
+/* SECCIONES */
+.sec{padding:72px 32px;}
+.sec-inner{max-width:860px;margin:0 auto;}
+.sec-center{text-align:center;}
 
-/* ── RESULTADOS HERO ── */
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px;}
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:12px;}
 .stat-pill{
-  background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
-  border-top:2px solid var(--dorado);
-  border-radius:16px;padding:18px 14px;text-align:center;
+  background:var(--card);
+  border:1px solid var(--borde);border-top:2px solid var(--rojo);
+  border-radius:16px;padding:24px 16px;text-align:center;
 }
-.stat-num{font-size:1.55rem;font-weight:900;color:var(--dorado);line-height:1;margin-bottom:5px;}
-.stat-label{font-size:.68rem;color:var(--muted);line-height:1.45;}
+.stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:2.2rem;font-weight:800;color:var(--rojo);
+  line-height:1;margin-bottom:6px;
+}
+.stat-label{font-size:.72rem;color:var(--gris);line-height:1.5;}
 
-/* ── PARA QUIÉN ── */
-.pq-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+/* PRUEBA */
+.prueba-card{
+  background:var(--card);border:1px solid var(--borde);
+  border-left:3px solid var(--blanco);
+  border-radius:16px;padding:24px 26px;margin-top:24px;
+}
+.prueba-num{
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem;font-weight:800;color:var(--blanco);
+  line-height:1;margin-bottom:6px;
+}
+.prueba-desc{font-size:.86rem;color:var(--gris);line-height:1.6;margin-bottom:12px;}
+.prueba-desc strong{color:var(--blanco);}
+.prueba-cliente{font-size:.69rem;color:var(--gris2);font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+.prueba-stats{display:flex;gap:20px;margin-top:14px;flex-wrap:wrap;}
+.prueba-stat{font-size:.76rem;color:var(--gris);}
+.prueba-stat strong{color:var(--blanco);}
+
+/* PARA QUIEN */
+.pq-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;}
 .pq-si{
-  background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.15);
-  border-radius:16px;padding:18px 20px;grid-column:span 2;
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:24px;grid-column:span 2;
 }
 .pq-no{
-  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
-  border-radius:16px;padding:18px 20px;
+  background:var(--card);border:1px solid var(--borde);
+  border-radius:16px;padding:22px;
 }
-.pq-ico{font-size:1.4rem;margin-bottom:10px;}
-.pq-titulo{font-size:.88rem;font-weight:800;color:var(--blanco);margin-bottom:8px;}
-.pq-lista{list-style:none;display:flex;flex-direction:column;gap:7px;}
-.pq-lista li{font-size:.78rem;color:var(--muted);line-height:1.5;
-  display:flex;align-items:flex-start;gap:8px;}
-.pq-lista li::before{content:'✓';color:#34d399;font-weight:900;flex-shrink:0;}
-.pq-lista.no li::before{content:'✗';color:#f87171;}
+.pq-ico{font-size:1.3rem;margin-bottom:10px;}
+.pq-titulo{font-size:.9rem;font-weight:700;color:var(--blanco);margin-bottom:10px;}
+.pq-lista{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.pq-lista li{
+  font-size:.82rem;color:var(--gris);line-height:1.55;
+  display:flex;align-items:flex-start;gap:9px;
+}
+.pq-lista li::before{content:'checkmark';display:none;}
+.pq-lista li .ico{color:var(--verde);font-weight:700;flex-shrink:0;}
+.pq-lista.no li .ico{color:#f87171;}
 
-/* ── QUÉ INCLUYE ── */
-.incluye-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+/* QUE IMPLEMENTAMOS */
+.incluye-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;}
 .inc-item{
-  background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
-  border-left:3px solid var(--dorado);
-  border-radius:14px;padding:18px 20px;
+  background:var(--card);border:1px solid var(--borde);
+  border-bottom:2px solid var(--rojo);
+  border-radius:14px;padding:22px;
 }
-.inc-titulo{font-size:.88rem;font-weight:800;color:var(--blanco);margin-bottom:5px;}
-.inc-desc{font-size:.75rem;color:var(--muted);line-height:1.55;}
+.inc-titulo{font-size:.9rem;font-weight:700;color:var(--blanco);margin-bottom:6px;}
+.inc-desc{font-size:.78rem;color:var(--gris);line-height:1.6;}
 
-/* ── PROCESO ── */
-.proceso{display:flex;flex-direction:column;gap:0;margin-top:8px;position:relative;}
+/* PROCESO */
+.proceso{display:flex;flex-direction:column;gap:0;margin-top:12px;position:relative;}
 .proceso::before{
-  content:'';position:absolute;left:22px;top:28px;bottom:28px;
-  width:1px;background:linear-gradient(180deg,var(--dorado),rgba(245,184,0,.1));
+  content:'';position:absolute;left:21px;top:32px;bottom:32px;
+  width:1px;background:linear-gradient(180deg,var(--rojo),rgba(212,43,43,.05));
 }
-.paso{display:flex;gap:20px;align-items:flex-start;padding:0 0 32px;}
+.paso{display:flex;gap:22px;align-items:flex-start;padding:0 0 36px;}
 .paso:last-child{padding-bottom:0;}
 .paso-num{
-  width:44px;height:44px;border-radius:50%;flex-shrink:0;
-  background:linear-gradient(135deg,var(--dorado),var(--dorado2));
+  width:42px;height:42px;border-radius:50%;flex-shrink:0;
+  background:var(--rojo);
   display:flex;align-items:center;justify-content:center;
-  font-size:.88rem;font-weight:900;color:#0a0614;
-  box-shadow:0 0 0 6px rgba(245,184,0,.1);position:relative;z-index:1;
+  font-size:.88rem;font-weight:900;color:#fff;
+  position:relative;z-index:1;
 }
-.paso-titulo{font-size:.96rem;font-weight:800;color:var(--blanco);margin-bottom:5px;}
-.paso-desc{font-size:.8rem;color:var(--muted);line-height:1.6;}
-.paso-tag{display:inline-block;background:rgba(245,184,0,.1);color:var(--dorado);
-  font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-  padding:3px 10px;border-radius:20px;margin-top:6px;}
+.paso-titulo{font-size:.96rem;font-weight:700;color:var(--blanco);margin-bottom:5px;}
+.paso-desc{font-size:.82rem;color:var(--gris);line-height:1.65;}
+.paso-tag{
+  display:inline-block;background:rgba(212,43,43,.08);
+  color:var(--rojo);font-size:.64rem;font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;
+  padding:4px 11px;border-radius:20px;margin-top:8px;
+}
 
-/* ── TALLAS / PRICING ── */
+/* PRECIOS */
 .tallas-intro{
-  background:rgba(245,184,0,.06);border:1px solid rgba(245,184,0,.15);
-  border-radius:16px;padding:20px 24px;margin-bottom:20px;
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:22px 26px;margin-bottom:18px;
 }
-.tallas-intro p{font-size:.84rem;color:#c4b8e0;line-height:1.7;}
-.tallas-intro strong{color:var(--dorado);}
-.tallas-grid{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
+.tallas-intro p{font-size:.88rem;color:var(--gris);line-height:1.75;}
+.tallas-intro strong{color:var(--blanco);}
+.tallas-grid{display:flex;flex-direction:column;gap:10px;}
 .talla-row{
-  display:flex;align-items:center;gap:14px;
-  background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
-  border-radius:14px;padding:14px 18px;
+  display:flex;align-items:center;gap:16px;
+  background:var(--card);border:1px solid var(--borde);
+  border-radius:14px;padding:16px 20px;
+  transition:border-color .2s;
 }
+.talla-row:hover{border-color:rgba(212,43,43,.3);}
 .talla-badge{
   width:40px;height:40px;border-radius:10px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
-  font-size:.85rem;font-weight:900;letter-spacing:.5px;
+  font-size:.8rem;font-weight:800;letter-spacing:.5px;
+  background:rgba(212,43,43,.1);color:var(--rojo);
 }
-.talla-xs{background:rgba(16,185,129,.15);color:#34d399;}
-.talla-s{background:rgba(59,130,246,.15);color:#60a5fa;}
-.talla-m{background:rgba(245,184,0,.15);color:var(--dorado);}
-.talla-l{background:rgba(245,102,0,.15);color:#fb923c;}
-.talla-xl{background:rgba(236,72,153,.15);color:#f472b6;}
 .talla-info{flex:1;}
-.talla-nombre{font-size:.84rem;font-weight:800;color:var(--blanco);margin-bottom:2px;}
-.talla-ejemplo{font-size:.72rem;color:var(--muted);line-height:1.45;}
-.talla-precio{font-size:.9rem;font-weight:900;color:var(--blanco);white-space:nowrap;}
-.talla-nota{font-size:.65rem;color:var(--muted);}
+.talla-nombre{font-size:.88rem;font-weight:700;color:var(--blanco);margin-bottom:3px;}
+.talla-ejemplo{font-size:.74rem;color:var(--gris);line-height:1.5;}
+.talla-precio{font-size:.94rem;font-weight:800;color:var(--blanco);white-space:nowrap;}
+.talla-nota{font-size:.67rem;color:var(--gris2);margin-top:2px;}
 
-/* ── OBJECIONES / GARANTÍAS ── */
-.obj-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+/* OBJECIONES */
+.obj-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;}
 .obj-card{
-  background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
-  border-radius:16px;padding:18px 20px;
+  background:var(--card);border:1px solid var(--borde);
+  border-radius:14px;padding:20px 22px;
 }
-.obj-q{font-size:.78rem;font-weight:700;color:var(--muted);margin-bottom:8px;font-style:italic;}
-.obj-a{font-size:.82rem;color:#c4b8e0;line-height:1.55;}
-.obj-a strong{color:var(--dorado);}
+.obj-q{font-size:.8rem;font-weight:600;color:var(--gris);margin-bottom:10px;font-style:italic;line-height:1.5;}
+.obj-a{font-size:.84rem;color:var(--gris);line-height:1.6;}
+.obj-a strong{color:var(--rojo);}
 
-/* ── PRUEBA SOCIAL ── */
-.prueba-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:8px;}
-.prueba-card{
-  background:rgba(17,14,31,.9);border:1px solid rgba(255,255,255,.07);
-  border-left:3px solid var(--dorado);
-  border-radius:16px;padding:20px 22px;
+/* SOBRE FERNANDA */
+.sobre{
+  background:rgba(212,43,43,.03);
+  border-top:1px solid rgba(212,43,43,.1);
+  border-bottom:1px solid rgba(212,43,43,.1);
+  padding:72px 32px;
 }
-.prueba-num{font-size:1.4rem;font-weight:900;color:var(--dorado);line-height:1;margin-bottom:4px;}
-.prueba-desc{font-size:.82rem;color:#c4b8e0;line-height:1.55;margin-bottom:10px;}
-.prueba-cliente{font-size:.7rem;color:var(--muted);font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
-.prueba-stats{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;}
-.prueba-stat{font-size:.75rem;color:var(--muted);}
-.prueba-stat strong{color:#c4b8e0;}
+.sobre-inner{
+  max-width:860px;margin:0 auto;
+  display:grid;grid-template-columns:220px 1fr;gap:52px;align-items:start;
+}
+.sobre-foto img{
+  width:100%;border-radius:16px;
+  box-shadow:0 24px 48px rgba(0,0,0,.5);
+  object-fit:cover;object-position:top;aspect-ratio:3/4;
+}
+.sobre-texto h2{margin-bottom:20px;}
+.sobre-texto p{margin-bottom:14px;}
+.sobre-texto p:last-child{margin-bottom:0;}
 
-/* ── CTA PRINCIPAL ── */
+/* CTA FINAL */
 .cta-box{
-  background:linear-gradient(135deg,rgba(109,40,217,.12),rgba(245,184,0,.06));
-  border:1px solid rgba(245,184,0,.25);
-  border-top:2px solid var(--dorado);
-  border-radius:24px;padding:40px 32px;text-align:center;
+  border:1px solid rgba(212,43,43,.2);
+  border-top:2px solid var(--rojo);
+  border-radius:24px;padding:52px 40px;text-align:center;
+  background:rgba(212,43,43,.03);
 }
-.cta-titulo{font-size:1.5rem;font-weight:900;color:var(--blanco);margin-bottom:10px;line-height:1.2;}
-.cta-titulo em{font-style:normal;background:linear-gradient(135deg,var(--dorado),#ff9900);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.cta-sub{font-size:.86rem;color:var(--muted);margin-bottom:28px;line-height:1.7;
-  max-width:420px;margin-left:auto;margin-right:auto;}
-.btn-wa{
-  display:inline-flex;align-items:center;gap:12px;
-  background:linear-gradient(135deg,#25d366,#128c47);
-  color:var(--blanco);font-size:1rem;font-weight:900;
-  padding:18px 36px;border-radius:16px;text-decoration:none;
-  box-shadow:0 8px 32px rgba(37,211,102,.3);
-  transition:all .25s;letter-spacing:.2px;
-  font-family:'Inter',sans-serif;
+.cta-titulo{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,4.5vw,2.8rem);font-weight:800;
+  color:var(--blanco);margin-bottom:12px;line-height:1.15;
 }
-.btn-wa:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(37,211,102,.4);}
-.btn-wa svg{flex-shrink:0;}
-.cta-nota{font-size:.72rem;color:var(--muted);margin-top:14px;line-height:1.6;}
+.cta-titulo em{font-style:italic;color:var(--rojo);}
+.cta-sub{
+  font-size:.9rem;color:var(--gris);margin:0 auto 32px;line-height:1.75;
+  max-width:440px;
+}
+.cta-nota{font-size:.74rem;color:var(--gris2);margin-top:14px;line-height:1.6;}
 
-/* ── SECCIÓN TÍTULOS ── */
-.sec-label{font-size:.65rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
-  color:var(--dorado);margin-bottom:10px;}
-.sec-titulo{font-size:clamp(1.5rem,4vw,2rem);font-weight:900;color:var(--blanco);
-  line-height:1.15;margin-bottom:10px;}
-.sec-titulo em{font-style:normal;background:linear-gradient(135deg,var(--dorado),#ff9900);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.sec-desc{font-size:.86rem;color:var(--muted);line-height:1.7;margin-bottom:28px;}
-
-/* ── NAV MINI ── */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;
-  background:rgba(8,6,15,.85);backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(255,255,255,.06);
-  padding:12px 20px;display:flex;align-items:center;justify-content:space-between;}
-.nav-marca{font-size:.85rem;font-weight:900;color:var(--blanco);}
-.nav-marca em{font-style:normal;color:var(--dorado);}
-.nav-link{font-size:.78rem;color:var(--muted);text-decoration:none;font-weight:600;
-  transition:color .2s;}
-.nav-link:hover{color:var(--dorado);}
-body{padding-top:52px;}
-
-/* ── CTA FLOTANTE MOBILE ── */
+/* CTA FLOTANTE */
 .cta-float{
   display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;
   padding:12px 16px;
-  background:linear-gradient(0deg,rgba(8,6,15,1) 60%,transparent);
+  background:linear-gradient(0deg,var(--negro) 60%,transparent);
 }
 .btn-wa-sm{
   display:flex;align-items:center;justify-content:center;gap:10px;
-  background:linear-gradient(135deg,#25d366,#128c47);
-  color:var(--blanco);font-size:.9rem;font-weight:900;
+  background:linear-gradient(135deg,#25d366,#1aa352);
+  color:#fff;font-size:.9rem;font-weight:700;
   padding:16px 24px;border-radius:14px;text-decoration:none;
-  box-shadow:0 8px 28px rgba(37,211,102,.35);
+  box-shadow:0 8px 28px rgba(37,211,102,.3);
   font-family:'Inter',sans-serif;
 }
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-
-@media(max-width:600px){
+/* RESPONSIVE */
+@media(max-width:760px){
+  .hero{grid-template-columns:1fr;gap:32px;padding:40px 20px;}
+  .hero-foto{order:-1;}
+  .hero-foto img{max-width:100%;aspect-ratio:4/3;}
+  .hero-badge{left:10px;bottom:10px;}
+  .hero-badge2{right:10px;top:10px;}
+  .dolor-lista{grid-template-columns:1fr;}
+  .vsl-sec{padding:48px 20px;}
+  .sec{padding:52px 20px;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .stats-row .stat-pill:last-child{grid-column:span 2;}
   .pq-grid{grid-template-columns:1fr;}
   .pq-si{grid-column:span 1;}
   .incluye-grid{grid-template-columns:1fr;}
   .obj-grid{grid-template-columns:1fr;}
-  .stats-row{grid-template-columns:1fr 1fr;}
-  .stats-row .stat-pill:last-child{grid-column:span 2;}
-  .sec{padding:52px 16px;}
-  .cta-box{padding:28px 20px;}
-  .btn-wa{font-size:.9rem;padding:16px 24px;}
-  .proceso::before{left:20px;}
-  .talla-row{flex-wrap:wrap;}
-  .talla-precio{width:100%;}
+  .sobre-inner{grid-template-columns:1fr;}
+  .sobre-foto{max-width:180px;}
+  .cta-box{padding:32px 20px;}
   .cta-float{display:block;}
   body{padding-bottom:80px;}
 }
@@ -301,86 +397,118 @@ body{padding-top:52px;}
 </head>
 <body>
 
-<div class="glow-top"></div>
-
-<!-- NAV -->
 <nav class="nav">
-  <div class="nav-marca"><em>@ferconde__</em></div>
-  <a href="index.html" class="nav-link">Ver Sistema 33 →</a>
+  <div class="nav-marca"><span>@ferconde__</span> &middot; Estratega Digital</div>
+  <a href="index.html" class="nav-link">Sistema 33 &rarr;</a>
 </nav>
 
-<!-- ══ HERO ══ -->
-<div class="sec sec-center" style="padding-bottom:36px;">
-  <div class="sec-inner">
-    <div class="chip"><span></span>Implementación · Colombia & LatAm</div>
-    <h1 class="hero-titulo">Tu negocio<br>necesita un<br><em>sistema digital.</em><br>No otro curso.</h1>
-    <p class="hero-sub">Captación de clientes, automatización y pauta — implementado y funcionando en tu negocio. Sin que tengas que aprender tecnología ni contratar un equipo.</p>
-
-    <div class="dolor-box">
-      <div class="dolor-titulo">¿Te identificas con alguno de estos?</div>
-      <ul class="dolor-lista">
-        <li>Tienes un buen producto o servicio pero no te llegan suficientes clientes cada mes</li>
-        <li>Intentaste hacer marketing tú mismo y fue tiempo y plata perdidos</li>
-        <li>Contrataste alguien que "hacía redes" y no te generó resultados medibles</li>
-        <li>No sabes si tu pauta en Meta está funcionando o si estás regalando dinero</li>
-        <li>Tu competencia crece digitalmente y tú sigues dependiendo del voz a voz</li>
-      </ul>
+<!-- HERO -->
+<section style="background:var(--negro);overflow:hidden;">
+  <div class="hero">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span>Colombia &amp; LatAm &middot; Disponible ahora</span>
+      </div>
+      <h1>Tu negocio<br>necesita un sistema<br>que traiga<br><em>clientes solo.</em></h1>
+      <p class="hero-sub">No otro community manager. No otro curso. Captacion, automatizacion y pauta &mdash; implementado y funcionando en tu negocio desde el mes 1.</p>
+      <div class="hero-cta-row">
+        <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20quiero%20un%20diagnostico%20para%20implementar%20el%20sistema%20digital%20en%20mi%20negocio"
+           class="btn-wa" target="_blank">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.122 1.528 5.855L.057 23.882l6.204-1.626A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.85 0-3.584-.507-5.072-1.38l-.36-.214-3.744.982.999-3.648-.235-.374A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+          </svg>
+          Quiero mi diagnostico gratis
+        </a>
+        <p class="hero-nota">Sin compromiso &middot; Respondo en 24h</p>
+      </div>
     </div>
+
+    <div class="hero-foto">
+      <img src="fer_foto1.jpeg" alt="Fernanda Conde">
+      <div class="hero-badge">
+        <div class="hb-num">860</div>
+        <div class="hb-txt">consultas WhatsApp<br>en un mes &middot; sector salud</div>
+      </div>
+      <div class="hero-badge2">
+        <div class="hb2-num">&times;8</div>
+        <div class="hb2-txt">retorno en pauta</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOLOR -->
+<div class="dolor">
+  <div class="dolor-inner">
+    <p class="dolor-titulo">"Tengo un buen producto. &iquest;Por que no me llegan clientes?"</p>
+    <ul class="dolor-lista">
+      <li>Intentaste hacer marketing tu mismo y fue tiempo y plata perdidos</li>
+      <li>Contrataste alguien que "hacia redes" y no te genero resultados medibles</li>
+      <li>No sabes si tu pauta en Meta esta funcionando o si estas regalando dinero</li>
+      <li>Tu competencia crece digitalmente y tu sigues dependiendo del voz a voz</li>
+    </ul>
   </div>
 </div>
 
-<!-- ══ VSL ══ -->
-<div style="position:relative;z-index:1;padding:0 20px 64px;">
+<!-- VSL -->
+<div class="vsl-sec">
+  <div class="vsl-label">
+    <span class="label">Antes de escribirme</span>
+    <p>Mira este video. Te explico exactamente como funciona el sistema y que puedes esperar.</p>
+  </div>
   <div class="vsl-wrap">
     <div class="vsl-overlay" id="vsl-overlay" onclick="playVSL()">
       <div class="play-circle">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="#0a0614">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
           <polygon points="5,3 19,12 5,21"/>
         </svg>
       </div>
     </div>
-    <video id="vsl-video" src="vsl_editado.mp4" preload="metadata"
-      playsinline controls poster=""
+    <video id="vsl-video"
+      src="vsl_servicios_fer_web.mp4"
+      preload="metadata"
+      playsinline
+      controls
+      poster="poster_servicios.jpg"
       style="width:100%;display:block;aspect-ratio:16/9;object-fit:cover;">
     </video>
   </div>
-  <p class="vsl-caption">👆 Mira el sistema en acción antes de escribirme · @ferconde__</p>
+  <p class="vsl-caption">@ferconde__ &middot; Estratega de Marketing Digital &middot; Colombia &amp; LatAm</p>
 </div>
 
 <div class="divider"></div>
 
-<!-- ══ RESULTADOS REALES ══ -->
+<!-- RESULTADOS -->
 <div class="sec sec-center">
   <div class="sec-inner">
-    <div class="sec-label">Resultados reales · Mayo 2026</div>
-    <h2 class="sec-titulo">Números de<br>clientes <em>reales.</em></h2>
-    <p class="sec-desc">No proyecciones. No promesas. Esto es lo que generó el sistema el mes pasado con clientes activos en Colombia.</p>
+    <span class="label">Resultados reales &middot; 2026</span>
+    <h2>Numeros de clientes<br><em>reales.</em></h2>
+    <p style="max-width:480px;margin:0 auto 32px;">No proyecciones. No promesas. Esto es lo que genero el sistema con clientes activos en Colombia.</p>
     <div class="stats-row">
       <div class="stat-pill">
         <div class="stat-num">860</div>
-        <div class="stat-label">consultas por WhatsApp en un mes · sector salud</div>
+        <div class="stat-label">consultas WhatsApp en un mes &middot; sector salud</div>
       </div>
       <div class="stat-pill">
         <div class="stat-num">59</div>
-        <div class="stat-label">preinscritos a curso en un mes · educación</div>
+        <div class="stat-label">preinscritos a curso en un mes &middot; educacion</div>
       </div>
       <div class="stat-pill">
         <div class="stat-num">523K</div>
-        <div class="stat-label">seguidores orgánicos · sector salud · @doctorcamilo_</div>
+        <div class="stat-label">seguidores organicos &middot; @doctorcamilo_</div>
       </div>
     </div>
-
-    <div style="margin-top:28px;">
-      <div class="prueba-card" style="border-left-color:#34d399;">
-        <div class="prueba-num">30 cierres en mayo</div>
-        <div class="prueba-desc">Un consultorio de columna en Sincelejo y Montería generó 860 contactos por WhatsApp en un mes. De esos, 30 se convirtieron en pacientes pagos — con pauta en Meta de $1.4M COP. <strong>Costo por cierre: $49,000 COP.</strong></div>
-        <div class="prueba-cliente">@columna_vital · Sincelejo & Montería · Colombia</div>
-        <div class="prueba-stats">
-          <div class="prueba-stat">CTR <strong>4.56%</strong></div>
-          <div class="prueba-stat">CPC <strong>$98 COP</strong></div>
-          <div class="prueba-stat">Inversión <strong>$1.48M COP</strong></div>
-          <div class="prueba-stat">Retorno estimado <strong>×8</strong></div>
-        </div>
+    <div class="prueba-card">
+      <div class="prueba-num">30 cierres en un mes</div>
+      <div class="prueba-desc">Un consultorio de columna en Sincelejo y Monteria genero 860 contactos por WhatsApp. De esos, 30 se convirtieron en pacientes pagos con una inversion de <strong>$1.4M COP.</strong> Costo por cierre: $49,000 COP.</div>
+      <div class="prueba-cliente">@columna_vital &middot; Sincelejo &amp; Monteria &middot; Colombia</div>
+      <div class="prueba-stats">
+        <div class="prueba-stat">CTR <strong>4.56%</strong></div>
+        <div class="prueba-stat">CPC <strong>$98 COP</strong></div>
+        <div class="prueba-stat">Inversion <strong>$1.48M COP</strong></div>
+        <div class="prueba-stat">Retorno <strong>&times;8</strong></div>
       </div>
     </div>
   </div>
@@ -388,41 +516,41 @@ body{padding-top:52px;}
 
 <div class="divider"></div>
 
-<!-- ══ PARA QUIÉN ══ -->
+<!-- PARA QUIEN -->
 <div class="sec">
   <div class="sec-inner">
-    <div class="sec-label">Para quién es</div>
-    <h2 class="sec-titulo">¿Este servicio<br>es para <em>ti?</em></h2>
-    <p class="sec-desc">Trabajamos con negocios que ya existen y quieren crecer digitalmente — no partimos de cero ni hacemos experimentos con tu presupuesto.</p>
+    <span class="label">Para quien es</span>
+    <h2>&iquest;Este servicio<br>es para <em>ti?</em></h2>
+    <p style="margin-bottom:28px;">Trabajamos con negocios que ya existen y quieren crecer &mdash; no hacemos experimentos con tu presupuesto.</p>
     <div class="pq-grid">
       <div class="pq-si">
-        <div class="pq-ico">✅</div>
-        <div class="pq-titulo">Sí trabajamos contigo si...</div>
+        <div class="pq-ico">&#10003;</div>
+        <div class="pq-titulo">Trabajamos contigo si...</div>
         <ul class="pq-lista">
-          <li>Tienes un negocio funcionando en Colombia, México, Argentina o Chile</li>
-          <li>Ya tienes clientes y quieres más — o tienes producto listo para vender</li>
-          <li>Quieres delegar toda la parte digital y enfocarte en operar tu negocio</li>
-          <li>Entiendes que el marketing digital requiere inversión, no solo tiempo</li>
-          <li>Buscas resultados medibles, no "presencia en redes" sin propósito</li>
+          <li><span class="ico">&#10003;</span>Tienes un negocio funcionando en Colombia, Mexico, Argentina o Chile</li>
+          <li><span class="ico">&#10003;</span>Ya tienes clientes y quieres mas, o tienes producto listo para vender</li>
+          <li><span class="ico">&#10003;</span>Quieres delegar toda la parte digital y enfocarte en operar tu negocio</li>
+          <li><span class="ico">&#10003;</span>Entiendes que el marketing digital requiere inversion, no solo tiempo</li>
+          <li><span class="ico">&#10003;</span>Buscas resultados medibles, no "presencia en redes" sin proposito</li>
         </ul>
       </div>
       <div class="pq-no">
-        <div class="pq-ico">❌</div>
+        <div class="pq-ico">&#10007;</div>
         <div class="pq-titulo">No es para ti si...</div>
         <ul class="pq-lista no">
-          <li>Estás en etapa 0 sin producto ni clientes validados</li>
-          <li>Buscas alguien que trabaje por $200 USD al mes</li>
-          <li>Quieres resultados en la primera semana sin pauta activa</li>
+          <li><span class="ico">&#10007;</span>Estas en etapa 0 sin producto ni clientes validados</li>
+          <li><span class="ico">&#10007;</span>Buscas alguien que trabaje por $200 USD al mes</li>
+          <li><span class="ico">&#10007;</span>Quieres resultados en la primera semana sin pauta activa</li>
         </ul>
       </div>
       <div class="pq-no">
-        <div class="pq-ico">🏥</div>
+        <div class="pq-ico">&#127973;</div>
         <div class="pq-titulo">Sectores que atendemos</div>
         <ul class="pq-lista">
-          <li>Salud: clínicas, consultorios, especialistas</li>
-          <li>Educación: cursos, academias, formación</li>
-          <li>Servicios profesionales y agencias</li>
-          <li>Infoproductos y emprendedores digitales</li>
+          <li><span class="ico">&#10003;</span>Salud &mdash; clinicas, consultorios, especialistas</li>
+          <li><span class="ico">&#10003;</span>Educacion &mdash; cursos, academias, formacion</li>
+          <li><span class="ico">&#10003;</span>Servicios profesionales y agencias</li>
+          <li><span class="ico">&#10003;</span>Infoproductos y emprendedores digitales</li>
         </ul>
       </div>
     </div>
@@ -431,36 +559,36 @@ body{padding-top:52px;}
 
 <div class="divider"></div>
 
-<!-- ══ QUÉ IMPLEMENTAMOS ══ -->
+<!-- QUE IMPLEMENTAMOS -->
 <div class="sec">
   <div class="sec-inner">
-    <div class="sec-label">Qué implementamos</div>
-    <h2 class="sec-titulo">El sistema<br><em>completo.</em></h2>
-    <p class="sec-desc">No vendemos piezas sueltas. Implementamos el ecosistema entero — cada pieza conectada con la siguiente, diseñada para traer clientes y convertirlos.</p>
+    <span class="label">Que implementamos</span>
+    <h2>El sistema<br><em>completo.</em></h2>
+    <p style="margin-bottom:28px;">No vendemos piezas sueltas. Implementamos el ecosistema entero &mdash; cada pieza conectada con la siguiente.</p>
     <div class="incluye-grid">
       <div class="inc-item">
-        <div class="inc-titulo">🎯 Pauta estratégica en Meta</div>
+        <div class="inc-titulo">Pauta estrategica en Meta</div>
         <div class="inc-desc">Anuncios creados, lanzados y optimizados. Cada peso invertido con objetivo de retorno, no de "visibilidad".</div>
       </div>
       <div class="inc-item">
-        <div class="inc-titulo">🤖 Automatización con IA</div>
-        <div class="inc-desc">Respuestas automáticas por WhatsApp, captación de leads 24/7, seguimiento sin que tengas que estar pegado al teléfono.</div>
+        <div class="inc-titulo">Automatizacion con IA</div>
+        <div class="inc-desc">Respuestas automaticas por WhatsApp, captacion de leads 24/7, seguimiento sin que estes pegado al telefono.</div>
       </div>
       <div class="inc-item">
-        <div class="inc-titulo">📱 Estrategia de contenido</div>
+        <div class="inc-titulo">Estrategia de contenido</div>
         <div class="inc-desc">Calendario editorial, guiones y piezas que posicionan tu autoridad y atraen al cliente correcto antes de que te contacte.</div>
       </div>
       <div class="inc-item">
-        <div class="inc-titulo">🌐 Landings que convierten</div>
-        <div class="inc-desc">Páginas diseñadas para que el visitante tome acción. No se ven bonitas solamente — están probadas para cerrar.</div>
+        <div class="inc-titulo">Landings que convierten</div>
+        <div class="inc-desc">Paginas disenadas para que el visitante tome accion &mdash; probadas para cerrar, no solo para verse bien.</div>
       </div>
       <div class="inc-item">
-        <div class="inc-titulo">📊 Métricas en tiempo real</div>
-        <div class="inc-desc">Ves exactamente cuánto estás invirtiendo y cuántos clientes estás generando. Sin adivinar, sin reportes confusos.</div>
+        <div class="inc-titulo">Metricas en tiempo real</div>
+        <div class="inc-desc">Ves exactamente cuanto estas invirtiendo y cuantos clientes estas generando. Sin adivinar, sin reportes confusos.</div>
       </div>
       <div class="inc-item">
-        <div class="inc-titulo">⚡ Integraciones y CRM</div>
-        <div class="inc-desc">WhatsApp, formularios, pagos y email conectados. El cliente entra al sistema y avanza solo — tú solo cierras.</div>
+        <div class="inc-titulo">Integraciones y CRM</div>
+        <div class="inc-desc">WhatsApp, formularios, pagos y email conectados. El cliente entra al sistema y avanza solo &mdash; tu solo cierras.</div>
       </div>
     </div>
   </div>
@@ -468,43 +596,43 @@ body{padding-top:52px;}
 
 <div class="divider"></div>
 
-<!-- ══ PROCESO ══ -->
+<!-- PROCESO -->
 <div class="sec">
   <div class="sec-inner">
-    <div class="sec-label">Cómo trabajamos</div>
-    <h2 class="sec-titulo">Del diagnóstico<br>a los <em>resultados.</em></h2>
-    <p class="sec-desc">Proceso claro, sin reuniones eternas ni entregas que se van postergando. Sabes en todo momento qué se está construyendo y cuándo lo recibes.</p>
+    <span class="label">Como trabajamos</span>
+    <h2>Del diagnostico<br>a los <em>resultados.</em></h2>
+    <p style="margin-bottom:32px;">Proceso claro, sin reuniones eternas. Sabes en todo momento que se esta construyendo y cuando lo recibes.</p>
     <div class="proceso">
       <div class="paso">
         <div class="paso-num">1</div>
         <div>
-          <div class="paso-titulo">Diagnóstico estratégico</div>
-          <div class="paso-desc">Analizamos tu negocio, tu audiencia actual y lo que ya tienes corriendo. Identificamos qué falta, qué hay que construir y cuál es la ruta más rápida a resultados.</div>
-          <span class="paso-tag">30 min · gratis para proyectos pequeños</span>
+          <div class="paso-titulo">Diagnostico estrategico</div>
+          <div class="paso-desc">Analizamos tu negocio, tu audiencia y lo que ya tienes. Identificamos que falta y cual es la ruta mas rapida a resultados.</div>
+          <span class="paso-tag">30 min &middot; gratis para proyectos XS y S</span>
         </div>
       </div>
       <div class="paso">
         <div class="paso-num">2</div>
         <div>
           <div class="paso-titulo">Alcance y propuesta</div>
-          <div class="paso-desc">Te presentamos exactamente qué vamos a implementar, en qué orden, con qué objetivo medible y a qué costo. Sin sorpresas, sin letra pequeña.</div>
+          <div class="paso-desc">Te presentamos exactamente que vamos a implementar, en que orden, con que objetivo medible y a que costo. Sin sorpresas.</div>
           <span class="paso-tag">Documento firmado antes de empezar</span>
         </div>
       </div>
       <div class="paso">
         <div class="paso-num">3</div>
         <div>
-          <div class="paso-titulo">Implementación</div>
-          <div class="paso-desc">Ejecutamos nosotros. Tú apruebas las piezas clave y ves el avance. No tienes que aprender herramientas ni estar encima de nadie.</div>
+          <div class="paso-titulo">Implementacion</div>
+          <div class="paso-desc">Ejecutamos nosotros. Tu apruebas las piezas clave y ves el avance. No tienes que aprender herramientas ni estar encima de nadie.</div>
           <span class="paso-tag">Tiempos pactados por escrito</span>
         </div>
       </div>
       <div class="paso">
         <div class="paso-num">4</div>
         <div>
-          <div class="paso-titulo">Entrega y activación</div>
-          <div class="paso-desc">El sistema queda en tus manos funcionando. Te explicamos cómo leer las métricas y qué ajustar. No dependes de nosotros para siempre.</div>
-          <span class="paso-tag">Dashboard de métricas incluido</span>
+          <div class="paso-titulo">Entrega y activacion</div>
+          <div class="paso-desc">El sistema queda en tus manos funcionando. Te ensenamos a leer las metricas y que ajustar. No dependes de nosotros para siempre.</div>
+          <span class="paso-tag">Dashboard de metricas incluido</span>
         </div>
       </div>
     </div>
@@ -513,64 +641,64 @@ body{padding-top:52px;}
 
 <div class="divider"></div>
 
-<!-- ══ PRECIOS / TALLAS ══ -->
+<!-- PRECIOS -->
 <div class="sec">
   <div class="sec-inner">
-    <div class="sec-label">Inversión</div>
-    <h2 class="sec-titulo">Precios que se<br>ajustan a tu <em>proyecto.</em></h2>
+    <span class="label">Inversion</span>
+    <h2>Precios que se<br>ajustan a tu <em>proyecto.</em></h2>
     <div class="tallas-intro">
-      <p>No cobramos lo mismo por una landing de una página que por un ecosistema con IA, CRM y pauta activa. <strong>El costo depende del alcance real de tu proyecto.</strong> En el diagnóstico definimos juntos qué necesitas y te damos la cifra exacta — sin cotizaciones genéricas.</p>
+      <p>No cobramos lo mismo por una landing de una pagina que por un ecosistema con IA, CRM y pauta activa. <strong>El costo depende del alcance real de tu proyecto.</strong> En el diagnostico definimos juntos que necesitas y te damos la cifra exacta.</p>
     </div>
     <div class="tallas-grid">
       <div class="talla-row">
-        <div class="talla-badge talla-xs">XS</div>
+        <div class="talla-badge">XS</div>
         <div class="talla-info">
-          <div class="talla-nombre">Arranque rápido</div>
-          <div class="talla-ejemplo">Landing page · bot simple · automatización básica de WhatsApp</div>
+          <div class="talla-nombre">Arranque rapido</div>
+          <div class="talla-ejemplo">Landing page &middot; bot simple &middot; automatizacion basica de WhatsApp</div>
         </div>
         <div>
-          <div class="talla-precio">$200 – $400 USD</div>
-          <div class="talla-nota">~7-11 días</div>
+          <div class="talla-precio">$200 &ndash; $400 USD</div>
+          <div class="talla-nota">~7-11 dias</div>
         </div>
       </div>
       <div class="talla-row">
-        <div class="talla-badge talla-s">S</div>
+        <div class="talla-badge">S</div>
         <div class="talla-info">
-          <div class="talla-nombre">Ecosistema básico</div>
+          <div class="talla-nombre">Ecosistema basico</div>
           <div class="talla-ejemplo">Landing + bot + pauta activa + contenido del mes</div>
         </div>
         <div>
-          <div class="talla-precio">$400 – $900 USD</div>
-          <div class="talla-nota">~14-21 días</div>
+          <div class="talla-precio">$400 &ndash; $900 USD</div>
+          <div class="talla-nota">~14-21 dias</div>
         </div>
       </div>
       <div class="talla-row">
-        <div class="talla-badge talla-m">M</div>
+        <div class="talla-badge">M</div>
         <div class="talla-info">
           <div class="talla-nombre">Sistema completo</div>
-          <div class="talla-ejemplo">Multi-canal · automatizaciones · CRM básico · métricas</div>
+          <div class="talla-ejemplo">Multi-canal &middot; automatizaciones &middot; CRM basico &middot; metricas</div>
         </div>
         <div>
-          <div class="talla-precio">$900 – $2,000 USD</div>
-          <div class="talla-nota">~21-35 días</div>
+          <div class="talla-precio">$900 &ndash; $2,000 USD</div>
+          <div class="talla-nota">~21-35 dias</div>
         </div>
       </div>
       <div class="talla-row">
-        <div class="talla-badge talla-l">L</div>
+        <div class="talla-badge">L</div>
         <div class="talla-info">
           <div class="talla-nombre">Ecosistema avanzado</div>
-          <div class="talla-ejemplo">IA integrada · múltiples integraciones · analítica avanzada</div>
+          <div class="talla-ejemplo">IA integrada &middot; multiples integraciones &middot; analitica avanzada</div>
         </div>
         <div>
-          <div class="talla-precio">$2,000 – $4,500 USD</div>
+          <div class="talla-precio">$2,000 &ndash; $4,500 USD</div>
           <div class="talla-nota">~5-8 semanas</div>
         </div>
       </div>
       <div class="talla-row">
-        <div class="talla-badge talla-xl">XL</div>
+        <div class="talla-badge">XL</div>
         <div class="talla-info">
-          <div class="talla-nombre">Transformación digital</div>
-          <div class="talla-ejemplo">Sistema empresarial completo · equipo dedicado · discovery pagado</div>
+          <div class="talla-nombre">Transformacion digital</div>
+          <div class="talla-ejemplo">Sistema empresarial completo &middot; equipo dedicado</div>
         </div>
         <div>
           <div class="talla-precio">$4,500+ USD</div>
@@ -578,35 +706,53 @@ body{padding-top:52px;}
         </div>
       </div>
     </div>
-    <p style="font-size:.75rem;color:var(--muted);margin-top:16px;line-height:1.6;">
-      ⚡ El diagnóstico es gratis para proyectos XS y S. Para M en adelante incluye una llamada de 30 minutos. Para L y XL el alcance se documenta por escrito antes de cualquier pago.
+    <p style="font-size:.75rem;color:var(--gris2);margin-top:16px;line-height:1.6;">
+      El diagnostico es gratis para proyectos XS y S. Para M en adelante incluye llamada de 30 minutos. Para L y XL el alcance se documenta por escrito antes de cualquier pago.
     </p>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- ══ OBJECIONES ══ -->
+<!-- SOBRE FERNANDA -->
+<div class="sobre">
+  <div class="sobre-inner">
+    <div class="sobre-foto">
+      <img src="fer_estudio.jpeg" alt="Fernanda Conde">
+    </div>
+    <div class="sobre-texto">
+      <span class="label">Quien lo hace</span>
+      <h2>Soy <em>Fernanda.</em></h2>
+      <p>Estratega de marketing digital con mas de 5 anos implementando sistemas de captacion para negocios en Colombia, Mexico y LatAm. He gestionado mas de 20 cuentas publicitarias activas en Meta Ads, en sectores como salud, educacion e infoproductos.</p>
+      <p>No soy una agencia grande con 40 personas donde te pierdes. Soy tu punto de contacto directo &mdash; conozco tu negocio, coordino el equipo tecnico y te doy visibilidad completa del proceso.</p>
+      <p style="color:var(--rojo);font-weight:600;font-size:.9rem;">@ferconde__ en Instagram</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- OBJECIONES -->
 <div class="sec">
   <div class="sec-inner">
-    <div class="sec-label">Lo que nos preguntan</div>
-    <h2 class="sec-titulo">Dudas<br><em>frecuentes.</em></h2>
+    <span class="label">Lo que nos preguntan</span>
+    <h2>Dudas<br><em>frecuentes.</em></h2>
     <div class="obj-grid">
       <div class="obj-card">
-        <div class="obj-q">"¿Cuánto debo invertir en pauta además del servicio?"</div>
-        <div class="obj-a">Lo definimos en el diagnóstico según tu sector. Para resultados como los de Columna Vital, la inversión en pauta fue <strong>$1.4M COP en un mes</strong>. Nunca te pedimos invertir sin antes calcular el retorno esperado.</div>
+        <div class="obj-q">"&iquest;Cuanto debo invertir en pauta ademas del servicio?"</div>
+        <div class="obj-a">Lo definimos en el diagnostico segun tu sector. Para resultados como los de Columna Vital, la inversion en pauta fue <strong>$1.4M COP en un mes</strong>. Nunca te pedimos invertir sin antes calcular el retorno esperado.</div>
       </div>
       <div class="obj-card">
-        <div class="obj-q">"¿Cuánto tarda en verse resultados?"</div>
-        <div class="obj-a">Las primeras consultas o leads suelen llegar en la primera semana de pauta activa. El sistema completo madura entre 30 y 60 días. <strong>No prometemos magia instantánea</strong> — prometemos un proceso claro.</div>
+        <div class="obj-q">"&iquest;Cuanto tarda en verse resultados?"</div>
+        <div class="obj-a">Las primeras consultas o leads suelen llegar en la primera semana de pauta activa. El sistema completo madura entre 30 y 60 dias. <strong>No prometemos magia instantanea</strong> &mdash; prometemos un proceso claro.</div>
       </div>
       <div class="obj-card">
-        <div class="obj-q">"¿Trabajo contigo directamente o con un equipo?"</div>
-        <div class="obj-a">Yo soy tu punto de contacto directo. La implementación técnica la hace un equipo especializado que trabaja con metodología probada. <strong>Tú nunca tienes que hablar con varios proveedores</strong> — yo coordino todo.</div>
+        <div class="obj-q">"&iquest;Trabajo contigo directamente o con un equipo?"</div>
+        <div class="obj-a">Yo soy tu punto de contacto directo. La implementacion tecnica la hace un equipo especializado con metodologia probada. <strong>Tu nunca tienes que hablar con varios proveedores</strong> &mdash; yo coordino todo.</div>
       </div>
       <div class="obj-card">
-        <div class="obj-q">"¿Y si el proyecto es más grande de lo que pensaba?"</div>
-        <div class="obj-a">Definimos el alcance exacto antes de empezar y lo firmamos. Si en el camino surge algo nuevo, <strong>se cotiza por separado y tú decides</strong> — nunca hay costos sorpresa.</div>
+        <div class="obj-q">"&iquest;Y si el proyecto es mas grande de lo que pensaba?"</div>
+        <div class="obj-a">Definimos el alcance exacto antes de empezar y lo firmamos. Si en el camino surge algo nuevo, <strong>se cotiza por separado y tu decides</strong> &mdash; nunca hay costos sorpresa.</div>
       </div>
     </div>
   </div>
@@ -614,50 +760,46 @@ body{padding-top:52px;}
 
 <div class="divider"></div>
 
-<!-- ══ CTA PRINCIPAL ══ -->
+<!-- CTA FINAL -->
 <div class="sec sec-center">
   <div class="sec-inner">
     <div class="cta-box">
-      <div class="chip-gold">Cupos limitados · junio 2026</div>
-      <div class="cta-titulo">¿Listo para tener<br>un sistema que<br><em>trae clientes solo?</em></div>
-      <p class="cta-sub">Escríbeme por WhatsApp. Me cuentas de tu negocio y en 24 horas te digo si podemos trabajar juntos, qué necesitas y cuánto costaría. Sin compromiso.</p>
-
-      <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20implementar%20el%20sistema%20digital%20en%20mi%20negocio"
-         class="btn-wa" id="btn-wa" target="_blank">
+      <span class="label">Siguiente paso</span>
+      <div class="cta-titulo">&iquest;Listo para tener<br>un sistema que<br><em>trae clientes solo?</em></div>
+      <p class="cta-sub">Escribeme por WhatsApp. Me cuentas de tu negocio y en 24 horas te digo si podemos trabajar juntos, que necesitas y cuanto costaria.</p>
+      <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20quiero%20un%20diagnostico%20para%20implementar%20el%20sistema%20digital%20en%20mi%20negocio"
+         class="btn-wa" target="_blank">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
           <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.122 1.528 5.855L.057 23.882l6.204-1.626A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.85 0-3.584-.507-5.072-1.38l-.36-.214-3.744.982.999-3.648-.235-.374A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
         </svg>
-        Quiero mi diagnóstico gratuito →
+        Quiero mi diagnostico gratuito &rarr;
       </a>
-
-      <p class="cta-nota">⏱ Respondo en menos de 24 horas · Sin compromiso · 100% remoto</p>
+      <p class="cta-nota">Respondo en menos de 24 horas &middot; Sin compromiso &middot; 100% remoto</p>
     </div>
   </div>
 </div>
 
 <!-- CTA FLOTANTE MOBILE -->
 <div class="cta-float">
-  <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20implementar%20el%20sistema%20digital%20en%20mi%20negocio"
+  <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20quiero%20un%20diagnostico%20para%20implementar%20el%20sistema%20digital%20en%20mi%20negocio"
      class="btn-wa-sm" target="_blank">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
       <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.122 1.528 5.855L.057 23.882l6.204-1.626A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.85 0-3.584-.507-5.072-1.38l-.36-.214-3.744.982.999-3.648-.235-.374A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
     </svg>
-    Diagnóstico gratuito por WhatsApp
+    Diagnostico gratuito por WhatsApp
   </a>
 </div>
 
 <script>
-  function playVSL(){
-    var overlay = document.getElementById('vsl-overlay');
-    var video   = document.getElementById('vsl-video');
-    overlay.style.display = 'none';
-    video.play();
-  }
-  document.getElementById('vsl-video').addEventListener('play', function(){
-    document.getElementById('vsl-overlay').style.display = 'none';
-  });
+function playVSL(){
+  document.getElementById('vsl-overlay').style.display='none';
+  document.getElementById('vsl-video').play();
+}
+document.getElementById('vsl-video').addEventListener('play',function(){
+  document.getElementById('vsl-overlay').style.display='none';
+});
 </script>
 
 </body>
