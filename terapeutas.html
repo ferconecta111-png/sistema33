@@ -18,26 +18,34 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 
 :root {
-  --negro:   #060c1f;
+  --negro:   #04060f;
   --oscuro:  #0a1530;
-  --gris:    #0f1c3d;
-  --azul:    #1a3a8f;
+  --gris:    #15214a;
+  --azul:    #2a4fd1;
   --azul2:   #0c2159;
+  --azul-vivo: #5b86ff;
   --dorado:  #d4af37;
   --dorado2: #e8c968;
   --dorado-metal: linear-gradient(115deg,#9c7a28 0%,#e8c968 22%,#fff6d8 38%,#d4af37 52%,#b8902e 68%,#f3dc96 84%,#9c7a28 100%);
   --blanco:  #ffffff;
-  --muted:   #8a97bf;
+  --muted:   #aab6e0;
   --verde:   #4ade80;
   --rojo:    #f87171;
 }
 
 body {
-  font-family:'Inter',sans-serif; background:var(--negro); color:#e4e8f5; overflow-x:hidden;
+  font-family:'Inter',sans-serif; background:var(--negro); color:#eef1fb; overflow-x:hidden;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E");
 }
 
 .label { display:block; font-size:.72rem; letter-spacing:2.5px; text-transform:uppercase; font-weight:700; color:var(--dorado); margin-bottom:14px; }
+.btn-secondary {
+  display:inline-block; background:transparent; color:var(--azul-vivo); padding:15px 40px;
+  border-radius:6px; font-size:.95rem; font-weight:700; text-decoration:none; letter-spacing:.3px;
+  border:2px solid var(--azul-vivo); cursor:pointer; transition:background .25s, color .25s, transform .25s;
+}
+.btn-secondary:hover { background:var(--azul-vivo); color:var(--negro); transform:translateY(-2px); }
+.btn-row { display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
 .dorado-metal {
   background-image:var(--dorado-metal); background-size:220% 100%;
   -webkit-background-clip:text; background-clip:text; color:transparent;
@@ -47,7 +55,7 @@ body {
 h2 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,2.7rem); font-weight:700; line-height:1.2; color:var(--blanco); margin-bottom:18px; }
 h2 em { font-style:italic; }
 h2 em, .hero h1 em { background-image:var(--dorado-metal); background-size:220% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:brillo-metal 5s linear infinite; }
-p { color:#a3aed1; line-height:1.85; font-size:.97rem; }
+p { color:#c9d1ef; line-height:1.85; font-size:.97rem; }
 .btn {
   display:inline-block; background-image:var(--dorado-metal); background-size:220% 100%;
   color:#060c1f; padding:17px 48px; border-radius:6px; font-size:1rem;
@@ -103,26 +111,26 @@ p { color:#a3aed1; line-height:1.85; font-size:.97rem; }
 
 /* ── ENTREGABLES ── */
 .entregables { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:32px; }
-.ent-card { background:var(--gris); border:1px solid rgba(255,255,255,.06); border-left:3px solid var(--dorado); border-radius:12px; padding:24px 22px; }
+.ent-card { background:var(--gris); border:1px solid rgba(255,255,255,.12); border-left:3px solid var(--dorado); border-radius:12px; padding:24px 22px; }
 .ent-num { font-size:.68rem; letter-spacing:2px; text-transform:uppercase; font-weight:700; color:var(--dorado); margin-bottom:10px; }
 .ent-card h4 { font-size:.95rem; font-weight:700; color:var(--blanco); margin-bottom:8px; }
-.ent-card p { font-size:.84rem; color:#8692b8; line-height:1.6; }
+.ent-card p { font-size:.84rem; color:#a9b4da; line-height:1.6; }
 
 /* ── CHECKLIST ── */
-.checklist { background:var(--gris); border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:32px 28px; margin-top:32px; }
+.checklist { background:var(--gris); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:32px 28px; margin-top:32px; }
 .checklist ul { list-style:none; margin-top:18px; }
-.checklist li { display:flex; align-items:flex-start; gap:12px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,.06); font-size:.92rem; color:#b0bbe0; }
+.checklist li { display:flex; align-items:flex-start; gap:12px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,.12); font-size:.92rem; color:#c3cdee; }
 .checklist li:last-child { border:none; }
 .checklist li .chk { width:24px; height:24px; border-radius:50%; background:rgba(212,175,55,.14); color:var(--dorado); display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:900; flex-shrink:0; margin-top:1px; }
 .checklist li strong { color:var(--blanco); }
 
 /* ── PROCESO ── */
 .proceso-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:36px; border:1px solid rgba(212,175,55,.15); border-radius:12px; overflow:hidden; }
-.proceso-col { padding:24px 18px; border-right:1px solid rgba(255,255,255,.06); }
+.proceso-col { padding:24px 18px; border-right:1px solid rgba(255,255,255,.12); }
 .proceso-col:last-child { border-right:none; }
 .proceso-num { width:34px; height:34px; border-radius:50%; background:var(--dorado); color:#060c1f; display:flex; align-items:center; justify-content:center; font-size:.85rem; font-weight:900; margin-bottom:14px; }
 .proceso-col h4 { font-size:.85rem; font-weight:700; color:var(--blanco); margin-bottom:8px; }
-.proceso-col p { font-size:.76rem; color:#8692b8; line-height:1.55; }
+.proceso-col p { font-size:.76rem; color:#a9b4da; line-height:1.55; }
 
 /* ── PROOF ── */
 .proof-row { display:flex; align-items:center; justify-content:center; gap:40px; flex-wrap:wrap; margin-top:28px; opacity:.9; }
@@ -130,11 +138,14 @@ p { color:#a3aed1; line-height:1.85; font-size:.97rem; }
 
 /* ── PORTAFOLIO ── */
 .portafolio-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:32px; }
-.portafolio-card { background:var(--gris); border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:20px 22px; text-decoration:none; display:block; transition:border-color .25s, transform .25s; }
+.portafolio-card { background:var(--gris); border:1px solid rgba(255,255,255,.07); border-radius:12px; overflow:hidden; text-decoration:none; display:block; transition:border-color .25s, transform .25s; }
 .portafolio-card:hover { border-color:rgba(212,175,55,.4); transform:translateY(-2px); }
+.pf-preview-wrap { aspect-ratio:16/10; overflow:hidden; background:var(--oscuro); }
+.pf-preview-wrap img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
+.portafolio-card .pf-body { padding:18px 20px 20px; }
 .portafolio-card .pf-tag { font-size:.66rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:700; color:var(--dorado); margin-bottom:8px; display:block; }
 .portafolio-card h4 { font-size:.95rem; font-weight:700; color:var(--blanco); margin-bottom:6px; }
-.portafolio-card p { font-size:.8rem; color:#8692b8; line-height:1.55; margin-bottom:0; }
+.portafolio-card p { font-size:.8rem; color:#a9b4da; line-height:1.55; margin-bottom:0; }
 .portafolio-card .pf-link { display:inline-block; margin-top:10px; font-size:.78rem; color:var(--dorado); font-weight:600; }
 .portafolio-nota { margin-top:18px; font-size:.84rem; color:var(--muted); text-align:center; }
 .portafolio-nota strong { color:var(--blanco); }
@@ -142,7 +153,7 @@ p { color:#a3aed1; line-height:1.85; font-size:.97rem; }
 /* ── REFERIDA ── */
 .ref-box { background:rgba(74,222,128,.06); border:1px solid rgba(74,222,128,.25); border-radius:14px; padding:20px 24px; margin:28px auto 0; max-width:460px; text-align:left; }
 .ref-box .ref-chip { display:inline-block; font-size:.7rem; letter-spacing:1px; text-transform:uppercase; font-weight:700; color:var(--verde); margin-bottom:8px; }
-.ref-box p { font-size:.85rem; color:#b0bbe0; line-height:1.65; margin:0; }
+.ref-box p { font-size:.85rem; color:#c3cdee; line-height:1.65; margin:0; }
 .ref-box p strong { color:var(--blanco); }
 .ref-box a { color:var(--verde); font-weight:700; }
 
@@ -153,30 +164,30 @@ p { color:#a3aed1; line-height:1.85; font-size:.97rem; }
 .modal-cerrar { position:absolute; top:12px; right:14px; background:none; border:none; font-size:22px; line-height:1; cursor:pointer; color:var(--muted); }
 .modal-item { margin:0 0 14px 0; padding:10px 14px; background:rgba(212,175,55,.1); border-radius:10px; font-size:.9rem; font-weight:700; color:var(--dorado); }
 .modal-caja > p { font-size:.84rem; color:var(--muted); margin-bottom:16px; }
-.modal-caja label { display:block; font-size:.8rem; color:#b0bbe0; margin-bottom:4px; }
+.modal-caja label { display:block; font-size:.8rem; color:#c3cdee; margin-bottom:4px; }
 .modal-caja input { width:100%; box-sizing:border-box; padding:11px 14px; background:var(--oscuro); border:1px solid rgba(255,255,255,.1); color:var(--blanco); border-radius:10px; margin-bottom:12px; font-size:16px; }
 .modal-caja input:focus { outline:none; border-color:var(--dorado); }
 #modal-pago-error { display:none; color:var(--rojo); font-size:.78rem; margin:4px 0 0 0; }
 #modal-pago-fallback { display:none; }
-#modal-pago-fallback p { font-size:.86rem; color:#b0bbe0; margin:0; }
+#modal-pago-fallback p { font-size:.86rem; color:#c3cdee; margin:0; }
 .modal-wa-respaldo { display:block; text-align:center; width:100%; box-sizing:border-box; margin-top:14px; padding:12px; border:1px solid rgba(212,175,55,.3); border-radius:10px; background:transparent; color:var(--dorado); font-weight:700; font-size:.92rem; text-decoration:none; }
 
 /* ── FAQ ── */
-.faq { background:var(--gris); border:1px solid rgba(255,255,255,.06); border-radius:12px; margin-bottom:10px; overflow:hidden; }
+.faq { background:var(--gris); border:1px solid rgba(255,255,255,.12); border-radius:12px; margin-bottom:10px; overflow:hidden; }
 .faq summary { cursor:pointer; list-style:none; font-size:.95rem; font-weight:700; color:var(--blanco); padding:20px 24px; display:flex; justify-content:space-between; align-items:center; user-select:none; }
 .faq summary::-webkit-details-marker { display:none; }
 .faq summary::after { content:'+'; color:var(--dorado); font-size:1.2rem; font-weight:300; margin-left:12px; flex-shrink:0; }
 .faq[open] summary::after { content:'−'; }
-.faq[open] summary { border-bottom:1px solid rgba(255,255,255,.06); }
+.faq[open] summary { border-bottom:1px solid rgba(255,255,255,.12); }
 .faq-body { padding:16px 24px 20px; }
-.faq-body p { font-size:.87rem; color:#8692b8; line-height:1.75; }
+.faq-body p { font-size:.87rem; color:#a9b4da; line-height:1.75; }
 
 /* ── PRECIO FINAL ── */
 .precio-sec { background:linear-gradient(160deg,rgba(26,58,143,.16),rgba(212,175,55,.03)); border:1px solid rgba(212,175,55,.16); border-radius:20px; padding:52px 40px; text-align:center; margin-top:40px; }
 .precio-sec .monto { font-family:'Playfair Display',serif; font-size:2.6rem; font-weight:700; color:var(--blanco); line-height:1; }
 .precio-sec .monto sup { font-size:1.1rem; color:var(--dorado); vertical-align:super; font-family:'Inter',sans-serif; }
 .incluye { list-style:none; padding:0; margin:26px auto; max-width:420px; text-align:left; }
-.incluye li { padding:10px 0; border-bottom:1px solid rgba(255,255,255,.06); color:#b0bbe0; font-size:.9rem; }
+.incluye li { padding:10px 0; border-bottom:1px solid rgba(255,255,255,.12); color:#c3cdee; font-size:.9rem; }
 .incluye li:last-child { border:none; }
 .incluye li::before { content:'✓ '; color:var(--dorado); }
 
@@ -220,10 +231,13 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
 <div class="hero">
   <div class="hero-text">
     <div class="hero-chip"><span></span>Para terapeutas y profesionales de la salud</div>
-    <h1>Dejaste de vender por DM.<br><em>Ahora te cobran solas.</em></h1>
-    <p class="hero-sub">Hoy vendes a mano por redes sociales, con pacientes regados por todas partes y pagos que coordinas uno por uno mientras trabajas remoto. Te construyo tu página con pasarela de pago conectada a tu propia cuenta, para que cobrar deje de robarte tiempo — igual a las que ya le hice a terapeutas reales.</p>
+    <h1>Deja de vender manual.<br><em>Aquí te integramos un sistema.</em></h1>
+    <p class="hero-sub">Hoy vendes a mano por redes sociales, con pacientes regados por todas partes y pagos que coordinas uno por uno mientras trabajas remoto. Te integramos tu página con pasarela de pago conectada a tu propia cuenta, para que cobrar deje de robarte tiempo — igual a las que ya le hice a terapeutas reales.</p>
 
-    <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20quiero%20mi%20p%C3%A1gina%20de%20terapeuta%20con%20pasarela%20de%20pago" data-producto-bold="fernanda_pagina_terapeutas" data-producto-label="Página de terapeuta con pasarela de pago — $1.800.000 COP" target="_blank" rel="noopener" class="btn">Quiero mi página →</a>
+    <div class="btn-row">
+      <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20quiero%20mi%20p%C3%A1gina%20de%20terapeuta%20con%20pasarela%20de%20pago" data-producto-bold="fernanda_pagina_terapeutas" data-producto-label="Página de terapeuta con pasarela de pago" target="_blank" rel="noopener" class="btn">Quiero mi página →</a>
+      <a href="#" data-producto-bold="fernanda_pagina_terapeutas" data-producto-label="Página de terapeuta con pasarela de pago — precio de referida" data-codigo="CONEXION" class="btn-secondary">Soy referida →</a>
+    </div>
     <p class="hero-plazo">⏱ Entrega en máximo 30 días (puede ser antes)</p>
   </div>
 
@@ -328,28 +342,40 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
     <p style="max-width:500px;margin:0 auto">Ya tengo terapeutas reales con su página y su pasarela de pago funcionando — esto no es un experimento, es un sistema que ya probé. Entra y revísalas tú misma:</p>
     <div class="portafolio-grid" style="text-align:left">
       <a href="https://psicologaelizabetgarciad.com" target="_blank" rel="noopener" class="portafolio-card">
-        <span class="pf-tag">Terapia</span>
-        <h4>Psicóloga Elizabet García D.</h4>
-        <p>Página + pasarela de pago propia conectada a Bold.</p>
-        <span class="pf-link">Ver página →</span>
+        <div class="pf-preview-wrap"><img src="img/preview-eli.jpg" alt="Vista previa de la página de Elizabet García D." loading="lazy"></div>
+        <div class="pf-body">
+          <span class="pf-tag">Terapia</span>
+          <h4>Psicóloga Elizabet García D.</h4>
+          <p>Página + pasarela de pago propia conectada a Bold.</p>
+          <span class="pf-link">Ver página →</span>
+        </div>
       </a>
       <a href="https://ferconecta111-png.github.io/PAGINA-WEB-ADRIANA-VARGAS/" target="_blank" rel="noopener" class="portafolio-card">
-        <span class="pf-tag">Sexología</span>
-        <h4>Sexóloga Adriana Vargas</h4>
-        <p>Página + agenda y pago de sesiones conectados a su propia cuenta.</p>
-        <span class="pf-link">Ver página →</span>
+        <div class="pf-preview-wrap"><img src="img/preview-adriana.jpg" alt="Vista previa de la página de Adriana Vargas" loading="lazy"></div>
+        <div class="pf-body">
+          <span class="pf-tag">Sexología</span>
+          <h4>Sexóloga Adriana Vargas</h4>
+          <p>Página + agenda y pago de sesiones conectados a su propia cuenta.</p>
+          <span class="pf-link">Ver página →</span>
+        </div>
       </a>
       <a href="https://clubsinergetico.com" target="_blank" rel="noopener" class="portafolio-card">
-        <span class="pf-tag">Embudo de ventas</span>
-        <h4>Club Sinergético</h4>
-        <p>Embudo completo de captación y venta.</p>
-        <span class="pf-link">Ver página →</span>
+        <div class="pf-preview-wrap"><img src="img/preview-club.jpg" alt="Vista previa de Club Sinergético" loading="lazy"></div>
+        <div class="pf-body">
+          <span class="pf-tag">Embudo de ventas</span>
+          <h4>Club Sinergético</h4>
+          <p>Embudo completo de captación y venta.</p>
+          <span class="pf-link">Ver página →</span>
+        </div>
       </a>
       <a href="https://vsl.certificacionlegendaria.com" target="_blank" rel="noopener" class="portafolio-card">
-        <span class="pf-tag">Embudo de ventas</span>
-        <h4>LEGENDAR·IA</h4>
-        <p>VSL y embudo de certificación en vivo.</p>
-        <span class="pf-link">Ver página →</span>
+        <div class="pf-preview-wrap"><img src="img/preview-legendaria.jpg" alt="Vista previa de LEGENDAR·IA" loading="lazy"></div>
+        <div class="pf-body">
+          <span class="pf-tag">Embudo de ventas</span>
+          <h4>LEGENDAR·IA</h4>
+          <p>VSL y embudo de certificación en vivo.</p>
+          <span class="pf-link">Ver página →</span>
+        </div>
       </a>
     </div>
     <p class="portafolio-nota">Dato curioso: <strong>esta misma página que estás viendo ahora</strong> también la construí yo, de principio a fin.</p>
@@ -417,9 +443,9 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
 <!-- PRECIO FINAL -->
 <div class="sec" id="comprar">
   <div class="precio-sec">
-    <div class="monto"><sup>$</sup>1.800.000<span style="font-size:.95rem;color:var(--muted);font-family:'Inter',sans-serif"> COP</span></div>
-    <p style="color:var(--muted);font-size:.78rem;margin-top:4px">≈ $559 USD al cambio de hoy</p>
-    <p style="color:var(--muted);font-size:.84rem;margin-top:10px">Pago único</p>
+    <span class="label" style="justify-content:center;display:flex">Pago único</span>
+    <h2 style="font-size:1.6rem">Tu inversión <em>la ves en el siguiente paso</em></h2>
+    <p style="max-width:420px;margin:0 auto">El precio exacto aparece directo en tu carrito seguro de Bold, antes de confirmar cualquier cosa.</p>
     <ul class="incluye">
       <li>Página profesional diseñada para ti</li>
       <li>Dominio propio — 1 año incluido</li>
@@ -428,11 +454,14 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
       <li>Acompañamiento durante todo el proceso</li>
       <li>Entrega en máximo 30 días</li>
     </ul>
-    <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20quiero%20mi%20p%C3%A1gina%20de%20terapeuta%20con%20pasarela%20de%20pago" data-producto-bold="fernanda_pagina_terapeutas" data-producto-label="Página de terapeuta con pasarela de pago — $1.800.000 COP" target="_blank" rel="noopener" class="btn" style="font-size:1.1rem;padding:20px 56px;margin-top:10px">Quiero mi página →</a>
+    <div class="btn-row" style="justify-content:center;margin-top:10px">
+      <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20quiero%20mi%20p%C3%A1gina%20de%20terapeuta%20con%20pasarela%20de%20pago" data-producto-bold="fernanda_pagina_terapeutas" data-producto-label="Página de terapeuta con pasarela de pago" target="_blank" rel="noopener" class="btn" style="font-size:1.1rem;padding:20px 56px">Quiero mi página →</a>
+      <a href="#" data-producto-bold="fernanda_pagina_terapeutas" data-producto-label="Página de terapeuta con pasarela de pago — precio de referida" data-codigo="CONEXION" class="btn-secondary" style="font-size:1.1rem;padding:19px 40px">Soy referida →</a>
+    </div>
 
     <div class="ref-box">
       <span class="ref-chip">🎁 Precio por referida</span>
-      <p>¿Llegaste recomendada por otra terapeuta que ya tiene su página conmigo (como Eli o Adriana)? Pídele tu código de descuento e ingrésalo al pagar — el precio baja solo a <strong>$1.600.000 COP</strong> (≈$500 USD).</p>
+      <p>¿Llegaste recomendada por otra terapeuta que ya tiene su página conmigo (como Eli o Adriana)? Toca <strong>"Soy referida"</strong> arriba, o pídele su código y escríbelo al pagar — el precio especial se aplica solo, directo en Bold.</p>
     </div>
   </div>
 </div>
@@ -454,7 +483,7 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
       <label for="modal-pago-telefono">WhatsApp (con código de país)</label>
       <input id="modal-pago-telefono" type="tel" placeholder="+57 300 1234567">
       <label for="modal-pago-codigo">¿Tienes código de referido? Agrégalo aquí</label>
-      <input id="modal-pago-codigo" type="text" placeholder="Ej. ELI" style="text-transform:uppercase">
+      <input id="modal-pago-codigo" type="text" placeholder="Ej. CONEXION" style="text-transform:uppercase">
       <p id="modal-pago-error"></p>
       <button type="button" id="modal-pago-continuar" class="btn" style="width:100%">Continuar a pagar</button>
     </div>
@@ -511,6 +540,9 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
         productoActual = btn.getAttribute('data-producto-bold');
         hrefRespaldo = btn.getAttribute('href');
         itemResumen.textContent = btn.getAttribute('data-producto-label') || '';
+        // El botón "Soy referida" trae su propio código ya escrito (editable,
+        // por si en realidad tiene el código de otra terapeuta puntual).
+        inputCodigo.value = btn.getAttribute('data-codigo') || '';
         modal.style.display = 'flex';
       });
     });
