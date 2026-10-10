@@ -432,7 +432,7 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
 
     <div class="ref-box">
       <span class="ref-chip">🎁 Precio por referida</span>
-      <p>¿Llegaste recomendada por otra terapeuta que ya tiene su página conmigo (como Eli o Adriana)? Tienes un precio especial de <strong>$500 USD</strong> (~10% de descuento). <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20me%20recomend%C3%B3%20otra%20terapeuta%20y%20quiero%20mi%20p%C3%A1gina%20con%20el%20precio%20de%20referida" target="_blank" rel="noopener">Escríbeme y te lo activo antes de pagar →</a></p>
+      <p>¿Llegaste recomendada por otra terapeuta que ya tiene su página conmigo (como Eli o Adriana)? Pídele tu código de descuento e ingrésalo al pagar — el precio baja solo a <strong>$1.600.000 COP</strong> (≈$500 USD).</p>
     </div>
   </div>
 </div>
@@ -453,6 +453,8 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
       <input id="modal-pago-nombre" type="text">
       <label for="modal-pago-telefono">WhatsApp (con código de país)</label>
       <input id="modal-pago-telefono" type="tel" placeholder="+57 300 1234567">
+      <label for="modal-pago-codigo">¿Tienes código de referido? Agrégalo aquí</label>
+      <input id="modal-pago-codigo" type="text" placeholder="Ej. ELI" style="text-transform:uppercase">
       <p id="modal-pago-error"></p>
       <button type="button" id="modal-pago-continuar" class="btn" style="width:100%">Continuar a pagar</button>
     </div>
@@ -478,6 +480,7 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
     var fallback = document.getElementById('modal-pago-fallback');
     var inputNombre = document.getElementById('modal-pago-nombre');
     var inputTelefono = document.getElementById('modal-pago-telefono');
+    var inputCodigo = document.getElementById('modal-pago-codigo');
     var error = document.getElementById('modal-pago-error');
     var btnContinuar = document.getElementById('modal-pago-continuar');
     var btnCerrar = document.getElementById('modal-pago-cerrar');
@@ -523,6 +526,7 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
         error.style.display = 'block';
         return;
       }
+      var codigo = inputCodigo.value.trim();
       error.style.display = 'none';
       btnContinuar.disabled = true;
       btnContinuar.textContent = 'Preparando tu pago…';
@@ -533,15 +537,27 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
       // null y se pierde la referencia para redirigir después.
       var pestana = window.open('', '_blank');
 
-      pedirLink(ENDPOINT_BOLD, { producto: productoActual, nombre: nombre, telefono: telefono })
+      pedirLink(ENDPOINT_BOLD, { producto: productoActual, nombre: nombre, telefono: telefono, codigo: codigo })
         .then(function (data) {
-          var url = (data && data.url) ? data.url : hrefRespaldo;
-          if (pestana) { pestana.location = url; } else { window.location.href = url; }
+          // Un código inválido no es una falla del pago — se corrige y se
+          // reintenta, no se manda al respaldo de WhatsApp como si Bold
+          // hubiera fallado.
+          if (!data || data.error) {
+            if (pestana) { pestana.close(); }
+            error.textContent = codigo
+              ? 'Ese código no es válido. Verifícalo o borra el campo para pagar sin código.'
+              : (data && data.error) || 'No se pudo generar el link de pago. Intenta de nuevo.';
+            error.style.display = 'block';
+            btnContinuar.disabled = false;
+            btnContinuar.textContent = 'Continuar a pagar';
+            return;
+          }
+          if (pestana) { pestana.location = data.url; } else { window.location.href = data.url; }
+          form.style.display = 'none';
+          fallback.style.display = 'block';
         })
         .catch(function () {
           if (pestana) { pestana.location = hrefRespaldo; } else { window.location.href = hrefRespaldo; }
-        })
-        .finally(function () {
           form.style.display = 'none';
           fallback.style.display = 'block';
         });
