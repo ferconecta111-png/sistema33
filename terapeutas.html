@@ -3,128 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0">
-<meta name="theme-color" content="#08060f">
+<meta name="theme-color" content="#060c1f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="format-detection" content="telephone=no">
 <meta property="og:title" content="Tu página de terapeuta, lista para cobrar — Fernanda Conde">
 <meta property="og:description" content="Página profesional + pasarela de pago conectada a tu propia cuenta. Entrega en máximo 30 días.">
-<meta property="og:image" content="fer_foto2.jpeg">
+<meta property="og:image" content="fer_estudio.jpeg">
 <meta property="og:type" content="website">
 <title>Tu página de terapeuta, lista para cobrar | Fernanda Conde</title>
 <style>* { -webkit-tap-highlight-color: transparent; }</style>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap');
 * { margin:0; padding:0; box-sizing:border-box; }
 
 :root {
-  --negro:   #08060f;
-  --oscuro:  #100d1e;
-  --gris:    #18143a;
-  --morado:  #52259a;
-  --morado2: #361878;
-  --dorado:  #c99438;
-  --dorado2: #e8b04a;
+  --negro:   #060c1f;
+  --oscuro:  #0a1530;
+  --gris:    #0f1c3d;
+  --azul:    #1a3a8f;
+  --azul2:   #0c2159;
+  --dorado:  #c9a227;
+  --dorado2: #ddb94a;
   --blanco:  #ffffff;
-  --muted:   #8070a8;
+  --muted:   #8a97bf;
   --verde:   #4ade80;
   --rojo:    #f87171;
 }
 
 body {
-  font-family:'Inter',sans-serif; background:var(--negro); color:#e8e0f0; overflow-x:hidden;
+  font-family:'Inter',sans-serif; background:var(--negro); color:#e4e8f5; overflow-x:hidden;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E");
 }
 
 .label { display:block; font-size:.72rem; letter-spacing:2.5px; text-transform:uppercase; font-weight:700; color:var(--dorado); margin-bottom:14px; }
-h2 { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; line-height:1.15; color:var(--blanco); margin-bottom:18px; }
-h2 em { font-style:normal; color:var(--dorado); }
-p { color:#b0a4cc; line-height:1.85; font-size:.97rem; }
+h2 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,2.7rem); font-weight:700; line-height:1.2; color:var(--blanco); margin-bottom:18px; }
+h2 em { font-style:italic; color:var(--dorado); }
+p { color:#a3aed1; line-height:1.85; font-size:.97rem; }
 .btn {
   display:inline-block; background:var(--dorado);
-  color:#08060f; padding:18px 52px; border-radius:50px; font-size:1.05rem;
-  font-weight:800; text-decoration:none; letter-spacing:.3px;
-  box-shadow:0 8px 40px rgba(201,148,56,.3); transition:all .3s; border:none; cursor:pointer;
+  color:#060c1f; padding:17px 48px; border-radius:6px; font-size:1rem;
+  font-weight:700; text-decoration:none; letter-spacing:.3px;
+  box-shadow:0 8px 30px rgba(201,162,39,.22); transition:all .3s; border:none; cursor:pointer;
 }
-.btn:hover { background:var(--dorado2); transform:translateY(-3px); box-shadow:0 12px 50px rgba(201,148,56,.45); }
+.btn:hover { background:var(--dorado2); transform:translateY(-2px); box-shadow:0 12px 36px rgba(201,162,39,.3); }
 
 /* ── HERO ── */
 .hero { min-height:92vh; background:var(--negro); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:56px 20px; position:relative; overflow:hidden; }
-.hero-chip { display:inline-flex; align-items:center; gap:8px; background:rgba(201,148,56,.08); border:1px solid rgba(201,148,56,.25); padding:8px 22px; border-radius:30px; font-size:.78rem; color:var(--dorado); font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:24px; }
+.hero-chip { display:inline-flex; align-items:center; gap:8px; background:rgba(201,162,39,.08); border:1px solid rgba(201,162,39,.25); padding:8px 22px; border-radius:30px; font-size:.78rem; color:var(--dorado); font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:28px; }
 .hero-chip span { width:7px; height:7px; background:var(--dorado); border-radius:50%; animation:pulse 1.8s ease-in-out infinite; }
 @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
-.hero h1 { font-size:clamp(2rem,5.5vw,3.6rem); font-weight:900; line-height:1.12; color:var(--blanco); max-width:800px; margin-bottom:20px; }
-.hero h1 em { font-style:normal; color:var(--dorado); }
-.hero-sub { font-size:clamp(1rem,2.2vw,1.2rem); color:var(--muted); max-width:560px; margin:0 auto 36px; line-height:1.7; }
-.precio-box { background:rgba(82,37,154,.1); border:1px solid rgba(82,37,154,.3); border-top:2px solid var(--dorado); border-radius:20px; padding:28px 44px; margin-bottom:28px; display:inline-block; }
-.precio-box .monto { font-size:3.2rem; font-weight:900; color:var(--blanco); line-height:1; }
-.precio-box .monto sup { font-size:1.1rem; vertical-align:super; color:var(--dorado); }
-.precio-box .nota { font-size:.76rem; color:var(--muted); margin-top:7px; }
-.hero-plazo { font-size:.82rem; color:rgba(201,148,56,.8); font-weight:600; margin-top:18px; letter-spacing:.3px; }
+.hero h1 { font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3.3rem); font-weight:700; line-height:1.2; color:var(--blanco); max-width:780px; margin-bottom:22px; }
+.hero h1 em { font-style:italic; color:var(--dorado); }
+.hero-sub { font-size:clamp(1rem,2.2vw,1.15rem); color:var(--muted); max-width:560px; margin:0 auto 40px; line-height:1.75; }
+.precio-box { background:rgba(26,58,143,.14); border:1px solid rgba(201,162,39,.22); border-top:2px solid var(--dorado); border-radius:14px; padding:22px 40px; margin-bottom:30px; display:inline-block; }
+.precio-box .monto { font-family:'Playfair Display',serif; font-size:2.1rem; font-weight:700; color:var(--blanco); line-height:1; }
+.precio-box .monto sup { font-size:1rem; vertical-align:super; color:var(--dorado); font-family:'Inter',sans-serif; }
+.precio-box .nota { font-size:.74rem; color:var(--muted); margin-top:8px; }
+.hero-plazo { font-size:.82rem; color:rgba(201,162,39,.85); font-weight:600; margin-top:20px; letter-spacing:.3px; }
 
 /* ── LAYOUT ── */
 .sec      { padding:72px 20px; max-width:880px; margin:0 auto; }
-.sec-dark { padding:72px 20px; background-color:var(--oscuro); background-image:radial-gradient(circle,rgba(82,37,154,.08) 1px,transparent 1px); background-size:28px 28px; }
+.sec-dark { padding:72px 20px; background-color:var(--oscuro); background-image:radial-gradient(circle,rgba(201,162,39,.05) 1px,transparent 1px); background-size:28px 28px; }
 .sec-dark-inner { max-width:880px; margin:0 auto; }
-.divider { height:1px; background:linear-gradient(90deg,transparent,rgba(201,148,56,.25),transparent); }
+.divider { height:1px; background:linear-gradient(90deg,transparent,rgba(201,162,39,.22),transparent); }
+
+/* ── QUIÉN SOY ── */
+.quien-layout { display:grid; grid-template-columns:260px 1fr; gap:44px; align-items:center; margin-top:32px; }
+.quien-foto { position:relative; }
+.quien-foto img { width:100%; border-radius:16px; display:block; aspect-ratio:3/4; object-fit:cover; object-position:center top; box-shadow:0 30px 60px rgba(0,0,0,.5); filter:grayscale(.15) contrast(1.05); }
+.quien-badge { position:absolute; bottom:-14px; left:50%; transform:translateX(-50%); background:var(--dorado); color:#060c1f; font-weight:700; font-size:.76rem; padding:8px 20px; border-radius:30px; white-space:nowrap; box-shadow:0 4px 20px rgba(201,162,39,.35); }
+.quien-texto p { margin-bottom:16px; }
+.quien-texto p strong { color:var(--blanco); }
 
 /* ── ENTREGABLES ── */
 .entregables { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:32px; }
-.ent-card { background:var(--gris); border:1px solid rgba(255,255,255,.05); border-left:3px solid var(--dorado); border-radius:16px; padding:24px 22px; }
+.ent-card { background:var(--gris); border:1px solid rgba(255,255,255,.06); border-left:3px solid var(--dorado); border-radius:12px; padding:24px 22px; }
 .ent-num { font-size:.68rem; letter-spacing:2px; text-transform:uppercase; font-weight:700; color:var(--dorado); margin-bottom:10px; }
 .ent-card h4 { font-size:.95rem; font-weight:700; color:var(--blanco); margin-bottom:8px; }
-.ent-card p { font-size:.84rem; color:#9080b8; line-height:1.6; }
+.ent-card p { font-size:.84rem; color:#8692b8; line-height:1.6; }
 
 /* ── CHECKLIST ── */
-.checklist { background:var(--gris); border:1px solid rgba(255,255,255,.05); border-radius:18px; padding:32px 28px; margin-top:32px; }
+.checklist { background:var(--gris); border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:32px 28px; margin-top:32px; }
 .checklist ul { list-style:none; margin-top:18px; }
-.checklist li { display:flex; align-items:flex-start; gap:12px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,.05); font-size:.92rem; color:#c0b4dc; }
+.checklist li { display:flex; align-items:flex-start; gap:12px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,.06); font-size:.92rem; color:#b0bbe0; }
 .checklist li:last-child { border:none; }
-.checklist li .chk { width:24px; height:24px; border-radius:50%; background:rgba(201,148,56,.12); color:var(--dorado); display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:900; flex-shrink:0; margin-top:1px; }
+.checklist li .chk { width:24px; height:24px; border-radius:50%; background:rgba(201,162,39,.14); color:var(--dorado); display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:900; flex-shrink:0; margin-top:1px; }
 .checklist li strong { color:var(--blanco); }
 
 /* ── PROCESO ── */
-.proceso-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:36px; border:1px solid rgba(201,148,56,.15); border-radius:16px; overflow:hidden; }
-.proceso-col { padding:24px 18px; border-right:1px solid rgba(255,255,255,.05); }
+.proceso-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:36px; border:1px solid rgba(201,162,39,.15); border-radius:12px; overflow:hidden; }
+.proceso-col { padding:24px 18px; border-right:1px solid rgba(255,255,255,.06); }
 .proceso-col:last-child { border-right:none; }
-.proceso-num { width:34px; height:34px; border-radius:50%; background:var(--dorado); color:#08060f; display:flex; align-items:center; justify-content:center; font-size:.85rem; font-weight:900; margin-bottom:14px; }
+.proceso-num { width:34px; height:34px; border-radius:50%; background:var(--dorado); color:#060c1f; display:flex; align-items:center; justify-content:center; font-size:.85rem; font-weight:900; margin-bottom:14px; }
 .proceso-col h4 { font-size:.85rem; font-weight:700; color:var(--blanco); margin-bottom:8px; }
-.proceso-col p { font-size:.76rem; color:#9080b8; line-height:1.55; }
+.proceso-col p { font-size:.76rem; color:#8692b8; line-height:1.55; }
 
 /* ── PROOF ── */
-.proof-row { display:flex; align-items:center; justify-content:center; gap:40px; flex-wrap:wrap; margin-top:28px; opacity:.85; }
+.proof-row { display:flex; align-items:center; justify-content:center; gap:40px; flex-wrap:wrap; margin-top:28px; opacity:.9; }
 .proof-row span { font-size:.95rem; font-weight:700; color:var(--blanco); }
 
 /* ── FAQ ── */
-.faq { background:var(--gris); border:1px solid rgba(255,255,255,.05); border-radius:16px; margin-bottom:10px; overflow:hidden; }
+.faq { background:var(--gris); border:1px solid rgba(255,255,255,.06); border-radius:12px; margin-bottom:10px; overflow:hidden; }
 .faq summary { cursor:pointer; list-style:none; font-size:.95rem; font-weight:700; color:var(--blanco); padding:20px 24px; display:flex; justify-content:space-between; align-items:center; user-select:none; }
 .faq summary::-webkit-details-marker { display:none; }
 .faq summary::after { content:'+'; color:var(--dorado); font-size:1.2rem; font-weight:300; margin-left:12px; flex-shrink:0; }
 .faq[open] summary::after { content:'−'; }
-.faq[open] summary { border-bottom:1px solid rgba(255,255,255,.05); }
+.faq[open] summary { border-bottom:1px solid rgba(255,255,255,.06); }
 .faq-body { padding:16px 24px 20px; }
-.faq-body p { font-size:.87rem; color:#9080b8; line-height:1.75; }
+.faq-body p { font-size:.87rem; color:#8692b8; line-height:1.75; }
 
 /* ── PRECIO FINAL ── */
-.precio-sec { background:linear-gradient(160deg,rgba(82,37,154,.12),rgba(201,148,56,.04)); border:1px solid rgba(201,148,56,.18); border-radius:28px; padding:52px 40px; text-align:center; margin-top:40px; }
-.precio-sec .monto { font-size:4rem; font-weight:900; color:var(--blanco); line-height:1; }
-.precio-sec .monto sup { font-size:1.4rem; color:var(--dorado); vertical-align:super; }
+.precio-sec { background:linear-gradient(160deg,rgba(26,58,143,.16),rgba(201,162,39,.03)); border:1px solid rgba(201,162,39,.16); border-radius:20px; padding:52px 40px; text-align:center; margin-top:40px; }
+.precio-sec .monto { font-family:'Playfair Display',serif; font-size:2.6rem; font-weight:700; color:var(--blanco); line-height:1; }
+.precio-sec .monto sup { font-size:1.1rem; color:var(--dorado); vertical-align:super; font-family:'Inter',sans-serif; }
 .incluye { list-style:none; padding:0; margin:26px auto; max-width:420px; text-align:left; }
-.incluye li { padding:10px 0; border-bottom:1px solid rgba(255,255,255,.05); color:#c0b4dc; font-size:.9rem; }
+.incluye li { padding:10px 0; border-bottom:1px solid rgba(255,255,255,.06); color:#b0bbe0; font-size:.9rem; }
 .incluye li:last-child { border:none; }
 .incluye li::before { content:'✓ '; color:var(--dorado); }
 
-footer { background:#040309; padding:24px 20px; text-align:center; color:#3a2e58; font-size:.78rem; }
-.nav-back { position:fixed; top:16px; left:16px; z-index:50; font-size:.76rem; color:var(--muted); text-decoration:none; background:rgba(16,13,30,.8); backdrop-filter:blur(10px); padding:8px 16px; border-radius:20px; border:1px solid rgba(255,255,255,.08); }
+footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660; font-size:.78rem; }
+.nav-back { position:fixed; top:16px; left:16px; z-index:50; font-size:.76rem; color:var(--muted); text-decoration:none; background:rgba(10,21,48,.85); backdrop-filter:blur(10px); padding:8px 16px; border-radius:20px; border:1px solid rgba(255,255,255,.08); }
 
 @media(max-width:768px){
   .entregables { grid-template-columns:1fr; }
+  .quien-layout { grid-template-columns:1fr; gap:28px; }
+  .quien-foto { max-width:260px; margin:0 auto; }
   .proceso-grid { grid-template-columns:1fr 1fr; }
   .proceso-col { border-bottom:1px solid rgba(255,255,255,.05); }
-  .precio-box { padding:20px; }
-  .precio-box .monto { font-size:2.4rem; }
+  .precio-box { padding:18px 24px; }
+  .precio-box .monto { font-size:1.7rem; }
   .precio-sec { padding:32px 20px; }
-  .precio-sec .monto { font-size:2.8rem; }
+  .precio-sec .monto { font-size:2.1rem; }
 }
 @media(max-width:420px){
   .proceso-grid { grid-template-columns:1fr; }
@@ -142,7 +152,7 @@ footer { background:#040309; padding:24px 20px; text-align:center; color:#3a2e58
   <p class="hero-sub">Te construyo tu página profesional con pasarela de pago conectada a tu propia cuenta — igual a las que ya le hice a terapeutas reales. Entrega en máximo 30 días, puede ser antes.</p>
 
   <div class="precio-box">
-    <div class="monto"><sup>$</sup>1.800.000 <span style="font-size:1rem;color:#7060a0;font-weight:400">COP</span></div>
+    <div class="monto"><sup>$</sup>1.800.000 <span style="font-size:.85rem;color:#6b7aad;font-weight:400;font-family:'Inter',sans-serif">COP</span></div>
     <div class="nota">Pago único · Página + pasarela de pago + acompañamiento</div>
   </div>
 
@@ -254,6 +264,25 @@ footer { background:#040309; padding:24px 20px; text-align:center; color:#3a2e58
 
 <div class="divider"></div>
 
+<!-- QUIÉN SOY -->
+<div class="sec">
+  <span class="label">Quién lo construye</span>
+  <h2>No es una agencia. <em>Soy yo, directamente.</em></h2>
+  <div class="quien-layout">
+    <div class="quien-foto">
+      <img src="fer_estudio.jpeg" alt="Fernanda Conde" loading="lazy" decoding="async">
+      <div class="quien-badge">Fernanda Conde</div>
+    </div>
+    <div class="quien-texto">
+      <p>Soy estratega de marketing digital, con experiencia construyendo sistemas de captación y cobro para profesionales de la salud en Colombia y LatAm.</p>
+      <p>Cuando compras esta página, <strong>trabajas conmigo directamente</strong> — no con un equipo de soporte ni con alguien que apenas conoce tu caso. Yo construyo, yo conecto tu pago, yo te entrego todo documentado.</p>
+      <p style="color:var(--dorado);font-weight:600;font-size:.9rem">@ferconde__ en Instagram</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
 <!-- FAQ -->
 <div class="sec">
   <span class="label">Preguntas frecuentes</span>
@@ -282,7 +311,7 @@ footer { background:#040309; padding:24px 20px; text-align:center; color:#3a2e58
 <!-- PRECIO FINAL -->
 <div class="sec" id="comprar">
   <div class="precio-sec">
-    <div class="monto"><sup>$</sup>1.800.000<span style="font-size:1.1rem;color:var(--muted)"> COP</span></div>
+    <div class="monto"><sup>$</sup>1.800.000<span style="font-size:.95rem;color:var(--muted);font-family:'Inter',sans-serif"> COP</span></div>
     <p style="color:var(--muted);font-size:.84rem;margin-top:10px">Pago único</p>
     <ul class="incluye">
       <li>Página profesional diseñada para ti</li>
