@@ -235,8 +235,8 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
     <p class="hero-sub">Hoy vendes a mano por redes sociales, con pacientes regados por todas partes y pagos que coordinas uno por uno mientras trabajas remoto. Te integramos tu página con pasarela de pago conectada a tu propia cuenta, para que cobrar deje de robarte tiempo — igual a las que ya le hice a terapeutas reales.</p>
 
     <div class="btn-row">
-      <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20quiero%20mi%20p%C3%A1gina%20de%20terapeuta%20con%20pasarela%20de%20pago" data-producto-bold="fernanda_pagina_terapeutas" data-producto-label="Página de terapeuta con pasarela de pago" target="_blank" rel="noopener" class="btn">Quiero mi página →</a>
-      <a href="#" data-producto-bold="fernanda_pagina_terapeutas" data-producto-label="Página de terapeuta con pasarela de pago — precio de referida" data-codigo="CONEXION" class="btn-secondary">Soy referida →</a>
+      <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20quiero%20mi%20p%C3%A1gina%20de%20terapeuta%20con%20pasarela%20de%20pago" data-producto-bold="fernanda_pagina_terapeutas" data-producto-label="Página de terapeuta con pasarela de pago" target="_blank" rel="noopener" class="btn">Ver precio →</a>
+      <a href="#" data-producto-bold="fernanda_pagina_terapeutas" data-producto-label="Página de terapeuta con pasarela de pago — precio de referida" data-requiere-codigo="1" class="btn-secondary">Soy referida →</a>
     </div>
     <p class="hero-plazo">⏱ Entrega en máximo 30 días (puede ser antes)</p>
   </div>
@@ -414,7 +414,7 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
   </details>
   <details class="faq">
     <summary>¿Existe opción de pago para el servicio?</summary>
-    <div class="faq-body"><p>Sí. Como método de ayuda, puedes pagar a cuotas directamente en Bold — no tienes que cubrir el $1.800.000 de una sola vez.</p></div>
+    <div class="faq-body"><p>Sí. Como método de ayuda, puedes pagar a cuotas directamente en Bold — no tienes que cubrir todo de una sola vez.</p></div>
   </details>
   <details class="faq">
     <summary>¿Qué pasa después del año de dominio?</summary>
@@ -455,13 +455,8 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
       <li>Entrega en máximo 30 días</li>
     </ul>
     <div class="btn-row" style="justify-content:center;margin-top:10px">
-      <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20quiero%20mi%20p%C3%A1gina%20de%20terapeuta%20con%20pasarela%20de%20pago" data-producto-bold="fernanda_pagina_terapeutas" data-producto-label="Página de terapeuta con pasarela de pago" target="_blank" rel="noopener" class="btn" style="font-size:1.1rem;padding:20px 56px">Quiero mi página →</a>
-      <a href="#" data-producto-bold="fernanda_pagina_terapeutas" data-producto-label="Página de terapeuta con pasarela de pago — precio de referida" data-codigo="CONEXION" class="btn-secondary" style="font-size:1.1rem;padding:19px 40px">Soy referida →</a>
-    </div>
-
-    <div class="ref-box">
-      <span class="ref-chip">🎁 Precio por referida</span>
-      <p>¿Llegaste recomendada por otra terapeuta que ya tiene su página conmigo (como Eli o Adriana)? Toca <strong>"Soy referida"</strong> arriba, o pídele su código y escríbelo al pagar — el precio especial se aplica solo, directo en Bold.</p>
+      <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20quiero%20mi%20p%C3%A1gina%20de%20terapeuta%20con%20pasarela%20de%20pago" data-producto-bold="fernanda_pagina_terapeutas" data-producto-label="Página de terapeuta con pasarela de pago" target="_blank" rel="noopener" class="btn" style="font-size:1.1rem;padding:20px 56px">Ver precio →</a>
+      <a href="#" data-producto-bold="fernanda_pagina_terapeutas" data-producto-label="Página de terapeuta con pasarela de pago — precio de referida" data-requiere-codigo="1" class="btn-secondary" style="font-size:1.1rem;padding:19px 40px">Soy referida →</a>
     </div>
   </div>
 </div>
@@ -482,8 +477,10 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
       <input id="modal-pago-nombre" type="text">
       <label for="modal-pago-telefono">WhatsApp (con código de país)</label>
       <input id="modal-pago-telefono" type="tel" placeholder="+57 300 1234567">
-      <label for="modal-pago-codigo">¿Tienes código de referido? Agrégalo aquí</label>
-      <input id="modal-pago-codigo" type="text" placeholder="Ej. CONEXION" style="text-transform:uppercase">
+      <div id="modal-pago-codigo-wrap" style="display:none">
+        <label for="modal-pago-codigo">Escribe tu código de referida</label>
+        <input id="modal-pago-codigo" type="text" placeholder="Código" style="text-transform:uppercase">
+      </div>
       <p id="modal-pago-error"></p>
       <button type="button" id="modal-pago-continuar" class="btn" style="width:100%">Continuar a pagar</button>
     </div>
@@ -509,6 +506,7 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
     var fallback = document.getElementById('modal-pago-fallback');
     var inputNombre = document.getElementById('modal-pago-nombre');
     var inputTelefono = document.getElementById('modal-pago-telefono');
+    var codigoWrap = document.getElementById('modal-pago-codigo-wrap');
     var inputCodigo = document.getElementById('modal-pago-codigo');
     var error = document.getElementById('modal-pago-error');
     var btnContinuar = document.getElementById('modal-pago-continuar');
@@ -516,6 +514,10 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
 
     var productoActual = null;
     var hrefRespaldo = null;
+    // "Ver precio" va directo al carrito de precio pleno. "Soy referida"
+    // exige escribir el código antes de generar su carrito — así el
+    // precio especial no es un simple botón libre para cualquiera.
+    var requiereCodigo = false;
 
     function cerrarModal() {
       modal.style.display = 'none';
@@ -540,9 +542,9 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
         productoActual = btn.getAttribute('data-producto-bold');
         hrefRespaldo = btn.getAttribute('href');
         itemResumen.textContent = btn.getAttribute('data-producto-label') || '';
-        // El botón "Soy referida" trae su propio código ya escrito (editable,
-        // por si en realidad tiene el código de otra terapeuta puntual).
-        inputCodigo.value = btn.getAttribute('data-codigo') || '';
+        requiereCodigo = btn.hasAttribute('data-requiere-codigo');
+        inputCodigo.value = '';
+        codigoWrap.style.display = requiereCodigo ? 'block' : 'none';
         modal.style.display = 'flex';
       });
     });
@@ -559,6 +561,11 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
         return;
       }
       var codigo = inputCodigo.value.trim();
+      if (requiereCodigo && !codigo) {
+        error.textContent = 'Escribe tu código de referida para continuar.';
+        error.style.display = 'block';
+        return;
+      }
       error.style.display = 'none';
       btnContinuar.disabled = true;
       btnContinuar.textContent = 'Preparando tu pago…';
@@ -577,7 +584,7 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
           if (!data || data.error) {
             if (pestana) { pestana.close(); }
             error.textContent = codigo
-              ? 'Ese código no es válido. Verifícalo o borra el campo para pagar sin código.'
+              ? 'Ese código no es válido. Verifícalo e intenta de nuevo.'
               : (data && data.error) || 'No se pudo generar el link de pago. Intenta de nuevo.';
             error.style.display = 'block';
             btnContinuar.disabled = false;
