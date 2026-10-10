@@ -40,11 +40,16 @@ body {
 
 .label { display:block; font-size:.72rem; letter-spacing:2.5px; text-transform:uppercase; font-weight:700; color:var(--dorado); margin-bottom:14px; }
 .btn-secondary {
-  display:inline-block; background:transparent; color:var(--azul-vivo); padding:15px 40px;
-  border-radius:6px; font-size:.95rem; font-weight:700; text-decoration:none; letter-spacing:.3px;
-  border:2px solid var(--azul-vivo); cursor:pointer; transition:background .25s, color .25s, transform .25s;
+  display:inline-block; background:linear-gradient(135deg,#15803d,#4ade80 55%,#86efac);
+  color:#052e13; padding:15px 40px; border-radius:6px; font-size:.95rem; font-weight:700;
+  text-decoration:none; letter-spacing:.3px; border:none; cursor:pointer;
+  transition:transform .25s, box-shadow .25s; animation:titilar-verde 2s ease-in-out infinite;
 }
-.btn-secondary:hover { background:var(--azul-vivo); color:var(--negro); transform:translateY(-2px); }
+.btn-secondary:hover { transform:translateY(-2px); animation-play-state:paused; box-shadow:0 0 26px rgba(74,222,128,.65); }
+@keyframes titilar-verde {
+  0%, 100% { box-shadow:0 0 6px rgba(74,222,128,.3), 0 6px 18px rgba(74,222,128,.18); }
+  50% { box-shadow:0 0 22px rgba(74,222,128,.85), 0 10px 30px rgba(74,222,128,.45); }
+}
 .btn-row { display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
 .dorado-metal {
   background-image:var(--dorado-metal); background-size:220% 100%;
@@ -72,7 +77,7 @@ p { color:#c9d1ef; line-height:1.85; font-size:.97rem; }
   97% { transform:translateY(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .btn, .dorado-metal, h2 em, .hero h1 em { animation:none; }
+  .btn, .btn-secondary, .dorado-metal, h2 em, .hero h1 em { animation:none; }
 }
 
 /* ── HERO ── */
@@ -138,15 +143,13 @@ p { color:#c9d1ef; line-height:1.85; font-size:.97rem; }
 
 /* ── PORTAFOLIO ── */
 .portafolio-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:32px; }
-.portafolio-card { background:var(--gris); border:1px solid rgba(255,255,255,.07); border-radius:12px; overflow:hidden; text-decoration:none; display:block; transition:border-color .25s, transform .25s; }
-.portafolio-card:hover { border-color:rgba(212,175,55,.4); transform:translateY(-2px); }
+.portafolio-card { background:var(--gris); border:1px solid rgba(255,255,255,.07); border-radius:12px; overflow:hidden; }
 .pf-preview-wrap { aspect-ratio:16/10; overflow:hidden; background:var(--oscuro); }
 .pf-preview-wrap img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
 .portafolio-card .pf-body { padding:18px 20px 20px; }
 .portafolio-card .pf-tag { font-size:.66rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:700; color:var(--dorado); margin-bottom:8px; display:block; }
 .portafolio-card h4 { font-size:.95rem; font-weight:700; color:var(--blanco); margin-bottom:6px; }
 .portafolio-card p { font-size:.8rem; color:#a9b4da; line-height:1.55; margin-bottom:0; }
-.portafolio-card .pf-link { display:inline-block; margin-top:10px; font-size:.78rem; color:var(--dorado); font-weight:600; }
 .portafolio-nota { margin-top:18px; font-size:.84rem; color:var(--muted); text-align:center; }
 .portafolio-nota strong { color:var(--blanco); }
 
@@ -192,40 +195,48 @@ p { color:#c9d1ef; line-height:1.85; font-size:.97rem; }
 .incluye li::before { content:'✓ '; color:var(--dorado); }
 
 footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660; font-size:.78rem; }
-.nav-back { position:fixed; top:16px; left:16px; z-index:50; font-size:.76rem; color:var(--muted); text-decoration:none; background:rgba(10,21,48,.85); backdrop-filter:blur(10px); padding:8px 16px; border-radius:20px; border:1px solid rgba(255,255,255,.08); }
 
 @media(max-width:768px){
-  .sec, .sec-dark, .sec-dark-inner { padding-left:18px; padding-right:18px; }
-  .hero { grid-template-columns:1fr; gap:28px; padding:48px 18px; min-height:auto; text-align:center; }
+  .sec, .sec-dark { padding:40px 18px; }
+  h2 { margin-bottom:12px; }
+  .label { margin-bottom:10px; }
+  .hero { grid-template-columns:1fr; gap:22px; padding:36px 18px 28px; min-height:auto; text-align:center; }
   .hero-text { text-align:center; }
-  .hero-sub { margin:0 auto 28px; }
+  .hero-chip { margin-bottom:18px; }
+  .hero-sub { margin:0 auto 22px; }
   .hero-foto-wrap { order:-1; }
-  .hero-foto-wrap img { max-width:240px; }
-  .entregables { grid-template-columns:1fr; }
-  .quien-layout { grid-template-columns:1fr; gap:28px; }
-  .quien-foto { max-width:260px; margin:0 auto; }
-  .proceso-grid { grid-template-columns:1fr 1fr; }
-  .proceso-col { border-bottom:1px solid rgba(255,255,255,.05); }
+  .hero-foto-wrap img { max-width:200px; }
+  .hero-plazo { margin-top:14px; }
+  .entregables { grid-template-columns:1fr 1fr; gap:10px; margin-top:22px; }
+  .ent-card { padding:16px 14px; }
+  .checklist { padding:20px 18px; margin-top:22px; }
+  .quien-layout { grid-template-columns:1fr; gap:18px; margin-top:22px; }
+  .quien-foto { max-width:180px; margin:0 auto; }
+  .proceso-grid { grid-template-columns:1fr 1fr; margin-top:22px; }
+  .proceso-col { padding:16px 12px; border-bottom:1px solid rgba(255,255,255,.08); }
   .precio-box { padding:18px 24px; }
   .precio-box .monto { font-size:1.7rem; }
-  .precio-sec { padding:32px 20px; }
+  .precio-sec { padding:26px 18px; margin-top:24px; }
   .precio-sec .monto { font-size:2.1rem; }
-  .portafolio-grid { grid-template-columns:1fr; }
-  .proof-row { gap:18px; flex-direction:column; }
-  .btn { width:100%; max-width:360px; text-align:center; padding:17px 24px; }
+  .portafolio-grid { grid-template-columns:1fr 1fr; gap:10px; margin-top:20px; }
+  .portafolio-card .pf-body { padding:12px 12px 14px; }
+  .portafolio-card h4 { font-size:.82rem; }
+  .portafolio-card p { font-size:.72rem; }
+  .portafolio-nota { margin-top:14px; font-size:.78rem; }
+  .faq summary { padding:15px 18px; font-size:.88rem; }
+  .faq-body { padding:12px 18px 16px; }
+  .btn, .btn-secondary { width:100%; max-width:360px; text-align:center; padding:16px 24px; }
+  .btn-row { flex-direction:column; }
 }
 @media(max-width:420px){
-  .proceso-grid { grid-template-columns:1fr; }
-  h2 { font-size:1.6rem; }
-  .hero h1 { font-size:1.7rem; }
+  h2 { font-size:1.5rem; }
+  .hero h1 { font-size:1.6rem; }
   .modal-caja { padding:22px 18px; }
-  .ref-box { padding:16px 18px; }
+  .entregables { grid-template-columns:1fr; }
 }
 </style>
 </head>
 <body>
-
-<a href="servicios.html" class="nav-back">← Volver</a>
 
 <!-- HERO -->
 <div class="hero">
@@ -339,44 +350,40 @@ footer { background:#040915; padding:24px 20px; text-align:center; color:#2a3660
   <div class="sec-dark-inner" style="text-align:center">
     <span class="label">Ya lo hice antes</span>
     <h2>No es la primera vez <em>que lo construyo</em></h2>
-    <p style="max-width:500px;margin:0 auto">Ya tengo terapeutas reales con su página y su pasarela de pago funcionando — esto no es un experimento, es un sistema que ya probé. Entra y revísalas tú misma:</p>
+    <p style="max-width:500px;margin:0 auto">Ya tengo terapeutas reales con su página y su pasarela de pago funcionando — esto no es un experimento, es un sistema que ya probé.</p>
     <div class="portafolio-grid" style="text-align:left">
-      <a href="https://psicologaelizabetgarciad.com" target="_blank" rel="noopener" class="portafolio-card">
+      <div class="portafolio-card">
         <div class="pf-preview-wrap"><img src="img/preview-eli.jpg" alt="Vista previa de la página de Elizabet García D." loading="lazy"></div>
         <div class="pf-body">
           <span class="pf-tag">Terapia</span>
           <h4>Psicóloga Elizabet García D.</h4>
           <p>Página + pasarela de pago propia conectada a Bold.</p>
-          <span class="pf-link">Ver página →</span>
         </div>
-      </a>
-      <a href="https://ferconecta111-png.github.io/PAGINA-WEB-ADRIANA-VARGAS/" target="_blank" rel="noopener" class="portafolio-card">
+      </div>
+      <div class="portafolio-card">
         <div class="pf-preview-wrap"><img src="img/preview-adriana.jpg" alt="Vista previa de la página de Adriana Vargas" loading="lazy"></div>
         <div class="pf-body">
           <span class="pf-tag">Sexología</span>
           <h4>Sexóloga Adriana Vargas</h4>
           <p>Página + agenda y pago de sesiones conectados a su propia cuenta.</p>
-          <span class="pf-link">Ver página →</span>
         </div>
-      </a>
-      <a href="https://clubsinergetico.com" target="_blank" rel="noopener" class="portafolio-card">
+      </div>
+      <div class="portafolio-card">
         <div class="pf-preview-wrap"><img src="img/preview-club.jpg" alt="Vista previa de Club Sinergético" loading="lazy"></div>
         <div class="pf-body">
           <span class="pf-tag">Embudo de ventas</span>
           <h4>Club Sinergético</h4>
           <p>Embudo completo de captación y venta.</p>
-          <span class="pf-link">Ver página →</span>
         </div>
-      </a>
-      <a href="https://vsl.certificacionlegendaria.com" target="_blank" rel="noopener" class="portafolio-card">
+      </div>
+      <div class="portafolio-card">
         <div class="pf-preview-wrap"><img src="img/preview-legendaria.jpg" alt="Vista previa de LEGENDAR·IA" loading="lazy"></div>
         <div class="pf-body">
           <span class="pf-tag">Embudo de ventas</span>
           <h4>LEGENDAR·IA</h4>
           <p>VSL y embudo de certificación en vivo.</p>
-          <span class="pf-link">Ver página →</span>
         </div>
-      </a>
+      </div>
     </div>
     <p class="portafolio-nota">Dato curioso: <strong>esta misma página que estás viendo ahora</strong> también la construí yo, de principio a fin.</p>
   </div>
