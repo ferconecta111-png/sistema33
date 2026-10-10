@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0">
+<meta name="theme-color" content="#060c1f">
+<meta name="robots" content="noindex">
+<title>¡Pago recibido! — Fernanda Conde</title>
+<style>* { -webkit-tap-highlight-color:transparent; }</style>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  :root {
+    --negro:  #060c1f;
+    --oscuro: #0a1530;
+    --gris:   #0f1c3d;
+    --dorado: #d4af37;
+    --dorado2:#e8c968;
+    --verde:  #4ade80;
+    --blanco: #ffffff;
+    --muted:  #8a97bf;
+  }
+
+  html, body {
+    min-height:100%; font-family:'Inter',sans-serif;
+    background:var(--negro); color:#e4e8f5; overflow-x:hidden;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes popIn  { 0%{opacity:0;transform:scale(.6)} 70%{transform:scale(1.08)} 100%{opacity:1;transform:scale(1)} }
+  @keyframes float  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+  .page { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 20px 60px; text-align:center; }
+
+  .check-circle {
+    width:84px; height:84px; border-radius:50%;
+    background:radial-gradient(circle, rgba(74,222,128,.2) 0%, rgba(74,222,128,.05) 60%, transparent 100%);
+    border:2px solid rgba(74,222,128,.4);
+    display:flex; align-items:center; justify-content:center;
+    font-size:2.6rem; margin-bottom:26px; color:var(--verde);
+    animation:popIn .5s cubic-bezier(.34,1.56,.64,1) both, float 3s ease-in-out 1s infinite;
+  }
+
+  .hola { font-size:.78rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--verde); font-weight:700; margin-bottom:10px; animation:fadeUp .4s .1s ease both; }
+  .titulo { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,5.5vw,2.6rem); font-weight:700; line-height:1.2; color:var(--blanco); margin-bottom:14px; max-width:520px; animation:fadeUp .4s .15s ease both; }
+  .titulo em { font-style:italic; color:var(--dorado); }
+  .subtitulo { font-size:clamp(.9rem,2.5vw,1rem); color:var(--muted); max-width:440px; line-height:1.75; margin-bottom:36px; animation:fadeUp .4s .2s ease both; }
+
+  .pasos { display:flex; flex-direction:column; gap:10px; width:100%; max-width:440px; margin-bottom:12px; animation:fadeUp .4s .25s ease both; }
+  .paso { display:flex; align-items:flex-start; gap:14px; background:var(--gris); border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:16px 18px; text-align:left; }
+  .paso.done { border-color:rgba(74,222,128,.25); }
+  .paso-num { width:30px; height:30px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:.8rem; font-weight:800; margin-top:1px; }
+  .paso.done .paso-num { background:rgba(74,222,128,.15); color:var(--verde); border:1px solid rgba(74,222,128,.3); }
+  .paso.next .paso-num { background:rgba(212,175,55,.14); color:var(--dorado); border:1px solid rgba(212,175,55,.3); }
+  .paso-texto strong { display:block; font-size:.9rem; color:var(--blanco); margin-bottom:2px; }
+  .paso-texto span { font-size:.8rem; color:var(--muted); line-height:1.5; }
+
+  .btn-wa {
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    background:linear-gradient(135deg,#25d366,#128c40);
+    color:#fff; padding:18px 42px; border-radius:50px;
+    font-size:1rem; font-weight:800; text-decoration:none;
+    box-shadow:0 8px 36px rgba(37,211,102,.3);
+    transition:transform .25s, box-shadow .25s; margin:28px 0 12px;
+    animation:fadeUp .4s .32s ease both;
+  }
+  .btn-wa:hover { transform:translateY(-2px); box-shadow:0 12px 44px rgba(37,211,102,.42); }
+
+  .nota { font-size:.78rem; color:var(--muted); max-width:400px; animation:fadeUp .4s .38s ease both; }
+
+  @media(max-width:480px){
+    .page { padding:32px 16px 48px; }
+    .btn-wa { padding:17px 28px; width:100%; max-width:360px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="check-circle">✓</div>
+
+  <div class="hola">¡Pago recibido!</div>
+  <h1 class="titulo">Ya estás dentro.<br><em>Ahora construyo tu página.</em></h1>
+  <p class="subtitulo">Recibí tu pago. El siguiente paso es tuyo: mándame por WhatsApp tu historia, fotos, RUT y cuenta de ahorros para arrancar de inmediato.</p>
+
+  <div class="pasos">
+    <div class="paso done">
+      <div class="paso-num">✓</div>
+      <div class="paso-texto">
+        <strong>Pago confirmado</strong>
+        <span>Tu cupo está reservado</span>
+      </div>
+    </div>
+    <div class="paso next">
+      <div class="paso-num">2</div>
+      <div class="paso-texto">
+        <strong>Envíame tu información</strong>
+        <span>Historia, fotos, RUT y cuenta de ahorros — por WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <a href="https://wa.me/573044166768?text=Hola%20Fernanda%2C%20ya%20realic%C3%A9%20el%20pago%20de%20mi%20p%C3%A1gina%20de%20terapeuta%2C%20aqu%C3%AD%20te%20env%C3%ADo%20mi%20informaci%C3%B3n" target="_blank" class="btn-wa">
+    💬 Enviar mi información por WhatsApp
+  </a>
+  <p class="nota">En máximo 30 días (muchas veces antes) tu página está en vivo, con tu pasarela de pago conectada a tu propia cuenta.</p>
+
+</div>
+
+</body>
+</html>
